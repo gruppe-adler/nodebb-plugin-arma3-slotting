@@ -1,0 +1,9 @@
+<slots>
+    <company>
+        <platoon>
+            <squad callsign="Reaper">
+                <slot></slot>
+            </squad>
+        </platoon>
+    </company>
+</slots>
