@@ -1,9 +1,33 @@
-<slots>
-    <company>
-        <platoon>
-            <squad callsign="Reaper">
-                <slot></slot>
-            </squad>
-        </platoon>
-    </company>
-</slots>
+<!DOCTYPE match SYSTEM "match.dtd">
+<match>
+	<company side="greenfor">
+		<platoon>
+			<slot shortcode="PTL"/>
+			<slot shortcode="PTS"/>
+			<slot shortcode="PTM"/>
+			<slot shortcode="R"/>
+			<squad callsign="Reaper" radio-frequency="85.5">
+				<slot shortcode="SQL" description="squad leader"/>
+				<slot shortcode="SQM" description="squad medic"/>
+				<fireteam>
+					<slot shortcode="FTL" description="fireteam lead"><user uid="5"/></slot>
+					<slot shortcode="GR" description="fireteam lead"><user uid="6"/></slot>
+					<slot shortcode="R"/>
+					<slot shortcode="AR" description="automatic rifleman"/>
+				</fireteam>
+				<fireteam>
+					<slot shortcode="FTL" description="fireteam lead"><user uid="1"/></slot>
+					<slot shortcode="GR" description="fireteam lead"><user uid="2"/></slot>
+					<slot shortcode="R"/>
+					<slot shortcode="AR" description="automatic rifleman"><reservation>Adler</reservation></slot>
+				</fireteam>
+			</squad>
+			<squad callsign="Hunter">
+				<slot shortcode="PIL" description="pilot">
+					<reservation>TF47</reservation>
+				</slot>
+			</squad>
+		</platoon>
+		<platoon callsign="bumper"/>
+	</company>
+</match>
