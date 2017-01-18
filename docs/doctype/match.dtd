@@ -1,0 +1,41 @@
+<!ELEMENT match (company|platoon|squad|fireteam)+>
+		<!ELEMENT company (platoon|squad|fireteam|slot)+>
+		<!ELEMENT platoon (squad|slot)+>
+		<!ELEMENT squad (fireteam|slot)+>
+		<!ELEMENT fireteam (slot)+>
+		<!ELEMENT slot (user|reservation)?>
+		<!ELEMENT user (#PCDATA)?>
+		<!ELEMENT reservation (#PCDATA)?>
+		<!ATTLIST slot
+				shortcode CDATA #REQUIRED
+				description CDATA #IMPLIED
+				callsign CDATA #IMPLIED
+				uuid ID #IMPLIED
+				>
+		<!ATTLIST user
+				uid ID #REQUIRED
+				>
+		<!ATTLIST company
+				side CDATA #IMPLIED
+				id CDATA #IMPLIED
+				callsign CDATA #IMPLIED
+				radio-frequency CDATA #IMPLIED
+				>
+		<!ATTLIST platoon
+				side CDATA #IMPLIED
+				id CDATA #IMPLIED
+				callsign CDATA #IMPLIED
+				radio-frequency CDATA #IMPLIED
+				>
+		<!ATTLIST squad
+				side CDATA #IMPLIED
+				id CDATA #IMPLIED
+				callsign CDATA #IMPLIED
+				radio-frequency CDATA #IMPLIED
+				>
+		<!ATTLIST fireteam
+				side CDATA #IMPLIED
+				id CDATA #IMPLIED
+				callsign CDATA #IMPLIED
+				radio-frequency CDATA #IMPLIED
+				>

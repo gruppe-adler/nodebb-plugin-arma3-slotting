@@ -1,0 +1,106 @@
+{
+    "match": {
+        "company": {
+            "platoon": [
+                {
+                    "slot": [
+                        {
+                            "_shortcode": "PTL"
+                        },
+                        {
+                            "_shortcode": "PTS"
+                        },
+                        {
+                            "_shortcode": "PTM"
+                        },
+                        {
+                            "_shortcode": "R"
+                        }
+                    ],
+                    "squad": [
+                        {
+                            "slot": [
+                                {
+                                    "_shortcode": "SQL",
+                                    "_description": "squad leader"
+                                },
+                                {
+                                    "_shortcode": "SQM",
+                                    "_description": "squad medic"
+                                }
+                            ],
+                            "fireteam": [
+                                {
+                                    "slot": [
+                                        {
+                                            "user": {
+                                                "_uid": "5"
+                                            },
+                                            "_shortcode": "FTL",
+                                            "_description": "fireteam lead"
+                                        },
+                                        {
+                                            "user": {
+                                                "_uid": "6"
+                                            },
+                                            "_shortcode": "GR",
+                                            "_description": "fireteam lead"
+                                        },
+                                        {
+                                            "_shortcode": "R"
+                                        },
+                                        {
+                                            "_shortcode": "AR",
+                                            "_description": "automatic rifleman"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "slot": [
+                                        {
+                                            "user": {
+                                                "_uid": "1"
+                                            },
+                                            "_shortcode": "FTL",
+                                            "_description": "fireteam lead"
+                                        },
+                                        {
+                                            "user": {
+                                                "_uid": "2"
+                                            },
+                                            "_shortcode": "GR",
+                                            "_description": "fireteam lead"
+                                        },
+                                        {
+                                            "_shortcode": "R"
+                                        },
+                                        {
+                                            "reservation": "Adler",
+                                            "_shortcode": "AR",
+                                            "_description": "automatic rifleman"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "_callsign": "Reaper",
+                            "_radio-frequency": "85.5"
+                        },
+                        {
+                            "slot": [
+                                {
+                                    "reservation": "TF47",
+                                    "_shortcode": "PIL",
+                                    "_description": "pilot"
+                                }
+                            ],
+                            "_callsign": "Hunter"
+                        }
+                    ]
+                },
+                {
+                    "_callsign": "bumper"
+                }
+            ]
+        }
+    }
+}
