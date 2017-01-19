@@ -1,4 +1,7 @@
 {
     "name": "nodebb-plugin-arma3-slotting",
-    "version": "0.0.1"
+    "version": "0.0.2",
+    "devDependencies": {
+        "underscore": "*"
+    }
 }
