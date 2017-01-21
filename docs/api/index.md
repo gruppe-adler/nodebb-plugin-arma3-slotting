@@ -31,12 +31,11 @@ return code:
 * 400 if invalid structure
 
  
-### PATCH /arma3-slotting/:tid/match/:matchid
+### PUT /arma3-slotting/:tid/match/:matchid
 
 set complete match structure as JSON or XML
 
 if the match existed before and had slots filled, the occupants will be set again (unless explicitly filled by the PATCH)
-
 
 return code:
 * 200 if patched
@@ -45,18 +44,6 @@ return code:
 ### GET /arma3-slotting/:tid/match/:matchid
 
 returns complete slot structure as JSON or XML
-
-```
-{
-	"company": {
-		"_callsign": "something",
-		"slot": {
-		},
-		"platoon": {}
-	}
-}
-```
-etc
 
 ### PUT /arma3-slotting/:tid/match/:matchid/slot/:slotid/user
  
@@ -74,7 +61,7 @@ removes user from slot
 
 ### PUT /arma3-slotting/:tid/match/:matchid/slot/:slotid/reservation
 
-`"TF47"`
+`{"reserved-for": "tf47"}`
 
 return codes:
 
