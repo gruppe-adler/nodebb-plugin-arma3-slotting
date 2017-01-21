@@ -24,8 +24,6 @@ return code:
 
 sets complete slot structure as JSON or XML
 
-if the match existed before and has slots filled, this will clear them
-
 return code:
 * 204 if created
 * 400 if invalid structure
