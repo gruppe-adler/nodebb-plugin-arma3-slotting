@@ -2,7 +2,7 @@
 
 * the API takes and returns XML as well as JSON – the latter is more easily consumed by Javascript applications, while the former is easier to read and understand.
 	* for this to work, set the `Content-Type` and `Accept` headers to `application/xml` or `application/json`, respectively.
-* The complete match structure is [defined in a DTD](../doctype/match.dtd)
+* The complete match structure is [defined in a DTD](../../lib/match.dtd)
 
 ### GET /arma3-slotting/:tid
 
