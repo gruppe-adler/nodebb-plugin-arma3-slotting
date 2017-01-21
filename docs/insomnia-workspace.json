@@ -1,0 +1,251 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2017-01-21T20:24:16.150Z",
+	"__export_source": "insomnia.desktop.app:v4.1.1",
+	"resources": [
+		{
+			"_id": "wrk_1a02f04384f848a78a67fc4fd53bc87e",
+			"parentId": null,
+			"modified": 1485003669995,
+			"created": 1485003646120,
+			"name": "nodebb-plugin-arma3-slotting",
+			"description": "",
+			"certificates": [],
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_b47949f24a0d41c1a8d1b6059e338054",
+			"parentId": "wrk_1a02f04384f848a78a67fc4fd53bc87e",
+			"modified": 1485003729330,
+			"created": 1485003696514,
+			"name": "dev",
+			"data": {
+				"baseUrl": "http://localhost:4567/api/arma3-slotting"
+			},
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_4d3ab9a2f011464ba8c93693ec3a021f",
+			"parentId": "wrk_1a02f04384f848a78a67fc4fd53bc87e",
+			"modified": 1485029925291,
+			"created": 1485003781044,
+			"name": "Default Jar",
+			"cookies": [
+				{
+					"creation": "2017-01-21T13:03:59.892Z",
+					"key": "express.sid",
+					"value": "s%3A4Ypm9fGLBlorue1zHwXJYKvGBA8hTU1C.SQfUerF7FXQ%2FdkMweUvmdbhwtXQd3NsOqfFrE7BGklw",
+					"expires": "2017-02-04T13:03:59.000Z",
+					"domain": "localhost",
+					"path": "/",
+					"httpOnly": true,
+					"hostOnly": true,
+					"lastAccessed": "2017-01-21T20:18:45.251Z"
+				}
+			],
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_4fac3112553147b7a07c82fe8ae9c42d",
+			"parentId": "wrk_1a02f04384f848a78a67fc4fd53bc87e",
+			"modified": 1485003739207,
+			"created": 1485003739207,
+			"name": "match",
+			"environment": {},
+			"metaSortKey": -1485003739207,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_aa4b7084827749bd805fbb0942359003",
+			"parentId": "wrk_1a02f04384f848a78a67fc4fd53bc87e",
+			"modified": 1485026739062,
+			"created": 1485026739062,
+			"name": "user",
+			"environment": {},
+			"metaSortKey": -1485026739062,
+			"_type": "request_group"
+		},
+		{
+			"_id": "env_642e9337468242959e15073cd45014a3",
+			"parentId": "env_b47949f24a0d41c1a8d1b6059e338054",
+			"modified": 1485003700844,
+			"created": 1485003700844,
+			"name": "New Environment",
+			"data": {},
+			"_type": "environment"
+		},
+		{
+			"_id": "req_07664ed682704fe9b3e7eec0fc9d7c69",
+			"parentId": "fld_4fac3112553147b7a07c82fe8ae9c42d",
+			"modified": 1485026526597,
+			"created": 1485003765743,
+			"url": "{{ baseUrl }}/3/match",
+			"name": "post match JSON",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"match\": {\n\t\t\"company\": {\n\t\t\t\"side\": \"greenfor\",\n\t\t\t\"platoon\": [\n\t\t\t\t{\n\t\t\t\t\t\"slot\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"shortcode\": \"PTL\",\n\t\t\t\t\t\t\t\"uuid\": \"90573f33-4a58-4d0d-bad9-f1165cfd30ab\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"shortcode\": \"PTS\",\n\t\t\t\t\t\t\t\"uuid\": \"fa870017-8280-4728-b317-7bc44f57b1b5\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"shortcode\": \"PTM\",\n\t\t\t\t\t\t\t\"uuid\": \"a48bd327-0164-427c-84f8-9d88e16d55b9\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"shortcode\": \"R\",\n\t\t\t\t\t\t\t\"uuid\": \"d9460a70-a87c-4e14-a3b8-51fa43c8103e\"\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"squad\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"callsign\": \"Reaper\",\n\t\t\t\t\t\t\t\"radio-frequency\": \"85.5\",\n\t\t\t\t\t\t\t\"slot\": [\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\"shortcode\": \"SQL\",\n\t\t\t\t\t\t\t\t\t\"description\": \"squad leader\",\n\t\t\t\t\t\t\t\t\t\"uuid\": \"5dfa7c63-4eeb-4b16-9e59-3d05f967af06\"\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\"shortcode\": \"SQM\",\n\t\t\t\t\t\t\t\t\t\"description\": \"squad medic\",\n\t\t\t\t\t\t\t\t\t\"uuid\": \"18c30b5a-102c-421b-9df1-ba5065abe453\"\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\t\"fireteam\": [\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\"slot\": [\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t\"shortcode\": \"FTL\",\n\t\t\t\t\t\t\t\t\t\t\t\"description\": \"fireteam lead\",\n\t\t\t\t\t\t\t\t\t\t\t\"uuid\": \"0706cf30-d960-4d8a-b43c-8c2220a450d6\",\n\t\t\t\t\t\t\t\t\t\t\t\"user\": {\n\t\t\t\t\t\t\t\t\t\t\t\t\"uid\": \"5\"\n\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t\"shortcode\": \"GR\",\n\t\t\t\t\t\t\t\t\t\t\t\"description\": \"fireteam lead\",\n\t\t\t\t\t\t\t\t\t\t\t\"uuid\": \"898737be-0a67-4e60-84e9-fe05cdaeff31\",\n\t\t\t\t\t\t\t\t\t\t\t\"user\": {\n\t\t\t\t\t\t\t\t\t\t\t\t\"uid\": \"6\"\n\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t\"shortcode\": \"R\",\n\t\t\t\t\t\t\t\t\t\t\t\"uuid\": \"2f6e9dba-c6fb-44ac-b39d-b20c73206f7a\"\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t\"shortcode\": \"AR\",\n\t\t\t\t\t\t\t\t\t\t\t\"description\": \"automatic rifleman\",\n\t\t\t\t\t\t\t\t\t\t\t\"uuid\": \"08ff424b-21fb-4ef4-84fa-2b8bbf2a18d6\"\n\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\"slot\": [\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t\"shortcode\": \"FTL\",\n\t\t\t\t\t\t\t\t\t\t\t\"description\": \"fireteam lead\",\n\t\t\t\t\t\t\t\t\t\t\t\"uuid\": \"d7571cfc-d4f0-4b7c-b88a-5411f58e6e73\",\n\t\t\t\t\t\t\t\t\t\t\t\"user\": {\n\t\t\t\t\t\t\t\t\t\t\t\t\"uid\": \"1\"\n\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t\"shortcode\": \"GR\",\n\t\t\t\t\t\t\t\t\t\t\t\"description\": \"fireteam lead\",\n\t\t\t\t\t\t\t\t\t\t\t\"uuid\": \"27a3c20f-b972-4e8a-99b5-8060b94c054c\",\n\t\t\t\t\t\t\t\t\t\t\t\"user\": {\n\t\t\t\t\t\t\t\t\t\t\t\t\"uid\": \"2\"\n\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t\"shortcode\": \"R\",\n\t\t\t\t\t\t\t\t\t\t\t\"uuid\": \"93c06b91-c283-49a5-8f84-fdabf457f738\"\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\t\t\"shortcode\": \"AR\",\n\t\t\t\t\t\t\t\t\t\t\t\"description\": \"automatic rifleman\",\n\t\t\t\t\t\t\t\t\t\t\t\"uuid\": \"77729309-5ab2-44b9-9504-417be05557a2\",\n\t\t\t\t\t\t\t\t\t\t\t\"reservation\": \"Adler\"\n\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t]\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t]\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"callsign\": \"Hunter\",\n\t\t\t\t\t\t\t\"slot\": {\n\t\t\t\t\t\t\t\t\"shortcode\": \"PIL\",\n\t\t\t\t\t\t\t\t\"description\": \"pilot\",\n\t\t\t\t\t\t\t\t\"uuid\": \"c085d35a-11c4-40e3-8835-3cd6ec052708\",\n\t\t\t\t\t\t\t\t\"reservation\": \"TF47\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"callsign\": \"bumper\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t}\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1485003765743,
+			"_type": "request"
+		},
+		{
+			"_id": "req_50c8e02eca6248dbb7e87bc7b99866ca",
+			"parentId": "fld_4fac3112553147b7a07c82fe8ae9c42d",
+			"modified": 1485012586859,
+			"created": 1485012508494,
+			"url": "{{ baseUrl }}/3/match/00860b3b-167e-44ad-8e3e-8c9c0dddfeca",
+			"name": "put simplified",
+			"method": "PUT",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"slots\": [\n\t{\n\t\t\"slot\": {\n\t\t\t\"baeie\": 42\n\t\t},\n\t\t\"foo\": \"baz\"\n\t}]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1485003765742,
+			"_type": "request"
+		},
+		{
+			"_id": "req_a7ba3c6687384217a3b3d64eec5cb9ac",
+			"parentId": "fld_4fac3112553147b7a07c82fe8ae9c42d",
+			"modified": 1485012947410,
+			"created": 1485012838911,
+			"url": "{{ baseUrl }}/3/match/5b05785f-ddf2-4f3e-bf0b-d0f67cdc4dd7\"",
+			"name": "delete",
+			"method": "DELETE",
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1485003765741,
+			"_type": "request"
+		},
+		{
+			"_id": "req_b57c6267559c44519f1905666abe2b8f",
+			"parentId": "fld_4fac3112553147b7a07c82fe8ae9c42d",
+			"modified": 1485029819641,
+			"created": 1485028916755,
+			"url": "{{ baseUrl }}/3/match/30d751d0-6a6c-477f-9c93-dab1fea9ac31/slot",
+			"name": "get reservations & slots",
+			"method": "GET",
+			"body": {
+				"text": ""
+			},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1485028916755,
+			"_type": "request"
+		},
+		{
+			"_id": "req_c55b7f5075c14782be21d4018144ecc8",
+			"parentId": "fld_4fac3112553147b7a07c82fe8ae9c42d",
+			"modified": 1485010983473,
+			"created": 1485010765088,
+			"url": "{{ baseUrl }}/3/match",
+			"name": "get all",
+			"method": "GET",
+			"body": {
+				"text": ""
+			},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1485010765088,
+			"_type": "request"
+		},
+		{
+			"_id": "req_ed78c6d24da54262b10e1b8e1e8a76a7",
+			"parentId": "fld_4fac3112553147b7a07c82fe8ae9c42d",
+			"modified": 1485026510692,
+			"created": 1485004751033,
+			"url": "{{ baseUrl }}/3/match",
+			"name": "post match XML",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/xml",
+				"text": "<!DOCTYPE match SYSTEM \"match.dtd\">\n<match>\n\t<company side=\"greenfor\">\n\t\t<platoon>\n\t\t\t<slot shortcode=\"PTL\"/>\n\t\t\t<slot shortcode=\"PTS\"/>\n\t\t\t<slot shortcode=\"PTM\"/>\n\t\t\t<slot shortcode=\"R\"/>\n\t\t\t<squad callsign=\"Reaper\" radio-frequency=\"85.5\">\n\t\t\t\t<slot shortcode=\"SQL\" description=\"squad leader\"/>\n\t\t\t\t<slot shortcode=\"SQM\" description=\"squad medic\"/>\n\t\t\t\t<fireteam>\n\t\t\t\t\t<slot shortcode=\"FTL\" description=\"fireteam lead\"><user uid=\"5\"/></slot>\n\t\t\t\t\t<slot shortcode=\"GR\" description=\"fireteam lead\"><user uid=\"6\"/></slot>\n\t\t\t\t\t<slot shortcode=\"R\"/>\n\t\t\t\t\t<slot shortcode=\"AR\" description=\"automatic rifleman\"/>\n\t\t\t\t</fireteam>\n\t\t\t\t<fireteam>\n\t\t\t\t\t<slot shortcode=\"FTL\" description=\"fireteam lead\"><user uid=\"1\"/></slot>\n\t\t\t\t\t<slot shortcode=\"GR\" description=\"fireteam lead\"><user uid=\"2\"/></slot>\n\t\t\t\t\t<slot shortcode=\"R\"/>\n\t\t\t\t\t<slot shortcode=\"AR\" description=\"automatic rifleman\"><reservation>Adler</reservation></slot>\n\t\t\t\t</fireteam>\n\t\t\t</squad>\n\t\t\t<squad callsign=\"Hunter\">\n\t\t\t\t<slot shortcode=\"PIL\" description=\"pilot\">\n\t\t\t\t\t<reservation>TF47</reservation>\n\t\t\t\t</slot>\n\t\t\t</squad>\n\t\t</platoon>\n\t\t<platoon callsign=\"bumper\"/>\n\t</company>\n</match>\n"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/xml"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1485003765742,
+			"_type": "request"
+		},
+		{
+			"_id": "req_de2e4bf3b26f4b85b65c94137cd73092",
+			"parentId": "fld_aa4b7084827749bd805fbb0942359003",
+			"modified": 1485029861286,
+			"created": 1485026746667,
+			"url": "{{ baseUrl }}/3/match/30d751d0-6a6c-477f-9c93-dab1fea9ac31/slot/90573f33-4a58-4d0d-bad9-f1165cfd30ab/user",
+			"name": "put user to slot",
+			"method": "PUT",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\"uid\": 2}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1485026746667,
+			"_type": "request"
+		},
+		{
+			"_id": "req_f250067bf4524945b71ed44d4d957fc7",
+			"parentId": "fld_aa4b7084827749bd805fbb0942359003",
+			"modified": 1485027543233,
+			"created": 1485027520455,
+			"url": "{{ baseUrl }}/3/match/791d7dbe-7188-4073-a50a-cefd3097d710/slot/fa870017-8280-4728-b317-7bc44f57b1b5/user",
+			"name": "user of slot",
+			"method": "GET",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\"uid\": 2}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1485026746666,
+			"_type": "request"
+		}
+	]
+}
