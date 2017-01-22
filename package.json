@@ -4,7 +4,9 @@
     "dependencies": {
         "libxmljs": "*",
         "xml2json": "*",
-        "node-uuid": "*"
+        "node-uuid": "*",
+        "async": "*",
+        "winston": "*"
     },
     "devDependencies": {
         "underscore": "*"
