@@ -1,0 +1,2299 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install' ]
+2 info using npm@3.5.2
+3 info using node@v4.2.6
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly fetchNamedPackageData xml2json
+20 silly mapToRegistry name xml2json
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/xml2json
+24 verbose request uri https://registry.npmjs.org/xml2json
+25 verbose request no auth needed
+26 info attempt registry request try #1 at 10:39:55 PM
+27 verbose request id a8f058fd43ef9b0e
+28 verbose etag W/"58797a02-a314"
+29 verbose lastModified Sat, 14 Jan 2017 01:08:18 GMT
+30 http request GET https://registry.npmjs.org/xml2json
+31 http 304 https://registry.npmjs.org/xml2json
+32 verbose headers { date: 'Sat, 21 Jan 2017 21:39:56 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   'cache-control': 'max-age=300',
+32 verbose headers   etag: 'W/"58797a02-a314"',
+32 verbose headers   age: '0',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-fra1238-FRA',
+32 verbose headers   'x-cache': 'HIT',
+32 verbose headers   'x-cache-hits': '1',
+32 verbose headers   'x-timer': 'S1485034796.575289,VS0,VE1',
+32 verbose headers   vary: 'Accept-Encoding' }
+33 silly get cb [ 304,
+33 silly get   { date: 'Sat, 21 Jan 2017 21:39:56 GMT',
+33 silly get     via: '1.1 varnish',
+33 silly get     'cache-control': 'max-age=300',
+33 silly get     etag: 'W/"58797a02-a314"',
+33 silly get     age: '0',
+33 silly get     connection: 'keep-alive',
+33 silly get     'x-served-by': 'cache-fra1238-FRA',
+33 silly get     'x-cache': 'HIT',
+33 silly get     'x-cache-hits': '1',
+33 silly get     'x-timer': 'S1485034796.575289,VS0,VE1',
+33 silly get     vary: 'Accept-Encoding' } ]
+34 verbose etag https://registry.npmjs.org/xml2json from cache
+35 verbose get saving xml2json to /root/.npm/registry.npmjs.org/xml2json/.cache.json
+36 silly resolveWithNewModule xml2json@0.11.0 checking installable status
+37 silly cache add args [ 'xml2json@*', null ]
+38 verbose cache add spec xml2json@*
+39 silly cache add parsed spec Result {
+39 silly cache add   raw: 'xml2json@*',
+39 silly cache add   scope: null,
+39 silly cache add   name: 'xml2json',
+39 silly cache add   rawSpec: '*',
+39 silly cache add   spec: '*',
+39 silly cache add   type: 'range' }
+40 silly addNamed xml2json@*
+41 verbose addNamed "*" is a valid semver range for xml2json
+42 silly addNameRange { name: 'xml2json', range: '*', hasData: false }
+43 silly mapToRegistry name xml2json
+44 silly mapToRegistry using default registry
+45 silly mapToRegistry registry https://registry.npmjs.org/
+46 silly mapToRegistry uri https://registry.npmjs.org/xml2json
+47 verbose addNameRange registry:https://registry.npmjs.org/xml2json not in flight; fetching
+48 verbose get https://registry.npmjs.org/xml2json not expired, no request
+49 silly addNameRange number 2 { name: 'xml2json', range: '*', hasData: true }
+50 silly addNameRange versions [ 'xml2json',
+50 silly addNameRange   [ '0.1.0',
+50 silly addNameRange     '0.1.1',
+50 silly addNameRange     '0.2.0',
+50 silly addNameRange     '0.2.1',
+50 silly addNameRange     '0.2.2',
+50 silly addNameRange     '0.2.3',
+50 silly addNameRange     '0.2.4',
+50 silly addNameRange     '0.3.0',
+50 silly addNameRange     '0.3.1',
+50 silly addNameRange     '0.3.2',
+50 silly addNameRange     '0.4.0',
+50 silly addNameRange     '0.5.0',
+50 silly addNameRange     '0.5.1',
+50 silly addNameRange     '0.6.0',
+50 silly addNameRange     '0.6.1',
+50 silly addNameRange     '0.6.2',
+50 silly addNameRange     '0.7.0',
+50 silly addNameRange     '0.7.1',
+50 silly addNameRange     '0.8.0',
+50 silly addNameRange     '0.8.1',
+50 silly addNameRange     '0.8.2',
+50 silly addNameRange     '0.9.0',
+50 silly addNameRange     '0.9.1',
+50 silly addNameRange     '0.9.2',
+50 silly addNameRange     '0.10.0',
+50 silly addNameRange     '0.11.0' ] ]
+51 silly addNamed xml2json@0.11.0
+52 verbose addNamed "0.11.0" is a plain semver version for xml2json
+53 silly cache afterAdd xml2json@0.11.0
+54 verbose afterAdd /root/.npm/xml2json/0.11.0/package/package.json not in flight; writing
+55 verbose afterAdd /root/.npm/xml2json/0.11.0/package/package.json written
+56 silly fetchNamedPackageData hoek
+57 silly mapToRegistry name hoek
+58 silly mapToRegistry using default registry
+59 silly mapToRegistry registry https://registry.npmjs.org/
+60 silly mapToRegistry uri https://registry.npmjs.org/hoek
+61 silly fetchNamedPackageData joi
+62 silly mapToRegistry name joi
+63 silly mapToRegistry using default registry
+64 silly mapToRegistry registry https://registry.npmjs.org/
+65 silly mapToRegistry uri https://registry.npmjs.org/joi
+66 silly fetchNamedPackageData node-expat
+67 silly mapToRegistry name node-expat
+68 silly mapToRegistry using default registry
+69 silly mapToRegistry registry https://registry.npmjs.org/
+70 silly mapToRegistry uri https://registry.npmjs.org/node-expat
+71 verbose request uri https://registry.npmjs.org/hoek
+72 verbose request no auth needed
+73 info attempt registry request try #1 at 10:39:56 PM
+74 verbose etag W/"585e7ae4-1af55"
+75 verbose lastModified Sat, 24 Dec 2016 13:40:52 GMT
+76 http request GET https://registry.npmjs.org/hoek
+77 verbose request uri https://registry.npmjs.org/joi
+78 verbose request no auth needed
+79 info attempt registry request try #1 at 10:39:56 PM
+80 verbose etag W/"58827d16-2ec7d"
+81 verbose lastModified Fri, 20 Jan 2017 21:11:50 GMT
+82 http request GET https://registry.npmjs.org/joi
+83 verbose request uri https://registry.npmjs.org/node-expat
+84 verbose request no auth needed
+85 info attempt registry request try #1 at 10:39:56 PM
+86 verbose etag W/"5775580f-fb8e"
+87 verbose lastModified Thu, 30 Jun 2016 17:34:07 GMT
+88 http request GET https://registry.npmjs.org/node-expat
+89 http 304 https://registry.npmjs.org/hoek
+90 verbose headers { date: 'Sat, 21 Jan 2017 21:39:56 GMT',
+90 verbose headers   via: '1.1 varnish',
+90 verbose headers   'cache-control': 'max-age=300',
+90 verbose headers   etag: 'W/"585e7ae4-1af55"',
+90 verbose headers   age: '211',
+90 verbose headers   connection: 'keep-alive',
+90 verbose headers   'x-served-by': 'cache-fra1238-FRA',
+90 verbose headers   'x-cache': 'HIT',
+90 verbose headers   'x-cache-hits': '3',
+90 verbose headers   'x-timer': 'S1485034796.924425,VS0,VE0',
+90 verbose headers   vary: 'Accept-Encoding' }
+91 silly get cb [ 304,
+91 silly get   { date: 'Sat, 21 Jan 2017 21:39:56 GMT',
+91 silly get     via: '1.1 varnish',
+91 silly get     'cache-control': 'max-age=300',
+91 silly get     etag: 'W/"585e7ae4-1af55"',
+91 silly get     age: '211',
+91 silly get     connection: 'keep-alive',
+91 silly get     'x-served-by': 'cache-fra1238-FRA',
+91 silly get     'x-cache': 'HIT',
+91 silly get     'x-cache-hits': '3',
+91 silly get     'x-timer': 'S1485034796.924425,VS0,VE0',
+91 silly get     vary: 'Accept-Encoding' } ]
+92 verbose etag https://registry.npmjs.org/hoek from cache
+93 verbose get saving hoek to /root/.npm/registry.npmjs.org/hoek/.cache.json
+94 http 304 https://registry.npmjs.org/joi
+95 verbose headers { date: 'Sat, 21 Jan 2017 21:39:56 GMT',
+95 verbose headers   via: '1.1 varnish',
+95 verbose headers   'cache-control': 'max-age=300',
+95 verbose headers   etag: 'W/"58827d16-2ec7d"',
+95 verbose headers   age: '82',
+95 verbose headers   connection: 'keep-alive',
+95 verbose headers   'x-served-by': 'cache-fra1230-FRA',
+95 verbose headers   'x-cache': 'HIT',
+95 verbose headers   'x-cache-hits': '187',
+95 verbose headers   'x-timer': 'S1485034796.924323,VS0,VE0',
+95 verbose headers   vary: 'Accept-Encoding' }
+96 silly get cb [ 304,
+96 silly get   { date: 'Sat, 21 Jan 2017 21:39:56 GMT',
+96 silly get     via: '1.1 varnish',
+96 silly get     'cache-control': 'max-age=300',
+96 silly get     etag: 'W/"58827d16-2ec7d"',
+96 silly get     age: '82',
+96 silly get     connection: 'keep-alive',
+96 silly get     'x-served-by': 'cache-fra1230-FRA',
+96 silly get     'x-cache': 'HIT',
+96 silly get     'x-cache-hits': '187',
+96 silly get     'x-timer': 'S1485034796.924323,VS0,VE0',
+96 silly get     vary: 'Accept-Encoding' } ]
+97 verbose etag https://registry.npmjs.org/joi from cache
+98 verbose get saving joi to /root/.npm/registry.npmjs.org/joi/.cache.json
+99 http 304 https://registry.npmjs.org/node-expat
+100 verbose headers { date: 'Sat, 21 Jan 2017 21:39:56 GMT',
+100 verbose headers   via: '1.1 varnish',
+100 verbose headers   'cache-control': 'max-age=300',
+100 verbose headers   etag: 'W/"5775580f-fb8e"',
+100 verbose headers   age: '180',
+100 verbose headers   connection: 'keep-alive',
+100 verbose headers   'x-served-by': 'cache-fra1243-FRA',
+100 verbose headers   'x-cache': 'HIT',
+100 verbose headers   'x-cache-hits': '1',
+100 verbose headers   'x-timer': 'S1485034796.926173,VS0,VE0',
+100 verbose headers   vary: 'Accept-Encoding' }
+101 silly get cb [ 304,
+101 silly get   { date: 'Sat, 21 Jan 2017 21:39:56 GMT',
+101 silly get     via: '1.1 varnish',
+101 silly get     'cache-control': 'max-age=300',
+101 silly get     etag: 'W/"5775580f-fb8e"',
+101 silly get     age: '180',
+101 silly get     connection: 'keep-alive',
+101 silly get     'x-served-by': 'cache-fra1243-FRA',
+101 silly get     'x-cache': 'HIT',
+101 silly get     'x-cache-hits': '1',
+101 silly get     'x-timer': 'S1485034796.926173,VS0,VE0',
+101 silly get     vary: 'Accept-Encoding' } ]
+102 verbose etag https://registry.npmjs.org/node-expat from cache
+103 verbose get saving node-expat to /root/.npm/registry.npmjs.org/node-expat/.cache.json
+104 silly resolveWithNewModule hoek@4.1.0 checking installable status
+105 silly cache add args [ 'hoek@^4.0.1', null ]
+106 verbose cache add spec hoek@^4.0.1
+107 silly cache add parsed spec Result {
+107 silly cache add   raw: 'hoek@^4.0.1',
+107 silly cache add   scope: null,
+107 silly cache add   name: 'hoek',
+107 silly cache add   rawSpec: '^4.0.1',
+107 silly cache add   spec: '>=4.0.1 <5.0.0',
+107 silly cache add   type: 'range' }
+108 silly addNamed hoek@>=4.0.1 <5.0.0
+109 verbose addNamed ">=4.0.1 <5.0.0" is a valid semver range for hoek
+110 silly addNameRange { name: 'hoek', range: '>=4.0.1 <5.0.0', hasData: false }
+111 silly mapToRegistry name hoek
+112 silly mapToRegistry using default registry
+113 silly mapToRegistry registry https://registry.npmjs.org/
+114 silly mapToRegistry uri https://registry.npmjs.org/hoek
+115 verbose addNameRange registry:https://registry.npmjs.org/hoek not in flight; fetching
+116 silly resolveWithNewModule joi@9.2.0 checking installable status
+117 silly cache add args [ 'joi@^9.0.4', null ]
+118 verbose cache add spec joi@^9.0.4
+119 silly cache add parsed spec Result {
+119 silly cache add   raw: 'joi@^9.0.4',
+119 silly cache add   scope: null,
+119 silly cache add   name: 'joi',
+119 silly cache add   rawSpec: '^9.0.4',
+119 silly cache add   spec: '>=9.0.4 <10.0.0',
+119 silly cache add   type: 'range' }
+120 silly addNamed joi@>=9.0.4 <10.0.0
+121 verbose addNamed ">=9.0.4 <10.0.0" is a valid semver range for joi
+122 silly addNameRange { name: 'joi', range: '>=9.0.4 <10.0.0', hasData: false }
+123 silly mapToRegistry name joi
+124 silly mapToRegistry using default registry
+125 silly mapToRegistry registry https://registry.npmjs.org/
+126 silly mapToRegistry uri https://registry.npmjs.org/joi
+127 verbose addNameRange registry:https://registry.npmjs.org/joi not in flight; fetching
+128 silly resolveWithNewModule node-expat@2.3.15 checking installable status
+129 silly cache add args [ 'node-expat@^2.3.15', null ]
+130 verbose cache add spec node-expat@^2.3.15
+131 silly cache add parsed spec Result {
+131 silly cache add   raw: 'node-expat@^2.3.15',
+131 silly cache add   scope: null,
+131 silly cache add   name: 'node-expat',
+131 silly cache add   rawSpec: '^2.3.15',
+131 silly cache add   spec: '>=2.3.15 <3.0.0',
+131 silly cache add   type: 'range' }
+132 silly addNamed node-expat@>=2.3.15 <3.0.0
+133 verbose addNamed ">=2.3.15 <3.0.0" is a valid semver range for node-expat
+134 silly addNameRange { name: 'node-expat', range: '>=2.3.15 <3.0.0', hasData: false }
+135 silly mapToRegistry name node-expat
+136 silly mapToRegistry using default registry
+137 silly mapToRegistry registry https://registry.npmjs.org/
+138 silly mapToRegistry uri https://registry.npmjs.org/node-expat
+139 verbose addNameRange registry:https://registry.npmjs.org/node-expat not in flight; fetching
+140 verbose get https://registry.npmjs.org/hoek not expired, no request
+141 silly addNameRange number 2 { name: 'hoek', range: '>=4.0.1 <5.0.0', hasData: true }
+142 silly addNameRange versions [ 'hoek',
+142 silly addNameRange   [ '0.0.1',
+142 silly addNameRange     '0.0.2',
+142 silly addNameRange     '0.0.3',
+142 silly addNameRange     '0.0.4',
+142 silly addNameRange     '0.0.5',
+142 silly addNameRange     '0.0.6',
+142 silly addNameRange     '0.0.7',
+142 silly addNameRange     '0.0.8',
+142 silly addNameRange     '0.0.9',
+142 silly addNameRange     '0.0.10',
+142 silly addNameRange     '0.0.11',
+142 silly addNameRange     '0.0.12',
+142 silly addNameRange     '0.0.13',
+142 silly addNameRange     '0.0.14',
+142 silly addNameRange     '0.0.15',
+142 silly addNameRange     '0.0.16',
+142 silly addNameRange     '0.0.17',
+142 silly addNameRange     '0.0.18',
+142 silly addNameRange     '0.0.19',
+142 silly addNameRange     '0.0.21',
+142 silly addNameRange     '0.1.0',
+142 silly addNameRange     '0.2.0',
+142 silly addNameRange     '0.3.0',
+142 silly addNameRange     '0.4.0',
+142 silly addNameRange     '0.4.1',
+142 silly addNameRange     '0.4.2',
+142 silly addNameRange     '0.4.3',
+142 silly addNameRange     '0.4.4',
+142 silly addNameRange     '0.4.5',
+142 silly addNameRange     '0.5.0',
+142 silly addNameRange     '0.6.0',
+142 silly addNameRange     '0.6.1',
+142 silly addNameRange     '0.6.2',
+142 silly addNameRange     '0.7.0',
+142 silly addNameRange     '0.7.1',
+142 silly addNameRange     '0.7.2',
+142 silly addNameRange     '0.7.3',
+142 silly addNameRange     '0.7.4',
+142 silly addNameRange     '0.7.5',
+142 silly addNameRange     '0.7.6',
+142 silly addNameRange     '0.8.0',
+142 silly addNameRange     '0.8.1',
+142 silly addNameRange     '0.8.2',
+142 silly addNameRange     '0.8.3',
+142 silly addNameRange     '0.8.4',
+142 silly addNameRange     '0.8.5',
+142 silly addNameRange     '0.9.0',
+142 silly addNameRange     '0.9.1',
+142 silly addNameRange     '0.10.0',
+142 silly addNameRange     '1.0.0',
+142 silly addNameRange     '1.0.1',
+142 silly addNameRange     '1.0.2',
+142 silly addNameRange     '1.0.3',
+142 silly addNameRange     '1.1.0',
+142 silly addNameRange     '1.1.1',
+142 silly addNameRange     '1.1.2',
+142 silly addNameRange     '1.2.0',
+142 silly addNameRange     '1.3.0',
+142 silly addNameRange     '1.4.0',
+142 silly addNameRange     '1.4.1',
+142 silly addNameRange     '1.5.0',
+142 silly addNameRange     '1.5.1',
+142 silly addNameRange     '1.5.2',
+142 silly addNameRange     '2.0.0',
+142 silly addNameRange     '2.1.0',
+142 silly addNameRange     '2.1.1',
+142 silly addNameRange     '2.2.0',
+142 silly addNameRange     '2.3.0',
+142 silly addNameRange     '2.4.0',
+142 silly addNameRange     '2.4.1',
+142 silly addNameRange     '2.5.0',
+142 silly addNameRange     '2.5.1',
+142 silly addNameRange     '2.6.0',
+142 silly addNameRange     '2.7.0',
+142 silly addNameRange     '2.8.0',
+142 silly addNameRange     '2.8.1',
+142 silly addNameRange     '2.9.0',
+142 silly addNameRange     '2.9.1',
+142 silly addNameRange     '2.10.0',
+142 silly addNameRange     '2.11.0',
+142 silly addNameRange     '2.11.1',
+142 silly addNameRange     '2.12.0',
+142 silly addNameRange     '2.13.0',
+142 silly addNameRange     '2.13.1',
+142 silly addNameRange     '2.14.0',
+142 silly addNameRange     '2.15.0',
+142 silly addNameRange     '2.16.0',
+142 silly addNameRange     '2.16.1',
+142 silly addNameRange     '2.16.2',
+142 silly addNameRange     '2.16.3',
+142 silly addNameRange     '3.0.0',
+142 silly addNameRange     '3.0.1',
+142 silly addNameRange     '3.0.2',
+142 silly addNameRange     '3.0.3',
+142 silly addNameRange     '3.0.4',
+142 silly addNameRange     '4.0.0',
+142 silly addNameRange     '4.0.1',
+142 silly addNameRange     '4.0.2',
+142 silly addNameRange     '4.1.0' ] ]
+143 silly addNamed hoek@4.1.0
+144 verbose addNamed "4.1.0" is a plain semver version for hoek
+145 verbose get https://registry.npmjs.org/joi not expired, no request
+146 silly addNameRange number 2 { name: 'joi', range: '>=9.0.4 <10.0.0', hasData: true }
+147 silly addNameRange versions [ 'joi',
+147 silly addNameRange   [ '0.0.1',
+147 silly addNameRange     '0.0.2',
+147 silly addNameRange     '0.0.3',
+147 silly addNameRange     '0.0.4',
+147 silly addNameRange     '0.0.5',
+147 silly addNameRange     '0.0.6',
+147 silly addNameRange     '0.0.6-1',
+147 silly addNameRange     '0.0.7',
+147 silly addNameRange     '0.0.8',
+147 silly addNameRange     '0.0.9',
+147 silly addNameRange     '0.0.10',
+147 silly addNameRange     '0.1.0',
+147 silly addNameRange     '0.1.1',
+147 silly addNameRange     '0.1.2',
+147 silly addNameRange     '0.1.3',
+147 silly addNameRange     '0.2.0',
+147 silly addNameRange     '0.2.1',
+147 silly addNameRange     '0.2.2',
+147 silly addNameRange     '0.2.3',
+147 silly addNameRange     '0.2.4',
+147 silly addNameRange     '0.2.5',
+147 silly addNameRange     '0.2.6',
+147 silly addNameRange     '0.3.0',
+147 silly addNameRange     '0.3.1',
+147 silly addNameRange     '0.3.2',
+147 silly addNameRange     '0.3.3',
+147 silly addNameRange     '0.3.4',
+147 silly addNameRange     '0.3.5',
+147 silly addNameRange     '0.3.6',
+147 silly addNameRange     '0.4.0',
+147 silly addNameRange     '1.0.0',
+147 silly addNameRange     '1.1.0',
+147 silly addNameRange     '1.2.0',
+147 silly addNameRange     '1.2.1',
+147 silly addNameRange     '1.2.2',
+147 silly addNameRange     '1.2.3',
+147 silly addNameRange     '2.0.0',
+147 silly addNameRange     '2.0.1',
+147 silly addNameRange     '2.0.2',
+147 silly addNameRange     '2.0.3',
+147 silly addNameRange     '2.1.0',
+147 silly addNameRange     '2.2.0',
+147 silly addNameRange     '2.3.0',
+147 silly addNameRange     '2.3.1',
+147 silly addNameRange     '2.4.1',
+147 silly addNameRange     '2.4.2',
+147 silly addNameRange     '2.4.3',
+147 silly addNameRange     '2.5.0',
+147 silly addNameRange     '2.6.0',
+147 silly addNameRange     '2.7.0',
+147 silly addNameRange     '2.8.0',
+147 silly addNameRange     '2.9.0',
+147 silly addNameRange     '3.0.0',
+147 silly addNameRange     '3.1.0',
+147 silly addNameRange     '4.0.0',
+147 silly addNameRange     '4.2.1',
+147 silly addNameRange     '4.3.0',
+147 silly addNameRange     '4.3.1',
+147 silly addNameRange     '4.4.0',
+147 silly addNameRange     '4.5.0',
+147 silly addNameRange     '4.6.0',
+147 silly addNameRange     '4.6.1',
+147 silly addNameRange     '4.6.2',
+147 silly addNameRange     '4.7.0',
+147 silly addNameRange     '4.8.0',
+147 silly addNameRange     '4.8.1',
+147 silly addNameRange     '4.9.0',
+147 silly addNameRange     '5.0.0',
+147 silly addNameRange     '5.0.1',
+147 silly addNameRange     '5.0.2',
+147 silly addNameRange     '5.1.0',
+147 silly addNameRange     '6.0.0',
+147 silly addNameRange     '6.0.1',
+147 silly addNameRange     '6.0.2',
+147 silly addNameRange     '6.0.3',
+147 silly addNameRange     '6.0.4',
+147 silly addNameRange     '6.0.5',
+147 silly addNameRange     '6.0.6',
+147 silly addNameRange     '6.0.7',
+147 silly addNameRange     '6.0.8',
+147 silly addNameRange     '6.1.0',
+147 silly addNameRange     '6.1.1',
+147 silly addNameRange     '6.1.2',
+147 silly addNameRange     '6.2.0',
+147 silly addNameRange     '6.3.0',
+147 silly addNameRange     '6.4.0',
+147 silly addNameRange     '6.4.1',
+147 silly addNameRange     '6.4.2',
+147 silly addNameRange     '6.4.3',
+147 silly addNameRange     '6.5.0',
+147 silly addNameRange     '6.6.0',
+147 silly addNameRange     '6.6.1',
+147 silly addNameRange     '6.7.0',
+147 silly addNameRange     '6.7.1',
+147 silly addNameRange     '6.8.1',
+147 silly addNameRange     '6.9.0',
+147 silly addNameRange     '6.9.1',
+147 silly addNameRange     '6.10.0',
+147 silly addNameRange     '7.0.0',
+147 silly addNameRange     '6.10.1',
+147 silly addNameRange     '7.0.1',
+147 silly addNameRange     '7.1.0',
+147 silly addNameRange     '7.2.0',
+147 silly addNameRange     '7.2.1',
+147 silly addNameRange     '7.2.2',
+147 silly addNameRange     '7.2.3',
+147 silly addNameRange     '7.3.0',
+147 silly addNameRange     '8.0.0',
+147 silly addNameRange     '8.0.1',
+147 silly addNameRange     '8.0.2',
+147 silly addNameRange     '8.0.3',
+147 silly addNameRange     '8.0.4',
+147 silly addNameRange     '8.0.5',
+147 silly addNameRange     '9.0.0-0',
+147 silly addNameRange     '8.1.0',
+147 silly addNameRange     '9.0.0-1',
+147 silly addNameRange     '8.1.1',
+147 silly addNameRange     '9.0.0-2',
+147 silly addNameRange     '8.2.0',
+147 silly addNameRange     '8.2.1',
+147 silly addNameRange     '8.3.0',
+147 silly addNameRange     '8.4.0',
+147 silly addNameRange     '8.4.1',
+147 silly addNameRange     '9.0.0-3',
+147 silly addNameRange     '9.0.0-4',
+147 silly addNameRange     '9.0.0-5',
+147 silly addNameRange     '8.4.2',
+147 silly addNameRange     '9.0.0-6',
+147 silly addNameRange     '9.0.0-7',
+147 silly addNameRange     '9.0.0-8',
+147 silly addNameRange     '9.0.0-9',
+147 silly addNameRange     '9.0.0',
+147 silly addNameRange     '9.0.1',
+147 silly addNameRange     '9.0.2',
+147 silly addNameRange     '9.0.3',
+147 silly addNameRange     '9.0.4',
+147 silly addNameRange     '9.1.0',
+147 silly addNameRange     '9.1.1',
+147 silly addNameRange     '9.2.0',
+147 silly addNameRange     '10.0.0',
+147 silly addNameRange     '10.0.1',
+147 silly addNameRange     '10.0.2',
+147 silly addNameRange     '10.0.4',
+147 silly addNameRange     '10.0.5',
+147 silly addNameRange     '10.0.6',
+147 silly addNameRange     '10.1.0',
+147 silly addNameRange     '10.2.0' ] ]
+148 silly addNamed joi@9.2.0
+149 verbose addNamed "9.2.0" is a plain semver version for joi
+150 verbose get https://registry.npmjs.org/node-expat not expired, no request
+151 silly addNameRange number 2 { name: 'node-expat', range: '>=2.3.15 <3.0.0', hasData: true }
+152 silly addNameRange versions [ 'node-expat',
+152 silly addNameRange   [ '0.0.4',
+152 silly addNameRange     '0.0.5',
+152 silly addNameRange     '0.0.6',
+152 silly addNameRange     '1.0.0',
+152 silly addNameRange     '1.0.1',
+152 silly addNameRange     '1.1.0',
+152 silly addNameRange     '1.1.1',
+152 silly addNameRange     '1.2.0',
+152 silly addNameRange     '1.3.0',
+152 silly addNameRange     '1.3.1',
+152 silly addNameRange     '1.3.2',
+152 silly addNameRange     '1.4.0',
+152 silly addNameRange     '1.4.1',
+152 silly addNameRange     '1.4.2',
+152 silly addNameRange     '1.4.3',
+152 silly addNameRange     '1.4.4',
+152 silly addNameRange     '1.4.5',
+152 silly addNameRange     '1.5.0',
+152 silly addNameRange     '1.6.0',
+152 silly addNameRange     '1.6.1',
+152 silly addNameRange     '2.0.0',
+152 silly addNameRange     '2.1.0',
+152 silly addNameRange     '2.1.1',
+152 silly addNameRange     '2.1.2',
+152 silly addNameRange     '2.1.3',
+152 silly addNameRange     '2.1.4',
+152 silly addNameRange     '2.2.0',
+152 silly addNameRange     '2.3.0',
+152 silly addNameRange     '2.3.1',
+152 silly addNameRange     '2.3.2',
+152 silly addNameRange     '2.3.3',
+152 silly addNameRange     '2.3.4',
+152 silly addNameRange     '2.3.5',
+152 silly addNameRange     '2.3.6',
+152 silly addNameRange     '2.3.7',
+152 silly addNameRange     '2.3.8',
+152 silly addNameRange     '2.3.9',
+152 silly addNameRange     '2.3.10',
+152 silly addNameRange     '2.3.11',
+152 silly addNameRange     '2.3.12',
+152 silly addNameRange     '2.3.13',
+152 silly addNameRange     '2.3.14',
+152 silly addNameRange     '2.3.15' ] ]
+153 silly addNamed node-expat@2.3.15
+154 verbose addNamed "2.3.15" is a plain semver version for node-expat
+155 silly cache afterAdd hoek@4.1.0
+156 verbose afterAdd /root/.npm/hoek/4.1.0/package/package.json not in flight; writing
+157 silly cache afterAdd joi@9.2.0
+158 verbose afterAdd /root/.npm/joi/9.2.0/package/package.json not in flight; writing
+159 verbose afterAdd /root/.npm/hoek/4.1.0/package/package.json written
+160 verbose afterAdd /root/.npm/joi/9.2.0/package/package.json written
+161 silly cache afterAdd node-expat@2.3.15
+162 verbose afterAdd /root/.npm/node-expat/2.3.15/package/package.json not in flight; writing
+163 verbose afterAdd /root/.npm/node-expat/2.3.15/package/package.json written
+164 silly fetchNamedPackageData hoek
+165 silly mapToRegistry name hoek
+166 silly mapToRegistry using default registry
+167 silly mapToRegistry registry https://registry.npmjs.org/
+168 silly mapToRegistry uri https://registry.npmjs.org/hoek
+169 silly fetchNamedPackageData isemail
+170 silly mapToRegistry name isemail
+171 silly mapToRegistry using default registry
+172 silly mapToRegistry registry https://registry.npmjs.org/
+173 silly mapToRegistry uri https://registry.npmjs.org/isemail
+174 silly fetchNamedPackageData items
+175 silly mapToRegistry name items
+176 silly mapToRegistry using default registry
+177 silly mapToRegistry registry https://registry.npmjs.org/
+178 silly mapToRegistry uri https://registry.npmjs.org/items
+179 silly fetchNamedPackageData moment
+180 silly mapToRegistry name moment
+181 silly mapToRegistry using default registry
+182 silly mapToRegistry registry https://registry.npmjs.org/
+183 silly mapToRegistry uri https://registry.npmjs.org/moment
+184 silly fetchNamedPackageData topo
+185 silly mapToRegistry name topo
+186 silly mapToRegistry using default registry
+187 silly mapToRegistry registry https://registry.npmjs.org/
+188 silly mapToRegistry uri https://registry.npmjs.org/topo
+189 verbose request uri https://registry.npmjs.org/moment
+190 verbose request no auth needed
+191 info attempt registry request try #1 at 10:39:56 PM
+192 http request GET https://registry.npmjs.org/moment
+193 verbose request uri https://registry.npmjs.org/isemail
+194 verbose request no auth needed
+195 info attempt registry request try #1 at 10:39:56 PM
+196 verbose etag W/"579a528d-531a"
+197 verbose lastModified Thu, 28 Jul 2016 18:44:29 GMT
+198 http request GET https://registry.npmjs.org/isemail
+199 verbose request uri https://registry.npmjs.org/items
+200 verbose request no auth needed
+201 info attempt registry request try #1 at 10:39:56 PM
+202 verbose etag W/"586ce571-315e"
+203 verbose lastModified Wed, 04 Jan 2017 12:07:13 GMT
+204 http request GET https://registry.npmjs.org/items
+205 verbose request uri https://registry.npmjs.org/topo
+206 verbose request no auth needed
+207 info attempt registry request try #1 at 10:39:56 PM
+208 verbose etag W/"584f1ad4-2928"
+209 verbose lastModified Mon, 12 Dec 2016 21:47:00 GMT
+210 http request GET https://registry.npmjs.org/topo
+211 http 304 https://registry.npmjs.org/isemail
+212 verbose headers { date: 'Sat, 21 Jan 2017 21:39:57 GMT',
+212 verbose headers   via: '1.1 varnish',
+212 verbose headers   'cache-control': 'max-age=300',
+212 verbose headers   etag: 'W/"579a528d-531a"',
+212 verbose headers   age: '81',
+212 verbose headers   connection: 'keep-alive',
+212 verbose headers   'x-served-by': 'cache-fra1239-FRA',
+212 verbose headers   'x-cache': 'HIT',
+212 verbose headers   'x-cache-hits': '1',
+212 verbose headers   'x-timer': 'S1485034797.250944,VS0,VE0',
+212 verbose headers   vary: 'Accept-Encoding' }
+213 silly get cb [ 304,
+213 silly get   { date: 'Sat, 21 Jan 2017 21:39:57 GMT',
+213 silly get     via: '1.1 varnish',
+213 silly get     'cache-control': 'max-age=300',
+213 silly get     etag: 'W/"579a528d-531a"',
+213 silly get     age: '81',
+213 silly get     connection: 'keep-alive',
+213 silly get     'x-served-by': 'cache-fra1239-FRA',
+213 silly get     'x-cache': 'HIT',
+213 silly get     'x-cache-hits': '1',
+213 silly get     'x-timer': 'S1485034797.250944,VS0,VE0',
+213 silly get     vary: 'Accept-Encoding' } ]
+214 verbose etag https://registry.npmjs.org/isemail from cache
+215 verbose get saving isemail to /root/.npm/registry.npmjs.org/isemail/.cache.json
+216 http 200 https://registry.npmjs.org/moment
+217 verbose headers { server: 'nginx/1.10.1',
+217 verbose headers   'content-type': 'application/json',
+217 verbose headers   'last-modified': 'Fri, 20 Jan 2017 17:51:07 GMT',
+217 verbose headers   etag: 'W/"58824e0b-1a264"',
+217 verbose headers   'content-encoding': 'gzip',
+217 verbose headers   'cache-control': 'max-age=300',
+217 verbose headers   'content-length': '11769',
+217 verbose headers   'accept-ranges': 'bytes',
+217 verbose headers   date: 'Sat, 21 Jan 2017 21:39:57 GMT',
+217 verbose headers   via: '1.1 varnish',
+217 verbose headers   age: '48',
+217 verbose headers   connection: 'keep-alive',
+217 verbose headers   'x-served-by': 'cache-fra1239-FRA',
+217 verbose headers   'x-cache': 'HIT',
+217 verbose headers   'x-cache-hits': '1',
+217 verbose headers   'x-timer': 'S1485034797.245691,VS0,VE0',
+217 verbose headers   vary: 'Accept-Encoding' }
+218 silly get cb [ 200,
+218 silly get   { server: 'nginx/1.10.1',
+218 silly get     'content-type': 'application/json',
+218 silly get     'last-modified': 'Fri, 20 Jan 2017 17:51:07 GMT',
+218 silly get     etag: 'W/"58824e0b-1a264"',
+218 silly get     'content-encoding': 'gzip',
+218 silly get     'cache-control': 'max-age=300',
+218 silly get     'content-length': '11769',
+218 silly get     'accept-ranges': 'bytes',
+218 silly get     date: 'Sat, 21 Jan 2017 21:39:57 GMT',
+218 silly get     via: '1.1 varnish',
+218 silly get     age: '48',
+218 silly get     connection: 'keep-alive',
+218 silly get     'x-served-by': 'cache-fra1239-FRA',
+218 silly get     'x-cache': 'HIT',
+218 silly get     'x-cache-hits': '1',
+218 silly get     'x-timer': 'S1485034797.245691,VS0,VE0',
+218 silly get     vary: 'Accept-Encoding' } ]
+219 verbose get saving moment to /root/.npm/registry.npmjs.org/moment/.cache.json
+220 silly resolveWithNewModule isemail@2.2.1 checking installable status
+221 silly cache add args [ 'isemail@2.x.x', null ]
+222 verbose cache add spec isemail@2.x.x
+223 silly cache add parsed spec Result {
+223 silly cache add   raw: 'isemail@2.x.x',
+223 silly cache add   scope: null,
+223 silly cache add   name: 'isemail',
+223 silly cache add   rawSpec: '2.x.x',
+223 silly cache add   spec: '>=2.0.0 <3.0.0',
+223 silly cache add   type: 'range' }
+224 silly addNamed isemail@>=2.0.0 <3.0.0
+225 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for isemail
+226 silly addNameRange { name: 'isemail', range: '>=2.0.0 <3.0.0', hasData: false }
+227 silly mapToRegistry name isemail
+228 silly mapToRegistry using default registry
+229 silly mapToRegistry registry https://registry.npmjs.org/
+230 silly mapToRegistry uri https://registry.npmjs.org/isemail
+231 verbose addNameRange registry:https://registry.npmjs.org/isemail not in flight; fetching
+232 http 304 https://registry.npmjs.org/topo
+233 verbose headers { date: 'Sat, 21 Jan 2017 21:39:57 GMT',
+233 verbose headers   via: '1.1 varnish',
+233 verbose headers   'cache-control': 'max-age=300',
+233 verbose headers   etag: 'W/"584f1ad4-2928"',
+233 verbose headers   age: '81',
+233 verbose headers   connection: 'keep-alive',
+233 verbose headers   'x-served-by': 'cache-fra1222-FRA',
+233 verbose headers   'x-cache': 'HIT',
+233 verbose headers   'x-cache-hits': '1',
+233 verbose headers   'x-timer': 'S1485034797.259194,VS0,VE0',
+233 verbose headers   vary: 'Accept-Encoding' }
+234 silly get cb [ 304,
+234 silly get   { date: 'Sat, 21 Jan 2017 21:39:57 GMT',
+234 silly get     via: '1.1 varnish',
+234 silly get     'cache-control': 'max-age=300',
+234 silly get     etag: 'W/"584f1ad4-2928"',
+234 silly get     age: '81',
+234 silly get     connection: 'keep-alive',
+234 silly get     'x-served-by': 'cache-fra1222-FRA',
+234 silly get     'x-cache': 'HIT',
+234 silly get     'x-cache-hits': '1',
+234 silly get     'x-timer': 'S1485034797.259194,VS0,VE0',
+234 silly get     vary: 'Accept-Encoding' } ]
+235 verbose etag https://registry.npmjs.org/topo from cache
+236 verbose get saving topo to /root/.npm/registry.npmjs.org/topo/.cache.json
+237 http 304 https://registry.npmjs.org/items
+238 verbose headers { date: 'Sat, 21 Jan 2017 21:39:57 GMT',
+238 verbose headers   via: '1.1 varnish',
+238 verbose headers   'cache-control': 'max-age=300',
+238 verbose headers   etag: 'W/"586ce571-315e"',
+238 verbose headers   age: '12',
+238 verbose headers   connection: 'keep-alive',
+238 verbose headers   'x-served-by': 'cache-fra1225-FRA',
+238 verbose headers   'x-cache': 'HIT',
+238 verbose headers   'x-cache-hits': '1',
+238 verbose headers   'x-timer': 'S1485034797.261922,VS0,VE0',
+238 verbose headers   vary: 'Accept-Encoding' }
+239 silly get cb [ 304,
+239 silly get   { date: 'Sat, 21 Jan 2017 21:39:57 GMT',
+239 silly get     via: '1.1 varnish',
+239 silly get     'cache-control': 'max-age=300',
+239 silly get     etag: 'W/"586ce571-315e"',
+239 silly get     age: '12',
+239 silly get     connection: 'keep-alive',
+239 silly get     'x-served-by': 'cache-fra1225-FRA',
+239 silly get     'x-cache': 'HIT',
+239 silly get     'x-cache-hits': '1',
+239 silly get     'x-timer': 'S1485034797.261922,VS0,VE0',
+239 silly get     vary: 'Accept-Encoding' } ]
+240 verbose etag https://registry.npmjs.org/items from cache
+241 verbose get saving items to /root/.npm/registry.npmjs.org/items/.cache.json
+242 verbose get https://registry.npmjs.org/isemail not expired, no request
+243 silly addNameRange number 2 { name: 'isemail', range: '>=2.0.0 <3.0.0', hasData: true }
+244 silly addNameRange versions [ 'isemail',
+244 silly addNameRange   [ '0.1.0',
+244 silly addNameRange     '0.1.1',
+244 silly addNameRange     '0.1.2',
+244 silly addNameRange     '1.0.0',
+244 silly addNameRange     '1.0.1',
+244 silly addNameRange     '1.1.0',
+244 silly addNameRange     '1.1.1',
+244 silly addNameRange     '1.1.2',
+244 silly addNameRange     '1.2.0',
+244 silly addNameRange     '2.0.0',
+244 silly addNameRange     '2.1.0',
+244 silly addNameRange     '2.1.2',
+244 silly addNameRange     '2.2.0',
+244 silly addNameRange     '2.2.1' ] ]
+245 silly addNamed isemail@2.2.1
+246 verbose addNamed "2.2.1" is a plain semver version for isemail
+247 silly resolveWithNewModule topo@2.0.2 checking installable status
+248 silly cache add args [ 'topo@2.x.x', null ]
+249 verbose cache add spec topo@2.x.x
+250 silly cache add parsed spec Result {
+250 silly cache add   raw: 'topo@2.x.x',
+250 silly cache add   scope: null,
+250 silly cache add   name: 'topo',
+250 silly cache add   rawSpec: '2.x.x',
+250 silly cache add   spec: '>=2.0.0 <3.0.0',
+250 silly cache add   type: 'range' }
+251 silly addNamed topo@>=2.0.0 <3.0.0
+252 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for topo
+253 silly addNameRange { name: 'topo', range: '>=2.0.0 <3.0.0', hasData: false }
+254 silly mapToRegistry name topo
+255 silly mapToRegistry using default registry
+256 silly mapToRegistry registry https://registry.npmjs.org/
+257 silly mapToRegistry uri https://registry.npmjs.org/topo
+258 verbose addNameRange registry:https://registry.npmjs.org/topo not in flight; fetching
+259 silly resolveWithNewModule items@2.1.1 checking installable status
+260 silly cache add args [ 'items@2.x.x', null ]
+261 verbose cache add spec items@2.x.x
+262 silly cache add parsed spec Result {
+262 silly cache add   raw: 'items@2.x.x',
+262 silly cache add   scope: null,
+262 silly cache add   name: 'items',
+262 silly cache add   rawSpec: '2.x.x',
+262 silly cache add   spec: '>=2.0.0 <3.0.0',
+262 silly cache add   type: 'range' }
+263 silly addNamed items@>=2.0.0 <3.0.0
+264 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for items
+265 silly addNameRange { name: 'items', range: '>=2.0.0 <3.0.0', hasData: false }
+266 silly mapToRegistry name items
+267 silly mapToRegistry using default registry
+268 silly mapToRegistry registry https://registry.npmjs.org/
+269 silly mapToRegistry uri https://registry.npmjs.org/items
+270 verbose addNameRange registry:https://registry.npmjs.org/items not in flight; fetching
+271 silly resolveWithNewModule moment@2.17.1 checking installable status
+272 silly cache add args [ 'moment@2.x.x', null ]
+273 verbose cache add spec moment@2.x.x
+274 silly cache add parsed spec Result {
+274 silly cache add   raw: 'moment@2.x.x',
+274 silly cache add   scope: null,
+274 silly cache add   name: 'moment',
+274 silly cache add   rawSpec: '2.x.x',
+274 silly cache add   spec: '>=2.0.0 <3.0.0',
+274 silly cache add   type: 'range' }
+275 silly addNamed moment@>=2.0.0 <3.0.0
+276 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for moment
+277 silly addNameRange { name: 'moment', range: '>=2.0.0 <3.0.0', hasData: false }
+278 silly mapToRegistry name moment
+279 silly mapToRegistry using default registry
+280 silly mapToRegistry registry https://registry.npmjs.org/
+281 silly mapToRegistry uri https://registry.npmjs.org/moment
+282 verbose addNameRange registry:https://registry.npmjs.org/moment not in flight; fetching
+283 verbose get https://registry.npmjs.org/topo not expired, no request
+284 silly addNameRange number 2 { name: 'topo', range: '>=2.0.0 <3.0.0', hasData: true }
+285 silly addNameRange versions [ 'topo',
+285 silly addNameRange   [ '1.0.0',
+285 silly addNameRange     '1.0.1',
+285 silly addNameRange     '1.0.2',
+285 silly addNameRange     '1.0.3',
+285 silly addNameRange     '1.1.0',
+285 silly addNameRange     '2.0.0',
+285 silly addNameRange     '2.0.1',
+285 silly addNameRange     '2.0.2' ] ]
+286 silly addNamed topo@2.0.2
+287 verbose addNamed "2.0.2" is a plain semver version for topo
+288 verbose get https://registry.npmjs.org/items not expired, no request
+289 silly addNameRange number 2 { name: 'items', range: '>=2.0.0 <3.0.0', hasData: true }
+290 silly addNameRange versions [ 'items',
+290 silly addNameRange   [ '1.0.1',
+290 silly addNameRange     '1.0.2',
+290 silly addNameRange     '1.1.0',
+290 silly addNameRange     '1.1.1',
+290 silly addNameRange     '2.0.0',
+290 silly addNameRange     '2.0.1',
+290 silly addNameRange     '2.1.0',
+290 silly addNameRange     '2.1.1' ] ]
+291 silly addNamed items@2.1.1
+292 verbose addNamed "2.1.1" is a plain semver version for items
+293 verbose get https://registry.npmjs.org/moment not expired, no request
+294 silly addNameRange number 2 { name: 'moment', range: '>=2.0.0 <3.0.0', hasData: true }
+295 silly addNameRange versions [ 'moment',
+295 silly addNameRange   [ '1.0.0',
+295 silly addNameRange     '1.0.1',
+295 silly addNameRange     '1.1.0',
+295 silly addNameRange     '1.1.1',
+295 silly addNameRange     '1.2.0',
+295 silly addNameRange     '1.3.0',
+295 silly addNameRange     '1.4.0',
+295 silly addNameRange     '1.5.0',
+295 silly addNameRange     '1.5.1',
+295 silly addNameRange     '1.6.0',
+295 silly addNameRange     '1.6.1',
+295 silly addNameRange     '1.6.2',
+295 silly addNameRange     '1.7.0',
+295 silly addNameRange     '1.7.1',
+295 silly addNameRange     '1.7.2',
+295 silly addNameRange     '2.0.0',
+295 silly addNameRange     '2.1.0',
+295 silly addNameRange     '2.2.1',
+295 silly addNameRange     '2.3.0',
+295 silly addNameRange     '2.3.1',
+295 silly addNameRange     '2.4.0',
+295 silly addNameRange     '2.5.0',
+295 silly addNameRange     '2.5.1',
+295 silly addNameRange     '2.6.0',
+295 silly addNameRange     '2.7.0',
+295 silly addNameRange     '2.8.1',
+295 silly addNameRange     '2.8.2',
+295 silly addNameRange     '2.8.3',
+295 silly addNameRange     '2.8.4',
+295 silly addNameRange     '2.9.0',
+295 silly addNameRange     '2.10.2',
+295 silly addNameRange     '2.10.3',
+295 silly addNameRange     '2.10.5',
+295 silly addNameRange     '2.10.6',
+295 silly addNameRange     '2.11.0',
+295 silly addNameRange     '2.11.1',
+295 silly addNameRange     '2.11.2',
+295 silly addNameRange     '2.12.0',
+295 silly addNameRange     '2.13.0',
+295 silly addNameRange     '2.14.0',
+295 silly addNameRange     '2.14.1',
+295 silly addNameRange     '2.15.0',
+295 silly addNameRange     '2.15.1',
+295 silly addNameRange     '2.15.2',
+295 silly addNameRange     '2.16.0',
+295 silly addNameRange     '2.17.0',
+295 silly addNameRange     '2.17.1' ] ]
+296 silly addNamed moment@2.17.1
+297 verbose addNamed "2.17.1" is a plain semver version for moment
+298 silly mapToRegistry name moment
+299 silly mapToRegistry using default registry
+300 silly mapToRegistry registry https://registry.npmjs.org/
+301 silly mapToRegistry uri https://registry.npmjs.org/moment
+302 verbose addRemoteTarball https://registry.npmjs.org/moment/-/moment-2.17.1.tgz not in flight; adding
+303 verbose addRemoteTarball [ 'https://registry.npmjs.org/moment/-/moment-2.17.1.tgz',
+303 verbose addRemoteTarball   'fed9506063f36b10f066c8b59a144d7faebe1d82' ]
+304 silly cache afterAdd isemail@2.2.1
+305 verbose afterAdd /root/.npm/isemail/2.2.1/package/package.json not in flight; writing
+306 silly cache afterAdd topo@2.0.2
+307 verbose afterAdd /root/.npm/topo/2.0.2/package/package.json not in flight; writing
+308 silly cache afterAdd items@2.1.1
+309 verbose afterAdd /root/.npm/items/2.1.1/package/package.json not in flight; writing
+310 info retry fetch attempt 1 at 10:39:56 PM
+311 info attempt registry request try #1 at 10:39:56 PM
+312 http fetch GET https://registry.npmjs.org/moment/-/moment-2.17.1.tgz
+313 verbose afterAdd /root/.npm/isemail/2.2.1/package/package.json written
+314 verbose afterAdd /root/.npm/topo/2.0.2/package/package.json written
+315 verbose afterAdd /root/.npm/items/2.1.1/package/package.json written
+316 http fetch 200 https://registry.npmjs.org/moment/-/moment-2.17.1.tgz
+317 silly fetchAndShaCheck shasum fed9506063f36b10f066c8b59a144d7faebe1d82
+318 verbose addTmpTarball /tmp/npm-1752-506a2318/registry.npmjs.org/moment/-/moment-2.17.1.tgz not in flight; adding
+319 verbose addTmpTarball already have metadata; skipping unpack for moment@2.17.1
+320 silly cache afterAdd moment@2.17.1
+321 verbose afterAdd /root/.npm/moment/2.17.1/package/package.json not in flight; writing
+322 verbose afterAdd /root/.npm/moment/2.17.1/package/package.json written
+323 silly fetchNamedPackageData hoek
+324 silly mapToRegistry name hoek
+325 silly mapToRegistry using default registry
+326 silly mapToRegistry registry https://registry.npmjs.org/
+327 silly mapToRegistry uri https://registry.npmjs.org/hoek
+328 silly loadAllDepsIntoIdealTree Finishing
+329 silly idealTree:prePrune nodebb-plugin-arma3-slotting@0.1.1
+329 silly idealTree:prePrune ├── abbrev@1.0.9
+329 silly idealTree:prePrune ├── ansi-regex@2.1.1
+329 silly idealTree:prePrune ├── ansi-styles@2.2.1
+329 silly idealTree:prePrune ├── aproba@1.0.4
+329 silly idealTree:prePrune ├── are-we-there-yet@1.1.2
+329 silly idealTree:prePrune ├── asn1@0.2.3
+329 silly idealTree:prePrune ├── assert-plus@0.2.0
+329 silly idealTree:prePrune ├── asynckit@0.4.0
+329 silly idealTree:prePrune ├── aws-sign2@0.6.0
+329 silly idealTree:prePrune ├── aws4@1.5.0
+329 silly idealTree:prePrune ├── balanced-match@0.4.2
+329 silly idealTree:prePrune ├── bcrypt-pbkdf@1.0.0
+329 silly idealTree:prePrune ├── bindings@1.2.1
+329 silly idealTree:prePrune ├── block-stream@0.0.9
+329 silly idealTree:prePrune ├── boom@2.10.1
+329 silly idealTree:prePrune ├── brace-expansion@1.1.6
+329 silly idealTree:prePrune ├── buffer-shims@1.0.0
+329 silly idealTree:prePrune ├── caseless@0.11.0
+329 silly idealTree:prePrune ├─┬ chalk@1.1.3
+329 silly idealTree:prePrune │ └── supports-color@2.0.0
+329 silly idealTree:prePrune ├── code-point-at@1.1.0
+329 silly idealTree:prePrune ├── combined-stream@1.0.5
+329 silly idealTree:prePrune ├── commander@2.9.0
+329 silly idealTree:prePrune ├── concat-map@0.0.1
+329 silly idealTree:prePrune ├── console-control-strings@1.1.0
+329 silly idealTree:prePrune ├── core-util-is@1.0.2
+329 silly idealTree:prePrune ├── cryptiles@2.0.5
+329 silly idealTree:prePrune ├─┬ dashdash@1.14.1
+329 silly idealTree:prePrune │ └── assert-plus@1.0.0
+329 silly idealTree:prePrune ├── debug@2.2.0
+329 silly idealTree:prePrune ├── deep-extend@0.4.1
+329 silly idealTree:prePrune ├── delayed-stream@1.0.0
+329 silly idealTree:prePrune ├── delegates@1.0.0
+329 silly idealTree:prePrune ├── ecc-jsbn@0.1.1
+329 silly idealTree:prePrune ├── escape-string-regexp@1.0.5
+329 silly idealTree:prePrune ├── extend@3.0.0
+329 silly idealTree:prePrune ├── extsprintf@1.0.2
+329 silly idealTree:prePrune ├── forever-agent@0.6.1
+329 silly idealTree:prePrune ├── form-data@2.1.2
+329 silly idealTree:prePrune ├── fs.realpath@1.0.0
+329 silly idealTree:prePrune ├── fstream-ignore@1.0.5
+329 silly idealTree:prePrune ├── fstream@1.0.10
+329 silly idealTree:prePrune ├── gauge@2.7.2
+329 silly idealTree:prePrune ├── generate-function@2.0.0
+329 silly idealTree:prePrune ├── generate-object-property@1.2.0
+329 silly idealTree:prePrune ├─┬ getpass@0.1.6
+329 silly idealTree:prePrune │ └── assert-plus@1.0.0
+329 silly idealTree:prePrune ├── glob@7.1.1
+329 silly idealTree:prePrune ├── graceful-fs@4.1.11
+329 silly idealTree:prePrune ├── graceful-readlink@1.0.1
+329 silly idealTree:prePrune ├── har-validator@2.0.6
+329 silly idealTree:prePrune ├── has-ansi@2.0.0
+329 silly idealTree:prePrune ├── has-unicode@2.0.1
+329 silly idealTree:prePrune ├── hawk@3.1.3
+329 silly idealTree:prePrune ├── hoek@2.16.3
+329 silly idealTree:prePrune ├── http-signature@1.1.1
+329 silly idealTree:prePrune ├── inflight@1.0.6
+329 silly idealTree:prePrune ├── inherits@2.0.3
+329 silly idealTree:prePrune ├── ini@1.3.4
+329 silly idealTree:prePrune ├── is-fullwidth-code-point@1.0.0
+329 silly idealTree:prePrune ├── is-my-json-valid@2.15.0
+329 silly idealTree:prePrune ├── is-property@1.0.2
+329 silly idealTree:prePrune ├── is-typedarray@1.0.0
+329 silly idealTree:prePrune ├── isarray@1.0.0
+329 silly idealTree:prePrune ├── isemail@2.2.1
+329 silly idealTree:prePrune ├── isstream@0.1.2
+329 silly idealTree:prePrune ├── items@2.1.1
+329 silly idealTree:prePrune ├── jodid25519@1.0.2
+329 silly idealTree:prePrune ├─┬ joi@9.2.0
+329 silly idealTree:prePrune │ └── hoek@4.1.0
+329 silly idealTree:prePrune ├── jsbn@0.1.0
+329 silly idealTree:prePrune ├── json-schema@0.2.3
+329 silly idealTree:prePrune ├── json-stringify-safe@5.0.1
+329 silly idealTree:prePrune ├── jsonpointer@4.0.1
+329 silly idealTree:prePrune ├── jsprim@1.3.1
+329 silly idealTree:prePrune ├── libxmljs@0.18.4
+329 silly idealTree:prePrune ├── mime-db@1.26.0
+329 silly idealTree:prePrune ├── mime-types@2.1.14
+329 silly idealTree:prePrune ├── minimatch@3.0.3
+329 silly idealTree:prePrune ├── minimist@0.0.8
+329 silly idealTree:prePrune ├── mkdirp@0.5.1
+329 silly idealTree:prePrune ├── moment@2.17.1
+329 silly idealTree:prePrune ├── ms@0.7.1
+329 silly idealTree:prePrune ├── nan@2.5.0
+329 silly idealTree:prePrune ├── node-expat@2.3.15
+329 silly idealTree:prePrune ├── node-pre-gyp@0.6.32
+329 silly idealTree:prePrune ├── node-uuid@1.4.7
+329 silly idealTree:prePrune ├── nopt@3.0.6
+329 silly idealTree:prePrune ├── npmlog@4.0.2
+329 silly idealTree:prePrune ├── number-is-nan@1.0.1
+329 silly idealTree:prePrune ├── oauth-sign@0.8.2
+329 silly idealTree:prePrune ├── object-assign@4.1.1
+329 silly idealTree:prePrune ├── once@1.4.0
+329 silly idealTree:prePrune ├── path-is-absolute@1.0.1
+329 silly idealTree:prePrune ├── pinkie-promise@2.0.1
+329 silly idealTree:prePrune ├── pinkie@2.0.4
+329 silly idealTree:prePrune ├── process-nextick-args@1.0.7
+329 silly idealTree:prePrune ├── punycode@1.4.1
+329 silly idealTree:prePrune ├── qs@6.3.0
+329 silly idealTree:prePrune ├─┬ rc@1.1.6
+329 silly idealTree:prePrune │ └── minimist@1.2.0
+329 silly idealTree:prePrune ├── readable-stream@2.2.2
+329 silly idealTree:prePrune ├─┬ request@2.79.0
+329 silly idealTree:prePrune │ └── uuid@3.0.1
+329 silly idealTree:prePrune ├── rimraf@2.5.4
+329 silly idealTree:prePrune ├── semver@5.3.0
+329 silly idealTree:prePrune ├── set-blocking@2.0.0
+329 silly idealTree:prePrune ├── signal-exit@3.0.2
+329 silly idealTree:prePrune ├── sntp@1.0.9
+329 silly idealTree:prePrune ├─┬ sshpk@1.10.2
+329 silly idealTree:prePrune │ └── assert-plus@1.0.0
+329 silly idealTree:prePrune ├── string_decoder@0.10.31
+329 silly idealTree:prePrune ├── string-width@1.0.2
+329 silly idealTree:prePrune ├── stringstream@0.0.5
+329 silly idealTree:prePrune ├── strip-ansi@3.0.1
+329 silly idealTree:prePrune ├── strip-json-comments@1.0.4
+329 silly idealTree:prePrune ├── supports-color@0.2.0
+329 silly idealTree:prePrune ├─┬ tar-pack@3.3.0
+329 silly idealTree:prePrune │ ├── once@1.3.3
+329 silly idealTree:prePrune │ └── readable-stream@2.1.5
+329 silly idealTree:prePrune ├── tar@2.2.1
+329 silly idealTree:prePrune ├─┬ topo@2.0.2
+329 silly idealTree:prePrune │ └── hoek@4.1.0
+329 silly idealTree:prePrune ├── tough-cookie@2.3.2
+329 silly idealTree:prePrune ├── tunnel-agent@0.4.3
+329 silly idealTree:prePrune ├── tweetnacl@0.14.5
+329 silly idealTree:prePrune ├── uid-number@0.0.6
+329 silly idealTree:prePrune ├── underscore@1.8.3
+329 silly idealTree:prePrune ├── util-deprecate@1.0.2
+329 silly idealTree:prePrune ├── verror@1.3.6
+329 silly idealTree:prePrune ├── wide-align@1.1.0
+329 silly idealTree:prePrune ├── wrappy@1.0.2
+329 silly idealTree:prePrune ├─┬ xml2json@0.11.0
+329 silly idealTree:prePrune │ └── hoek@4.1.0
+329 silly idealTree:prePrune └── xtend@4.0.1
+330 silly loadIdealTree Finishing
+331 silly currentTree nodebb-plugin-arma3-slotting@0.1.1
+331 silly currentTree ├── abbrev@1.0.9
+331 silly currentTree ├── ansi-regex@2.1.1
+331 silly currentTree ├── ansi-styles@2.2.1
+331 silly currentTree ├── aproba@1.0.4
+331 silly currentTree ├── are-we-there-yet@1.1.2
+331 silly currentTree ├── asn1@0.2.3
+331 silly currentTree ├── assert-plus@0.2.0
+331 silly currentTree ├── asynckit@0.4.0
+331 silly currentTree ├── aws-sign2@0.6.0
+331 silly currentTree ├── aws4@1.5.0
+331 silly currentTree ├── balanced-match@0.4.2
+331 silly currentTree ├── bcrypt-pbkdf@1.0.0
+331 silly currentTree ├── bindings@1.2.1
+331 silly currentTree ├── block-stream@0.0.9
+331 silly currentTree ├── boom@2.10.1
+331 silly currentTree ├── brace-expansion@1.1.6
+331 silly currentTree ├── buffer-shims@1.0.0
+331 silly currentTree ├── caseless@0.11.0
+331 silly currentTree ├─┬ chalk@1.1.3
+331 silly currentTree │ └── supports-color@2.0.0
+331 silly currentTree ├── code-point-at@1.1.0
+331 silly currentTree ├── combined-stream@1.0.5
+331 silly currentTree ├── commander@2.9.0
+331 silly currentTree ├── concat-map@0.0.1
+331 silly currentTree ├── console-control-strings@1.1.0
+331 silly currentTree ├── core-util-is@1.0.2
+331 silly currentTree ├── cryptiles@2.0.5
+331 silly currentTree ├─┬ dashdash@1.14.1
+331 silly currentTree │ └── assert-plus@1.0.0
+331 silly currentTree ├── debug@2.2.0
+331 silly currentTree ├── deep-extend@0.4.1
+331 silly currentTree ├── delayed-stream@1.0.0
+331 silly currentTree ├── delegates@1.0.0
+331 silly currentTree ├── ecc-jsbn@0.1.1
+331 silly currentTree ├── escape-string-regexp@1.0.5
+331 silly currentTree ├── extend@3.0.0
+331 silly currentTree ├── extsprintf@1.0.2
+331 silly currentTree ├── forever-agent@0.6.1
+331 silly currentTree ├── form-data@2.1.2
+331 silly currentTree ├── fs.realpath@1.0.0
+331 silly currentTree ├── fstream-ignore@1.0.5
+331 silly currentTree ├── fstream@1.0.10
+331 silly currentTree ├── gauge@2.7.2
+331 silly currentTree ├── generate-function@2.0.0
+331 silly currentTree ├── generate-object-property@1.2.0
+331 silly currentTree ├─┬ getpass@0.1.6
+331 silly currentTree │ └── assert-plus@1.0.0
+331 silly currentTree ├── glob@7.1.1
+331 silly currentTree ├── graceful-fs@4.1.11
+331 silly currentTree ├── graceful-readlink@1.0.1
+331 silly currentTree ├── har-validator@2.0.6
+331 silly currentTree ├── has-ansi@2.0.0
+331 silly currentTree ├── has-unicode@2.0.1
+331 silly currentTree ├── hawk@3.1.3
+331 silly currentTree ├── hoek@2.16.3
+331 silly currentTree ├── http-signature@1.1.1
+331 silly currentTree ├── inflight@1.0.6
+331 silly currentTree ├── inherits@2.0.3
+331 silly currentTree ├── ini@1.3.4
+331 silly currentTree ├── is-fullwidth-code-point@1.0.0
+331 silly currentTree ├── is-my-json-valid@2.15.0
+331 silly currentTree ├── is-property@1.0.2
+331 silly currentTree ├── is-typedarray@1.0.0
+331 silly currentTree ├── isarray@1.0.0
+331 silly currentTree ├── isstream@0.1.2
+331 silly currentTree ├── jodid25519@1.0.2
+331 silly currentTree ├── jsbn@0.1.0
+331 silly currentTree ├── json-schema@0.2.3
+331 silly currentTree ├── json-stringify-safe@5.0.1
+331 silly currentTree ├── jsonpointer@4.0.1
+331 silly currentTree ├── jsprim@1.3.1
+331 silly currentTree ├── libxmljs@0.18.4
+331 silly currentTree ├── mime-db@1.26.0
+331 silly currentTree ├── mime-types@2.1.14
+331 silly currentTree ├── minimatch@3.0.3
+331 silly currentTree ├── minimist@0.0.8
+331 silly currentTree ├── mkdirp@0.5.1
+331 silly currentTree ├── ms@0.7.1
+331 silly currentTree ├── nan@2.5.0
+331 silly currentTree ├── node-pre-gyp@0.6.32
+331 silly currentTree ├── node-uuid@1.4.7
+331 silly currentTree ├── nopt@3.0.6
+331 silly currentTree ├── npmlog@4.0.2
+331 silly currentTree ├── number-is-nan@1.0.1
+331 silly currentTree ├── oauth-sign@0.8.2
+331 silly currentTree ├── object-assign@4.1.1
+331 silly currentTree ├── once@1.4.0
+331 silly currentTree ├── path-is-absolute@1.0.1
+331 silly currentTree ├── pinkie-promise@2.0.1
+331 silly currentTree ├── pinkie@2.0.4
+331 silly currentTree ├── process-nextick-args@1.0.7
+331 silly currentTree ├── punycode@1.4.1
+331 silly currentTree ├── qs@6.3.0
+331 silly currentTree ├─┬ rc@1.1.6
+331 silly currentTree │ └── minimist@1.2.0
+331 silly currentTree ├── readable-stream@2.2.2
+331 silly currentTree ├─┬ request@2.79.0
+331 silly currentTree │ └── uuid@3.0.1
+331 silly currentTree ├── rimraf@2.5.4
+331 silly currentTree ├── semver@5.3.0
+331 silly currentTree ├── set-blocking@2.0.0
+331 silly currentTree ├── signal-exit@3.0.2
+331 silly currentTree ├── sntp@1.0.9
+331 silly currentTree ├─┬ sshpk@1.10.2
+331 silly currentTree │ └── assert-plus@1.0.0
+331 silly currentTree ├── string_decoder@0.10.31
+331 silly currentTree ├── string-width@1.0.2
+331 silly currentTree ├── stringstream@0.0.5
+331 silly currentTree ├── strip-ansi@3.0.1
+331 silly currentTree ├── strip-json-comments@1.0.4
+331 silly currentTree ├── supports-color@0.2.0
+331 silly currentTree ├─┬ tar-pack@3.3.0
+331 silly currentTree │ ├── once@1.3.3
+331 silly currentTree │ └── readable-stream@2.1.5
+331 silly currentTree ├── tar@2.2.1
+331 silly currentTree ├── tough-cookie@2.3.2
+331 silly currentTree ├── tunnel-agent@0.4.3
+331 silly currentTree ├── tweetnacl@0.14.5
+331 silly currentTree ├── uid-number@0.0.6
+331 silly currentTree ├── underscore@1.8.3
+331 silly currentTree ├── util-deprecate@1.0.2
+331 silly currentTree ├── verror@1.3.6
+331 silly currentTree ├── wide-align@1.1.0
+331 silly currentTree ├── wrappy@1.0.2
+331 silly currentTree └── xtend@4.0.1
+332 silly idealTree nodebb-plugin-arma3-slotting@0.1.1
+332 silly idealTree ├── abbrev@1.0.9
+332 silly idealTree ├── ansi-regex@2.1.1
+332 silly idealTree ├── ansi-styles@2.2.1
+332 silly idealTree ├── aproba@1.0.4
+332 silly idealTree ├── are-we-there-yet@1.1.2
+332 silly idealTree ├── asn1@0.2.3
+332 silly idealTree ├── assert-plus@0.2.0
+332 silly idealTree ├── asynckit@0.4.0
+332 silly idealTree ├── aws-sign2@0.6.0
+332 silly idealTree ├── aws4@1.5.0
+332 silly idealTree ├── balanced-match@0.4.2
+332 silly idealTree ├── bcrypt-pbkdf@1.0.0
+332 silly idealTree ├── bindings@1.2.1
+332 silly idealTree ├── block-stream@0.0.9
+332 silly idealTree ├── boom@2.10.1
+332 silly idealTree ├── brace-expansion@1.1.6
+332 silly idealTree ├── buffer-shims@1.0.0
+332 silly idealTree ├── caseless@0.11.0
+332 silly idealTree ├─┬ chalk@1.1.3
+332 silly idealTree │ └── supports-color@2.0.0
+332 silly idealTree ├── code-point-at@1.1.0
+332 silly idealTree ├── combined-stream@1.0.5
+332 silly idealTree ├── commander@2.9.0
+332 silly idealTree ├── concat-map@0.0.1
+332 silly idealTree ├── console-control-strings@1.1.0
+332 silly idealTree ├── core-util-is@1.0.2
+332 silly idealTree ├── cryptiles@2.0.5
+332 silly idealTree ├─┬ dashdash@1.14.1
+332 silly idealTree │ └── assert-plus@1.0.0
+332 silly idealTree ├── debug@2.2.0
+332 silly idealTree ├── deep-extend@0.4.1
+332 silly idealTree ├── delayed-stream@1.0.0
+332 silly idealTree ├── delegates@1.0.0
+332 silly idealTree ├── ecc-jsbn@0.1.1
+332 silly idealTree ├── escape-string-regexp@1.0.5
+332 silly idealTree ├── extend@3.0.0
+332 silly idealTree ├── extsprintf@1.0.2
+332 silly idealTree ├── forever-agent@0.6.1
+332 silly idealTree ├── form-data@2.1.2
+332 silly idealTree ├── fs.realpath@1.0.0
+332 silly idealTree ├── fstream-ignore@1.0.5
+332 silly idealTree ├── fstream@1.0.10
+332 silly idealTree ├── gauge@2.7.2
+332 silly idealTree ├── generate-function@2.0.0
+332 silly idealTree ├── generate-object-property@1.2.0
+332 silly idealTree ├─┬ getpass@0.1.6
+332 silly idealTree │ └── assert-plus@1.0.0
+332 silly idealTree ├── glob@7.1.1
+332 silly idealTree ├── graceful-fs@4.1.11
+332 silly idealTree ├── graceful-readlink@1.0.1
+332 silly idealTree ├── har-validator@2.0.6
+332 silly idealTree ├── has-ansi@2.0.0
+332 silly idealTree ├── has-unicode@2.0.1
+332 silly idealTree ├── hawk@3.1.3
+332 silly idealTree ├── hoek@2.16.3
+332 silly idealTree ├── http-signature@1.1.1
+332 silly idealTree ├── inflight@1.0.6
+332 silly idealTree ├── inherits@2.0.3
+332 silly idealTree ├── ini@1.3.4
+332 silly idealTree ├── is-fullwidth-code-point@1.0.0
+332 silly idealTree ├── is-my-json-valid@2.15.0
+332 silly idealTree ├── is-property@1.0.2
+332 silly idealTree ├── is-typedarray@1.0.0
+332 silly idealTree ├── isarray@1.0.0
+332 silly idealTree ├── isemail@2.2.1
+332 silly idealTree ├── isstream@0.1.2
+332 silly idealTree ├── items@2.1.1
+332 silly idealTree ├── jodid25519@1.0.2
+332 silly idealTree ├─┬ joi@9.2.0
+332 silly idealTree │ └── hoek@4.1.0
+332 silly idealTree ├── jsbn@0.1.0
+332 silly idealTree ├── json-schema@0.2.3
+332 silly idealTree ├── json-stringify-safe@5.0.1
+332 silly idealTree ├── jsonpointer@4.0.1
+332 silly idealTree ├── jsprim@1.3.1
+332 silly idealTree ├── libxmljs@0.18.4
+332 silly idealTree ├── mime-db@1.26.0
+332 silly idealTree ├── mime-types@2.1.14
+332 silly idealTree ├── minimatch@3.0.3
+332 silly idealTree ├── minimist@0.0.8
+332 silly idealTree ├── mkdirp@0.5.1
+332 silly idealTree ├── moment@2.17.1
+332 silly idealTree ├── ms@0.7.1
+332 silly idealTree ├── nan@2.5.0
+332 silly idealTree ├── node-expat@2.3.15
+332 silly idealTree ├── node-pre-gyp@0.6.32
+332 silly idealTree ├── node-uuid@1.4.7
+332 silly idealTree ├── nopt@3.0.6
+332 silly idealTree ├── npmlog@4.0.2
+332 silly idealTree ├── number-is-nan@1.0.1
+332 silly idealTree ├── oauth-sign@0.8.2
+332 silly idealTree ├── object-assign@4.1.1
+332 silly idealTree ├── once@1.4.0
+332 silly idealTree ├── path-is-absolute@1.0.1
+332 silly idealTree ├── pinkie-promise@2.0.1
+332 silly idealTree ├── pinkie@2.0.4
+332 silly idealTree ├── process-nextick-args@1.0.7
+332 silly idealTree ├── punycode@1.4.1
+332 silly idealTree ├── qs@6.3.0
+332 silly idealTree ├─┬ rc@1.1.6
+332 silly idealTree │ └── minimist@1.2.0
+332 silly idealTree ├── readable-stream@2.2.2
+332 silly idealTree ├─┬ request@2.79.0
+332 silly idealTree │ └── uuid@3.0.1
+332 silly idealTree ├── rimraf@2.5.4
+332 silly idealTree ├── semver@5.3.0
+332 silly idealTree ├── set-blocking@2.0.0
+332 silly idealTree ├── signal-exit@3.0.2
+332 silly idealTree ├── sntp@1.0.9
+332 silly idealTree ├─┬ sshpk@1.10.2
+332 silly idealTree │ └── assert-plus@1.0.0
+332 silly idealTree ├── string_decoder@0.10.31
+332 silly idealTree ├── string-width@1.0.2
+332 silly idealTree ├── stringstream@0.0.5
+332 silly idealTree ├── strip-ansi@3.0.1
+332 silly idealTree ├── strip-json-comments@1.0.4
+332 silly idealTree ├── supports-color@0.2.0
+332 silly idealTree ├─┬ tar-pack@3.3.0
+332 silly idealTree │ ├── once@1.3.3
+332 silly idealTree │ └── readable-stream@2.1.5
+332 silly idealTree ├── tar@2.2.1
+332 silly idealTree ├─┬ topo@2.0.2
+332 silly idealTree │ └── hoek@4.1.0
+332 silly idealTree ├── tough-cookie@2.3.2
+332 silly idealTree ├── tunnel-agent@0.4.3
+332 silly idealTree ├── tweetnacl@0.14.5
+332 silly idealTree ├── uid-number@0.0.6
+332 silly idealTree ├── underscore@1.8.3
+332 silly idealTree ├── util-deprecate@1.0.2
+332 silly idealTree ├── verror@1.3.6
+332 silly idealTree ├── wide-align@1.1.0
+332 silly idealTree ├── wrappy@1.0.2
+332 silly idealTree ├─┬ xml2json@0.11.0
+332 silly idealTree │ └── hoek@4.1.0
+332 silly idealTree └── xtend@4.0.1
+333 silly generateActionsToTake Starting
+334 silly install generateActionsToTake
+335 silly generateActionsToTake Finishing
+336 silly diffTrees action count 10
+337 silly diffTrees add isemail@2.2.1
+338 silly diffTrees add items@2.1.1
+339 silly diffTrees add hoek@4.1.0
+340 silly diffTrees add moment@2.17.1
+341 silly diffTrees add node-expat@2.3.15
+342 silly diffTrees add hoek@4.1.0
+343 silly diffTrees add topo@2.0.2
+344 silly diffTrees add joi@9.2.0
+345 silly diffTrees add hoek@4.1.0
+346 silly diffTrees add xml2json@0.11.0
+347 silly decomposeActions action count 80
+348 silly decomposeActions fetch isemail@2.2.1
+349 silly decomposeActions extract isemail@2.2.1
+350 silly decomposeActions test isemail@2.2.1
+351 silly decomposeActions preinstall isemail@2.2.1
+352 silly decomposeActions build isemail@2.2.1
+353 silly decomposeActions install isemail@2.2.1
+354 silly decomposeActions postinstall isemail@2.2.1
+355 silly decomposeActions finalize isemail@2.2.1
+356 silly decomposeActions fetch items@2.1.1
+357 silly decomposeActions extract items@2.1.1
+358 silly decomposeActions test items@2.1.1
+359 silly decomposeActions preinstall items@2.1.1
+360 silly decomposeActions build items@2.1.1
+361 silly decomposeActions install items@2.1.1
+362 silly decomposeActions postinstall items@2.1.1
+363 silly decomposeActions finalize items@2.1.1
+364 silly decomposeActions fetch hoek@4.1.0
+365 silly decomposeActions extract hoek@4.1.0
+366 silly decomposeActions test hoek@4.1.0
+367 silly decomposeActions preinstall hoek@4.1.0
+368 silly decomposeActions build hoek@4.1.0
+369 silly decomposeActions install hoek@4.1.0
+370 silly decomposeActions postinstall hoek@4.1.0
+371 silly decomposeActions finalize hoek@4.1.0
+372 silly decomposeActions fetch moment@2.17.1
+373 silly decomposeActions extract moment@2.17.1
+374 silly decomposeActions test moment@2.17.1
+375 silly decomposeActions preinstall moment@2.17.1
+376 silly decomposeActions build moment@2.17.1
+377 silly decomposeActions install moment@2.17.1
+378 silly decomposeActions postinstall moment@2.17.1
+379 silly decomposeActions finalize moment@2.17.1
+380 silly decomposeActions fetch node-expat@2.3.15
+381 silly decomposeActions extract node-expat@2.3.15
+382 silly decomposeActions test node-expat@2.3.15
+383 silly decomposeActions preinstall node-expat@2.3.15
+384 silly decomposeActions build node-expat@2.3.15
+385 silly decomposeActions install node-expat@2.3.15
+386 silly decomposeActions postinstall node-expat@2.3.15
+387 silly decomposeActions finalize node-expat@2.3.15
+388 silly decomposeActions fetch hoek@4.1.0
+389 silly decomposeActions extract hoek@4.1.0
+390 silly decomposeActions test hoek@4.1.0
+391 silly decomposeActions preinstall hoek@4.1.0
+392 silly decomposeActions build hoek@4.1.0
+393 silly decomposeActions install hoek@4.1.0
+394 silly decomposeActions postinstall hoek@4.1.0
+395 silly decomposeActions finalize hoek@4.1.0
+396 silly decomposeActions fetch topo@2.0.2
+397 silly decomposeActions extract topo@2.0.2
+398 silly decomposeActions test topo@2.0.2
+399 silly decomposeActions preinstall topo@2.0.2
+400 silly decomposeActions build topo@2.0.2
+401 silly decomposeActions install topo@2.0.2
+402 silly decomposeActions postinstall topo@2.0.2
+403 silly decomposeActions finalize topo@2.0.2
+404 silly decomposeActions fetch joi@9.2.0
+405 silly decomposeActions extract joi@9.2.0
+406 silly decomposeActions test joi@9.2.0
+407 silly decomposeActions preinstall joi@9.2.0
+408 silly decomposeActions build joi@9.2.0
+409 silly decomposeActions install joi@9.2.0
+410 silly decomposeActions postinstall joi@9.2.0
+411 silly decomposeActions finalize joi@9.2.0
+412 silly decomposeActions fetch hoek@4.1.0
+413 silly decomposeActions extract hoek@4.1.0
+414 silly decomposeActions test hoek@4.1.0
+415 silly decomposeActions preinstall hoek@4.1.0
+416 silly decomposeActions build hoek@4.1.0
+417 silly decomposeActions install hoek@4.1.0
+418 silly decomposeActions postinstall hoek@4.1.0
+419 silly decomposeActions finalize hoek@4.1.0
+420 silly decomposeActions fetch xml2json@0.11.0
+421 silly decomposeActions extract xml2json@0.11.0
+422 silly decomposeActions test xml2json@0.11.0
+423 silly decomposeActions preinstall xml2json@0.11.0
+424 silly decomposeActions build xml2json@0.11.0
+425 silly decomposeActions install xml2json@0.11.0
+426 silly decomposeActions postinstall xml2json@0.11.0
+427 silly decomposeActions finalize xml2json@0.11.0
+428 silly executeActions Starting
+429 silly install executeActions
+430 silly doSerial global-install 0
+431 silly doParallel fetch 10
+432 verbose lock using /root/.npm/_locks/staging-708375cd2d205293.lock for /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging
+433 silly doParallel extract 10
+434 silly extract isemail@2.2.1
+435 silly extract items@2.1.1
+436 silly extract hoek@4.1.0
+437 silly extract moment@2.17.1
+438 silly extract node-expat@2.3.15
+439 silly extract hoek@4.1.0
+440 silly extract topo@2.0.2
+441 silly extract joi@9.2.0
+442 silly extract hoek@4.1.0
+443 silly extract xml2json@0.11.0
+444 verbose unbuild node_modules/.staging/isemail-46f56856
+445 verbose unbuild node_modules/.staging/items-f9824ed8
+446 verbose unbuild node_modules/.staging/hoek-6bbfb579
+447 verbose unbuild node_modules/.staging/moment-c1f896e9
+448 verbose unbuild node_modules/.staging/node-expat-f7c7937e
+449 verbose unbuild node_modules/.staging/hoek-b2e6e88f
+450 verbose unbuild node_modules/.staging/topo-63e6f1e8
+451 verbose unbuild node_modules/.staging/joi-16e8ff6e
+452 verbose unbuild node_modules/.staging/hoek-1b8cb559
+453 verbose unbuild node_modules/.staging/xml2json-84a8ca7e
+454 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/items-f9824ed8 is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+455 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/items-f9824ed8
+456 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/isemail-46f56856 is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+457 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/isemail-46f56856
+458 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-6bbfb579 is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+459 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-6bbfb579
+460 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/moment-c1f896e9 is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+461 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/moment-c1f896e9
+462 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/node-expat-f7c7937e is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+463 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/node-expat-f7c7937e
+464 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-b2e6e88f is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+465 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-b2e6e88f
+466 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/topo-63e6f1e8 is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+467 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/topo-63e6f1e8
+468 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/joi-16e8ff6e is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+469 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/joi-16e8ff6e
+470 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-1b8cb559 is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+471 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-1b8cb559
+472 verbose tar unpack /root/.npm/items/2.1.1/package.tgz
+473 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/items-f9824ed8
+474 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/items-f9824ed8 is being purged
+475 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/items-f9824ed8
+476 verbose tar unpack /root/.npm/isemail/2.2.1/package.tgz
+477 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/isemail-46f56856
+478 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/isemail-46f56856 is being purged
+479 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/isemail-46f56856
+480 verbose tar unpack /root/.npm/hoek/4.1.0/package.tgz
+481 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-6bbfb579
+482 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-6bbfb579 is being purged
+483 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-6bbfb579
+484 verbose tar unpack /root/.npm/moment/2.17.1/package.tgz
+485 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/moment-c1f896e9
+486 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/moment-c1f896e9 is being purged
+487 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/moment-c1f896e9
+488 verbose tar unpack /root/.npm/hoek/4.1.0/package.tgz
+489 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-b2e6e88f
+490 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-b2e6e88f is being purged
+491 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-b2e6e88f
+492 verbose tar unpack /root/.npm/node-expat/2.3.15/package.tgz
+493 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/node-expat-f7c7937e
+494 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/node-expat-f7c7937e is being purged
+495 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/node-expat-f7c7937e
+496 verbose tar unpack /root/.npm/joi/9.2.0/package.tgz
+497 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/joi-16e8ff6e
+498 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/joi-16e8ff6e is being purged
+499 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/joi-16e8ff6e
+500 verbose tar unpack /root/.npm/topo/2.0.2/package.tgz
+501 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/topo-63e6f1e8
+502 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/topo-63e6f1e8 is being purged
+503 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/topo-63e6f1e8
+504 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/xml2json-84a8ca7e is being purged from base /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+505 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/xml2json-84a8ca7e
+506 verbose tar unpack /root/.npm/hoek/4.1.0/package.tgz
+507 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-1b8cb559
+508 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-1b8cb559 is being purged
+509 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-1b8cb559
+510 silly gunzTarPerm modes [ '755', '644' ]
+511 silly gunzTarPerm modes [ '755', '644' ]
+512 silly gunzTarPerm modes [ '755', '644' ]
+513 silly gunzTarPerm modes [ '755', '644' ]
+514 silly gunzTarPerm modes [ '755', '644' ]
+515 silly gunzTarPerm modes [ '755', '644' ]
+516 silly gunzTarPerm modes [ '755', '644' ]
+517 silly gunzTarPerm modes [ '755', '644' ]
+518 verbose tar unpack /root/.npm/xml2json/0.11.0/package.tgz
+519 verbose tar unpacking to /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/xml2json-84a8ca7e
+520 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/xml2json-84a8ca7e is being purged
+521 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/xml2json-84a8ca7e
+522 silly gunzTarPerm modes [ '755', '644' ]
+523 silly gunzTarPerm modes [ '755', '644' ]
+524 silly gunzTarPerm extractEntry package.json
+525 silly gunzTarPerm modified mode [ 'package.json', 509, 493 ]
+526 silly gunzTarPerm extractEntry package.json
+527 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
+528 silly gunzTarPerm extractEntry package.json
+529 silly gunzTarPerm extractEntry package.json
+530 silly gunzTarPerm extractEntry package.json
+531 silly gunzTarPerm extractEntry package.json
+532 silly gunzTarPerm extractEntry package.json
+533 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
+534 silly gunzTarPerm extractEntry package.json
+535 silly gunzTarPerm extractEntry package.json
+536 silly gunzTarPerm extractEntry package.json
+537 silly gunzTarPerm extractEntry .npmignore
+538 silly gunzTarPerm modified mode [ '.npmignore', 436, 420 ]
+539 silly gunzTarPerm extractEntry README.md
+540 silly gunzTarPerm modified mode [ 'README.md', 509, 493 ]
+541 silly gunzTarPerm extractEntry .npmignore
+542 silly gunzTarPerm modified mode [ '.npmignore', 436, 420 ]
+543 silly gunzTarPerm extractEntry README.md
+544 silly gunzTarPerm modified mode [ 'README.md', 509, 493 ]
+545 silly gunzTarPerm extractEntry README.md
+546 silly gunzTarPerm extractEntry LICENSE
+547 silly gunzTarPerm extractEntry .npmignore
+548 silly gunzTarPerm extractEntry README.md
+549 silly gunzTarPerm extractEntry .npmignore
+550 silly gunzTarPerm extractEntry README.md
+551 silly gunzTarPerm extractEntry README.md
+552 silly gunzTarPerm modified mode [ 'README.md', 436, 420 ]
+553 silly gunzTarPerm extractEntry LICENSE
+554 silly gunzTarPerm modified mode [ 'LICENSE', 509, 493 ]
+555 silly gunzTarPerm extractEntry README.md
+556 silly gunzTarPerm extractEntry LICENSE
+557 silly gunzTarPerm extractEntry .npmignore
+558 silly gunzTarPerm extractEntry README.md
+559 silly gunzTarPerm extractEntry .npmignore
+560 silly gunzTarPerm extractEntry README.md
+561 silly gunzTarPerm extractEntry .npmignore
+562 silly gunzTarPerm extractEntry README.md
+563 silly gunzTarPerm extractEntry LICENSE
+564 silly gunzTarPerm extractEntry lib/escape.js
+565 silly gunzTarPerm extractEntry LICENSE
+566 silly gunzTarPerm extractEntry lib/escape.js
+567 silly gunzTarPerm extractEntry LICENSE
+568 silly gunzTarPerm modified mode [ 'LICENSE', 509, 493 ]
+569 silly gunzTarPerm extractEntry lib/index.js
+570 silly gunzTarPerm modified mode [ 'lib/index.js', 509, 493 ]
+571 silly gunzTarPerm extractEntry LICENSE
+572 silly gunzTarPerm extractEntry lib/escape.js
+573 silly gunzTarPerm extractEntry LICENSE
+574 silly gunzTarPerm modified mode [ 'LICENSE', 436, 420 ]
+575 silly gunzTarPerm extractEntry lib/index.js
+576 silly gunzTarPerm modified mode [ 'lib/index.js', 509, 493 ]
+577 silly gunzTarPerm extractEntry example.js
+578 silly gunzTarPerm extractEntry index.js
+579 silly gunzTarPerm extractEntry ender.js
+580 silly gunzTarPerm extractEntry moment.js
+581 silly gunzTarPerm extractEntry lib/alternatives.js
+582 silly gunzTarPerm modified mode [ 'lib/alternatives.js', 509, 493 ]
+583 silly gunzTarPerm extractEntry lib/boolean.js
+584 silly gunzTarPerm modified mode [ 'lib/boolean.js', 509, 493 ]
+585 silly gunzTarPerm extractEntry lib/index.js
+586 silly gunzTarPerm extractEntry binding.gyp
+587 silly gunzTarPerm extractEntry deps/libexpat/README
+588 silly gunzTarPerm extractEntry lib/index.js
+589 silly gunzTarPerm extractEntry lib/index.js
+590 silly gunzTarPerm extractEntry lib/index.js
+591 silly gunzTarPerm extractEntry t.js
+592 silly gunzTarPerm extractEntry .travis.yml
+593 silly gunzTarPerm extractEntry package.js
+594 silly gunzTarPerm extractEntry lib/cast.js
+595 silly gunzTarPerm modified mode [ 'lib/cast.js', 509, 493 ]
+596 silly gunzTarPerm extractEntry deps/libexpat/doc/expat.png
+597 silly gunzTarPerm extractEntry AUTHORS
+598 silly gunzTarPerm extractEntry lib/index.js
+599 silly gunzTarPerm extractEntry lib/date.js
+600 silly gunzTarPerm modified mode [ 'lib/date.js', 509, 493 ]
+601 silly gunzTarPerm extractEntry lib/errors.js
+602 silly gunzTarPerm modified mode [ 'lib/errors.js', 509, 493 ]
+603 silly gunzTarPerm extractEntry min/locales.js
+604 silly gunzTarPerm extractEntry deps/libexpat/doc/reference.html
+605 silly gunzTarPerm extractEntry deps/libexpat/doc/style.css
+606 silly gunzTarPerm extractEntry min/locales.min.js
+607 silly gunzTarPerm extractEntry lib/json2xml.js
+608 silly gunzTarPerm extractEntry lib/sanitize.js
+609 silly gunzTarPerm extractEntry lib/xml2json.js
+610 silly gunzTarPerm extractEntry .editorconfig
+611 silly gunzTarPerm modified mode [ '.editorconfig', 436, 420 ]
+612 silly gunzTarPerm extractEntry bin/xml2json
+613 silly gunzTarPerm extractEntry test/.npmignore
+614 silly gunzTarPerm extractEntry test/coerce-overhead.js
+615 silly gunzTarPerm extractEntry test/test-reorder.js
+616 silly gunzTarPerm extractEntry test/test-space.js
+617 silly gunzTarPerm extractEntry test/test-xmlsanitize.js
+618 silly gunzTarPerm extractEntry test/test.js
+619 silly gunzTarPerm extractEntry test/fixtures/domain.xml
+620 silly gunzTarPerm extractEntry test/fixtures/alternate-text-node-A.json
+621 silly gunzTarPerm extractEntry test/fixtures/alternate-text-node-B.json
+622 silly gunzTarPerm extractEntry test/fixtures/alternate-text-node-C.json
+623 silly gunzTarPerm extractEntry test/fixtures/alternate-text-node-D.json
+624 silly gunzTarPerm extractEntry test/fixtures/alternate-text-node-D.xml
+625 silly gunzTarPerm extractEntry test/fixtures/array-notation.json
+626 silly gunzTarPerm extractEntry test/fixtures/array-notation.xml
+627 silly gunzTarPerm extractEntry test/fixtures/coerce.json
+628 silly gunzTarPerm extractEntry test/fixtures/coerce.xml
+629 silly gunzTarPerm extractEntry test/fixtures/domain-reversible.json
+630 silly gunzTarPerm extractEntry test/fixtures/domain.json
+631 silly gunzTarPerm extractEntry test/fixtures/alternate-text-node-A.xml
+632 silly gunzTarPerm extractEntry test/fixtures/forceArray.json
+633 silly gunzTarPerm extractEntry test/fixtures/forceArray.xml
+634 silly gunzTarPerm extractEntry test/fixtures/large.json
+635 silly gunzTarPerm extractEntry test/fixtures/large.xml
+636 silly gunzTarPerm extractEntry test/fixtures/reorder.json
+637 silly gunzTarPerm extractEntry test/fixtures/reorder.xml
+638 silly gunzTarPerm extractEntry test/fixtures/spacetext.json
+639 silly gunzTarPerm extractEntry test/fixtures/spacetext.xml
+640 silly gunzTarPerm extractEntry test/fixtures/xmlsanitize.json
+641 silly gunzTarPerm extractEntry test/fixtures/xmlsanitize.xml
+642 silly gunzTarPerm extractEntry test/fixtures/xmlsanitize2.json
+643 silly gunzTarPerm extractEntry test/fixtures/xmlsanitize2.xml
+644 silly gunzTarPerm extractEntry deps/libexpat/doc/valid-xhtml10.png
+645 silly gunzTarPerm extractEntry deps/libexpat/doc/xmlwf.1
+646 silly gunzTarPerm extractEntry lib/binary.js
+647 silly gunzTarPerm modified mode [ 'lib/binary.js', 509, 493 ]
+648 silly gunzTarPerm extractEntry lib/language.js
+649 silly gunzTarPerm modified mode [ 'lib/language.js', 509, 493 ]
+650 silly gunzTarPerm extractEntry min/moment-with-locales.js
+651 silly gunzTarPerm extractEntry lib/lazy.js
+652 silly gunzTarPerm modified mode [ 'lib/lazy.js', 436, 420 ]
+653 silly gunzTarPerm extractEntry lib/number.js
+654 silly gunzTarPerm modified mode [ 'lib/number.js', 509, 493 ]
+655 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/topo-63e6f1e8/node_modules is being purged
+656 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/topo-63e6f1e8/node_modules
+657 silly gunzTarPerm extractEntry deps/libexpat/doc/xmlwf.sgml
+658 silly gunzTarPerm extractEntry deps/libexpat/COPYING
+659 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/items-f9824ed8/node_modules is being purged
+660 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/items-f9824ed8/node_modules
+661 silly gunzTarPerm extractEntry lib/object.js
+662 silly gunzTarPerm modified mode [ 'lib/object.js', 509, 493 ]
+663 silly gunzTarPerm extractEntry lib/ref.js
+664 silly gunzTarPerm modified mode [ 'lib/ref.js', 509, 493 ]
+665 silly gunzTarPerm extractEntry min/moment-with-locales.min.js
+666 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/isemail-46f56856/node_modules is being purged
+667 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/isemail-46f56856/node_modules
+668 silly gunzTarPerm extractEntry deps/libexpat/Changes
+669 silly gunzTarPerm extractEntry deps/libexpat/ConfigureChecks.cmake
+670 silly gunzTarPerm extractEntry deps/libexpat/MANIFEST
+671 silly gunzTarPerm extractEntry deps/libexpat/Makefile.in
+672 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-6bbfb579/node_modules is being purged
+673 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-6bbfb579/node_modules
+674 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-1b8cb559/node_modules is being purged
+675 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-1b8cb559/node_modules
+676 silly gunzTarPerm extractEntry deps/libexpat/CMake.README
+677 silly gunzTarPerm extractEntry lib/array.js
+678 silly gunzTarPerm modified mode [ 'lib/array.js', 509, 493 ]
+679 silly gunzTarPerm extractEntry lib/schemas.js
+680 silly gunzTarPerm modified mode [ 'lib/schemas.js', 436, 420 ]
+681 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-b2e6e88f/node_modules is being purged
+682 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-b2e6e88f/node_modules
+683 silly gunzTarPerm extractEntry deps/libexpat/aclocal.m4
+684 silly gunzTarPerm extractEntry deps/libexpat/amiga/expat_68k_handler_stubs.c
+685 silly gunzTarPerm extractEntry min/moment.min.js
+686 silly gunzTarPerm extractEntry locale/af.js
+687 silly gunzTarPerm extractEntry locale/ja.js
+688 silly gunzTarPerm extractEntry lib/any.js
+689 silly gunzTarPerm modified mode [ 'lib/any.js', 509, 493 ]
+690 silly gunzTarPerm extractEntry lib/string.js
+691 silly gunzTarPerm modified mode [ 'lib/string.js', 509, 493 ]
+692 silly gunzTarPerm extractEntry locale/jv.js
+693 silly gunzTarPerm extractEntry locale/ka.js
+694 silly gunzTarPerm extractEntry deps/libexpat/amiga/Makefile
+695 silly gunzTarPerm extractEntry deps/libexpat/amiga/expat.xml
+696 silly gunzTarPerm extractEntry locale/kk.js
+697 silly gunzTarPerm extractEntry locale/it.js
+698 silly gunzTarPerm extractEntry locale/ko.js
+699 silly gunzTarPerm extractEntry lib/index.js
+700 silly gunzTarPerm modified mode [ 'lib/index.js', 509, 493 ]
+701 silly gunzTarPerm extractEntry lib/string/ip.js
+702 silly gunzTarPerm modified mode [ 'lib/string/ip.js', 509, 493 ]
+703 silly gunzTarPerm extractEntry locale/ky.js
+704 silly gunzTarPerm extractEntry locale/lb.js
+705 silly gunzTarPerm extractEntry locale/lo.js
+706 silly gunzTarPerm extractEntry locale/lt.js
+707 silly gunzTarPerm extractEntry deps/libexpat/amiga/expat_68k.c
+708 silly gunzTarPerm extractEntry deps/libexpat/amiga/expat_68k.h
+709 silly gunzTarPerm extractEntry locale/is.js
+710 silly gunzTarPerm extractEntry lib/string/rfc3986.js
+711 silly gunzTarPerm modified mode [ 'lib/string/rfc3986.js', 509, 493 ]
+712 silly gunzTarPerm extractEntry lib/string/uri.js
+713 silly gunzTarPerm modified mode [ 'lib/string/uri.js', 509, 493 ]
+714 silly gunzTarPerm extractEntry deps/libexpat/amiga/README.txt
+715 silly gunzTarPerm extractEntry deps/libexpat/amiga/expat_base.h
+716 silly gunzTarPerm extractEntry locale/lv.js
+717 silly gunzTarPerm extractEntry locale/id.js
+718 silly gunzTarPerm extractEntry locale/me.js
+719 silly gunzTarPerm extractEntry locale/hy-am.js
+720 silly gunzTarPerm extractEntry locale/mi.js
+721 silly gunzTarPerm extractEntry locale/hu.js
+722 silly gunzTarPerm extractEntry locale/mk.js
+723 silly gunzTarPerm extractEntry deps/libexpat/amiga/expat_lib.c
+724 silly gunzTarPerm extractEntry deps/libexpat/amiga/expat_vectors.c
+725 silly gunzTarPerm extractEntry locale/hr.js
+726 silly gunzTarPerm extractEntry locale/ml.js
+727 silly gunzTarPerm extractEntry locale/hi.js
+728 silly gunzTarPerm extractEntry locale/mr.js
+729 silly gunzTarPerm extractEntry deps/libexpat/amiga/include/inline4/expat.h
+730 silly gunzTarPerm extractEntry locale/he.js
+731 silly gunzTarPerm extractEntry locale/ms-my.js
+732 silly gunzTarPerm extractEntry deps/libexpat/amiga/include/interfaces/expat.h
+733 silly gunzTarPerm extractEntry deps/libexpat/amiga/include/libraries/expat.h
+734 silly gunzTarPerm extractEntry locale/gl.js
+735 silly gunzTarPerm extractEntry locale/ms.js
+736 silly gunzTarPerm extractEntry locale/gd.js
+737 silly gunzTarPerm extractEntry locale/my.js
+738 silly gunzTarPerm extractEntry locale/fy.js
+739 silly gunzTarPerm extractEntry locale/nb.js
+740 silly gunzTarPerm extractEntry locale/fr.js
+741 silly gunzTarPerm extractEntry locale/ne.js
+742 silly gunzTarPerm extractEntry deps/libexpat/amiga/include/proto/expat.h
+743 silly gunzTarPerm extractEntry deps/libexpat/amiga/launch.c
+744 silly gunzTarPerm extractEntry locale/fr-ch.js
+745 silly gunzTarPerm extractEntry locale/nl-be.js
+746 silly gunzTarPerm extractEntry locale/fr-ca.js
+747 silly gunzTarPerm extractEntry locale/nl.js
+748 silly gunzTarPerm extractEntry locale/fo.js
+749 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expatw.mak
+750 silly gunzTarPerm extractEntry deps/libexpat/bcb5/README.txt
+751 silly gunzTarPerm extractEntry locale/nn.js
+752 silly gunzTarPerm extractEntry locale/fi.js
+753 silly gunzTarPerm extractEntry locale/pa-in.js
+754 silly gunzTarPerm extractEntry locale/fa.js
+755 silly gunzTarPerm extractEntry locale/pl.js
+756 silly gunzTarPerm extractEntry deps/libexpat/bcb5/elements.bpf
+757 silly gunzTarPerm extractEntry deps/libexpat/bcb5/elements.bpr
+758 silly gunzTarPerm extractEntry locale/eu.js
+759 silly gunzTarPerm extractEntry locale/pt-br.js
+760 silly gunzTarPerm extractEntry locale/et.js
+761 silly gunzTarPerm extractEntry locale/pt.js
+762 silly gunzTarPerm extractEntry locale/es.js
+763 silly gunzTarPerm extractEntry deps/libexpat/bcb5/elements.mak
+764 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expat.bpf
+765 silly gunzTarPerm extractEntry locale/ro.js
+766 silly gunzTarPerm extractEntry locale/es-do.js
+767 silly gunzTarPerm extractEntry locale/ru.js
+768 silly gunzTarPerm extractEntry locale/eo.js
+769 silly gunzTarPerm extractEntry locale/se.js
+770 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expat.bpr
+771 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expat.mak
+772 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expat_static.bpf
+773 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expat_static.bpr
+774 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expat_static.mak
+775 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expatw.bpf
+776 silly gunzTarPerm extractEntry locale/en-nz.js
+777 silly gunzTarPerm extractEntry locale/si.js
+778 silly gunzTarPerm extractEntry locale/en-ie.js
+779 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expatw.bpr
+780 silly gunzTarPerm extractEntry locale/sk.js
+781 silly gunzTarPerm extractEntry deps/libexpat/bcb5/all_projects.bpg
+782 silly gunzTarPerm extractEntry locale/en-gb.js
+783 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expatw_static.bpf
+784 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expatw_static.bpr
+785 silly gunzTarPerm extractEntry locale/sl.js
+786 silly gunzTarPerm extractEntry deps/libexpat/bcb5/expatw_static.mak
+787 silly gunzTarPerm extractEntry locale/en-ca.js
+788 silly gunzTarPerm extractEntry deps/libexpat/bcb5/libexpat_mtd.def
+789 silly gunzTarPerm extractEntry locale/sq.js
+790 silly gunzTarPerm extractEntry deps/libexpat/bcb5/libexpatw_mtd.def
+791 silly gunzTarPerm extractEntry locale/en-au.js
+792 silly gunzTarPerm extractEntry deps/libexpat/bcb5/makefile.mak
+793 silly gunzTarPerm extractEntry locale/sr-cyrl.js
+794 silly gunzTarPerm extractEntry deps/libexpat/bcb5/outline.bpf
+795 silly gunzTarPerm extractEntry locale/el.js
+796 silly gunzTarPerm extractEntry deps/libexpat/bcb5/outline.bpr
+797 silly gunzTarPerm extractEntry locale/sr.js
+798 silly gunzTarPerm extractEntry deps/libexpat/bcb5/outline.mak
+799 silly gunzTarPerm extractEntry locale/dv.js
+800 silly gunzTarPerm extractEntry deps/libexpat/bcb5/setup.bat
+801 silly gunzTarPerm extractEntry locale/ss.js
+802 silly gunzTarPerm extractEntry deps/libexpat/bcb5/xmlwf.bpf
+803 silly gunzTarPerm extractEntry locale/de.js
+804 silly gunzTarPerm extractEntry deps/libexpat/bcb5/xmlwf.bpr
+805 silly gunzTarPerm extractEntry locale/sv.js
+806 silly gunzTarPerm extractEntry deps/libexpat/bcb5/xmlwf.mak
+807 silly gunzTarPerm extractEntry locale/de-at.js
+808 silly gunzTarPerm extractEntry locale/sw.js
+809 silly gunzTarPerm extractEntry deps/libexpat/configure
+810 silly gunzTarPerm extractEntry deps/libexpat/configure.in
+811 silly gunzTarPerm extractEntry locale/da.js
+812 silly gunzTarPerm extractEntry locale/ta.js
+813 silly gunzTarPerm extractEntry locale/cy.js
+814 silly gunzTarPerm extractEntry locale/te.js
+815 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/joi-16e8ff6e/node_modules is being purged
+816 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/joi-16e8ff6e/node_modules
+817 silly gunzTarPerm extractEntry locale/cv.js
+818 silly gunzTarPerm extractEntry locale/tet.js
+819 silly gunzTarPerm extractEntry deps/libexpat/conftools/PrintPath
+820 silly gunzTarPerm extractEntry deps/libexpat/conftools/ac_c_bigendian_cross.m4
+821 silly gunzTarPerm extractEntry locale/cs.js
+822 silly gunzTarPerm extractEntry locale/th.js
+823 silly gunzTarPerm extractEntry deps/libexpat/conftools/config.guess
+824 silly gunzTarPerm extractEntry deps/libexpat/conftools/config.sub
+825 silly gunzTarPerm extractEntry locale/ca.js
+826 silly gunzTarPerm extractEntry locale/tl-ph.js
+827 silly gunzTarPerm extractEntry deps/libexpat/conftools/expat.m4
+828 silly gunzTarPerm extractEntry deps/libexpat/conftools/get-version.sh
+829 silly gunzTarPerm extractEntry deps/libexpat/conftools/install-sh
+830 silly gunzTarPerm extractEntry deps/libexpat/conftools/ltmain.sh
+831 silly gunzTarPerm extractEntry locale/bs.js
+832 silly gunzTarPerm extractEntry locale/tlh.js
+833 silly gunzTarPerm extractEntry deps/libexpat/conftools/mkinstalldirs
+834 silly gunzTarPerm extractEntry locale/br.js
+835 silly gunzTarPerm extractEntry locale/tr.js
+836 silly gunzTarPerm extractEntry deps/libexpat/CMakeLists.txt
+837 silly gunzTarPerm extractEntry deps/libexpat/examples/elements.c
+838 silly gunzTarPerm extractEntry locale/bo.js
+839 silly gunzTarPerm extractEntry locale/tzl.js
+840 silly gunzTarPerm extractEntry deps/libexpat/examples/elements.dsp
+841 silly gunzTarPerm extractEntry deps/libexpat/examples/outline.c
+842 silly gunzTarPerm extractEntry locale/bn.js
+843 silly gunzTarPerm extractEntry locale/tzm-latn.js
+844 silly gunzTarPerm extractEntry deps/libexpat/examples/outline.dsp
+845 silly gunzTarPerm extractEntry deps/libexpat/expat.dsw
+846 silly gunzTarPerm extractEntry locale/bg.js
+847 silly gunzTarPerm extractEntry locale/tzm.js
+848 silly gunzTarPerm extractEntry deps/libexpat/expat.pc.in
+849 silly gunzTarPerm extractEntry deps/libexpat/expat_config.h
+850 silly gunzTarPerm extractEntry locale/be.js
+851 silly gunzTarPerm extractEntry locale/uk.js
+852 silly gunzTarPerm extractEntry deps/libexpat/expat_config.h.cmake
+853 silly gunzTarPerm extractEntry deps/libexpat/expat_config.h.in
+854 silly gunzTarPerm extractEntry deps/libexpat/lib/libexpat.def
+855 silly gunzTarPerm extractEntry locale/az.js
+856 silly gunzTarPerm extractEntry locale/uz.js
+857 silly gunzTarPerm extractEntry deps/libexpat/lib/Makefile.MPW
+858 silly gunzTarPerm extractEntry locale/ar.js
+859 silly gunzTarPerm extractEntry locale/vi.js
+860 silly gunzTarPerm extractEntry deps/libexpat/lib/ascii.h
+861 silly gunzTarPerm extractEntry deps/libexpat/lib/asciitab.h
+862 silly gunzTarPerm extractEntry locale/ar-tn.js
+863 silly gunzTarPerm extractEntry locale/x-pseudo.js
+864 silly gunzTarPerm extractEntry locale/ar-sa.js
+865 silly gunzTarPerm extractEntry locale/yo.js
+866 silly gunzTarPerm extractEntry deps/libexpat/lib/expat.dsp
+867 silly gunzTarPerm extractEntry deps/libexpat/lib/expat.h
+868 silly gunzTarPerm extractEntry locale/ar-ma.js
+869 silly gunzTarPerm extractEntry locale/zh-cn.js
+870 silly gunzTarPerm extractEntry deps/libexpat/lib/expat_external.h
+871 silly gunzTarPerm extractEntry deps/libexpat/lib/expat_static.dsp
+872 silly gunzTarPerm extractEntry locale/ar-ly.js
+873 silly gunzTarPerm extractEntry locale/zh-hk.js
+874 silly gunzTarPerm extractEntry locale/ar-dz.js
+875 silly gunzTarPerm extractEntry locale/zh-tw.js
+876 silly gunzTarPerm extractEntry deps/libexpat/lib/expatw.dsp
+877 silly gunzTarPerm extractEntry locale/km.js
+878 silly gunzTarPerm extractEntry CHANGELOG.md
+879 silly gunzTarPerm extractEntry moment.d.ts
+880 silly gunzTarPerm extractEntry src/moment.js
+881 silly gunzTarPerm extractEntry deps/libexpat/lib/expatw_static.dsp
+882 silly gunzTarPerm extractEntry deps/libexpat/lib/iasciitab.h
+883 silly gunzTarPerm extractEntry src/lib/create/check-overflow.js
+884 silly gunzTarPerm extractEntry src/lib/create/from-anything.js
+885 silly gunzTarPerm extractEntry deps/libexpat/lib/internal.h
+886 silly gunzTarPerm extractEntry deps/libexpat/lib/latin1tab.h
+887 silly gunzTarPerm extractEntry src/lib/create/from-array.js
+888 silly gunzTarPerm extractEntry src/lib/create/from-object.js
+889 silly gunzTarPerm extractEntry deps/libexpat/lib/amigaconfig.h
+890 silly gunzTarPerm extractEntry deps/libexpat/lib/libexpatw.def
+891 silly gunzTarPerm extractEntry src/lib/create/from-string-and-array.js
+892 silly gunzTarPerm extractEntry src/lib/create/date-from-array.js
+893 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/xml2json-84a8ca7e/node_modules is being purged
+894 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/xml2json-84a8ca7e/node_modules
+895 silly gunzTarPerm extractEntry deps/libexpat/lib/macconfig.h
+896 silly gunzTarPerm extractEntry deps/libexpat/lib/nametab.h
+897 silly gunzTarPerm extractEntry src/lib/create/from-string.js
+898 silly gunzTarPerm extractEntry src/lib/create/local.js
+899 silly gunzTarPerm extractEntry deps/libexpat/lib/utf8tab.h
+900 silly gunzTarPerm extractEntry deps/libexpat/lib/winconfig.h
+901 silly gunzTarPerm extractEntry src/lib/create/parsing-flags.js
+902 silly gunzTarPerm extractEntry src/lib/create/utc.js
+903 silly gunzTarPerm extractEntry src/lib/create/valid.js
+904 silly gunzTarPerm extractEntry src/lib/create/from-string-and-format.js
+905 silly gunzTarPerm extractEntry deps/libexpat/lib/xmlparse.c
+906 silly gunzTarPerm extractEntry deps/libexpat/lib/xmlrole.c
+907 silly gunzTarPerm extractEntry src/lib/duration/abs.js
+908 silly gunzTarPerm extractEntry src/lib/duration/as.js
+909 silly gunzTarPerm extractEntry deps/libexpat/lib/xmlrole.h
+910 silly gunzTarPerm extractEntry deps/libexpat/lib/xmltok.c
+911 silly gunzTarPerm extractEntry src/lib/duration/bubble.js
+912 silly gunzTarPerm extractEntry src/lib/duration/constructor.js
+913 silly gunzTarPerm extractEntry deps/libexpat/lib/xmltok.h
+914 silly gunzTarPerm extractEntry deps/libexpat/lib/xmltok_impl.c
+915 silly gunzTarPerm extractEntry src/lib/duration/add-subtract.js
+916 silly gunzTarPerm extractEntry src/lib/duration/duration.js
+917 silly gunzTarPerm extractEntry deps/libexpat/lib/xmltok_impl.h
+918 silly gunzTarPerm extractEntry src/lib/duration/get.js
+919 silly gunzTarPerm extractEntry src/lib/duration/humanize.js
+920 silly gunzTarPerm extractEntry src/lib/duration/iso-string.js
+921 silly gunzTarPerm extractEntry src/lib/duration/prototype.js
+922 silly gunzTarPerm extractEntry deps/libexpat/lib/xmltok_ns.c
+923 silly gunzTarPerm extractEntry deps/libexpat/libexpat.gyp
+924 silly gunzTarPerm extractEntry src/lib/duration/create.js
+925 silly gunzTarPerm extractEntry src/lib/format/format.js
+926 silly gunzTarPerm extractEntry deps/libexpat/m4/libtool.m4
+927 silly gunzTarPerm extractEntry deps/libexpat/m4/ltoptions.m4
+928 silly gunzTarPerm extractEntry deps/libexpat/m4/ltsugar.m4
+929 silly gunzTarPerm extractEntry deps/libexpat/m4/ltversion.m4
+930 silly gunzTarPerm extractEntry deps/libexpat/m4/lt~obsolete.m4
+931 silly gunzTarPerm extractEntry deps/libexpat/tests/README.txt
+932 silly gunzTarPerm extractEntry deps/libexpat/tests/benchmark/README.txt
+933 silly gunzTarPerm extractEntry deps/libexpat/tests/benchmark/benchmark.c
+934 silly gunzTarPerm extractEntry deps/libexpat/tests/benchmark/benchmark.dsp
+935 silly gunzTarPerm extractEntry deps/libexpat/tests/benchmark/benchmark.dsw
+936 silly gunzTarPerm extractEntry deps/libexpat/tests/chardata.c
+937 silly gunzTarPerm extractEntry deps/libexpat/tests/chardata.h
+938 silly gunzTarPerm extractEntry deps/libexpat/tests/minicheck.c
+939 silly gunzTarPerm extractEntry deps/libexpat/tests/minicheck.h
+940 silly gunzTarPerm extractEntry deps/libexpat/tests/runtests.c
+941 silly gunzTarPerm extractEntry deps/libexpat/tests/runtestspp.cpp
+942 silly gunzTarPerm extractEntry deps/libexpat/tests/xmltest.sh
+943 silly gunzTarPerm extractEntry deps/libexpat/version.c
+944 silly gunzTarPerm extractEntry deps/libexpat/vms/README.vms
+945 silly gunzTarPerm extractEntry deps/libexpat/vms/descrip.mms
+946 silly gunzTarPerm extractEntry deps/libexpat/vms/expat_config.h
+947 silly gunzTarPerm extractEntry deps/libexpat/win32/MANIFEST.txt
+948 silly gunzTarPerm extractEntry deps/libexpat/win32/README.txt
+949 silly gunzTarPerm extractEntry deps/libexpat/win32/expat.iss
+950 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmlfile.h
+951 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/codepage.c
+952 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/ct.c
+953 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/filemap.h
+954 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/readfilemap.c
+955 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/unixfilemap.c
+956 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/win32filemap.c
+957 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmlfile.c
+958 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/codepage.h
+959 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmlmime.c
+960 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmlmime.h
+961 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmltchar.h
+962 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmlurl.h
+963 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmlwf.c
+964 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmlwf.dsp
+965 silly gunzTarPerm extractEntry deps/libexpat/xmlwf/xmlwin32url.cxx
+966 silly gunzTarPerm extractEntry lib/node-expat.js
+967 silly gunzTarPerm extractEntry node-expat.cc
+968 silly gunzTarPerm extractEntry src/lib/locale/base-config.js
+969 silly gunzTarPerm extractEntry src/lib/locale/en.js
+970 silly gunzTarPerm extractEntry src/lib/locale/formats.js
+971 silly gunzTarPerm extractEntry src/lib/locale/invalid.js
+972 silly gunzTarPerm extractEntry src/lib/locale/lists.js
+973 silly gunzTarPerm extractEntry src/lib/locale/constructor.js
+974 silly gunzTarPerm extractEntry src/lib/locale/locales.js
+975 silly gunzTarPerm extractEntry src/lib/locale/ordinal.js
+976 silly gunzTarPerm extractEntry src/lib/locale/pre-post-format.js
+977 silly gunzTarPerm extractEntry src/lib/locale/prototype.js
+978 silly gunzTarPerm extractEntry src/lib/locale/relative.js
+979 silly gunzTarPerm extractEntry src/lib/locale/calendar.js
+980 silly gunzTarPerm extractEntry src/lib/locale/set.js
+981 silly gunzTarPerm extractEntry src/lib/locale/locale.js
+982 silly gunzTarPerm extractEntry src/lib/moment/add-subtract.js
+983 silly gunzTarPerm extractEntry src/lib/moment/diff.js
+984 silly gunzTarPerm extractEntry src/lib/moment/format.js
+985 silly gunzTarPerm extractEntry src/lib/moment/from.js
+986 silly gunzTarPerm extractEntry src/lib/moment/creation-data.js
+987 silly gunzTarPerm extractEntry src/lib/moment/locale.js
+988 silly gunzTarPerm extractEntry src/lib/moment/min-max.js
+989 silly gunzTarPerm extractEntry src/lib/moment/moment.js
+990 silly gunzTarPerm extractEntry src/lib/moment/now.js
+991 silly gunzTarPerm extractEntry src/lib/moment/prototype.js
+992 silly gunzTarPerm extractEntry src/lib/moment/constructor.js
+993 silly gunzTarPerm extractEntry src/lib/moment/start-end-of.js
+994 silly gunzTarPerm extractEntry src/lib/moment/compare.js
+995 silly gunzTarPerm extractEntry src/lib/moment/to-type.js
+996 silly gunzTarPerm extractEntry src/lib/moment/clone.js
+997 silly gunzTarPerm extractEntry src/lib/moment/to.js
+998 silly gunzTarPerm extractEntry src/lib/moment/calendar.js
+999 silly gunzTarPerm extractEntry src/lib/moment/valid.js
+1000 silly gunzTarPerm extractEntry src/lib/moment/get-set.js
+1001 silly gunzTarPerm extractEntry src/lib/parse/regex.js
+1002 silly gunzTarPerm extractEntry src/lib/parse/token.js
+1003 silly gunzTarPerm extractEntry src/lib/units/aliases.js
+1004 silly gunzTarPerm extractEntry src/lib/units/millisecond.js
+1005 silly gunzTarPerm extractEntry src/lib/units/minute.js
+1006 silly gunzTarPerm extractEntry src/lib/units/month.js
+1007 silly gunzTarPerm extractEntry src/lib/units/offset.js
+1008 silly gunzTarPerm extractEntry src/lib/units/hour.js
+1009 silly gunzTarPerm extractEntry src/lib/units/quarter.js
+1010 silly gunzTarPerm extractEntry src/lib/units/second.js
+1011 silly gunzTarPerm extractEntry src/lib/units/timestamp.js
+1012 silly gunzTarPerm extractEntry src/lib/units/timezone.js
+1013 silly gunzTarPerm extractEntry src/lib/units/units.js
+1014 silly gunzTarPerm extractEntry src/lib/units/day-of-year.js
+1015 silly gunzTarPerm extractEntry src/lib/units/week-calendar-utils.js
+1016 silly gunzTarPerm extractEntry src/lib/units/day-of-week.js
+1017 silly gunzTarPerm extractEntry src/lib/units/week-year.js
+1018 silly gunzTarPerm extractEntry src/lib/units/day-of-month.js
+1019 silly gunzTarPerm extractEntry src/lib/units/week.js
+1020 silly gunzTarPerm extractEntry src/lib/units/constants.js
+1021 silly gunzTarPerm extractEntry src/lib/units/year.js
+1022 silly gunzTarPerm extractEntry src/lib/units/priorities.js
+1023 silly gunzTarPerm extractEntry src/lib/utils/abs-ceil.js
+1024 silly gunzTarPerm extractEntry src/lib/utils/has-own-prop.js
+1025 silly gunzTarPerm extractEntry src/lib/utils/hooks.js
+1026 silly gunzTarPerm extractEntry src/lib/utils/index-of.js
+1027 silly gunzTarPerm extractEntry src/lib/utils/is-array.js
+1028 silly gunzTarPerm extractEntry src/lib/utils/extend.js
+1029 silly gunzTarPerm extractEntry src/lib/utils/is-function.js
+1030 silly gunzTarPerm extractEntry src/lib/utils/is-number.js
+1031 silly gunzTarPerm extractEntry src/lib/utils/is-object-empty.js
+1032 silly gunzTarPerm extractEntry src/lib/utils/is-object.js
+1033 silly gunzTarPerm extractEntry src/lib/utils/is-undefined.js
+1034 silly gunzTarPerm extractEntry src/lib/utils/deprecate.js
+1035 silly gunzTarPerm extractEntry src/lib/utils/keys.js
+1036 silly gunzTarPerm extractEntry src/lib/utils/defaults.js
+1037 silly gunzTarPerm extractEntry src/lib/utils/map.js
+1038 silly gunzTarPerm extractEntry src/lib/utils/compare-arrays.js
+1039 silly gunzTarPerm extractEntry src/lib/utils/some.js
+1040 silly gunzTarPerm extractEntry src/lib/utils/abs-round.js
+1041 silly gunzTarPerm extractEntry src/lib/utils/to-int.js
+1042 silly gunzTarPerm extractEntry src/lib/utils/abs-floor.js
+1043 silly gunzTarPerm extractEntry src/lib/utils/zero-fill.js
+1044 silly gunzTarPerm extractEntry src/lib/utils/is-date.js
+1045 silly gunzTarPerm extractEntry src/locale/af.js
+1046 silly gunzTarPerm extractEntry src/locale/ja.js
+1047 silly gunzTarPerm extractEntry src/locale/jv.js
+1048 silly gunzTarPerm extractEntry src/locale/ka.js
+1049 silly gunzTarPerm extractEntry src/locale/kk.js
+1050 silly gunzTarPerm extractEntry src/locale/it.js
+1051 silly gunzTarPerm extractEntry src/locale/ko.js
+1052 silly gunzTarPerm extractEntry src/locale/ky.js
+1053 silly gunzTarPerm extractEntry src/locale/lb.js
+1054 silly gunzTarPerm extractEntry src/locale/lo.js
+1055 silly gunzTarPerm extractEntry src/locale/lt.js
+1056 silly gunzTarPerm extractEntry src/locale/is.js
+1057 silly gunzTarPerm extractEntry src/locale/lv.js
+1058 silly gunzTarPerm extractEntry src/locale/id.js
+1059 silly gunzTarPerm extractEntry src/locale/me.js
+1060 silly gunzTarPerm extractEntry src/locale/hy-am.js
+1061 silly gunzTarPerm extractEntry src/locale/mi.js
+1062 silly gunzTarPerm extractEntry src/locale/hu.js
+1063 silly gunzTarPerm extractEntry src/locale/mk.js
+1064 silly gunzTarPerm extractEntry src/locale/hr.js
+1065 silly gunzTarPerm extractEntry src/locale/ml.js
+1066 silly gunzTarPerm extractEntry src/locale/hi.js
+1067 silly gunzTarPerm extractEntry src/locale/mr.js
+1068 silly gunzTarPerm extractEntry src/locale/he.js
+1069 silly gunzTarPerm extractEntry src/locale/ms-my.js
+1070 silly gunzTarPerm extractEntry src/locale/gl.js
+1071 silly gunzTarPerm extractEntry src/locale/ms.js
+1072 silly gunzTarPerm extractEntry src/locale/gd.js
+1073 silly gunzTarPerm extractEntry src/locale/my.js
+1074 silly gunzTarPerm extractEntry src/locale/fy.js
+1075 silly gunzTarPerm extractEntry src/locale/nb.js
+1076 silly gunzTarPerm extractEntry src/locale/fr.js
+1077 silly gunzTarPerm extractEntry src/locale/ne.js
+1078 silly gunzTarPerm extractEntry src/locale/fr-ch.js
+1079 silly gunzTarPerm extractEntry src/locale/nl-be.js
+1080 silly gunzTarPerm extractEntry src/locale/fr-ca.js
+1081 silly gunzTarPerm extractEntry src/locale/nl.js
+1082 silly gunzTarPerm extractEntry src/locale/fo.js
+1083 silly gunzTarPerm extractEntry src/locale/nn.js
+1084 silly gunzTarPerm extractEntry src/locale/fi.js
+1085 silly gunzTarPerm extractEntry src/locale/pa-in.js
+1086 silly gunzTarPerm extractEntry src/locale/fa.js
+1087 silly gunzTarPerm extractEntry src/locale/pl.js
+1088 silly gunzTarPerm extractEntry src/locale/eu.js
+1089 silly gunzTarPerm extractEntry src/locale/pt-br.js
+1090 silly gunzTarPerm extractEntry src/locale/et.js
+1091 silly gunzTarPerm extractEntry src/locale/pt.js
+1092 silly gunzTarPerm extractEntry src/locale/es.js
+1093 silly gunzTarPerm extractEntry src/locale/ro.js
+1094 silly gunzTarPerm extractEntry src/locale/es-do.js
+1095 silly gunzTarPerm extractEntry src/locale/ru.js
+1096 silly gunzTarPerm extractEntry src/locale/eo.js
+1097 silly gunzTarPerm extractEntry src/locale/se.js
+1098 silly gunzTarPerm extractEntry src/locale/en-nz.js
+1099 silly gunzTarPerm extractEntry src/locale/si.js
+1100 silly gunzTarPerm extractEntry src/locale/en-ie.js
+1101 silly gunzTarPerm extractEntry src/locale/sk.js
+1102 silly gunzTarPerm extractEntry src/locale/en-gb.js
+1103 silly gunzTarPerm extractEntry src/locale/sl.js
+1104 silly gunzTarPerm extractEntry src/locale/en-ca.js
+1105 silly gunzTarPerm extractEntry src/locale/sq.js
+1106 silly gunzTarPerm extractEntry src/locale/en-au.js
+1107 silly gunzTarPerm extractEntry src/locale/sr-cyrl.js
+1108 silly gunzTarPerm extractEntry src/locale/el.js
+1109 silly gunzTarPerm extractEntry src/locale/sr.js
+1110 silly gunzTarPerm extractEntry src/locale/dv.js
+1111 silly gunzTarPerm extractEntry src/locale/ss.js
+1112 silly gunzTarPerm extractEntry src/locale/de.js
+1113 silly gunzTarPerm extractEntry src/locale/sv.js
+1114 silly gunzTarPerm extractEntry src/locale/de-at.js
+1115 silly gunzTarPerm extractEntry src/locale/sw.js
+1116 silly gunzTarPerm extractEntry src/locale/da.js
+1117 silly gunzTarPerm extractEntry src/locale/ta.js
+1118 silly gunzTarPerm extractEntry src/locale/cy.js
+1119 silly gunzTarPerm extractEntry src/locale/te.js
+1120 silly gunzTarPerm extractEntry src/locale/cv.js
+1121 silly gunzTarPerm extractEntry src/locale/tet.js
+1122 silly gunzTarPerm extractEntry src/locale/cs.js
+1123 silly gunzTarPerm extractEntry src/locale/th.js
+1124 silly gunzTarPerm extractEntry src/locale/ca.js
+1125 silly gunzTarPerm extractEntry src/locale/tl-ph.js
+1126 silly gunzTarPerm extractEntry src/locale/bs.js
+1127 silly gunzTarPerm extractEntry src/locale/tlh.js
+1128 silly gunzTarPerm extractEntry src/locale/br.js
+1129 silly gunzTarPerm extractEntry src/locale/tr.js
+1130 silly gunzTarPerm extractEntry src/locale/bo.js
+1131 silly gunzTarPerm extractEntry src/locale/tzl.js
+1132 silly gunzTarPerm extractEntry src/locale/bn.js
+1133 silly gunzTarPerm extractEntry src/locale/tzm-latn.js
+1134 silly gunzTarPerm extractEntry src/locale/bg.js
+1135 silly gunzTarPerm extractEntry src/locale/tzm.js
+1136 silly gunzTarPerm extractEntry src/locale/be.js
+1137 silly gunzTarPerm extractEntry src/locale/uk.js
+1138 silly gunzTarPerm extractEntry src/locale/az.js
+1139 silly gunzTarPerm extractEntry src/locale/uz.js
+1140 silly gunzTarPerm extractEntry src/locale/ar.js
+1141 silly gunzTarPerm extractEntry src/locale/vi.js
+1142 silly gunzTarPerm extractEntry src/locale/ar-tn.js
+1143 silly gunzTarPerm extractEntry src/locale/x-pseudo.js
+1144 silly gunzTarPerm extractEntry src/locale/ar-sa.js
+1145 silly gunzTarPerm extractEntry src/locale/yo.js
+1146 silly gunzTarPerm extractEntry src/locale/ar-ma.js
+1147 silly gunzTarPerm extractEntry src/locale/zh-cn.js
+1148 silly gunzTarPerm extractEntry src/locale/ar-ly.js
+1149 silly gunzTarPerm extractEntry src/locale/zh-hk.js
+1150 silly gunzTarPerm extractEntry src/locale/ar-dz.js
+1151 silly gunzTarPerm extractEntry src/locale/zh-tw.js
+1152 silly gunzTarPerm extractEntry src/locale/km.js
+1153 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/node-expat-f7c7937e/node_modules is being purged
+1154 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/node-expat-f7c7937e/node_modules
+1155 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/moment-c1f896e9/node_modules is being purged
+1156 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/moment-c1f896e9/node_modules
+1157 silly doParallel preinstall 10
+1158 silly preinstall isemail@2.2.1 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/isemail-46f56856
+1159 info lifecycle isemail@2.2.1~preinstall: isemail@2.2.1
+1160 silly preinstall items@2.1.1 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/items-f9824ed8
+1161 info lifecycle items@2.1.1~preinstall: items@2.1.1
+1162 silly preinstall hoek@4.1.0 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-6bbfb579
+1163 info lifecycle hoek@4.1.0~preinstall: hoek@4.1.0
+1164 silly preinstall moment@2.17.1 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/moment-c1f896e9
+1165 info lifecycle moment@2.17.1~preinstall: moment@2.17.1
+1166 silly preinstall node-expat@2.3.15 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/node-expat-f7c7937e
+1167 info lifecycle node-expat@2.3.15~preinstall: node-expat@2.3.15
+1168 silly preinstall hoek@4.1.0 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-b2e6e88f
+1169 info lifecycle hoek@4.1.0~preinstall: hoek@4.1.0
+1170 silly preinstall topo@2.0.2 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/topo-63e6f1e8
+1171 info lifecycle topo@2.0.2~preinstall: topo@2.0.2
+1172 silly preinstall joi@9.2.0 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/joi-16e8ff6e
+1173 info lifecycle joi@9.2.0~preinstall: joi@9.2.0
+1174 silly preinstall hoek@4.1.0 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/hoek-1b8cb559
+1175 info lifecycle hoek@4.1.0~preinstall: hoek@4.1.0
+1176 silly preinstall xml2json@0.11.0 /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging/xml2json-84a8ca7e
+1177 info lifecycle xml2json@0.11.0~preinstall: xml2json@0.11.0
+1178 silly lifecycle isemail@2.2.1~preinstall: no script for preinstall, continuing
+1179 silly lifecycle items@2.1.1~preinstall: no script for preinstall, continuing
+1180 silly lifecycle hoek@4.1.0~preinstall: no script for preinstall, continuing
+1181 silly lifecycle moment@2.17.1~preinstall: no script for preinstall, continuing
+1182 silly lifecycle node-expat@2.3.15~preinstall: no script for preinstall, continuing
+1183 silly lifecycle hoek@4.1.0~preinstall: no script for preinstall, continuing
+1184 silly lifecycle topo@2.0.2~preinstall: no script for preinstall, continuing
+1185 silly lifecycle joi@9.2.0~preinstall: no script for preinstall, continuing
+1186 silly lifecycle hoek@4.1.0~preinstall: no script for preinstall, continuing
+1187 silly lifecycle xml2json@0.11.0~preinstall: no script for preinstall, continuing
+1188 silly doReverseSerial remove 0
+1189 silly doSerial move 0
+1190 silly doSerial finalize 10
+1191 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/isemail
+1192 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/items
+1193 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/joi/node_modules/hoek
+1194 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/moment
+1195 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/node-expat
+1196 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/topo/node_modules/hoek
+1197 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/topo
+1198 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/joi
+1199 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/xml2json/node_modules/hoek
+1200 silly finalize /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/xml2json
+1201 silly doSerial build 10
+1202 silly build isemail@2.2.1
+1203 info linkStuff isemail@2.2.1
+1204 silly linkStuff isemail@2.2.1 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules as its parent node_modules
+1205 verbose linkBins isemail@2.2.1
+1206 verbose linkMans isemail@2.2.1
+1207 silly build items@2.1.1
+1208 info linkStuff items@2.1.1
+1209 silly linkStuff items@2.1.1 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules as its parent node_modules
+1210 verbose linkBins items@2.1.1
+1211 verbose linkMans items@2.1.1
+1212 silly build hoek@4.1.0
+1213 info linkStuff hoek@4.1.0
+1214 silly linkStuff hoek@4.1.0 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/joi/node_modules as its parent node_modules
+1215 verbose linkBins hoek@4.1.0
+1216 verbose linkMans hoek@4.1.0
+1217 silly build moment@2.17.1
+1218 info linkStuff moment@2.17.1
+1219 silly linkStuff moment@2.17.1 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules as its parent node_modules
+1220 verbose linkBins moment@2.17.1
+1221 verbose linkMans moment@2.17.1
+1222 silly build node-expat@2.3.15
+1223 info linkStuff node-expat@2.3.15
+1224 silly linkStuff node-expat@2.3.15 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules as its parent node_modules
+1225 verbose linkBins node-expat@2.3.15
+1226 verbose linkMans node-expat@2.3.15
+1227 silly build hoek@4.1.0
+1228 info linkStuff hoek@4.1.0
+1229 silly linkStuff hoek@4.1.0 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/topo/node_modules as its parent node_modules
+1230 verbose linkBins hoek@4.1.0
+1231 verbose linkMans hoek@4.1.0
+1232 silly build topo@2.0.2
+1233 info linkStuff topo@2.0.2
+1234 silly linkStuff topo@2.0.2 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules as its parent node_modules
+1235 verbose linkBins topo@2.0.2
+1236 verbose linkMans topo@2.0.2
+1237 silly build joi@9.2.0
+1238 info linkStuff joi@9.2.0
+1239 silly linkStuff joi@9.2.0 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules as its parent node_modules
+1240 verbose linkBins joi@9.2.0
+1241 verbose linkMans joi@9.2.0
+1242 silly build hoek@4.1.0
+1243 info linkStuff hoek@4.1.0
+1244 silly linkStuff hoek@4.1.0 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/xml2json/node_modules as its parent node_modules
+1245 verbose linkBins hoek@4.1.0
+1246 verbose linkMans hoek@4.1.0
+1247 silly build xml2json@0.11.0
+1248 info linkStuff xml2json@0.11.0
+1249 silly linkStuff xml2json@0.11.0 has /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules as its parent node_modules
+1250 verbose linkBins xml2json@0.11.0
+1251 verbose link bins [ { xml2json: 'bin/xml2json' },
+1251 verbose link bins   '/var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.bin',
+1251 verbose link bins   false ]
+1252 verbose linkMans xml2json@0.11.0
+1253 silly gentlyRm /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.bin/xml2json is being purged
+1254 verbose gentlyRm don't care about contents; nuking /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.bin/xml2json
+1255 verbose unlock done using /root/.npm/_locks/staging-708375cd2d205293.lock for /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.staging
+1256 silly rollbackFailedOptional Starting
+1257 silly rollbackFailedOptional Finishing
+1258 silly runTopLevelLifecycles Starting
+1259 silly runTopLevelLifecycles Finishing
+1260 silly install printInstalled
+1261 warn nodebb-plugin-arma3-slotting@0.1.1 No repository field.
+1262 warn nodebb-plugin-arma3-slotting@0.1.1 No license field.
+1263 verbose stack Error: EROFS: read-only file system, symlink '../xml2json/bin/xml2json' -> '/var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.bin/xml2json'
+1263 verbose stack     at Error (native)
+1264 verbose cwd /var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting
+1265 error Linux 4.8.0-22-generic
+1266 error argv "/usr/bin/nodejs" "/usr/bin/npm" "install"
+1267 error node v4.2.6
+1268 error npm  v3.5.2
+1269 error path ../xml2json/bin/xml2json
+1270 error code EROFS
+1271 error errno -30
+1272 error syscall symlink
+1273 error rofs EROFS: read-only file system, symlink '../xml2json/bin/xml2json' -> '/var/www/forum/nodebb/node_modules/nodebb-plugin-arma3-slotting/node_modules/.bin/xml2json'
+1274 error rofs This is most likely not a problem with npm itself
+1274 error rofs and is related to the file system being read-only.
+1274 error rofs
+1274 error rofs Often virtualized file systems, or other file systems
+1274 error rofs that don't support symlinks, give this error.
+1275 verbose exit [ -30, true ]

@@ -1,0 +1,117 @@
+{
+  "da6b733c-6f53-468f-8abe-350ffb0ea4b3": {
+    "company": {
+      "side": "greenfor",
+      "platoon": [
+        {
+          "slot": [
+            {
+              "shortcode": "PTL",
+              "uuid": "c411a6f2-1a6f-462e-af5b-19b89521f8d8"
+            },
+            {
+              "shortcode": "PTS",
+              "uuid": "e7d386af-6cb5-4b5d-956a-5e295fb08605"
+            },
+            {
+              "shortcode": "PTM",
+              "uuid": "b71942f0-a1ef-4668-865d-a96bdb37810a"
+            },
+            {
+              "shortcode": "R",
+              "uuid": "2eab0540-9eb6-449f-85d7-c053b9fd848a"
+            }
+          ],
+          "squad": [
+            {
+              "callsign": "Reaper",
+              "radio-frequency": "85.5",
+              "slot": [
+                {
+                  "shortcode": "SQL",
+                  "description": "squad leader",
+                  "uuid": "a3b04d96-de70-4d36-baa1-c3a3e96fc34e"
+                },
+                {
+                  "shortcode": "SQM",
+                  "description": "squad medic",
+                  "uuid": "7a11cec6-8c7f-45e5-aa0c-b4762d6c1df8"
+                }
+              ],
+              "fireteam": [
+                {
+                  "slot": [
+                    {
+                      "uuid": "fdsfsdfs",
+                      "shortcode": "FTL",
+                      "description": "fireteam lead"
+                    },
+                    {
+                      "shortcode": "GR",
+                      "description": "fireteam lead",
+                      "uuid": "56857fd6-e109-4ab3-a35a-52d30d633570",
+                      "user": {
+                        "uid": "6"
+                      }
+                    },
+                    {
+                      "shortcode": "R",
+                      "uuid": "b5fd6994-d921-42ab-bafb-9b26ff681a63"
+                    },
+                    {
+                      "shortcode": "AR",
+                      "description": "automatic rifleman",
+                      "uuid": "65700982-b4d8-441e-ae6d-eadd14c590be"
+                    }
+                  ]
+                },
+                {
+                  "slot": [
+                    {
+                      "shortcode": "FTL",
+                      "description": "fireteam lead",
+                      "uuid": "1cdee43b-4cb3-4e78-b099-5fa02b2cbc3f",
+                      "user": {
+                        "uid": "1"
+                      }
+                    },
+                    {
+                      "shortcode": "GR",
+                      "description": "fireteam lead",
+                      "uuid": "b4d8131c-ffb4-4164-b982-e35076c31807",
+                      "user": {
+                        "uid": "2"
+                      }
+                    },
+                    {
+                      "shortcode": "R",
+                      "uuid": "fce61231-9217-4d74-88b4-4531d9b9a8ac"
+                    },
+                    {
+                      "shortcode": "AR",
+                      "description": "automatic rifleman",
+                      "uuid": "d2b474e7-6358-4280-a832-a7cf3ce9e913",
+                      "reservation": "Adler"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "callsign": "Hunter",
+              "slot": {
+                "shortcode": "PIL",
+                "description": "pilot",
+                "uuid": "6eef8711-67e7-4a5a-a772-e02e79391da5",
+                "reservation": "TF47"
+              }
+            }
+          ]
+        },
+        {
+          "callsign": "bumper"
+        }
+      ]
+    }
+  }
+}
