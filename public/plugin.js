@@ -1,6 +1,7 @@
-console.log("plugin js successfully started");
+require(['async'], function (async) {
 
-(function () {
+    console.log("arma3-slotting plugin js successfully started");
+
     (function () {
         var css = document.createElement('link');
         css.rel = 'stylesheet';
@@ -18,9 +19,26 @@ console.log("plugin js successfully started");
         return titleElement.getAttribute('content') || titleElement.textContent || '';
     }
 
+    var cachebuster = '3';
+    var getTemplates = function (templatePaths /*array of paths relative to public/templates*/, callback) {
+        async.parallel(
+                templatePaths.map(function (templatePath) {
+                    return function (next) {
+                        getTemplate(templatePath + '?' + cachebuster, function (template) {
+                            next(null, template);
+                        });
+                    };
+                }),
+                function (err, templates) {
+                    callback(err, templates);
+                }
+        );
+    };
+
      var getTemplate = (function () {
         var loadedTemplates = {};
         return function (templateName, cb) {
+            templateName = '/plugins/nodebb-plugin-arma3-slotting/templates/' + templateName;
             if (loadedTemplates[templateName]) {
                 cb(loadedTemplates[templateName]);
             }
@@ -146,46 +164,41 @@ console.log("plugin js successfully started");
         
        
     };
-    /*
-
-    */
-
 
     var topicLoaded = function () {
         Array.prototype.forEach.call(document.querySelectorAll('[component="topic"]'), function (topicNode) {
-
             if (isMission(getTopicTitle(document))) {
                 var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
                 getMatches(topicId, function (response) {
-                    getTemplate('/plugins/nodebb-plugin-arma3-slotting/templates/tile_master.ejs?v=1', function (template_master) {
-                        getTemplate('/plugins/nodebb-plugin-arma3-slotting/templates/tile_slave.ejs?v=1', function (template_slave) {
-                        var compiledTemplateMaster = _.template(template_master);
+                    getTemplates(['tile_master.ejs', 'tile_slave.ejs'], function (err, templates) {
+                        var masterTemplate = templates[0];
+                        var compiledTemplateMaster = _.template(masterTemplate);
 
-                            Object.keys(response).forEach(function (match_uuid) {
-                                var match = response[match_uuid];
-                                var allTheUnits = filterHierarchy(match);
+                        Object.keys(response).forEach(function (match_uuid) {
+                            var match = response[match_uuid];
+                            var allTheUnits = filterHierarchy(match);
 
-                                /*
-                                allTheUnits.forEach(function(entry) {
-                                    console.log(entry);
-                                    entry.forEach(function(units) {
-                                        console.log(units);
-                                    });
+                            /*
+                            allTheUnits.forEach(function(entry) {
+                                console.log(entry);
+                                entry.forEach(function(units) {
+                                    console.log(units);
                                 });
-                                */
-
-                                // für jede der companies aufgerufen und durchs template gejagt
-                                var markup = allTheUnits.map(compiledTemplateMaster).join("");
-
-                                var node = document.createElement('div');
-                                node.setAttribute('component', 'topic/arma3-slotting');
-                                node.innerHTML = markup;
-
-                                // console.log("slotting code reached");
-
-                                insertTopicSlottingNode(topicNode, node);
-                                console.log("insertTopicSlottingNode...");
                             });
+                            */
+
+                            // für jede der companies aufgerufen und durchs template gejagt
+                            var markup = allTheUnits.map(compiledTemplateMaster).join("");
+
+                            var node = document.createElement('div');
+                            node.setAttribute('component', 'topic/arma3-slotting');
+                            node.innerHTML = markup;
+
+                            // console.log("slotting code reached");
+
+                            document.body.innerHTML = markup;
+                            insertTopicSlottingNode(topicNode, node);
+                            console.log("insertTopicSlottingNode...");
                         })
                     });
                 });
@@ -195,4 +208,4 @@ console.log("plugin js successfully started");
 
     $(window).bind('action:topic.loaded', topicLoaded);
 
-}());
+});

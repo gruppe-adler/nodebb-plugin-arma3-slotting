@@ -6,9 +6,14 @@
         "xml2json": "*",
         "node-uuid": "*",
         "async": "*",
-        "winston": "*"
+        "winston": "*",
+        "nodebb-plugin-frontend-async": "*"
     },
     "devDependencies": {
         "underscore": "*"
+    },
+    "nbbpm": {
+        "compatibility": "^1.4.0"
     }
+
 }
