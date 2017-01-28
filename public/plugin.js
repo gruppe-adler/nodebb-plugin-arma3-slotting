@@ -22,25 +22,23 @@ require(['async'], function (async) {
     var cachebuster = '3';
     var getTemplates = function (templatePaths /*array of paths relative to public/templates*/, callback) {
         async.parallel(
-                templatePaths.map(function (templatePath) {
-                    return function (next) {
-                        getTemplate(templatePath + '?' + cachebuster, function (template) {
-                            next(null, template);
-                        });
-                    };
-                }),
-                function (err, templates) {
-                    callback(err, templates);
-                }
+            templatePaths.map(function (templatePath) {
+                return function (next) {
+                    getTemplate(templatePath + '?' + cachebuster, function (template) {
+                        next(null, template);
+                    });
+                };
+            }),
+            callback
         );
     };
 
-     var getTemplate = (function () {
+    var getTemplate = (function () {
         var loadedTemplates = {};
         return function (templateName, cb) {
             templateName = '/plugins/nodebb-plugin-arma3-slotting/templates/' + templateName;
             if (loadedTemplates[templateName]) {
-                cb(loadedTemplates[templateName]);
+                return cb(loadedTemplates[templateName]);
             }
             $.get(templateName, function (response) {
                 loadedTemplates[templateName] = response;
@@ -50,15 +48,15 @@ require(['async'], function (async) {
     }());
 
     var refreshToolTips = function () {
-         var attendanceAvatar = document.querySelectorAll(".avatar");
-         Array.prototype.forEach.call(attendanceAvatar, function (attendanceAvatar) {
+        var attendanceAvatar = document.querySelectorAll(".avatar");
+        Array.prototype.forEach.call(attendanceAvatar, function (attendanceAvatar) {
             if (!utils.isTouchDevice()) {
                 $(attendanceAvatar).tooltip({
                     placement: 'top',
                     title: $(attendanceAvatar).attr('title')
                 });
             }
-         });
+        });
 
     };
 
@@ -74,66 +72,64 @@ require(['async'], function (async) {
     }
 
 
-    function ensureArray (element) {
-		if (element) {
-		    if (!Array.isArray(element)) {
-		         element = [element];
-		    }
-		} else {
-			element = [];
-		}
-		return element;
-	}
-
-    
+    function ensureArray(element) {
+        if (element) {
+            if (!Array.isArray(element)) {
+                element = [element];
+            }
+        } else {
+            element = [];
+        }
+        return element;
+    }
 
 
     function filterHierarchy(current_match) {
 
-    	var companies = ensureArray(current_match.company);
-    	/*
-        var platoon = ensureArray(current_match.platoon);
-    	var squad = ensureArray(current_match.squad);
-    	var fireteam = ensureArray(current_match.fireteam);
-        */
+        var companies = ensureArray(current_match.company);
+        /*
+         var platoon = ensureArray(current_match.platoon);
+         var squad = ensureArray(current_match.squad);
+         var fireteam = ensureArray(current_match.fireteam);
+         */
 
         var platoon = ensureArray(current_match.platoon);
         var squad = ensureArray(current_match.squad);
         var fireteam = ensureArray(current_match.fireteam);
 
-        companies.forEach(function(units) {
+        companies.forEach(function (units) {
             console.log(units);
         });
 
-        platoon.forEach(function(units) {
+        platoon.forEach(function (units) {
             console.log(units);
         });
 
-        squad.forEach(function(units) {
+        squad.forEach(function (units) {
             console.log(units);
         });
 
-        fireteam.forEach(function(units) {
+        fireteam.forEach(function (units) {
             console.log(units);
         });
 
 
         var returnArray = [companies, platoon, squad, fireteam];
 
-    	return returnArray;
+        return returnArray;
     }
 
 
-     var insertTopicSlottingNode = function (topicContentNode, slottingNode) {
+    var insertTopicSlottingNode = function (topicContentNode, slottingNode) {
 
-        
+
         var firstPostCheck = topicContentNode.querySelector('[component="post"]');
         //exit if isn't first page
-        
+
         if (firstPostCheck.getAttribute("data-index") != "0") {
             return false;
         }
-        
+
         var content = topicContentNode.querySelector('[component="post/content"]');
         //replace we updated data if the slotting component already exists
         var existingSlottingComponentNode = content.querySelector('[component="topic/slotting"]');
@@ -147,22 +143,22 @@ require(['async'], function (async) {
             refreshToolTips();
         }
 
-        
+
         // console.log("appendChild...");
 
         /*
-        var contentNode = topicContentNode.querySelector('[class="shittshits"]');
+         var contentNode = topicContentNode.querySelector('[class="shittshits"]');
 
-        //only insert attendance if the postbar exists (if this is the first post)
-        if (contentNode) {
-            contentNode.parentNode.insertBefore(topicContentNode, contentNode);
-            
-        } else if (topicContentNode.children.length === 1) {
-            content.appendChild(slottingNode);
-            
-        } */
-        
-       
+         //only insert attendance if the postbar exists (if this is the first post)
+         if (contentNode) {
+         contentNode.parentNode.insertBefore(topicContentNode, contentNode);
+
+         } else if (topicContentNode.children.length === 1) {
+         content.appendChild(slottingNode);
+
+         } */
+
+
     };
 
     var topicLoaded = function () {
@@ -179,13 +175,13 @@ require(['async'], function (async) {
                             var allTheUnits = filterHierarchy(match);
 
                             /*
-                            allTheUnits.forEach(function(entry) {
-                                console.log(entry);
-                                entry.forEach(function(units) {
-                                    console.log(units);
-                                });
-                            });
-                            */
+                             allTheUnits.forEach(function(entry) {
+                             console.log(entry);
+                             entry.forEach(function(units) {
+                             console.log(units);
+                             });
+                             });
+                             */
 
                             // für jede der companies aufgerufen und durchs template gejagt
                             var markup = allTheUnits.map(compiledTemplateMaster).join("");
