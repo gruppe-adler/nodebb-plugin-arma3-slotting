@@ -67,58 +67,9 @@ require(['async'], function (async) {
                 response = JSON.parse(response)
             }
 
-            cb(response);
+            cb(null, response);
         });
     }
-
-
-    function ensureArray(element) {
-        if (element) {
-            if (!Array.isArray(element)) {
-                element = [element];
-            }
-        } else {
-            element = [];
-        }
-        return element;
-    }
-
-
-    function filterHierarchy(current_match) {
-
-        var companies = ensureArray(current_match.company);
-        /*
-         var platoon = ensureArray(current_match.platoon);
-         var squad = ensureArray(current_match.squad);
-         var fireteam = ensureArray(current_match.fireteam);
-         */
-
-        var platoon = ensureArray(current_match.platoon);
-        var squad = ensureArray(current_match.squad);
-        var fireteam = ensureArray(current_match.fireteam);
-
-        companies.forEach(function (units) {
-            console.log(units);
-        });
-
-        platoon.forEach(function (units) {
-            console.log(units);
-        });
-
-        squad.forEach(function (units) {
-            console.log(units);
-        });
-
-        fireteam.forEach(function (units) {
-            console.log(units);
-        });
-
-
-        var returnArray = [companies, platoon, squad, fireteam];
-
-        return returnArray;
-    }
-
 
     var insertTopicSlottingNode = function (topicContentNode, slottingNode) {
 
@@ -157,34 +108,33 @@ require(['async'], function (async) {
          content.appendChild(slottingNode);
 
          } */
-
-
     };
 
     var topicLoaded = function () {
         Array.prototype.forEach.call(document.querySelectorAll('[component="topic"]'), function (topicNode) {
             if (isMission(getTopicTitle(document))) {
                 var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
-                getMatches(topicId, function (response) {
-                    getTemplates(['tile_master.ejs', 'tile_slave.ejs'], function (err, templates) {
-                        var masterTemplate = templates[0];
-                        var compiledTemplateMaster = _.template(masterTemplate);
+                async.parallel(
+                    [
+                        _.partial(getMatches, topicId),
+                        _.partial(getTemplates, ['tile_master.ejs', 'tile_slave.ejs', 'company.ejs', 'platoon.ejs', 'squad.ejs', 'fireteam.ejs', 'slot.ejs'])
+                    ],
+                    function (err, results) {
+                        var matches = results[0];
+                        var templatesArray = results[1];
+                        window.pluginArma3SlottingTemplates = {
+                            company: _.template(templatesArray[2], {variable: 'x'}),
+                            platoon: _.template(templatesArray[3], {variable: 'x'}),
+                            squad: _.template(templatesArray[4], {variable: 'x'}),
+                            fireteam: _.template(templatesArray[5], {variable: 'x'}),
+                            slot: _.template(templatesArray[6], {variable: 'x'}),
+                        };
+                        var masterTemplate = _.template(templatesArray[0], {variable: 'x'});
+                        // var slaveTemplate = _.template(templatesArray[1]);
 
-                        Object.keys(response).forEach(function (match_uuid) {
-                            var match = response[match_uuid];
-                            var allTheUnits = filterHierarchy(match);
-
-                            /*
-                             allTheUnits.forEach(function(entry) {
-                             console.log(entry);
-                             entry.forEach(function(units) {
-                             console.log(units);
-                             });
-                             });
-                             */
-
-                            // für jede der companies aufgerufen und durchs template gejagt
-                            var markup = allTheUnits.map(compiledTemplateMaster).join("");
+                        Object.keys(matches).forEach(function (match_uuid) {
+                            var match = matches[match_uuid];
+                            var markup = masterTemplate(match);
 
                             var node = document.createElement('div');
                             node.setAttribute('component', 'topic/arma3-slotting');
@@ -192,12 +142,12 @@ require(['async'], function (async) {
 
                             // console.log("slotting code reached");
 
-                            document.body.innerHTML = markup;
-                            insertTopicSlottingNode(topicNode, node);
+                            document.body.appendChild(node);
+                            //insertTopicSlottingNode(topicNode, node);
                             console.log("insertTopicSlottingNode...");
-                        })
-                    });
-                });
+                        });
+                    }
+                );
             }
         });
     };
