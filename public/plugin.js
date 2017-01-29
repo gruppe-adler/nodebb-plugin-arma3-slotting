@@ -195,8 +195,7 @@ require(['async'], function (async) {
                         var masterTemplate = _.template(templatesArray[0], {variable: 'x'});
                         // var slaveTemplate = _.template(templatesArray[1]);
 
-                        Object.keys(matches).forEach(function (match_uuid) {
-                            var match = matches[match_uuid];
+                        matches.forEach(function (match) {
                             var markup = masterTemplate(match);
 
                             var node = document.createElement('div');

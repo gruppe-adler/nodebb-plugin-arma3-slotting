@@ -4,9 +4,10 @@
     "description": "define an ORBAT-like structure and let players select their slot",
     "library": "./plugin.js",
     "staticDirs": {
-        "templates": "./public/templates",
-        "css": "./public/css"
+        "templates": "public/templates",
+        "css": "public/css"
     },
+    "templates": "public/templates",
      "scripts": [
         "../../node_modules/underscore/underscore-min.js",
         "./public/plugin.js"
@@ -15,6 +16,11 @@
         {
             "hook": "static:app.load",
             "method": "setup",
+            "callbacked": true
+        },
+        {
+            "hook": "filter:admin.header.build",
+            "method": "admin.menu",
             "callbacked": true
         }
     ]
