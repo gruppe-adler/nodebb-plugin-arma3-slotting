@@ -1,0 +1,6 @@
+<div class="arma3-slotting-unit">
+	squad <%-x.uuid %>
+
+	<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
+	<%= ([].concat(x.fireteam || [])).map(pluginArma3SlottingTemplates.fireteam).join('') %>
+</div>

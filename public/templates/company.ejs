@@ -1,8 +1,8 @@
-<div class="shittshits" style="border: 2px solid red">
-	<%=x.side%>
+<div class="arma3-slotting-unit">
+	company <%-x.uuid%>
+
 	<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
 	<%= ([].concat(x.fireteam || [])).map(pluginArma3SlottingTemplates.fireteam).join('') %>
 	<%= ([].concat(x.squad || [])).map(pluginArma3SlottingTemplates.squad).join('') %>
 	<%= ([].concat(x.platoon || [])).map(pluginArma3SlottingTemplates.platoon).join('') %>
-	<%= ([].concat(x.company || [])).map(pluginArma3SlottingTemplates.company).join('') %>
 </div>
