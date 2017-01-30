@@ -142,8 +142,8 @@ require(['async'], function (async) {
 
                             // console.log("slotting code reached");
 
-                            document.body.appendChild(node);
-                            //insertTopicSlottingNode(topicNode, node);
+                            //document.body.appendChild(node);
+                            insertTopicSlottingNode(topicNode, node);
                             console.log("insertTopicSlottingNode...");
                         });
                     }

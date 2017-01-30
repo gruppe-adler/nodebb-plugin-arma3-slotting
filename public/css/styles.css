@@ -2,3 +2,131 @@
     border: 1px solid black;
     padding: 2px;
 }
+
+.container_company {
+	min-height: 80px;
+	/* width: calc(100% - 110px);*/
+	
+	/* box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2); */
+	border: 1px solid #d9d9d9;
+	float: left;
+	margin:5px;
+}
+
+.company_head, .platoon_head, .squad_head {
+	height: 75px;
+	text-align: center;
+	background-color: #fff;
+	padding: 10px;
+}
+
+.company_title, .platoon_title, .squad_title {
+	display: block;
+	background-color: #000;
+	color: rgba(255,255,255,0.75);
+	text-align: center;
+	height: 25px;
+	line-height: 25px;
+}
+
+.company_title {
+	background-color: #8f1167;
+}
+
+.container_platoon {
+	min-height: 80px;
+	/* width: calc(100% - 110px);*/
+	
+	/* box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2);*/
+	background: #fff;
+	float: left;
+	margin:5px;
+}
+
+
+.platoon_title {
+	background-color: #777;
+}
+
+
+
+.container_squad {
+	min-height: 80px;
+	/* width: calc(100% - 110px);*/
+	
+	box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2);
+	float: left;
+	margin:5px;
+}
+
+
+div .squad_head {
+	background-color: #fff;
+	width: 100%;
+	min-height: 80px;
+	float: left;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.squad_title {
+	display: block;
+	background-color: #fff;
+	color: #333;
+	text-align: center;
+	font-weight: bold;
+}
+
+.container_fireteam {
+	min-height: 50px;
+	/* width: calc(100% - 110px);*/
+	box-shadow: none;
+	float: left;
+	background-color: #d9d9d9;
+}
+
+.slot {
+	height:32px;
+	width: 32px;
+	display: inline-block;
+	margin: 0px 0px 0px 10px;
+}
+
+.slot:last-child {
+	margin: 0px 10px 0px 10px;
+}
+
+.container_fireteam .slot {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.slot .avatar {
+	height: 32px;
+	width: 32px;
+	background-color: #d9d9d9;
+	box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.2);
+	border-radius: 50%;
+}
+
+.container_fireteam .avatar{
+	background-color: #fff;
+}
+
+.slot_descr {
+	color: #777;
+	display: block;
+	text-align: center;
+}
+
+.company_head .slot:first-child, .platoon_head .slot:first-child, .squad_head .slot:first-child {
+	position: relative;
+	margin-right: 15px;
+	/* left: calc(50% - 30px);
+	display: block;
+	*/
+}
+
+.company_head .slot:first-child .avatar, .platoon_head .slot:first-child .avatar, .squad_head .slot:first-child .avatar{
+	height: 40px;
+	width: 40px;
+}

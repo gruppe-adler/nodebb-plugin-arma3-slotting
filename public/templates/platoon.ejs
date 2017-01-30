@@ -1,7 +1,10 @@
-<div class="arma3-slotting-unit">
-	platoon <%-x.uuid%>
+<div class="container_platoon">
+	<span class="platoon_title"><%-x.callsign%></span> 
 
-	<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
-	<%= ([].concat(x.fireteam || [])).map(pluginArma3SlottingTemplates.fireteam).join('') %>
-	<%= ([].concat(x.squad || [])).map(pluginArma3SlottingTemplates.squad).join('') %>
+	<div class="platoon_head">
+		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
+	</div>
+	<div class="platoon_body">
+		<%= ([].concat(x.squad || [])).map(pluginArma3SlottingTemplates.squad).join('') %>
+	</div>
 </div>

@@ -1,5 +1,3 @@
-<div class="arma3-slotting-unit">
-	fireteam <%-x.uuid %>
-
+<div class="container_fireteam">
 	<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
 </div>
