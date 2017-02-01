@@ -10,6 +10,55 @@ require(['async'], function (async) {
         document.head.appendChild(css);
     }());
 
+    (function () {
+        $(document).on('click', '#slot_button', function (event) {
+            var $button = $(this);
+            var value = getCurrentButtonValue($button);
+            // console.log(value);
+
+            if (value == 'empty') {
+                value = 'taken';
+                $button.data("value", "taken");
+                // console.log("yes to yes");
+            } else {
+                value = 'empty';
+                $button.data("value", "empty");
+                // console.log("any to unknown");
+            }
+            setCurrentButtonValue($(this)[0], value);
+            // userConfirmAction();
+        });
+    }());
+
+    function getCurrentButtonValue(button) {
+        return button.attr('data-value');
+    }
+
+    function setCurrentButtonValue(button, value) {
+        console.log("setting to " + value);
+        return button.setAttribute('data-value', value);
+    }
+
+    function userConfirmAction() {
+            bootbox.confirm({
+                message: "XiviD vom Slot schmeißen?",
+                size: "small",
+                buttons: {
+                    confirm: {
+                        label: 'Runterschmeißen',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Abbrechen',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    console.log('This was logged in the callback: ' + result);
+                }
+            });
+    };
+
     var isMission = function (title) {
         return title.trim().match(/([0-9]{4}-[0-9]{2}-[0-9]{2})([^0-9a-z])/i);
     };
@@ -49,6 +98,7 @@ require(['async'], function (async) {
 
     var refreshToolTips = function () {
         var attendanceAvatar = document.querySelectorAll(".avatar");
+        
         Array.prototype.forEach.call(attendanceAvatar, function (attendanceAvatar) {
             if (!utils.isTouchDevice()) {
                 $(attendanceAvatar).tooltip({
@@ -58,7 +108,20 @@ require(['async'], function (async) {
             }
         });
 
+        var slotDescriptions = document.querySelectorAll(".slot_descr");
+        Array.prototype.forEach.call(slotDescriptions, function (slotDescriptions) {
+            if (!utils.isTouchDevice()) {
+                $(slotDescriptions).tooltip({
+                    placement: 'top',
+                    title: $(slotDescriptions).attr('title')
+                });
+            }
+        });
     };
+
+   
+
+   
 
     // cb = callback
     function getMatches(topicId, cb) {
@@ -93,7 +156,7 @@ require(['async'], function (async) {
             content.appendChild(slottingNode);
             refreshToolTips();
         }
-
+        refreshToolTips();
 
         // console.log("appendChild...");
 

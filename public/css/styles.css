@@ -27,6 +27,8 @@
 	text-align: center;
 	height: 25px;
 	line-height: 25px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .company_title {
@@ -116,6 +118,43 @@ div .squad_head {
 	color: #777;
 	display: block;
 	text-align: center;
+	cursor: pointer;
+	background-color: rgba(0,0,0,0);
+	border-radius: 3px;
+	margin-top: 2px;
+
+	-webkit-transition: color 100ms ease-in-out;
+    -moz-transition: color 100ms ease-in-out;
+    -o-transition: color 100ms ease-in-out;
+    -ms-transition: color 100ms ease-in-out;
+     transition: color 100ms ease-in-out;
+
+	-webkit-transition: background-color 100ms ease-in-out;
+    -moz-transition: background-color 100ms ease-in-out;
+    -o-transition: background-color 100ms ease-in-out;
+    -ms-transition: background-color 100ms ease-in-out;
+     transition: background-color 100ms ease-in-out;
+}
+
+.slot_descr:hover {
+	color: #333;
+	background-color: rgba(0,0,0,0.2);
+	-webkit-transition: color 100ms ease-in-out;
+    -moz-transition: color 100ms ease-in-out;
+    -o-transition: color 100ms ease-in-out;
+    -ms-transition: color 100ms ease-in-out;
+     transition: color 100ms ease-in-out;
+
+	  -webkit-transition: background-color 100ms ease-in-out;
+	  -moz-transition: background-color 100ms ease-in-out;
+	  -o-transition: background-color 100ms ease-in-out;
+	  -ms-transition: background-color 100ms ease-in-out;
+	  transition: background-color 100ms ease-in-out;
+
+}
+
+.company_head .slot:first-child .slot_descr, .platoon_head .slot:first-child .slot_descr, .squad_head .slot:first-child .slot_descr {
+	margin-left: 8px;
 }
 
 .company_head .slot:first-child, .platoon_head .slot:first-child, .squad_head .slot:first-child {
@@ -129,4 +168,34 @@ div .squad_head {
 .company_head .slot:first-child .avatar, .platoon_head .slot:first-child .avatar, .squad_head .slot:first-child .avatar{
 	height: 40px;
 	width: 40px;
+}
+
+[data-value="taken"] {
+	background-color: #333;
+}
+
+.slot_dropdown {
+	position: relative;
+	top: 40px;
+	left: -60px;
+}
+
+.slot_dropdown ul {
+	display: block;
+}
+
+.slot_dropdown .dropdown-menu > li > a {
+	padding: 10px 20px;
+}
+
+.topic .posts .content .slot_dropdown ul > li {
+	list-style: none;
+}
+
+[data-visible="no"] {
+	display: none;
+}
+
+[data-visible="yes"] {
+	display: block;
 }

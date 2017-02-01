@@ -1,7 +1,16 @@
 <div class="slot" data-uuid="<%-x.uuid%>">
-	<a href="#">
-		<div class="avatar avatar-sm avatar-rounded" title="">
+	<div class="slot_dropdown" data-visible="no">
+	<ul class="dropdown-menu">
+		<li><a href="#" class=""><i class="fa fa-fw fa-check"></i> Event-Lock</a></li>
+		<li><a href="#" class=""><i class="fa fa-fw"></i> Spieler kicken</a></li>
+		<li><a href="#" class=""><i class="fa fa-fw"></i> Selbst slotten</a></li>
+	</ul>
+	</div>
+
+	<a href="#" id="slot_button" data-value="empty">
+		<div class="avatar avatar-sm avatar-rounded" title="" >
 		</div>
 	</a>
-<span class="slot_descr" title="<%= x.description%>"><%-x.shortcode%></span>
+
+	<div class="slot_descr" title="<%= x.description%>"><%-x.shortcode%></div>
 </div>
