@@ -11,10 +11,15 @@ require(['async'], function (async) {
     }());
 
     (function () {
-        $(document).on('click', '#slot_button', function (event) {
+        $(document).on('click', '.slot_button', function (event) {
             var $button = $(this);
             var value = getCurrentButtonValue($button);
             // console.log(value);
+
+            var slotID = $button.parent().attr("data-uuid");
+            var topicID = $button.parents('[component="topic"]').attr("data-tid");
+            var matchID = $button.parents('[component="match"]').attr("data-uuid");
+
 
             if (value == 'empty') {
                 value = 'taken';
@@ -26,9 +31,25 @@ require(['async'], function (async) {
                 // console.log("any to unknown");
             }
             setCurrentButtonValue($(this)[0], value);
+            takeSlot(slotID,topicID,matchID);
             // userConfirmAction();
         });
     }());
+
+    function takeSlot(slotID, tid, matchID) {
+          $.ajax({
+                method: 'PUT',
+                url: config.relative_path + '/api/arma3-slotting/' + tid + '/match/' + matchID + '/slot/' + slotID + '/user',
+                contentType: 'application/json',
+                data: JSON.stringify({uid: app.user.uid}),
+                success: function () {
+                   topicLoaded();
+                },
+                error: function () {
+                    console.log(arguments);
+                }
+            });
+    }
 
     function getCurrentButtonValue(button) {
         return button.attr('data-value');
@@ -143,6 +164,7 @@ require(['async'], function (async) {
         Array.prototype.forEach.call(postBarNode, function (postBarNode) {
             console.log("slotting-insertslottinbutton array");
 
+            /*
             getTemplates('post_bar.ejs', function (err, templates) {
                 console.log("slotting-insertslottinbutton gettemplates");
                 var buttonsNode = document.createElement('div');
@@ -167,7 +189,7 @@ require(['async'], function (async) {
                     console.log('adding slottingButtonNode');
                     postBarNode.appendChild(buttonsNode);
                 }
-            });
+            });*/
         })
     }
 
@@ -262,7 +284,7 @@ require(['async'], function (async) {
                         var masterTemplate = _.template(templatesArray[0], {variable: 'x'});
                         // var slaveTemplate = _.template(templatesArray[1]);
 
-                        matches.forEach(function (match) {
+                       matches.forEach(function (match) {
                             var markup = masterTemplate(match);
 
                             var node = document.createElement('div');
