@@ -134,6 +134,56 @@ require(['async'], function (async) {
         });
     }
 
+    // github original
+    function insertSlottingButton(topicNode) {
+        console.log("slotting-insertslottinbutton called");
+        var postBarNode = document.querySelectorAll(".post-bar .clearfix");
+        var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
+
+        Array.prototype.forEach.call(postBarNode, function (postBarNode) {
+            console.log("slotting-insertslottinbutton array");
+
+            getTemplates('post_bar.ejs', function (err, templates) {
+                console.log("slotting-insertslottinbutton gettemplates");
+                var buttonsNode = document.createElement('div');
+                var existingButtonsNode = postBarNode.querySelector('[data-id="master"]');
+                var templateString = templates[0];
+
+                var topicDateString = isMission(getTopicTitle(document))[1];
+                console.log("slotting-topicDateString: " + topicDateString);
+                var isLocked = checkDateLock(topicDateString);
+                console.log("slotting-isLocked: " + isLocked);
+
+                var markup = _.template(templateString)({
+                    config: {
+                        relative_path: config.relative_path
+                    },
+                    isLockedMarkup: isLocked,
+                    tid: topicId
+                });
+                buttonsNode.innerHTML = markup;
+
+                if (!existingButtonsNode) {
+                    console.log('adding slottingButtonNode');
+                    postBarNode.appendChild(buttonsNode);
+                }
+            });
+        })
+    }
+
+    function checkDateLock(d) {
+        var now = (new Date());
+
+        var fillDate = new Date(d);
+        fillDate.setHours(20);
+        fillDate.setMinutes(0);
+
+        var itsHistory = (now.getTime() > fillDate.getTime());
+        console.log("now is: " + now + " - fillDate is: " + fillDate);
+
+        return itsHistory;
+    }
+
     var insertTopicSlottingNode = function (topicContentNode, slottingNode) {
 
 
@@ -147,6 +197,23 @@ require(['async'], function (async) {
         var content = topicContentNode.querySelector('[component="post/content"]');
         //replace we updated data if the slotting component already exists
         var existingSlottingComponentNode = content.querySelector('[component="topic/slotting"]');
+
+
+        var postBarNode = firstPostCheck.querySelector('[class="post-bar"]');
+
+        //only insert attendance if the postbar exists (if this is the first post)
+        if (postBarNode) {
+            postBarNode.parentNode.insertBefore(slottingNode, postBarNode);
+            if (true) {
+                insertSlottingButton(topicContentNode);
+            }
+        } else if (topicContentNode.children.length === 1) {
+            firstPostCheck.appendChild(slottingNode);
+            if (true) {
+                insertSlottingButton(topicContentNode);
+            }
+        }
+
 
         if (existingSlottingComponentNode) {
             content.replaceChild(slottingNode, existingSlottingComponentNode);

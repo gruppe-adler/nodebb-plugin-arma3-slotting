@@ -170,7 +170,7 @@ div .squad_head {
 	width: 40px;
 }
 
-[data-value="taken"] {
+[data-value="taken"] .avatar {
 	background-color: #333;
 }
 
