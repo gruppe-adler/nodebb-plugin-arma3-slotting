@@ -146,7 +146,7 @@ require(['async'], function (async) {
 
     // cb = callback
     function getMatches(topicId, cb) {
-        $.get('/api/arma3-slotting/' + topicId, function (response) {
+        $.get('/api/arma3-slotting/' + topicId + '?withusers=1', function (response) {
             if (typeof response == 'string') {
                 response = JSON.parse(response)
             }
