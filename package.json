@@ -5,7 +5,8 @@
         "libxmljs": "*",
         "xml2json": "*",
         "node-uuid": "*",
-        "async": "*",
+        "async": "^1",
+        "underscore": "^1",
         "winston": "*",
         "nodebb-plugin-frontend-async": "*"
     },
