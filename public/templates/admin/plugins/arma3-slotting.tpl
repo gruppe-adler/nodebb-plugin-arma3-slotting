@@ -9,6 +9,14 @@
 					<input placeholder="API key" type="text" class="form-control" id="api-key" name="api-key" />
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label for="allowed-categories">optional: restrict to a number of category IDs. Comma separated integers pl0x!</label>
+						<input placeholder="" type="text" class="form-control" id="allowed-categories" name="allowed-categories" />
+					</div>
+				</div>
+			</div>
 		</div>
         <hr />
 		<button class="btn btn-lg btn-primary" id="save" type="button">Save</button>

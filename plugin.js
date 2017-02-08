@@ -4,9 +4,15 @@ var meta = require('./plugin.json');
 meta.nbbId = meta.id.replace(/nodebb-plugin-/, '');
 
 module.exports.setup = function (params, callback) {
-    var api = require('./lib/api');
-    require('./lib/admin')(params, meta, api.setApiKey);
-    api(params, callback);
+    let admin = require('./lib/admin');
+    let api = require('./lib/api');
+
+    admin(params, meta, function () {
+
+        api.setAllowedCategories(admin.getAllowedCategories());
+        api.setApiKey(admin.getApiKey());
+        api(params, callback);
+    });
 };
 
 
