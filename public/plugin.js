@@ -1,4 +1,5 @@
-require(['async'], function (async) {
+/*global app, bootbox */
+require(['async', 'underscore'], function (async, _) {
 
     console.log("arma3-slotting plugin js successfully started");
 
@@ -10,75 +11,59 @@ require(['async'], function (async) {
         document.head.appendChild(css);
     }());
 
-    (function () {
-        $(document).on('click', '.slot_button', function (event) {
-            var $button = $(this);
-            var value = getCurrentButtonValue($button);
-            // console.log(value);
+    $(document).on('click', '.slot_button', function (event) {
+        var $button = $(this);
+        var uid = Number($button.attr('data-uid'));
+        var slotID = $button.parent().attr("data-uuid");
+        var topicID = $button.parents('[component="topic"]').attr("data-tid");
+        var matchID = $button.parents('[component="match"]').attr("data-uuid");
+        var actionOnMySlot = _.partial(slotAction, slotID, topicID, matchID);
 
-            var slotID = $button.parent().attr("data-uuid");
-            var topicID = $button.parents('[component="topic"]').attr("data-tid");
-            var matchID = $button.parents('[component="match"]').attr("data-uuid");
-
-
-            if (value == 'empty') {
-                value = 'taken';
-                $button.data("value", "taken");
-                // console.log("yes to yes");
+        if (uid) {
+            var deleteAction = _.partial(actionOnMySlot, 'DELETE', null, topicLoaded);
+            // $button.attr('data-uid', false); probably not necessary if we reload the whole freaking thing anyway
+            if (uid === app.user.uid) {
+                deleteAction();
             } else {
-                value = 'empty';
-                $button.data("value", "empty");
-                // console.log("any to unknown");
+                confirmUnslottingOfOthers($button.attr('data-username'), deleteAction);
             }
-            setCurrentButtonValue($(this)[0], value);
-            takeSlot(slotID,topicID,matchID);
-            // userConfirmAction();
+        } else {
+            actionOnMySlot('PUT', {uid: app.user.uid}, topicLoaded);
+        }
+    });
+
+    var slotAction = function (slotID, tid, matchID, method, data, successCallback) {
+        $.ajax({
+            method: method,
+            url: config.relative_path + '/api/arma3-slotting/' + tid + '/match/' + matchID + '/slot/' + slotID + '/user',
+            contentType: 'application/json',
+            data: data ? JSON.stringify(data) : undefined,
+            success: successCallback,
+            error: function () { console.error(arguments); }
         });
-    }());
-
-    function takeSlot(slotID, tid, matchID) {
-          $.ajax({
-                method: 'PUT',
-                url: config.relative_path + '/api/arma3-slotting/' + tid + '/match/' + matchID + '/slot/' + slotID + '/user',
-                contentType: 'application/json',
-                data: JSON.stringify({uid: app.user.uid}),
-                success: function () {
-                   topicLoaded();
-                },
-                error: function () {
-                    console.log(arguments);
-                }
-            });
-    }
-
-    function getCurrentButtonValue(button) {
-        return button.attr('data-value');
-    }
-
-    function setCurrentButtonValue(button, value) {
-        console.log("setting to " + value);
-        return button.setAttribute('data-value', value);
-    }
-
-    function userConfirmAction() {
-            bootbox.confirm({
-                message: "XiviD vom Slot schmeißen?",
-                size: "small",
-                buttons: {
-                    confirm: {
-                        label: 'Runterschmeißen',
-                        className: 'btn-success'
-                    },
-                    cancel: {
-                        label: 'Abbrechen',
-                        className: 'btn-danger'
-                    }
-                },
-                callback: function (result) {
-                    console.log('This was logged in the callback: ' + result);
-                }
-            });
     };
+
+    function confirmUnslottingOfOthers(targetUsername, callback) {
+        bootbox.confirm({
+            message: targetUsername + " vom Slot schmeißen?",
+            size: "small",
+            buttons: {
+                confirm: {
+                    label: 'Runterschmeißen',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'Abbrechen',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (isConfirmed) {
+                if (isConfirmed) {
+                    callback();
+                }
+            }
+        });
+    }
 
     var isMission = function (title) {
         return title.trim().match(/([0-9]{4}-[0-9]{2}-[0-9]{2})([^0-9a-z])/i);
@@ -264,6 +249,9 @@ require(['async'], function (async) {
 
     var topicLoaded = function () {
         Array.prototype.forEach.call(document.querySelectorAll('[component="topic"]'), function (topicNode) {
+            Array.prototype.forEach.call(topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
+                node.parentNode.removeChild(node);
+            });
             if (isMission(getTopicTitle(document))) {
                 var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
                 async.parallel(

@@ -1,26 +1,29 @@
-<div class="slot" data-uuid="<%-x.uuid%>">
+<div class="slot" data-uuid="<%- x.uuid %>">
 	<div class="slot_dropdown" data-visible="no">
-	<ul class="dropdown-menu">
-		<li><a href="#" class=""><i class="fa fa-fw fa-check"></i> Event-Lock</a></li>
-		<li><a href="#" class=""><i class="fa fa-fw"></i> Spieler kicken</a></li>
-		<li><a href="#" class=""><i class="fa fa-fw"></i> Selbst slotten</a></li>
-	</ul>
+		<ul class="dropdown-menu">
+			<li><a href="#" class=""><i class="fa fa-fw fa-check"></i> Event-Lock</a></li>
+			<li><a href="#" class=""><i class="fa fa-fw"></i> Spieler kicken</a></li>
+			<li><a href="#" class=""><i class="fa fa-fw"></i> Selbst slotten</a></li>
+		</ul>
 	</div>
 
-	<a href="#" class="slot_button" data-value="empty">
 	<% if (x.user) { %>
-		<div
-			class="avatar avatar-sm avatar-rounded"
-			title="<%- x.user.username %>"
-			style="background-color: <%- x.user['icon:bgColor'] %>"
-			data-original-title="fusselwurm">
-			<%- x.user['icon:text'] %>
-		</div>
-	<% } else { %>
-			<div class="avatar avatar-sm avatar-rounded" title="">
+		<a href="#" class="slot_button"
+			data-username="<%- x.user.username %>"
+			data-uid="<%- x.user.uid %>"
+		>
+			<div
+				class="avatar avatar-sm avatar-rounded"
+				title="<%- x.user.username %>"
+				style="background-color: <%- x.user['icon:bgColor'] %>">
+				<%- x.user['icon:text'] %>
 			</div>
+		</a>
+	<% } else { %>
+		<a href="#" class="slot_button">
+			<div class="avatar avatar-sm avatar-rounded" title=""></div>
+		</a>
 	<% } %>
-	</a>
 
-	<div class="slot_descr" title="<%= x.description%>"><%-x.shortcode%></div>
+	<div class="slot_descr" title="<%= x.description %>"><%- x.shortcode %></div>
 </div>
