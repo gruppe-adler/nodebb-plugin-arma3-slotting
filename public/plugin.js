@@ -75,10 +75,11 @@ require(['async', 'underscore'], function (async, _) {
     }
 
     var cachebuster = '3';
-    var getTemplates = function (templatePaths /*array of paths relative to public/templates*/, callback) {
+    var getTemplates = function (templatePaths /*array of or object with paths relative to public/templates*/, callback) {
+
         async.parallel(
-            templatePaths.map(function (templatePath) {
-                return function (next) {
+            _.each(templatePaths, function (templatePath, index, list) {
+                list[index] = function (next) {
                     getTemplate(templatePath + '?' + cachebuster, function (template) {
                         next(null, template);
                     });
@@ -255,25 +256,27 @@ require(['async', 'underscore'], function (async, _) {
             if (isMission(getTopicTitle(document))) {
                 var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
                 async.parallel(
-                    [
-                        _.partial(getMatches, topicId),
-                        _.partial(getTemplates, ['tile_master.ejs', 'tile_slave.ejs', 'company.ejs', 'platoon.ejs', 'squad.ejs', 'fireteam.ejs', 'slot.ejs'])
-                    ],
+                    {
+                        matches: _.partial(getMatches, topicId),
+                        templates: _.partial(getTemplates, {
+                            master: 'tile_master.ejs',
+                            slave: 'tile_slave.ejs',
+                            company: 'company.ejs',
+                            platoon: 'platoon.ejs',
+                            squad: 'squad.ejs',
+                            fireteam: 'fireteam.ejs',
+                            slot: 'slot.ejs'
+                        })
+                    },
                     function (err, results) {
-                        var matches = results[0];
-                        var templatesArray = results[1];
-                        window.pluginArma3SlottingTemplates = {
-                            company: _.template(templatesArray[2], {variable: 'x'}),
-                            platoon: _.template(templatesArray[3], {variable: 'x'}),
-                            squad: _.template(templatesArray[4], {variable: 'x'}),
-                            fireteam: _.template(templatesArray[5], {variable: 'x'}),
-                            slot: _.template(templatesArray[6], {variable: 'x'}),
-                        };
-                        var masterTemplate = _.template(templatesArray[0], {variable: 'x'});
-                        // var slaveTemplate = _.template(templatesArray[1]);
+                        var matches = results.matches;
+                        var templates = results.templates;
+                        window.pluginArma3SlottingTemplates = _.each(templates, function (templateString, index, obj) {
+                            obj[index] = _.template(templateString, {variable: 'x'});
+                        });
 
                        matches.forEach(function (match) {
-                            var markup = masterTemplate(match);
+                            var markup = templates.master(match);
 
                             var node = document.createElement('div');
                             node.setAttribute('component', 'topic/arma3-slotting');
