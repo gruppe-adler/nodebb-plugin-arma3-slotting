@@ -1,5 +1,8 @@
 /*global app, bootbox */
-require(['async', 'underscore'], function (async, _) {
+require(['async', 'underscore', 'arma3-slotting/templateService'], function (async, _, getTemplates) {
+    var CACHEBUSTER = '3';
+
+    getTemplates.setCacheBuster(CACHEBUSTER);
 
     console.log("arma3-slotting plugin js successfully started");
 
@@ -7,7 +10,7 @@ require(['async', 'underscore'], function (async, _) {
         var css = document.createElement('link');
         css.rel = 'stylesheet';
         css.type = 'text/css';
-        css.href = '/plugins/nodebb-plugin-arma3-slotting/css/styles.css?v=2';
+        css.href = '/plugins/nodebb-plugin-arma3-slotting/css/styles.css?v=' + CACHEBUSTER;
         document.head.appendChild(css);
     }());
 
@@ -74,34 +77,6 @@ require(['async', 'underscore'], function (async, _) {
         return titleElement.getAttribute('content') || titleElement.textContent || '';
     }
 
-    var cachebuster = '3';
-    var getTemplates = function (templatePaths /*array of or object with paths relative to public/templates*/, callback) {
-
-        async.parallel(
-            _.each(templatePaths, function (templatePath, index, list) {
-                list[index] = function (next) {
-                    getTemplate(templatePath + '?' + cachebuster, function (template) {
-                        next(null, template);
-                    });
-                };
-            }),
-            callback
-        );
-    };
-
-    var getTemplate = (function () {
-        var loadedTemplates = {};
-        return function (templateName, cb) {
-            templateName = '/plugins/nodebb-plugin-arma3-slotting/templates/' + templateName;
-            if (loadedTemplates[templateName]) {
-                return cb(loadedTemplates[templateName]);
-            }
-            $.get(templateName, function (response) {
-                loadedTemplates[templateName] = response;
-                cb(loadedTemplates[templateName]);
-            });
-        }
-    }());
 
     var refreshToolTips = function () {
         var attendanceAvatar = document.querySelectorAll(".avatar");

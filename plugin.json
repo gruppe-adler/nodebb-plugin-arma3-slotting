@@ -9,8 +9,9 @@
     },
     "templates": "public/templates",
      "scripts": [
-        "../../node_modules/underscore/underscore-min.js",
-        "./public/plugin.js"
+         "../../node_modules/underscore/underscore-min.js",
+         "./public/js/getTemplates.js",
+         "./public/plugin.js"
     ],
     "hooks": [
         {
