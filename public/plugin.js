@@ -78,7 +78,7 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
     var refreshToolTips = function () {
         var attendanceAvatar = document.querySelectorAll(".avatar");
 
-        Array.prototype.forEach.call(attendanceAvatar, function (attendanceAvatar) {
+        _.each(attendanceAvatar, function (attendanceAvatar) {
             if (!utils.isTouchDevice()) {
                 $(attendanceAvatar).tooltip({
                     placement: 'top',
@@ -88,7 +88,7 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
         });
 
         var slotDescriptions = document.querySelectorAll(".slot_descr");
-        Array.prototype.forEach.call(slotDescriptions, function (slotDescriptions) {
+        _.each(slotDescriptions, function (slotDescriptions) {
             if (!utils.isTouchDevice()) {
                 $(slotDescriptions).tooltip({
                     placement: 'top',
@@ -116,7 +116,7 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
         var postBarNode = document.querySelectorAll(".post-bar .clearfix");
         var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
 
-        Array.prototype.forEach.call(postBarNode, function (postBarNode) {
+        _.each(postBarNode, function (postBarNode) {
             console.log("slotting-insertslottinbutton array");
 
             /*
@@ -219,10 +219,6 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
 
     function load() {
 
-        _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
-            node.parentNode.removeChild(node);
-        });
-
         var topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
         async.parallel(
             {
@@ -244,6 +240,11 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
                     obj[index] = _.template(templateString, {variable: 'x'});
                 });
 
+
+                _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
+                    node.parentNode.removeChild(node);
+                });
+
                 matches.forEach(function (match) {
                     var markup = templates.master(match);
 
@@ -251,9 +252,6 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
                     node.setAttribute('component', 'topic/arma3-slotting');
                     node.innerHTML = markup;
 
-                    // console.log("slotting code reached");
-
-                    //document.body.appendChild(node);
                     insertTopicSlottingNode(node);
                     console.log("insertTopicSlottingNode...");
                 });
