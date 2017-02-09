@@ -1,4 +1,4 @@
-define("arma3-slotting/templateService",
+define("arma3-slotting/getTemplates",
     ["async", "underscore"],
     function(async, _) {
         var CACHEBUSTER = 'x';

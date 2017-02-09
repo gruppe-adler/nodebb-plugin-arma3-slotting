@@ -10,6 +10,7 @@
     "templates": "public/templates",
      "scripts": [
          "../../node_modules/underscore/underscore-min.js",
+         "./public/js/eventTopicLoadedService.js",
          "./public/js/getTemplates.js",
          "./public/plugin.js"
     ],

@@ -1,6 +1,11 @@
 /*global app, bootbox */
-require(['async', 'underscore', 'arma3-slotting/templateService'], function (async, _, getTemplates) {
+require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/eventTopicLoadedService'], function (async, _, getTemplates, eventLoadedService) {
     var CACHEBUSTER = '3';
+
+    var cache = {
+        topicNode: null,
+        eventDate: null
+    };
 
     getTemplates.setCacheBuster(CACHEBUSTER);
 
@@ -23,7 +28,7 @@ require(['async', 'underscore', 'arma3-slotting/templateService'], function (asy
         var actionOnMySlot = _.partial(slotAction, slotID, topicID, matchID);
 
         if (uid) {
-            var deleteAction = _.partial(actionOnMySlot, 'DELETE', null, topicLoaded);
+            var deleteAction = _.partial(actionOnMySlot, 'DELETE', null, load);
             // $button.attr('data-uid', false); probably not necessary if we reload the whole freaking thing anyway
             if (uid === app.user.uid) {
                 deleteAction();
@@ -31,7 +36,7 @@ require(['async', 'underscore', 'arma3-slotting/templateService'], function (asy
                 confirmUnslottingOfOthers($button.attr('data-username'), deleteAction);
             }
         } else {
-            actionOnMySlot('PUT', {uid: app.user.uid}, topicLoaded);
+            actionOnMySlot('PUT', {uid: app.user.uid}, load);
         }
     });
 
@@ -42,7 +47,9 @@ require(['async', 'underscore', 'arma3-slotting/templateService'], function (asy
             contentType: 'application/json',
             data: data ? JSON.stringify(data) : undefined,
             success: successCallback,
-            error: function () { console.error(arguments); }
+            error: function () {
+                console.error(arguments);
+            }
         });
     };
 
@@ -68,19 +75,9 @@ require(['async', 'underscore', 'arma3-slotting/templateService'], function (asy
         });
     }
 
-    var isMission = function (title) {
-        return title.trim().match(/([0-9]{4}-[0-9]{2}-[0-9]{2})([^0-9a-z])/i);
-    };
-
-    function getTopicTitle(categoryTopicComponentNode) {
-        var titleElement = categoryTopicComponentNode.querySelector('[component="topic/header"] a, [component="topic/title"]');
-        return titleElement.getAttribute('content') || titleElement.textContent || '';
-    }
-
-
     var refreshToolTips = function () {
         var attendanceAvatar = document.querySelectorAll(".avatar");
-        
+
         Array.prototype.forEach.call(attendanceAvatar, function (attendanceAvatar) {
             if (!utils.isTouchDevice()) {
                 $(attendanceAvatar).tooltip({
@@ -101,9 +98,6 @@ require(['async', 'underscore', 'arma3-slotting/templateService'], function (asy
         });
     };
 
-   
-
-   
 
     // cb = callback
     function getMatches(topicId, cb) {
@@ -126,31 +120,31 @@ require(['async', 'underscore', 'arma3-slotting/templateService'], function (asy
             console.log("slotting-insertslottinbutton array");
 
             /*
-            getTemplates('post_bar.ejs', function (err, templates) {
-                console.log("slotting-insertslottinbutton gettemplates");
-                var buttonsNode = document.createElement('div');
-                var existingButtonsNode = postBarNode.querySelector('[data-id="master"]');
-                var templateString = templates[0];
+             getTemplates('post_bar.ejs', function (err, templates) {
+             console.log("slotting-insertslottinbutton gettemplates");
+             var buttonsNode = document.createElement('div');
+             var existingButtonsNode = postBarNode.querySelector('[data-id="master"]');
+             var templateString = templates[0];
 
-                var topicDateString = isMission(getTopicTitle(document))[1];
-                console.log("slotting-topicDateString: " + topicDateString);
-                var isLocked = checkDateLock(topicDateString);
-                console.log("slotting-isLocked: " + isLocked);
+             var topicDateString = isMission(getTopicTitle(document))[1];
+             console.log("slotting-topicDateString: " + topicDateString);
+             var isLocked = checkDateLock(topicDateString);
+             console.log("slotting-isLocked: " + isLocked);
 
-                var markup = _.template(templateString)({
-                    config: {
-                        relative_path: config.relative_path
-                    },
-                    isLockedMarkup: isLocked,
-                    tid: topicId
-                });
-                buttonsNode.innerHTML = markup;
+             var markup = _.template(templateString)({
+             config: {
+             relative_path: config.relative_path
+             },
+             isLockedMarkup: isLocked,
+             tid: topicId
+             });
+             buttonsNode.innerHTML = markup;
 
-                if (!existingButtonsNode) {
-                    console.log('adding slottingButtonNode');
-                    postBarNode.appendChild(buttonsNode);
-                }
-            });*/
+             if (!existingButtonsNode) {
+             console.log('adding slottingButtonNode');
+             postBarNode.appendChild(buttonsNode);
+             }
+             });*/
         })
     }
 
@@ -167,8 +161,8 @@ require(['async', 'underscore', 'arma3-slotting/templateService'], function (asy
         return itsHistory;
     }
 
-    var insertTopicSlottingNode = function (topicContentNode, slottingNode) {
-
+    var insertTopicSlottingNode = function (slottingNode) {
+        var topicContentNode = cache.topicNode;
 
         var firstPostCheck = topicContentNode.querySelector('[component="post"]');
         //exit if isn't first page
@@ -223,52 +217,56 @@ require(['async', 'underscore', 'arma3-slotting/templateService'], function (asy
          } */
     };
 
-    var topicLoaded = function () {
-        Array.prototype.forEach.call(document.querySelectorAll('[component="topic"]'), function (topicNode) {
-            Array.prototype.forEach.call(topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
-                node.parentNode.removeChild(node);
-            });
-            if (isMission(getTopicTitle(document))) {
-                var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
-                async.parallel(
-                    {
-                        matches: _.partial(getMatches, topicId),
-                        templates: _.partial(getTemplates, {
-                            master: 'tile_master.ejs',
-                            slave: 'tile_slave.ejs',
-                            company: 'company.ejs',
-                            platoon: 'platoon.ejs',
-                            squad: 'squad.ejs',
-                            fireteam: 'fireteam.ejs',
-                            slot: 'slot.ejs'
-                        })
-                    },
-                    function (err, results) {
-                        var matches = results.matches;
-                        var templates = results.templates;
-                        window.pluginArma3SlottingTemplates = _.each(templates, function (templateString, index, obj) {
-                            obj[index] = _.template(templateString, {variable: 'x'});
-                        });
+    function load() {
 
-                       matches.forEach(function (match) {
-                            var markup = templates.master(match);
-
-                            var node = document.createElement('div');
-                            node.setAttribute('component', 'topic/arma3-slotting');
-                            node.innerHTML = markup;
-
-                            // console.log("slotting code reached");
-
-                            //document.body.appendChild(node);
-                            insertTopicSlottingNode(topicNode, node);
-                            console.log("insertTopicSlottingNode...");
-                        });
-                    }
-                );
-            }
+        _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
+            node.parentNode.removeChild(node);
         });
+
+        var topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
+        async.parallel(
+            {
+                matches: _.partial(getMatches, topicId),
+                templates: _.partial(getTemplates, {
+                    master: 'tile_master.ejs',
+                    slave: 'tile_slave.ejs',
+                    company: 'company.ejs',
+                    platoon: 'platoon.ejs',
+                    squad: 'squad.ejs',
+                    fireteam: 'fireteam.ejs',
+                    slot: 'slot.ejs'
+                })
+            },
+            function (err, results) {
+                var matches = results.matches;
+                var templates = results.templates;
+                window.pluginArma3SlottingTemplates = _.each(templates, function (templateString, index, obj) {
+                    obj[index] = _.template(templateString, {variable: 'x'});
+                });
+
+                matches.forEach(function (match) {
+                    var markup = templates.master(match);
+
+                    var node = document.createElement('div');
+                    node.setAttribute('component', 'topic/arma3-slotting');
+                    node.innerHTML = markup;
+
+                    // console.log("slotting code reached");
+
+                    //document.body.appendChild(node);
+                    insertTopicSlottingNode(node);
+                    console.log("insertTopicSlottingNode...");
+                });
+            }
+        );
+    }
+
+    var topicLoaded = function (event, topicNode /*: Node*/, eventDate /*: Date*/) {
+        cache.topicNode = topicNode;
+        cache.eventDate = eventDate;
+
+        load();
     };
 
-    $(window).bind('action:topic.loaded', topicLoaded);
-
+    eventLoadedService.subscribe(topicLoaded);
 });
