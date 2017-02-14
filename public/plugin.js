@@ -111,13 +111,18 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
     }
 
     // github original
-    function insertSlottingButton(topicNode) {
+    function insertAddMatchButton(markup) {
         console.log("slotting-insertslottinbutton called");
         var postBarNode = document.querySelectorAll(".post-bar .clearfix");
-        var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
+        var topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
 
         _.each(postBarNode, function (postBarNode) {
             console.log("slotting-insertslottinbutton array");
+
+            var node = document.createElement('div');
+            node.innerHTML = markup;
+
+            postBarNode.insertBefore(node, postBarNode.querySelector('.topic-main-buttons'));
 
             /*
              getTemplates('post_bar.ejs', function (err, templates) {
@@ -161,19 +166,17 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
         return itsHistory;
     }
 
-    var insertTopicSlottingNode = function (slottingNode) {
+    var insertMatchNode = function (slottingNode) {
         var topicContentNode = cache.topicNode;
 
         var firstPostCheck = topicContentNode.querySelector('[component="post"]');
-        //exit if isn't first page
 
         if (firstPostCheck.getAttribute("data-index") != "0") {
-            return false;
+            return false; //exit if isn't first page
         }
 
-        var content = topicContentNode.querySelector('[component="post/content"]');
+
         //replace we updated data if the slotting component already exists
-        var existingSlottingComponentNode = content.querySelector('[component="topic/slotting"]');
 
 
         var postBarNode = firstPostCheck.querySelector('[class="post-bar"]');
@@ -181,24 +184,16 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
         //only insert attendance if the postbar exists (if this is the first post)
         if (postBarNode) {
             postBarNode.parentNode.insertBefore(slottingNode, postBarNode);
-            if (true) {
-                insertSlottingButton(topicContentNode);
-            }
         } else if (topicContentNode.children.length === 1) {
             firstPostCheck.appendChild(slottingNode);
-            if (true) {
-                insertSlottingButton(topicContentNode);
-            }
         }
 
-
+        var content = topicContentNode.querySelector('[component="post/content"]');
+        var existingSlottingComponentNode = content.querySelector('[component="topic/slotting"]');
         if (existingSlottingComponentNode) {
             content.replaceChild(slottingNode, existingSlottingComponentNode);
-            refreshToolTips();
-            return true;
         } else if (content.children.length === 1) {
             content.appendChild(slottingNode);
-            refreshToolTips();
         }
         refreshToolTips();
 
@@ -230,7 +225,8 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
                     platoon: 'platoon.ejs',
                     squad: 'squad.ejs',
                     fireteam: 'fireteam.ejs',
-                    slot: 'slot.ejs'
+                    slot: 'slot.ejs',
+                    post_bar: 'post_bar.ejs'
                 })
             },
             function (err, results) {
@@ -245,6 +241,8 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
                     node.parentNode.removeChild(node);
                 });
 
+                insertAddMatchButton(templates.post_bar({}));
+
                 matches.forEach(function (match) {
                     var markup = templates.master(match);
 
@@ -252,7 +250,7 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
                     node.setAttribute('component', 'topic/arma3-slotting');
                     node.innerHTML = markup;
 
-                    insertTopicSlottingNode(node);
+                    insertMatchNode(node);
                     console.log("insertTopicSlottingNode...");
                 });
             }
