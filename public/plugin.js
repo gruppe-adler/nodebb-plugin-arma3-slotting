@@ -1,4 +1,4 @@
-/*global app, bootbox */
+/*global $, app, bootbox */
 require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/eventTopicLoadedService'], function (async, _, getTemplates, eventLoadedService) {
     var CACHEBUSTER = '3';
 
@@ -49,6 +49,22 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
             success: successCallback,
             error: function () {
                 console.error(arguments);
+            }
+        });
+    };
+
+    var createMatch = function (spec, tid, successCallback) {
+        $.ajax({
+            method: 'POST',
+            url: config.relative_path + '/api/arma3-slotting/' + tid + '/match',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                'Content-Type': 'application/xml',
+            },
+            data: spec,
+            success: successCallback,
+            error: function () {
+                bootbox.alert('das ging schief :(');
             }
         });
     };
@@ -150,7 +166,22 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
              postBarNode.appendChild(buttonsNode);
              }
              });*/
-        })
+        });
+
+
+        $('.arma3-slotting-button-add-match').click(function () {
+
+            bootbox.prompt({
+                inputType: 'textarea',
+                size: 'large',
+                title: 'Please enter the match specification',
+                callback: function (inputString) {
+                    if (inputString) {
+                        createMatch(inputString, topicId, load);
+                    }
+                }
+            });
+        });
     }
 
     function checkDateLock(d) {
