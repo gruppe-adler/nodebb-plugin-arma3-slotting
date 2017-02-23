@@ -1,9 +1,34 @@
 <div component="match" data-uuid="<%-x.uuid %>" style="border: 1px solid #777">
-	<%=x.side%>
-	<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
-	<%= ([].concat(x.fireteam || [])).map(pluginArma3SlottingTemplates.fireteam).join('') %>
-	<%= ([].concat(x.squad || [])).map(pluginArma3SlottingTemplates.squad).join('') %>
-	<%= ([].concat(x.platoon || [])).map(pluginArma3SlottingTemplates.platoon).join('') %>
-	<%= ([].concat(x.company || [])).map(pluginArma3SlottingTemplates.company).join('') %>
+		<div class="btn-group" component="match/controls" data-invisible="false">
+			<button class="match-control-edit btn dropdown-toggle" type="button">
+				<span class="match-control-icon fa fa-fw fa-edit"></span>
+				<span class="match-control-text">Ändern</span>
+			</button>
+			<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+			</button>
+			<ul class="match-control dropdown-menu">
+				<li>
+					<a href="#" class="match-control-edit" type="button">
+						<i class="fa fa-fw fa-edit"></i>
+						Ändern
+					</a>
+				</li>
+				<li>
+					<a href="#" class="match-control-delete" type="button">
+						<i class="fa fa-fw fa-remove"></i>
+						Löschen
+					</a>
+				</li>
+			</ul>
+		</div>
+	<div>
+		<%=x.side%>
+		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
+		<%= ([].concat(x.fireteam || [])).map(pluginArma3SlottingTemplates.fireteam).join('') %>
+		<%= ([].concat(x.squad || [])).map(pluginArma3SlottingTemplates.squad).join('') %>
+		<%= ([].concat(x.platoon || [])).map(pluginArma3SlottingTemplates.platoon).join('') %>
+		<%= ([].concat(x.company || [])).map(pluginArma3SlottingTemplates.company).join('') %>
+	</div>
 	<div class="clearfix" />
 </div>
