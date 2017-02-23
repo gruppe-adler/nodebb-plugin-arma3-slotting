@@ -1,5 +1,15 @@
 /*global $, app, bootbox */
-require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/eventTopicLoadedService'], function (async, _, getTemplates, eventLoadedService) {
+require([
+    'async',
+    'underscore',
+    'arma3-slotting/getTemplates',
+    'arma3-slotting/eventTopicLoadedService'
+], function (
+    async,
+    _,
+    getTemplates,
+    eventLoadedService
+) {
     var CACHEBUSTER = '3';
 
     var cache = {
@@ -19,7 +29,7 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
         document.head.appendChild(css);
     }());
 
-    $(document).on('click', '.slot_button', function (event) {
+    $(document).on('click', '[component="topic"] .slot_button', function (event) {
         var $button = $(this);
         var uid = Number($button.attr('data-uid'));
         var slotID = $button.parent().attr("data-uuid");
@@ -40,6 +50,53 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
         }
     });
 
+    $(document).on('click', '[component="topic"] .match-control-edit', function (event) {
+        console.log('match edit');
+        var $button = $(this);
+        var topicID = $button.parents('[component="topic"]').attr("data-tid");
+        var matchID = $button.parents('[component="match"]').attr("data-uuid");
+        getMatchAsXml(topicID, matchID, function (matchXml) {
+            bootbox.prompt({
+                inputType: 'textarea',
+                value: matchXml,
+                size: 'large',
+                title: 'Please change the match specification',
+                callback: function (inputString) {
+                    if (inputString) {
+                        putMatch(inputString, topicID, matchID, load);
+                    }
+                }
+            });
+        });
+    });
+
+    $(document).on('click', '.arma3-slotting-button-add-match', function () {
+        var $button = $(this);
+        var topicID = $(cache.topicNode).attr("data-tid");
+        bootbox.prompt({
+            inputType: 'textarea',
+            size: 'large',
+            title: 'Please enter the match specification',
+            callback: function (inputString) {
+                if (inputString) {
+                    createMatch(inputString, topicID, load);
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '[component="topic"] .match-control-delete', function (event) {
+        console.log('match delete');
+        var $button  = $(this);
+        var topicID = $button.parents('[component="topic"]').attr("data-tid");
+        var matchID = $button.parents('[component="match"]').attr("data-uuid");
+        bootbox.confirm('match ' + matchID + ' wirklich löschen?', function (result) {
+            if (result) {
+                deleteMatch(topicID, matchID, load);
+            }
+        });
+    });
+
     var slotAction = function (slotID, tid, matchID, method, data, successCallback) {
         $.ajax({
             method: method,
@@ -57,6 +114,36 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
         $.ajax({
             method: 'POST',
             url: config.relative_path + '/api/arma3-slotting/' + tid + '/match',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                'Content-Type': 'application/xml',
+            },
+            data: spec,
+            success: successCallback,
+            error: function () {
+                bootbox.alert('das ging schief :(');
+            }
+        });
+    };
+
+    var deleteMatch = function (tid, matchUuid, successCallback) {
+        $.ajax({
+            method: 'DELETE',
+            url: config.relative_path + '/api/arma3-slotting/' + tid + '/match/' + matchUuid,
+            headers: {
+                Accept: "application/json; charset=utf-8"
+            },
+            success: successCallback,
+            error: function () {
+                bootbox.alert('das ging schief :(');
+            }
+        });
+    };
+
+    var putMatch = function (spec, tid, matchUuid, successCallback) {
+        $.ajax({
+            method: 'PUT',
+            url: config.relative_path + '/api/arma3-slotting/' + tid + '/match/' + matchUuid,
             headers: {
                 Accept: "application/json; charset=utf-8",
                 'Content-Type': 'application/xml',
@@ -114,11 +201,27 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
         });
     };
 
+    function getMatchAsXml(topicId, matchUuid, cb) {
+        $.ajax({
+            method: 'GET',
+            url: '/api/arma3-slotting/' + topicId + '/match/' + matchUuid,
+            headers: {
+                Accept: 'application/xml',
+                'Content-Type': 'application/xml'
+            },
+            dataType: "text", // else jquery will parse xml response and return an xml dom object
+            success: cb,
+            error: function () {
+                alert('nooo this should not happen');
+                console.warn(arguments);
+            }
+        });
+    }
 
     // cb = callback
     function getMatches(topicId, cb) {
         $.get('/api/arma3-slotting/' + topicId + '?withusers=1', function (response) {
-            if (typeof response == 'string') {
+            if (typeof response === 'string') {
                 response = JSON.parse(response)
             }
 
@@ -130,7 +233,6 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
     function insertAddMatchButton(markup) {
         console.log("slotting-insertslottinbutton called");
         var postBarNode = document.querySelectorAll(".post-bar .clearfix");
-        var topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
 
         _.each(postBarNode, function (postBarNode) {
             console.log("slotting-insertslottinbutton array");
@@ -138,49 +240,8 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
             var node = document.createElement('div');
             node.innerHTML = markup;
 
-            postBarNode.insertBefore(node, postBarNode.querySelector('.topic-main-buttons'));
+            postBarNode.insertBefore(node.firstElementChild, postBarNode.querySelector('.topic-main-buttons'));
 
-            /*
-             getTemplates('post_bar.ejs', function (err, templates) {
-             console.log("slotting-insertslottinbutton gettemplates");
-             var buttonsNode = document.createElement('div');
-             var existingButtonsNode = postBarNode.querySelector('[data-id="master"]');
-             var templateString = templates[0];
-
-             var topicDateString = isMission(getTopicTitle(document))[1];
-             console.log("slotting-topicDateString: " + topicDateString);
-             var isLocked = checkDateLock(topicDateString);
-             console.log("slotting-isLocked: " + isLocked);
-
-             var markup = _.template(templateString)({
-             config: {
-             relative_path: config.relative_path
-             },
-             isLockedMarkup: isLocked,
-             tid: topicId
-             });
-             buttonsNode.innerHTML = markup;
-
-             if (!existingButtonsNode) {
-             console.log('adding slottingButtonNode');
-             postBarNode.appendChild(buttonsNode);
-             }
-             });*/
-        });
-
-
-        $('.arma3-slotting-button-add-match').click(function () {
-
-            bootbox.prompt({
-                inputType: 'textarea',
-                size: 'large',
-                title: 'Please enter the match specification',
-                callback: function (inputString) {
-                    if (inputString) {
-                        createMatch(inputString, topicId, load);
-                    }
-                }
-            });
         });
     }
 
@@ -202,13 +263,9 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
 
         var firstPostCheck = topicContentNode.querySelector('[component="post"]');
 
-        if (firstPostCheck.getAttribute("data-index") != "0") {
+        if (firstPostCheck.getAttribute("data-index") !== "0") {
             return false; //exit if isn't first page
         }
-
-
-        //replace we updated data if the slotting component already exists
-
 
         var postBarNode = firstPostCheck.querySelector('[class="post-bar"]');
 
@@ -227,20 +284,6 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
             content.appendChild(slottingNode);
         }
         refreshToolTips();
-
-        // console.log("appendChild...");
-
-        /*
-         var contentNode = topicContentNode.querySelector('[class="shittshits"]');
-
-         //only insert attendance if the postbar exists (if this is the first post)
-         if (contentNode) {
-         contentNode.parentNode.insertBefore(topicContentNode, contentNode);
-
-         } else if (topicContentNode.children.length === 1) {
-         content.appendChild(slottingNode);
-
-         } */
     };
 
     function load() {
@@ -269,6 +312,9 @@ require(['async', 'underscore', 'arma3-slotting/getTemplates', 'arma3-slotting/e
 
 
                 _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
+                    node.parentNode.removeChild(node);
+                });
+                _.each(document.querySelectorAll('[component="topic/slottingButton"]'), function (node) {
                     node.parentNode.removeChild(node);
                 });
 
