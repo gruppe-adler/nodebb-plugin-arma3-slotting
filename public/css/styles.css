@@ -2,6 +2,10 @@
 	border: none !important;
 }
 
+.topic .posts .content .dropdown-menu li {
+	list-style-type: none;
+}
+
 .btn[data-value="unknown"] .slotting-icon:after ,.btn[data-value=""] .slotting-icon:after {
   font-family: "FontAwesome";
   content: "\f0e8";
