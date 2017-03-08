@@ -1,5 +1,9 @@
+[component=match] {
+	border: none !important;
+}
+
 .arma3-slotting-unit {
-    border: 1px solid black;
+    /* border: 1px solid black;*/
     padding: 2px;
 }
 
@@ -8,15 +12,15 @@
 	/* width: calc(100% - 110px);*/
 	
 	/* box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2); */
-	border: 1px solid #d9d9d9;
+	/* border: 1px solid #d9d9d9;*/
+	box-shadow: inset 0px 0px 2px 2px rgba(0,0,0,0.075);
 	float: left;
 	margin:5px;
 }
 
 .company_head, .platoon_head, .squad_head {
-	height: 75px;
+	/* height: 75px;*/
 	text-align: center;
-	background-color: #fff;
 	padding: 10px;
 }
 
@@ -37,7 +41,7 @@
 
 .container_platoon {
 	min-height: 80px;
-	/* width: calc(100% - 110px);*/
+	width: calc(100% - 10px);
 	
 	/* box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2);*/
 	background: #fff;
@@ -80,10 +84,13 @@ div .squad_head {
 
 .container_fireteam {
 	min-height: 50px;
-	/* width: calc(100% - 110px);*/
+	width: 50%;
 	box-shadow: none;
 	float: left;
 	background-color: #d9d9d9;
+	text-align: center;
+	border-left:1px solid #c0c0c0;
+
 }
 
 .slot {
@@ -199,3 +206,32 @@ div .squad_head {
 [data-visible="yes"] {
 	display: block;
 }
+
+@media (max-width: 320px) {
+	.container_fireteam{
+		min-height: 50px;
+		width: 50%;
+		box-shadow: none;
+		float: left;
+		background-color: #d9d9d9;
+		text-align: center;
+		border-left:1px solid #c0c0c0;
+		}	
+
+	.slot:first-child {
+		margin: 0px 5px 0px 5px;
+	}
+
+	.slot {
+		margin: 0px 5px 0px 5px;
+	}
+
+	.slot:last-child {
+		margin: 0px 5px 0px 5px;
+	}
+}
+
+.container_fireteam:first-child{
+	border-left: 1px solid #d9d9d9;
+}
+
