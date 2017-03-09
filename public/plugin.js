@@ -1,3 +1,5 @@
+"use strict";
+
 /*global $, app, bootbox */
 require([
     'async',
@@ -49,7 +51,7 @@ require([
             actionOnMySlot('PUT', {uid: app.user.uid}, load);
         }
     });
-
+/*
     $(document).on('click', '[component="topic"] .match-control-edit', function (event) {
         console.log('match edit');
         var $button = $(this);
@@ -69,6 +71,19 @@ require([
             });
         });
     });
+*/
+    $(document).on('click', '#match-submit', function (event) {
+        event.preventDefault();
+        var form = $(this).parents('form');
+        var val = $('#match-definition').value;
+        var matchid = form.attr('data-matchid');
+        var tid = form.attr('data-tid');
+
+        putMatch(val, tid, matchid, function () {
+            document.location.pathname = '/topic/' + tid;
+        });
+    });
+
 
     $(document).on('click', '.arma3-slotting-button-add-match', function () {
         var $button = $(this);
@@ -321,6 +336,7 @@ require([
                 insertAddMatchButton(templates.post_bar({}));
 
                 matches.forEach(function (match) {
+                    match.tid = topicId;
                     var markup = templates.master(match);
 
                     var node = document.createElement('div');
