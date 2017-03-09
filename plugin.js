@@ -6,6 +6,7 @@ meta.nbbId = meta.id.replace(/nodebb-plugin-/, '');
 module.exports.setup = function (params, callback) {
     let admin = require('./lib/admin');
     let api = require('./lib/api');
+    let actions = require('./lib/actions');
 
     admin(params, meta, function () {
 
@@ -13,8 +14,11 @@ module.exports.setup = function (params, callback) {
         api.setApiKey(admin.getApiKey());
         api(params, callback);
     });
-};
 
+    actions(params, meta, function () {
+        console.log('arma3-slotting actions registered')
+    });
+};
 
 module.exports.admin = {
     menu: function (custom_header, callback) {
@@ -26,4 +30,9 @@ module.exports.admin = {
 
         callback(null, custom_header);
     }
+};
+
+module.exports.changeClientRouting = function (config, callback) {
+    config.custom_mapping['^arma3-slotting/match/.*/edit'] = 'actions/match-edit';
+    callback(null, config);
 };
