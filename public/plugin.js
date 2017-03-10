@@ -75,7 +75,7 @@ require([
     $(document).on('click', '#match-submit', function (event) {
         event.preventDefault();
         var form = $(this).parents('form');
-        var val = $('#match-definition').value;
+        var val = $('#match-definition').val();
         var matchid = form.attr('data-matchid');
         var tid = form.attr('data-tid');
 
@@ -86,7 +86,6 @@ require([
 
 
     $(document).on('click', '.arma3-slotting-button-add-match', function () {
-        var $button = $(this);
         var topicID = $(cache.topicNode).attr("data-tid");
         bootbox.prompt({
             inputType: 'textarea',
