@@ -1,5 +1,7 @@
 <div class="container_company">
-	<span class="company_title"><%-x.callsign%></span> 
+	
+	<span class="company_title" title="<%-x.ingamelobby%>"><%-x.callsign%></span>
+	<span class="company_radiofrequency"><%-x.radiofrequency%></span>
 	<div class="company_head">
 		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
 	</div>

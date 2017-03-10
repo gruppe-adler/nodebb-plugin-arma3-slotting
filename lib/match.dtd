@@ -19,23 +19,27 @@
 				side CDATA #IMPLIED
 				id CDATA #IMPLIED
 				callsign CDATA #IMPLIED
-				radio-frequency CDATA #IMPLIED
+				radiofrequency CDATA #IMPLIED
+				ingamelobby CDATA #IMPLIED
 				>
 		<!ATTLIST platoon
 				side CDATA #IMPLIED
 				id CDATA #IMPLIED
 				callsign CDATA #IMPLIED
-				radio-frequency CDATA #IMPLIED
+				radiofrequency CDATA #IMPLIED
+				ingamelobby CDATA #IMPLIED
 				>
 		<!ATTLIST squad
 				side CDATA #IMPLIED
 				id CDATA #IMPLIED
 				callsign CDATA #IMPLIED
-				radio-frequency CDATA #IMPLIED
+				radiofrequency CDATA #IMPLIED
+				ingamelobby CDATA #IMPLIED
 				>
 		<!ATTLIST fireteam
 				side CDATA #IMPLIED
 				id CDATA #IMPLIED
 				callsign CDATA #IMPLIED
-				radio-frequency CDATA #IMPLIED
+				radiofrequency CDATA #IMPLIED
+				ingamelobby CDATA #IMPLIED
 				>

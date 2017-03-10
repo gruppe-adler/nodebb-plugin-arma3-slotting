@@ -1,5 +1,6 @@
 <div class="container_squad">
-	<span class="squad_title"><%-x.callsign%></span> 
+	<span class="squad_title" title="<%-x.ingamelobby%>"><%-x.callsign%></span>
+	<span class="squad_radiofrequency"><%-x.radiofrequency%></span>
 	<div class="squad_head">
 		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
 	</div>

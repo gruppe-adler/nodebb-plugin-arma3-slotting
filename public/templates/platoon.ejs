@@ -1,5 +1,7 @@
 <div class="container_platoon">
-	<span class="platoon_title"><%-x.callsign%></span> 
+	
+	<span class="platoon_title" title="<%-x.ingamelobby%>"><%-x.callsign%></span>
+	<span class="platoon_radiofrequency"><%-x.radiofrequency%></span>
 
 	<div class="platoon_head">
 		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
