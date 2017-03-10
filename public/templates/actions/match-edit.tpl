@@ -3,9 +3,10 @@
 	<h2 class="match-h2">Slotliste XML</h2>
 
 	<form data-matchid="{matchid}" data-tid="{tid}">
-		<button id="match-dtd" class="btn btn-default">DTD anzeigen</button>
-		<button id="match-cancel" class="btn btn-default composer-discard" onclick="javascript:history.back()"><i class="fa fa-times"></i> Abbrechen</button>
 		<button id="match-submit" class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Speichern</button>
+		<button id="match-dtd" class="btn btn-default">DTD anzeigen</button>
+		<a href="/topic/{tid}"><button id="match-cancel" class="btn btn-default composer-discard" onclick="javascript:history.back()"><i class="fa fa-times"></i> Abbrechen</button></a>
+		
 
 		<span class="match-template-label">Templates</span>
 		<ul class="match-template-buttons">
