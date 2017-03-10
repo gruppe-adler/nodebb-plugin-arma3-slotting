@@ -7,6 +7,9 @@
 		</ul>
 	</div>
 
+	
+	
+
 	<% if (x.user) { %>
 		<a href="#" class="slot_button"
 			data-username="<%- x.user.username %>"
@@ -16,8 +19,10 @@
 				title="<%- x.user.username %>"
 				style="background-color: <%- x.user['icon:bgColor'] %>"><%- x.user['icon:text'] %></div></a>
 	<% } else { %>
+		
 		<a href="#" class="slot_button">
-			<div class="avatar avatar-sm avatar-rounded" title=""></div>
+			<div class="avatar avatar-sm avatar-rounded" title=""><% if (x.reservation) { %> <span class="reservation"></span><% } %>
+			</div>	
 		</a>
 	<% } %>
 

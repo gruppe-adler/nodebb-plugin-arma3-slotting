@@ -1,9 +1,10 @@
 <div class="match-definition-container">
 	<span class="match-definition-debug pull-right">ID: {matchid}</span>
 	<h2 class="match-h2">Slotliste XML</h2>
-	<button id="match-submit" class="btn btn-primary"><i class="fa fa-check"></i> Speichern</button>
+
 	<button id="match-dtd" class="btn btn-default">DTD anzeigen</button>
-	<button id="match-cancel" class="btn btn-default composer-discard"><i class="fa fa-times"></i> Abbrechen</button>
+	<button id="match-cancel" class="btn btn-default composer-discard" onclick="javascript:history.back()"><i class="fa fa-times"></i> Abbrechen</button>
+	<button id="match-submit" class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Speichern</button>
 
 	<span class="match-template-label">Templates</span>
 	<ul class="match-template-buttons">
@@ -15,7 +16,6 @@
 		<li><button class="tag" data-template="Fireteam-4"><span class="btn-text">Fireteam-4</span></button></li>
 	</ul>
 	<form data-matchid="{matchid}" data-tid="{tid}">
-		
 		<textarea id="match-definition">
 		{spec}
 		</textarea>
