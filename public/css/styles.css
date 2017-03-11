@@ -1,3 +1,10 @@
+@font-face { 
+	font-family: 'natosymbols'; 
+	src: url('fonts/natosymbols.ttf') format('truetype');
+	font-weight: normal;
+    font-style: normal;
+}
+
 a:focus {
 	outline: 0;
 }
@@ -6,14 +13,29 @@ a:focus {
 	border: none !important;
 }
 
+
+
+.company_natosymbol, .platoon_natosymbol, .squad_natosymbol {
+	font-family: "natosymbols";
+	display: inline-block;
+	padding: 0px 5px;
+	transform: scale(3, 3) translateX(-5px) translateY(-0.5px);
+    color: rgba(0,0,0,0.7);
+    width: 70px;
+}
+
+/*
+.squad_natosymbol {
+	margin-left: -5px;
+}*/
+
 .company_radiofrequency, .platoon_radiofrequency, .squad_radiofrequency {
 	color: rgba(255,255,255,0.7);
 	text-shadow: 0px -1px 0px rgba(0,0,0,0.2);
-	
-	position: relative;
-	right: 0px;
-	top: -25px;
-	cursor: default;
+	padding: 0px 5px;
+	display: inline-block;
+	width: 70px;
+
 }
 
 .platoon_radiofrequency {
@@ -154,12 +176,10 @@ a:focus {
 }
 
 .company_title, .platoon_title, .squad_title {
-	display: block;
-	background-color: #000;
 	color: rgba(255,255,255,0.4);
 	text-align: center;
 	height: 50px;
-	line-height: 40px;
+	line-height:48px;
 	padding-left: 5px;
 	padding-right: 5px;
 	text-transform: uppercase;
@@ -167,13 +187,25 @@ a:focus {
 	text-shadow: 0px -1px 0px rgba(0,0,0,0.25);
 	font-size: 16px;
 	cursor: pointer;
+	width: calc(100% - 160px);
+	display: inline-block;
 }
+
 
 .company_title {
 	/*background-color: #8f1167;*/
-	background-color: #999;
+	
 	color: rgba(255,255,255,0.7);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: inline-table;
 }
+
+.company_title_container {
+	background-color: #999;
+}
+
 
 .container_platoon {
 	min-height: 80px;
@@ -189,9 +221,16 @@ a:focus {
 
 .platoon_title {
 	/*background-color: #777;*/
-	background-color: #d0d0d0;
 	color: #777;
 	text-shadow: 0px 1px 0px rgba(255,255,255,0.4);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: inline-table;
+}
+
+.platoon_title_container {
+	background-color: #d0d0d0;
 }
 
 
@@ -216,12 +255,18 @@ div .squad_head {
 }
 
 .squad_title {
-	display: block;
-	background-color: #fff;
 	color: #333;
 	text-align: center;
 	font-weight: bold;
 	text-shadow: none;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: inline-table;
+}
+
+.squad_title_container {
+	background-color: #fff;
 }
 
 .container_fireteam {
@@ -271,6 +316,8 @@ div .squad_head {
 	background-color: rgba(0,0,0,0);
 	border-radius: 3px;
 	margin-top: 2px;
+
+	white-space: nowrap;
 
 	-webkit-transition: color 100ms ease-in-out;
     -moz-transition: color 100ms ease-in-out;
@@ -371,6 +418,27 @@ div .squad_head {
 
 	.slot:last-child {
 		margin: 10px 5px 0px 5px;
+	}
+
+	.natosymbol {
+		font-family: "natosymbols";
+		display: block;
+		transform: scale(3, 3) translateX(0px) translateY(4px);
+	    color: rgba(0,0,0,0.7);
+	    width: 70px;
+	    width: 100%;
+	    height: 25px;
+	}
+
+	.container_title {
+		display: block;
+		width: 100%;
+		height: 40px;
+	}
+
+	.radiofrequency {
+		display: block;
+		width: 100%;
 	}
 }
 

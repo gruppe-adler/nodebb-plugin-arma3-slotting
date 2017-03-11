@@ -193,23 +193,13 @@ require([
     }
 
     var refreshToolTips = function () {
-        var attendanceAvatar = document.querySelectorAll(".avatar");
+        var attendanceAvatar = document.querySelectorAll(".avatar, .slot_descr, .container_title, .natosymbol");
 
         _.each(attendanceAvatar, function (attendanceAvatar) {
             if (!utils.isTouchDevice()) {
                 $(attendanceAvatar).tooltip({
                     placement: 'top',
                     title: $(attendanceAvatar).attr('title')
-                });
-            }
-        });
-
-        var slotDescriptions = document.querySelectorAll(".slot_descr");
-        _.each(slotDescriptions, function (slotDescriptions) {
-            if (!utils.isTouchDevice()) {
-                $(slotDescriptions).tooltip({
-                    placement: 'top',
-                    title: $(slotDescriptions).attr('title')
                 });
             }
         });
@@ -232,6 +222,46 @@ require([
         });
     }
 
+    // mapping for font MapSym-FR-Land
+    function getNATOSymbol(symbolString) {
+        var natoSymbol = "";
+        switch (symbolString) {
+            case "inf": natoSymbol = "+";
+            break;
+            case "motor_inf": natoSymbol = "®";
+            break;
+            case "mech_inf": natoSymbol = "®";
+            break;
+            case "armor": natoSymbol = "A";
+            break;
+            case "recon": natoSymbol = "Û";
+            break;
+            case "air": natoSymbol = "p";
+            break;
+            case "plane": natoSymbol = "w";
+            break;
+            case "uav": natoSymbol = "g";
+            break;
+            case "med": natoSymbol = "Â";
+            break;
+            case "art": natoSymbol = "#";
+            break;
+            case "mortar": natoSymbol = "Ó";
+            break;
+            case "hq": natoSymbol = "¬0";
+            break;
+            case "support": natoSymbol = "B";
+            break;
+            case "maint": natoSymbol = "<";
+            break;
+            case "service": natoSymbol = "";
+            break;
+            default: natoSymbol = "";
+        }
+        return natoSymbol;
+    }
+
+
     // cb = callback
     function getMatches(topicId, cb) {
         $.get('/api/arma3-slotting/' + topicId + '?withusers=1', function (response) {
@@ -243,7 +273,9 @@ require([
         });
     }
 
-    // github original
+   
+
+
     function insertAddMatchButton(markup) {
         console.log("slotting-insertslottinbutton called");
         var postBarNode = document.querySelectorAll(".post-bar .clearfix");
@@ -323,7 +355,6 @@ require([
                 window.pluginArma3SlottingTemplates = _.each(templates, function (templateString, index, obj) {
                     obj[index] = _.template(templateString, {variable: 'x'});
                 });
-
 
                 _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
                     node.parentNode.removeChild(node);

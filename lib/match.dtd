@@ -21,6 +21,8 @@
 				callsign CDATA #IMPLIED
 				radiofrequency CDATA #IMPLIED
 				ingamelobby CDATA #IMPLIED
+				natosymbol CDATA #IMPLIED
+				vehicletype CDATA #IMPLIED
 				>
 		<!ATTLIST platoon
 				side CDATA #IMPLIED
@@ -28,6 +30,8 @@
 				callsign CDATA #IMPLIED
 				radiofrequency CDATA #IMPLIED
 				ingamelobby CDATA #IMPLIED
+				natosymbol CDATA #IMPLIED
+				vehicletype CDATA #IMPLIED
 				>
 		<!ATTLIST squad
 				side CDATA #IMPLIED
@@ -35,6 +39,8 @@
 				callsign CDATA #IMPLIED
 				radiofrequency CDATA #IMPLIED
 				ingamelobby CDATA #IMPLIED
+				natosymbol CDATA #IMPLIED
+				vehicletype CDATA #IMPLIED
 				>
 		<!ATTLIST fireteam
 				side CDATA #IMPLIED
@@ -42,4 +48,5 @@
 				callsign CDATA #IMPLIED
 				radiofrequency CDATA #IMPLIED
 				ingamelobby CDATA #IMPLIED
+				natosymbol CDATA #IMPLIED
 				>

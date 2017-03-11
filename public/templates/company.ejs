@@ -1,7 +1,48 @@
 <div class="container_company">
 	
-	<span class="company_title" title="<%-x.ingamelobby%>"><%-x.callsign%></span>
-	<span class="company_radiofrequency"><%-x.radiofrequency%></span>
+	<div class="company_title_container">
+		<span class="platoon_natosymbol natosymbol" title="<%-x.vehicletype%>"><%
+
+			var natoSymbol = "";
+		        switch (x.natosymbol) {
+		            case "inf": natoSymbol = "+";
+		            break;
+		            case "motor_inf": natoSymbol = "®";
+		            break;
+		            case "mech_inf": natoSymbol = "®";
+		            break;
+		            case "armor": natoSymbol = "A";
+		            break;
+		            case "recon": natoSymbol = "Û";
+		            break;
+		            case "air": natoSymbol = "p";
+		            break;
+		            case "plane": natoSymbol = "w";
+		            break;
+		            case "uav": natoSymbol = "g";
+		            break;
+		            case "med": natoSymbol = "Â";
+		            break;
+		            case "art": natoSymbol = "#";
+		            break;
+		            case "mortar": natoSymbol = "Ó";
+		            break;
+		            case "hq": natoSymbol = "¬0";
+		            break;
+		            case "support": natoSymbol = "B";
+		            break;
+		            case "maint": natoSymbol = "<";
+		            break;
+		            case "service": natoSymbol = "";
+		            break;
+		            default: natoSymbol = "";
+		        }
+		        %>
+		        <%= natoSymbol%>
+		</span>
+		<span class="company_title container_title" title="<%-x.ingamelobby%>"><%-x.callsign%></span>
+		<span class="company_radiofrequency radiofrequency"><%-x.radiofrequency%></span>
+	</div>
 	<div class="company_head">
 		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
 	</div>
