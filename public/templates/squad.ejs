@@ -1,7 +1,8 @@
 <div class="container_squad">
 
-	<div class="squad_title_container" title="Lobby: <%-x.ingamelobby%>">
-		<span class="squad_natosymbol natosymbol" title="<%-x.vehicletype%>"><%
+	<div class="squad_title_container">
+		<span class="fakeVehicleType customTooltip" title="<%-x.vehicletype%>"></span>
+		<span class="squad_natosymbol natosymbol customTooltip"><%
 
 			var natoSymbol = "";
 		        switch (x.natosymbol) {
@@ -40,7 +41,7 @@
 		        %>
 		        <%= natoSymbol%>
 		</span>
-		<span class="squad_title container_title" title="Lobby: <%-x.ingamelobby%>"><%-x.callsign%></span>
+		<span class="squad_title container_title customTooltip" title="Lobby: <%-x.ingamelobby%>"><%-x.callsign%></span>
 		<span class="squad_radiofrequency radiofrequency"><%-x.radiofrequency%></span>
 	</div>
 

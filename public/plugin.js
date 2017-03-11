@@ -193,7 +193,7 @@ require([
     }
 
     var refreshToolTips = function () {
-        var attendanceAvatar = document.querySelectorAll(".avatar, .slot_descr, .container_title, .natosymbol");
+        var attendanceAvatar = document.querySelectorAll(".avatar, .slot_descr, .container_title, .natosymbol, .customTooltip");
 
         _.each(attendanceAvatar, function (attendanceAvatar) {
             if (!utils.isTouchDevice()) {
