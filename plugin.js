@@ -31,8 +31,3 @@ module.exports.admin = {
         callback(null, custom_header);
     }
 };
-
-module.exports.changeClientRouting = function (config, callback) {
-    config.custom_mapping['^arma3-slotting/match/.*/edit'] = 'actions/match-edit';
-    callback(null, config);
-};

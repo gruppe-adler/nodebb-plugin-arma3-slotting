@@ -25,10 +25,6 @@
             "hook": "filter:admin.header.build",
             "method": "admin.menu",
             "callbacked": true
-        },
-        {
-            "hook": "filter:templates.get_config",
-            "method": "changeClientRouting"
         }
     ]
 }
