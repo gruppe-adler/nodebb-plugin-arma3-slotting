@@ -169,6 +169,12 @@ require([
         });
     }
 
+    var hasPermissions = function (topicId, next) {
+        $.get(config.relative_path + '/api/arma3-slotting/' + topicId + '/has-permissions', function () { // success
+            next(null, true);
+        });
+    };
+
     var refreshToolTips = function () {
         var attendanceAvatar = document.querySelectorAll(".avatar, .slot_descr, .container_title, .natosymbol, .customTooltip");
 
@@ -324,7 +330,8 @@ require([
                     fireteam: 'fireteam.ejs',
                     slot: 'slot.ejs',
                     post_bar: 'post_bar.ejs'
-                })
+                }),
+                hasPermissions: _.partial(hasPermissions, topicId)
             },
             function (err, results) {
                 var matches = results.matches;
@@ -340,10 +347,13 @@ require([
                     node.parentNode.removeChild(node);
                 });
 
-                insertAddMatchButton(templates.post_bar({tid: topicId}));
+                if (results.hasPermissions) {
+                    insertAddMatchButton(templates.post_bar({tid: topicId}));
+                }
 
                 matches.forEach(function (match) {
                     match.tid = topicId;
+                    match.hasPermissions = results.hasPermissions;
                     var markup = templates.master(match);
 
                     var node = document.createElement('div');

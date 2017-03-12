@@ -32,6 +32,7 @@ font-size: 14px;">Slotliste</small>
 				</li>
 			</ul>
 		</div>-->
+	<% if (x.hasPermissions) { %>
 		<small class="pull-right">
 		
 
@@ -53,6 +54,7 @@ font-size: 14px;">Slotliste</small>
 			</ul>
 		</div>
 	</small>
+	<% } %>
 	<div>
 		<%=x.side%>
 		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
