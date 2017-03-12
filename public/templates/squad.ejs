@@ -42,7 +42,7 @@
 		        <%= natoSymbol%>
 		</span>
 		<span class="squad_title container_title customTooltip" title="Lobby: <%-x.ingamelobby%>"><%-x.callsign%></span>
-		<span class="squad_radiofrequency radiofrequency"><%-x.radiofrequency%></span>
+		<span class="squad_radiofrequency radiofrequency"><%-x.radiofrequency%> <% if (x.radiofrequency) {%>MHz<%}%></span>
 	</div>
 
 	<div class="squad_head">

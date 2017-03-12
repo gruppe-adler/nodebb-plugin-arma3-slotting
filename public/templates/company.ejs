@@ -42,7 +42,7 @@
 		        <%= natoSymbol%>
 		</span>
 		<span class="company_title container_title customTooltip" title="<%-x.ingamelobby%>"><%-x.callsign%></span>
-		<span class="company_radiofrequency radiofrequency"><%-x.radiofrequency%></span>
+		<span class="company_radiofrequency radiofrequency"><%-x.radiofrequency%> <% if (x.radiofrequency) {%>MHz<%}%></span>
 	</div>
 	<div class="company_head">
 		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>

@@ -21,7 +21,8 @@
 	<% } else { %>
 		
 		<a href="#" class="slot_button">
-			<div class="avatar avatar-sm avatar-rounded" title="<%- x.reservation %>"><% if (x.reservation) { %> <span class="reservation"></span><% } %>
+			<div class="avatar avatar-sm avatar-rounded" title="<% if (typeof x.reservation !== 'undefined') {%><%- x.reservation %><%}%>">
+				<span class="<% if (typeof x.reservation !== 'undefined') {%>reservation<%} %>"></span>
 			</div>	
 		</a>
 	<% } %>
