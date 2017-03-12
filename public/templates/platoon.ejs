@@ -2,44 +2,12 @@
 	
 	<div class="platoon_title_container">
 		<span class="fakeVehicleType customTooltip" title="<%-x.vehicletype%>"></span>
-		<span class="platoon_natosymbol natosymbol"><%
-
-			var natoSymbol = "";
-		        switch (x.natosymbol) {
-		            case "inf": natoSymbol = "+";
-		            break;
-		            case "motor_inf": natoSymbol = "®";
-		            break;
-		            case "mech_inf": natoSymbol = "®";
-		            break;
-		            case "armor": natoSymbol = "A";
-		            break;
-		            case "recon": natoSymbol = "Û";
-		            break;
-		            case "air": natoSymbol = "p";
-		            break;
-		            case "plane": natoSymbol = "w";
-		            break;
-		            case "uav": natoSymbol = "g";
-		            break;
-		            case "med": natoSymbol = "Â";
-		            break;
-		            case "art": natoSymbol = "#";
-		            break;
-		            case "mortar": natoSymbol = "Ó";
-		            break;
-		            case "hq": natoSymbol = "¬0";
-		            break;
-		            case "support": natoSymbol = "B";
-		            break;
-		            case "maint": natoSymbol = "<";
-		            break;
-		            case "service": natoSymbol = "";
-		            break;
-		            default: natoSymbol = "";
-		        }
+		<span class="platoon_natosymbol natosymbol <%
+				var symbol = x.natosymbol;
+		        var prefix = "symbol_";
+		        var resultingString = prefix.concat(symbol);
 		        %>
-		        <%= natoSymbol%>
+		        <%= resultingString%>">
 		</span>
 		<span class="platoon_title container_title customTooltip" title="Lobby: <%-x.ingamelobby%>"><%-x.callsign%></span>
 		<span class="platoon_radiofrequency radiofrequency"><%-x.radiofrequency%> <% if (x.radiofrequency) {%>MHz<%}%></span>

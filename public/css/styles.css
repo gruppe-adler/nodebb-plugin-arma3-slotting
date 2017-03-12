@@ -1,10 +1,3 @@
-@font-face { 
-	font-family: 'natosymbols'; 
-	src: url('fonts/natosymbols.ttf') format('truetype');
-	font-weight: normal;
-    font-style: normal;
-}
-
 a:focus {
 	outline: 0;
 }
@@ -14,15 +7,96 @@ a:focus {
 }
 
 
-
 .natosymbol {
-	font-family: "natosymbols";
 	display: inline-block;
-	padding: 0px 5px;
-	transform: scale(3, 3) translateX(-5px) translateY(-0.5px);
-    color: rgba(0,0,0,0.7);
-    width: 70px;
+	width: 70px;
+	height: 20px;
+	opacity: 0.6;
+
+	background-repeat:no-repeat;
+
+	margin-top: 5px;
+	position: relative;
+	margin-bottom: -5px;
 }
+
+/* NATO SYMBOLS handmade by nomisum */
+.symbol_air {
+	background-image: url(icons/air.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_armor {
+	background-image: url(icons/armor.svg);
+  	background-size: 30px 20px;
+}
+
+.symbol_art {
+	background-image: url(icons/art.svg);
+  	background-size: 30px 20px;
+}
+
+.symbol_hq {
+	background-image: url(icons/hq.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_inf {
+	background-image: url(icons/inf.svg);
+  	background-size: 30px 20px;
+}
+
+.symbol_maint {
+	background-image: url(icons/maint.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_mech_inf {
+	background-image: url(icons/mech_inf.svg);
+  	background-size: 30px 20px;
+}
+
+.symbol_med {
+	background-image: url(icons/med.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_mortar {
+	background-image: url(icons/mortar.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_motor_inf {
+	background-image: url(icons/motor_inf.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_plane {
+	background-image: url(icons/plane.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_recon {
+	background-image: url(icons/recon.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_service {
+	background-image: url(icons/service.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_support {
+	background-image: url(icons/support.svg);
+  	background-size: 30px 20px;	
+}
+
+.symbol_uav {
+	background-image: url(icons/uav.svg);
+  	background-size: 30px 20px;	
+}
+
+
 
 .company_radiofrequency, .platoon_radiofrequency, .squad_radiofrequency {
 	color: rgba(255,255,255,0.7);
