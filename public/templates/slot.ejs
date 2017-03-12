@@ -14,10 +14,22 @@
 		<a href="#" class="slot_button"
 			data-username="<%- x.user.username %>"
 			data-uid="<%- x.user.uid %>"
-		><div
-				class="avatar avatar-sm avatar-rounded"
-				title="<%- x.user.username %>"
-				style="background-color: <%- x.user['icon:bgColor'] %>"><%- x.user['icon:text'] %></div></a>
+		>
+
+			<% if (x.user.picture) { %>
+				<img class="user-img avatar avatar-md avatar-rounded"
+					 src="<%=x.user.picture %>"
+					 title="<%= x.user.username%>"
+				/>
+			<% } else { %>
+				<div
+					class="avatar avatar-sm avatar-rounded"
+					title="<%- x.user.username %>"
+					style="background-color: <%- x.user['icon:bgColor'] %>"><%- x.user['icon:text'] %>
+				</div>
+			<% } %>
+
+		</a>
 	<% } else { %>
 		
 		<a href="#" class="slot_button">
