@@ -51,28 +51,8 @@ require([
             actionOnMySlot('PUT', {uid: app.user.uid}, load);
         }
     });
-/*
-    $(document).on('click', '[component="topic"] .match-control-edit', function (event) {
-        console.log('match edit');
-        var $button = $(this);
-        var topicID = $button.parents('[component="topic"]').attr("data-tid");
-        var matchID = $button.parents('[component="match"]').attr("data-uuid");
-        getMatchAsXml(topicID, matchID, function (matchXml) {
-            bootbox.prompt({
-                inputType: 'textarea',
-                value: matchXml,
-                size: 'large',
-                title: 'Please change the match specification',
-                callback: function (inputString) {
-                    if (inputString) {
-                        putMatch(inputString, topicID, matchID, load);
-                    }
-                }
-            });
-        });
-    });
-*/
-    $(document).on('click', '#match-submit', function (event) {
+
+    $(document).on('click', '#match-edit-submit', function (event) {
         event.preventDefault();
         var form = $(this).parents('form');
         var val = $('#match-definition').val();
@@ -85,17 +65,14 @@ require([
     });
 
 
-    $(document).on('click', '.arma3-slotting-button-add-match', function () {
-        var topicID = $(cache.topicNode).attr("data-tid");
-        bootbox.prompt({
-            inputType: 'textarea',
-            size: 'large',
-            title: 'Please enter the match specification',
-            callback: function (inputString) {
-                if (inputString) {
-                    createMatch(inputString, topicID, load);
-                }
-            }
+    $(document).on('click', '#match-add-submit', function (event) {
+        event.preventDefault();
+        var form = $(this).parents('form');
+        var val = $('#match-definition').val();
+        var tid = form.attr('data-tid');
+
+        createMatch(val, tid, function () {
+            document.location.pathname = '/topic/' + tid;
         });
     });
 
@@ -363,7 +340,7 @@ require([
                     node.parentNode.removeChild(node);
                 });
 
-                insertAddMatchButton(templates.post_bar({}));
+                insertAddMatchButton(templates.post_bar({tid: topicId}));
 
                 matches.forEach(function (match) {
                     match.tid = topicId;

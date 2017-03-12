@@ -1,12 +1,10 @@
 <div class="match-definition-container">
-	<span class="match-definition-debug pull-right">ID: {matchid}</span>
-	<h2 class="match-h2">Slotliste XML</h2>
+	<h2 class="match-h2">Slotliste XML: neues Match hinzufügen</h2>
 
-	<form data-matchid="{matchid}" data-tid="{tid}">
-		<button id="match-edit-submit" class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Änderungen speichern</button>
+	<form data-tid="{tid}">
+		<button id="match-add-submit" class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Match hinzufügen</button>
 		<!-- <button id="match-dtd" class="btn btn-default">DTD anzeigen</button> -->
 		<a href="/topic/{tid}" id="match-cancel" class="btn btn-default composer-discard"><i class="fa fa-times"></i> Abbrechen</a>
-		
 
 		<span class="match-template-label">Templates</span>
 		<ul class="match-template-buttons">
@@ -18,16 +16,6 @@
 			<li><button class="tag" data-template="Fireteam-4"><span class="btn-text">Fireteam-4</span></button></li>
 		</ul>
 
-		<textarea id="match-definition">
-{spec}
-		</textarea>
+		<textarea id="match-definition"></textarea>
 	</form>
-	<script>
-		/*global require*/
-		require(['arma3-slotting/formatXml'], function (formatXml) {
-		    var textarea = $('#match-definition')[0];
-			textarea.value = formatXml(textarea.value.trim());
-		});
-	</script>
-	
 </div>

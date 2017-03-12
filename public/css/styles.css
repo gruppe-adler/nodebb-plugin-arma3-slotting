@@ -64,7 +64,7 @@ a:focus {
 	text-shadow: 0px 1px 0px rgba(255,255,255,0.9);
 }
 
-#match-submit, #match-dtd, #match-cancel {
+#match-edit-submit, #match-add-submit, #match-dtd, #match-cancel {
 	float:right;
 }
 
