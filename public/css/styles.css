@@ -99,8 +99,7 @@ a:focus {
 
 
 .company_radiofrequency, .platoon_radiofrequency, .squad_radiofrequency {
-	color: rgba(255,255,255,0.7);
-	text-shadow: 0px -1px 0px rgba(0,0,0,0.2);
+	color: rgba(0,0,0,0.5);
 	padding: 0px 5px;
 	display: inline-block;
 	width: 70px;
@@ -256,7 +255,7 @@ a:focus {
 }
 
 .company_title, .platoon_title, .squad_title {
-	color: rgba(255,255,255,0.4);
+	color: rgba(0,0,0,0.5);
 	text-align: center;
 	height: 50px;
 	line-height:48px;
@@ -264,7 +263,6 @@ a:focus {
 	padding-right: 5px;
 	text-transform: uppercase;
 	font-weight: bold;
-	text-shadow: 0px -1px 0px rgba(0,0,0,0.25);
 	font-size: 16px;
 	cursor: pointer;
 	width: calc(100% - 160px);
@@ -275,7 +273,6 @@ a:focus {
 .company_title {
 	/*background-color: #8f1167;*/
 	
-	color: rgba(255,255,255,0.7);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -283,18 +280,18 @@ a:focus {
 }
 
 .company_title_container {
-	background-color: #999;
+	border-top: 3px solid #8f1167;
 }
 
 
 .container_platoon {
 	min-height: 80px;
-	width: calc(100% - 10px);
+	width: calc(100% - 40px);
 	
 	/* box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2);*/
 	background: #fff;
 	float: left;
-	margin: 20px 5px 5px 5px;
+	margin: 20px 5px 5px 20px;
 	text-align: center;
 }
 
@@ -310,7 +307,7 @@ a:focus {
 }
 
 .platoon_title_container {
-	background-color: #d0d0d0;
+	border-top: 3px solid #D18D1F;
 }
 
 
