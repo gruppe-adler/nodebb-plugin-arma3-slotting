@@ -272,7 +272,7 @@ a:focus {
 
 .company_title {
 	/*background-color: #8f1167;*/
-	
+	color: #8f1167;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -288,7 +288,7 @@ a:focus {
 	min-height: 80px;
 	width: calc(100% - 40px);
 	
-	/* box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2);*/
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
 	background: #fff;
 	float: left;
 	margin: 20px 5px 5px 20px;
@@ -298,7 +298,7 @@ a:focus {
 
 .platoon_title {
 	/*background-color: #777;*/
-	color: #777;
+	color: #D18D1F;
 	text-shadow: 0px 1px 0px rgba(255,255,255,0.4);
 	overflow: hidden;
 	white-space: nowrap;
@@ -326,6 +326,10 @@ div .squad_head {
 	width: 100%;
 	min-height: 80px;
 	/*border-bottom: 1px solid rgba(0,0,0,0.1);*/
+}
+
+.squad_empty {
+	padding-left: 7px;
 }
 
 .squad_title {
@@ -371,6 +375,8 @@ div .squad_head {
 	margin: 0px 0px 0px 10px;
 }
 
+
+
 .slot:last-child {
 	margin: 0px 10px 0px 10px;
 }
@@ -386,10 +392,40 @@ div .squad_head {
 	background-color: #d9d9d9;
 	box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.2);
 	border-radius: 50%;
+
+	-webkit-transition: background-color 80ms ease-in;
+    -moz-transition: background-color 80ms ease-in;
+    -o-transition: background-color 80ms ease-in;
+    -ms-transition: background-color 80ms ease-in;
+     transition: background-color 80ms ease-in;
+}
+
+.slot .avatar:hover {
+	background-color: #f9f9f9;
+	-webkit-transition: background-color 80ms ease-in;
+    -moz-transition: background-color 80ms ease-in;
+    -o-transition: background-color 80ms ease-in;
+    -ms-transition: background-color 80ms ease-in;
+     transition: background-color 80ms ease-in;
+
 }
 
 .container_fireteam .avatar{
 	background-color: #fff;
+	-webkit-transition: background-color 80ms ease-in;
+    -moz-transition: background-color 80ms ease-in;
+    -o-transition: background-color 80ms ease-in;
+    -ms-transition: background-color 80ms ease-in;
+     transition: background-color 80ms ease-in;
+}
+
+.container_fireteam .avatar:hover{
+	background-color: #f0f0f0;
+	-webkit-transition: background-color 80ms ease-in;
+    -moz-transition: background-color 80ms ease-in;
+    -o-transition: background-color 80ms ease-in;
+    -ms-transition: background-color 80ms ease-in;
+     transition: background-color 80ms ease-in;
 }
 
 .slot_descr {
