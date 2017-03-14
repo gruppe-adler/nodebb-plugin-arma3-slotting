@@ -88,6 +88,16 @@ require([
         });
     });
 
+    $(document).on('click', '[data-template="Fireteam-4"]', function (event) {
+        console.log('insert preset');
+        var $button  = $(this);
+        insertTextAtCursorPosition('dadbummzz dummy text', document.getElementById('match-definition'));
+    });
+
+    
+
+
+
     var slotAction = function (slotID, tid, matchID, method, data, successCallback) {
         $.ajax({
             method: method,
@@ -205,19 +215,7 @@ require([
         });
     }
 
-    /*
-    addInsertPresetClickEvent(document.querySelector('.tag'),document.getElementbyID('match-definition'));
-
-    */
-
-    /* todo: get correct text from xml file */
-    function addInsertPresetClickEvent(button, inputField) {
-        document.getElementById(button).addEventListener('click', function () {
-            var textField = document.getElementById(inputField);
-            insertTextAtCursorPosition('textzeug', textField);
-        });
-    }
-
+   
     function insertTextAtCursorPosition(text, inputField) {
       var input = inputField;
       console.log(input);
