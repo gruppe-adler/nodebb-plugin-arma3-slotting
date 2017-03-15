@@ -1,0 +1,1 @@
+<slot shortcode='KSA' description='Kompanie-Sanitäter'></slot>

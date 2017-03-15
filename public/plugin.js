@@ -54,10 +54,12 @@ require([
 
     $(document).on('click', '#match-edit-submit', function (event) {
         event.preventDefault();
-        var form = $(this).parents('form');
+        var form = document.getElementById('match-definition-form');
+
+        console.log(form);
         var val = $('#match-definition').val();
-        var matchid = form.attr('data-matchid');
-        var tid = form.attr('data-tid');
+        var matchid = form.getAttribute('data-matchid');
+        var tid = form.getAttribute('data-tid');
 
         putMatch(val, tid, matchid, function () {
             document.location.pathname = '/topic/' + tid;
@@ -67,9 +69,9 @@ require([
 
     $(document).on('click', '#match-add-submit', function (event) {
         event.preventDefault();
-        var form = $(this).parents('form');
+        var form = document.getElementById('match-definition-form');
         var val = $('#match-definition').val();
-        var tid = form.attr('data-tid');
+        var tid = form.getAttribute('data-tid');
 
         createMatch(val, tid, function () {
             document.location.pathname = '/topic/' + tid;
@@ -88,25 +90,44 @@ require([
         });
     });
 
-    $(document).on('click', '[data-template="rifleman"]', function (event) {
-        console.log('insert preset');
-        var $button  = $(this);
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                insertTextAtCursorPosition(getXMLShit(this), document.getElementById('match-definition'));
-            }
-        };
-        xhttp.open("GET", "/plugins/nodebb-plugin-arma3-slotting/presets/rifleman.xml", true);
-        xhttp.send();
-
-        function getXMLShit(xml) {
-            var xmlDoc = xml.responseXML;
-            var x = xmlDoc.getElementsByTagName("content")[0];
-            return x.textContent;
-        }
+    
+    window.preset_boolean_callsign = false;
+    window.preset_boolean_vehicletype = false;
+    window.preset_boolean_radiofrequency = false;
+    window.preset_boolean_ingamelobby = false;
+    
+    $(document).on('click', '.boolean_callsign', function (event) {
+        window.preset_boolean_callsign = !(window.preset_boolean_callsign);
+        console.log("setting callsign to " + window.preset_boolean_callsign.toString());
     });
+
+    $(document).on('click', '.boolean_vehicletype', function (event) {
+        window.preset_boolean_vehicletype = !(window.preset_boolean_vehicletype);
+        console.log("setting vehicletype to " + window.preset_boolean_vehicletype.toString());
+    });
+
+    $(document).on('click', '.boolean_radiofrequency', function (event) {
+        window.preset_boolean_radiofrequency = !(window.preset_boolean_radiofrequency);
+        console.log("setting radiofrequency to " + window.preset_boolean_radiofrequency.toString());
+    });
+
+    $(document).on('click', '.boolean_ingamelobby', function (event) {
+        window.preset_boolean_ingamelobby = !(window.preset_boolean_ingamelobby);
+        console.log("setting ingamelobby to " + window.preset_boolean_ingamelobby.toString());
+    });
+
+
+     $(document).on('click', '.match-template-button', function (event) {
+        console.log('insert preset');
+
+        var templateName = $(this).attr('data-template');
+       
+        $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '.txt', function (response) {
+            console.log('response is ' + response);
+            insertTextAtCursorPosition('\n' + response, document.getElementById('match-definition'));
+        });    
+    });
+    
 
 
     var slotAction = function (slotID, tid, matchID, method, data, successCallback) {
@@ -276,6 +297,8 @@ require([
             cb(null, response);
         });
     }
+
+  
 
    
 

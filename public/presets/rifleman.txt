@@ -1,0 +1,1 @@
+<slot shortcode='RF' description='Schütze'></slot>

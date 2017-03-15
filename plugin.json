@@ -5,7 +5,8 @@
     "library": "./plugin.js",
     "staticDirs": {
         "templates": "public/templates",
-        "css": "public/css"
+        "css": "public/css",
+        "presets": "public/presets"
     },
     "templates": "public/templates",
      "scripts": [

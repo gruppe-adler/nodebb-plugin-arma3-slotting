@@ -145,6 +145,11 @@ a:focus {
 	margin-top: 0;
 }
 
+.match-definition-header {
+	width: 100%;
+    height: 45px;
+}
+
 .match-template-label {
 	text-transform: uppercase;
 	color: #777;
@@ -222,14 +227,31 @@ a:focus {
 	margin-right: 20px;
 }
 
+.switch_label {
+	padding-left: 30px;
+	margin-top: -1px;
+
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
  /* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
-  width: 30px;
-  height: 17px;
   top: 9px;
-  margin-right: 5px;
+  background-color: #fff;
+  padding: 10px 16px;
+}
+
+.switch:hover {
+	background-color: #e6e6e6;
+	cursor: pointer;
 }
 
 /* Hide default HTML checkbox */
@@ -285,6 +307,10 @@ input:checked + .slider:before {
 /* Rounded sliders */
 .slider.round {
   border-radius: 17px;
+  width: 30px;
+  height: 17px;
+  margin: 7px;
+  top: 3px;
 }
 
 .slider.round:before {

@@ -1,41 +1,47 @@
 <div class="match-definition-container">
 	
-	<span class="match-template-label">Slotliste XML</span>
-	<!-- <span class="match-definition-debug">ID: {matchid}</span>-->
+	<div class="match-definition-header">
+		<span class="match-template-label">Slotliste XML</span>
+		<!-- <span class="match-definition-debug">ID: {matchid}</span>-->
 
-	<button id="match-edit-submit" class="btn btn-primary" type="submit" form="match-definition-form"><i class="fa fa-check"></i> Änderungen speichern</button>
-	<!-- <button id="match-dtd" class="btn btn-default">DTD anzeigen</button> -->
-	<a href="/topic/{tid}" id="match-cancel" class="btn btn-default composer-discard"><i class="fa fa-times"></i> Abbrechen</a>
+		<button id="match-edit-submit" class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Änderungen speichern</button>
+		<!-- <button id="match-dtd" class="btn btn-default">DTD anzeigen</button> -->
+		<a href="/topic/{tid}" id="match-cancel" class="btn btn-default composer-discard"><i class="fa fa-times"></i> Abbrechen</a>
+	</div>
 
 	<div class="match-template-settings">
 		<ul>
 			<li>
-				<label class="switch">
+				<label class="switch boolean_callsign">
 				  <input type="checkbox">
 				  <div class="slider round"></div>
+				  <div class="switch_label">Rufname</div>
 				</label>
-				Rufname
+				
 			</li>
 			<li>
-				<label class="switch">
+				<label class="switch boolean_vehicletype">
 				  <input type="checkbox">
 				  <div class="slider round"></div>
+				  <div class="switch_label">Fahrzeugtyp</div>
 				</label>
-				Fahrzeugtyp
+				
 			</li>
 			<li>
-				<label class="switch">
+				<label class="switch boolean_radiofrequency">
 				  <input type="checkbox">
 				  <div class="slider round"></div>
+				  <div class="switch_label">Funkfrequenz</div>
 				</label>
-				Funkfrequenz
+				
 			</li>
 			<li>
-				<label class="switch">
+				<label class="switch boolean_ingamelobby">
 				  <input type="checkbox">
 				  <div class="slider round"></div>
+				  <div class="switch_label">LobbyBezeichner</div>
 				</label>
-				LobbyBezeichner
+				
 			</li>
 
 		</ul>
@@ -52,15 +58,16 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" data-template="rifleman">Schütze</a></li>
-				<li><a href="#" data-template="mggunner">MG-Schütze</a></li>
-				<li><a href="#" data-template="atgunner">AT-Schütze</a></li>
-				<li><a href="#" data-template="medic">Sanitäter</a></li>
-				<li><a href="#" data-template="teamleader">Truppführer</a></li>
-				<li><a href="#" data-template="squadmedic">Zug-Sanitäter</a></li>
-				<li><a href="#" data-template="squadleader">Zugführer</a></li>
-				<li><a href="#" data-template="platoonmedic">Kompanie-Sanitäter</a></li>
-				<li><a href="#" data-template="platoonleader">Kompanieführer</a></li>
+				<li><a href="#" class="match-template-button" data-template="rifleman">Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="mggunner">MG-Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="mgassistant">MG-Assist</a></li>
+				<li><a href="#" class="match-template-button" data-template="atgunner">AT-Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="medic">Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="teamleader">Truppführer</a></li>
+				<li><a href="#" class="match-template-button" data-template="squadmedic">Zug-Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="squadleader">Zugführer</a></li>
+				<li><a href="#" class="match-template-button" data-template="platoonmedic">Kompanie-Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="platoonleader">Kompanieführer</a></li>
 			</ul>
 		</li>
 
@@ -73,11 +80,11 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#">Trupp-3</a></li>
-				<li><a href="#">Trupp-4</a></li>
-				<li><a href="#">Trupp-5</a></li>
-				<li><a href="#">Zug-9</a></li>
-				<li><a href="#">Kompanie</a></li>
+				<li><a href="#" class="match-template-button">Trupp-3</a></li>
+				<li><a href="#" class="match-template-button">Trupp-4</a></li>
+				<li><a href="#" class="match-template-button">Trupp-5</a></li>
+				<li><a href="#" class="match-template-button">Zug-9</a></li>
+				<li><a href="#" class="match-template-button">Kompanie</a></li>
 			</ul>
 		</li>
 
@@ -90,9 +97,9 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#">Motor-Inf</a></li>
-				<li><a href="#">Mech-Inf</a></li>
-				<li><a href="#">Kpz</a></li>
+				<li><a href="#" class="match-template-button">Motor-Inf</a></li>
+				<li><a href="#" class="match-template-button">Mech-Inf</a></li>
+				<li><a href="#" class="match-template-button">Kpz</a></li>
 			</ul>
 		</li>
 
@@ -105,12 +112,12 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#">Breaking Contact</a></li>
-				<li><a href="#">Endgame</a></li>
-				<li><a href="#">Holding Point</a></li>
-				<li><a href="#">Money in the Mist</a></li>
-				<li><a href="#">Urban Ops</a></li>
-				<li><a href="#">Rattrap</a></li>
+				<li><a href="#" class="match-template-button">Breaking Contact</a></li>
+				<li><a href="#" class="match-template-button">Endgame</a></li>
+				<li><a href="#" class="match-template-button">Holding Point</a></li>
+				<li><a href="#" class="match-template-button">Money in the Mist</a></li>
+				<li><a href="#" class="match-template-button">Urban Ops</a></li>
+				<li><a href="#" class="match-template-button">Rattrap</a></li>
 			</ul>
 		</li>
 	</ul>
