@@ -121,10 +121,44 @@ require([
         console.log('insert preset');
 
         var templateName = $(this).attr('data-template');
+
+        var callsign = "";
+        var vehicletype = "";
+        var radiofrequency = "";
+        var ingamelobby = "";
+        var natosymbol = "";
+        var closingTag = $(this).attr('data-closing');
+
+        if (window.preset_boolean_callsign) {
+            callsign = "callsign=''";
+        }
+
+        if (window.preset_boolean_vehicletype) {
+            vehicletype = "vehicletype=''";
+        }
+
+        if (window.preset_boolean_radiofrequency) {
+            radiofrequency = "radiofrequency=''";
+        }
+
+        if (window.preset_boolean_ingamelobby) {
+            ingamelobby = "ingamelobby=''";
+        }
+
+        if (window.preset_boolean_natosymbol) {
+            natosymbol = "natosymbol=''";
+        }
        
         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '.txt', function (response) {
             console.log('response is ' + response);
-            insertTextAtCursorPosition('\n' + response, document.getElementById('match-definition'));
+            insertTextAtCursorPosition('\n' + response
+                + " " + callsign 
+                + " " + vehicletype
+                + " " + radiofrequency
+                + " " + ingamelobby
+                + " " + natosymbol
+                + closingTag
+                , document.getElementById('match-definition'));
         });    
     });
     

@@ -1,1 +1,1 @@
-<slot shortcode='SAN' description='Sanitäter'></slot>
+<slot shortcode='SAN' description='Sanitäter'
