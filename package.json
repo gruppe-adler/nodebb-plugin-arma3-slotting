@@ -1,20 +1,19 @@
 {
-    "name": "nodebb-plugin-arma3-slotting",
-    "version": "0.3.7",
-    "dependencies": {
-        "libxmljs": "*",
-        "xml2json": "*",
-        "node-uuid": "*",
-        "async": "^1",
-        "underscore": "^1",
-        "winston": "*",
-        "nodebb-plugin-frontend-async": "*"
-    },
-    "devDependencies": {
-        "underscore": "*"
-    },
-    "nbbpm": {
-        "compatibility": "^1.4.0"
-    }
-
+  "name": "nodebb-plugin-arma3-slotting",
+  "version": "0.3.7",
+  "dependencies": {
+    "async": "^1",
+    "libxmljs": "*",
+    "node-uuid": "*",
+    "nodebb-plugin-frontend-async": "*",
+    "underscore": "^1",
+    "winston": "*",
+    "xml2json": "*"
+  },
+  "devDependencies": {
+    "underscore": "*"
+  },
+  "nbbpm": {
+    "compatibility": "^1.4.0"
+  }
 }

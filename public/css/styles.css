@@ -168,6 +168,16 @@ a:focus {
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
 	padding: 0 20px;
 	overflow: auto;
+
+	color: #8f1167;  /* change [input cursor color] by this*/
+    text-shadow: 0px 0px 0px #333; /* change [input font] by this*/
+    -webkit-text-fill-color: transparent;
+}
+
+#match-definition::-webkit-input-placeholder{
+  color: #333;  /* change [placeholder color] by this*/
+  text-shadow: none;
+  -webkit-text-fill-color: initial;
 }
 
 
@@ -176,13 +186,19 @@ a:focus {
 	color: #c0c0c0;
 }
 
+
 .match-template-buttons {
 	padding-left: 0px;
 }
 
-.match-template-buttons li{
+.match-template-buttons li, .match-template-settings li{
 	list-style-type: none;
 	display: inline-block;
+}
+
+.match-template-buttons .dropdown-menu li{
+	list-style-type: none;
+	display: block;
 }
 
 .match-template-buttons button {
@@ -192,6 +208,90 @@ a:focus {
     border:none;
 }
 
+.match-template-settings {
+	height: 100px;
+	display:flex;
+	align-items:center;
+}
+
+.match-template-settings ul {
+	padding-left: 0px;
+}
+
+.match-template-settings li {
+	margin-right: 20px;
+}
+
+ /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+  top: 9px;
+  margin-right: 5px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .1s ease-in;
+  transition: .1s ease-in;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .1s ease-in;
+  transition: .1s ease-in;
+}
+
+input:hover + .slider {
+  background-color: #666;
+}
+
+input:checked + .slider {
+  background-color: #66aa66;
+}
+
+input:checked:hover + .slider {
+  background-color: #337733;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #66aa66;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/*
 .match-template-buttons .tag {
 	text-transform: uppercase;
 	font-size: 10px;
@@ -216,6 +316,8 @@ a:focus {
 .match-template-buttons button:active span{
 	top: 1px;
 }
+
+*/
 
 .topic .posts .content .dropdown-menu li {
 	list-style-type: none;

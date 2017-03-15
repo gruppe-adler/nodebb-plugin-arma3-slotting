@@ -88,14 +88,25 @@ require([
         });
     });
 
-    $(document).on('click', '[data-template="Fireteam-4"]', function (event) {
+    $(document).on('click', '[data-template="rifleman"]', function (event) {
         console.log('insert preset');
         var $button  = $(this);
-        insertTextAtCursorPosition('dadbummzz dummy text', document.getElementById('match-definition'));
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                insertTextAtCursorPosition(getXMLShit(this), document.getElementById('match-definition'));
+            }
+        };
+        xhttp.open("GET", "/plugins/nodebb-plugin-arma3-slotting/presets/rifleman.xml", true);
+        xhttp.send();
+
+        function getXMLShit(xml) {
+            var xmlDoc = xml.responseXML;
+            var x = xmlDoc.getElementsByTagName("content")[0];
+            return x.textContent;
+        }
     });
-
-    
-
 
 
     var slotAction = function (slotID, tid, matchID, method, data, successCallback) {
