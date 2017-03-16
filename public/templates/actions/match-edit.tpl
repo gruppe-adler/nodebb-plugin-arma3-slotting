@@ -69,8 +69,7 @@
 
 			<ul class="dropdown-menu pull-right">
 				
-		        <li><a href="#" class="match-template-button" data-template="rifleman" data-name="Schütze" 
-		        data-skip="true">Schütze</a></li>
+		        <li><a href="#" class="match-template-button" data-template="rifleman" data-name="Schütze" data-skip="true">Schütze</a></li>
 				<li><a href="#" class="match-template-button" data-template="mggunner" data-name="MG-Schütze" data-skip="true">MG-Schütze</a></li>
 				<li><a href="#" class="match-template-button" data-template="mgassistant" data-name="MG-Assi" data-skip="true">MG-Assi</a></li>
 				<li><a href="#" class="match-template-button" data-template="atgunner" data-name="AT-Schütze" data-skip="true">AT-Schütze</a></li>
@@ -126,7 +125,7 @@
 
 			<ul class="dropdown-menu pull-right">
 				<li>
-				<small>Benachrichtigung bei neuen Beiträgen.<br>Ungelesen Beiträge anzeigen.</small>
+				<small style="display: block; padding: 10px; border-bottom: 1px solid #eee; cursor:default;">Einfügen bei Trupps, Zügen oder Kompanien. Code: <span style="cursor:default; padding: 5px; background-color: #f0f0f0; display: block;">natosymbol=""</small>
 				</li>
 				<li>
 				<a href="#" class="match-template-button" data-template="empty" data-included="inf" data-skip="true">
@@ -206,12 +205,12 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" class="match-template-button" data-closing="">Breaking Contact</a></li>
-				<li><a href="#" class="match-template-button" data-closing="">Endgame</a></li>
-				<li><a href="#" class="match-template-button" data-closing="">Holding Point</a></li>
-				<li><a href="#" class="match-template-button" data-closing="">Money in the Mist</a></li>
-				<li><a href="#" class="match-template-button" data-closing="">Urban Ops</a></li>
-				<li><a href="#" class="match-template-button" data-closing="">Rattrap</a></li>
+				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Breaking Contact</a></li>
+				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Endgame</a></li>
+				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Holding Point</a></li>
+				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Money in the Mist</a></li>
+				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Urban Ops</a></li>
+				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Rattrap</a></li>
 			</ul>
 		</li>
 	</ul>

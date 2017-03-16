@@ -4,7 +4,7 @@
 		<span class="match-template-label">Slotliste XML: Neues Match</span>
 		<!-- <span class="match-definition-debug">ID: {matchid}</span>-->
 
-		<button id="match-add-submit" class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Änderungen speichern</button>
+		<button id="match-add-submit" class="btn btn-primary" type="submit"><i class="fa fa-check"></i> Slotliste speichern</button>
 		<!-- <button id="match-dtd" class="btn btn-default">DTD anzeigen</button> -->
 		<a href="/topic/{tid}" id="match-cancel" class="btn btn-default composer-discard"><i class="fa fa-times"></i> Abbrechen</a>
 	</div>
@@ -69,8 +69,7 @@
 
 			<ul class="dropdown-menu pull-right">
 				
-		        <li><a href="#" class="match-template-button" data-template="rifleman" data-name="Schütze" 
-		        data-skip="true">Schütze</a></li>
+		        <li><a href="#" class="match-template-button" data-template="rifleman" data-name="Schütze" data-skip="true">Schütze</a></li>
 				<li><a href="#" class="match-template-button" data-template="mggunner" data-name="MG-Schütze" data-skip="true">MG-Schütze</a></li>
 				<li><a href="#" class="match-template-button" data-template="mgassistant" data-name="MG-Assi" data-skip="true">MG-Assi</a></li>
 				<li><a href="#" class="match-template-button" data-template="atgunner" data-name="AT-Schütze" data-skip="true">AT-Schütze</a></li>
@@ -221,4 +220,8 @@
 			{spec}
 		</textarea>
 	</form>
+	<script>
+		window.matchString1 = "<match>";
+		window.matchString2 = "</match>";
+	</script>
 </div>

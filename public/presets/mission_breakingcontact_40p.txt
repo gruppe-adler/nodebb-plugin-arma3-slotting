@@ -1,0 +1,68 @@
+<company side="opfor" callsign="OPFOR">
+   <platoon>
+       <slot shortcode="PTL" description="Chef" />
+       <slot shortcode="PTS" description="Assistent" />
+       <squad callsign="Alpha-1-2" radiofrequency="85.5" natosymbol="inf">
+           <slot shortcode="SQL" description="squad leader" />
+           <slot shortcode="SQM" description="squad medic" />
+           <fireteam>
+               <slot shortcode="FTL" description="fireteam lead"></slot>
+               <slot shortcode="AR" description="automatic rifleman" />
+               <slot shortcode="AAR" description="ammo bearer" />
+               <slot shortcode="AT" />
+               <slot shortcode="R" />
+               <slot shortcode="R" />
+           </fireteam>
+           <fireteam>
+               <slot shortcode="FTL" description="fireteam lead"></slot>
+               <slot shortcode="AR" description="automatic rifleman" />
+               <slot shortcode="AAR" description="ammo bearer" />
+               <slot shortcode="AT" />
+               <slot shortcode="R" />
+               <slot shortcode="R" />
+           </fireteam>
+           <fireteam>
+               <slot shortcode="FTL" description="fireteam lead"></slot>
+               <slot shortcode="AR" description="automatic rifleman" />
+               <slot shortcode="AAR" description="ammo bearer" />
+               <slot shortcode="AT" />
+               <slot shortcode="R" />
+               <slot shortcode="R" />
+           </fireteam>
+       </squad>
+   </platoon>
+</company>
+<company side="blufor" callsign="BLUFOR">
+   <platoon>
+       <slot shortcode="PTL" description="Chef" />
+       <slot shortcode="PTS" description="Assistent" />
+       <squad callsign="Alpha-1-2" radiofrequency="85.5" natosymbol="inf">
+           <slot shortcode="SQL" description="squad leader" />
+           <slot shortcode="SQM" description="squad medic" />
+           <fireteam>
+               <slot shortcode="FTL" description="fireteam lead"></slot>
+               <slot shortcode="AR" description="automatic rifleman" />
+               <slot shortcode="AAR" description="ammo bearer" />
+               <slot shortcode="AT" />
+               <slot shortcode="R" />
+               <slot shortcode="R" />
+           </fireteam>
+           <fireteam>
+               <slot shortcode="FTL" description="fireteam lead"></slot>
+               <slot shortcode="AR" description="automatic rifleman" />
+               <slot shortcode="AAR" description="ammo bearer" />
+               <slot shortcode="AT" />
+               <slot shortcode="R" />
+               <slot shortcode="R" />
+           </fireteam>
+           <fireteam>
+               <slot shortcode="FTL" description="fireteam lead"></slot>
+               <slot shortcode="AR" description="automatic rifleman" />
+               <slot shortcode="AAR" description="ammo bearer" />
+               <slot shortcode="AT" />
+               <slot shortcode="R" />
+               <slot shortcode="R" />
+           </fireteam>
+       </squad>
+   </platoon>
+</company>

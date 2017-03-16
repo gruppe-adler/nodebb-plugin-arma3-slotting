@@ -121,12 +121,20 @@ a:focus {
 	margin-bottom: -1px;
 }
 
-.company .opfor {
-
+.opfor .company_title_container{
+	border-color: #800000;
 }
 
-.company .blufor {
-	
+.blufor .company_title_container{
+	border-color: #004c9a;
+}
+
+.opfor .company_title {
+	color: #800000;
+}
+
+.blufor .company_title {
+	color: #004c9a;
 }
 
 
