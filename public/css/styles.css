@@ -6,6 +6,24 @@ a:focus {
 	border: none !important;
 }
 
+#modal-presets input {
+	padding: 10px 16px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	font-size: 30px;
+	width: 100%;
+	margin-bottom: 5px;
+} 
+
+#modal-presets small {
+	color: #999;
+}
+
+#modal-presets input::placeholder {
+	color: #999;
+}
 
 .natosymbol {
 	display: inline-block;
@@ -96,6 +114,20 @@ a:focus {
   	background-size: 30px 20px;	
 }
 
+.symbol_small {
+	width: 35px;
+	height: 10px;
+	background-size:15px 10px;
+	margin-bottom: -1px;
+}
+
+.company .opfor {
+
+}
+
+.company .blufor {
+	
+}
 
 
 .company_radiofrequency, .platoon_radiofrequency, .squad_radiofrequency {
@@ -316,6 +348,7 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
 
 /*
 .match-template-buttons .tag {

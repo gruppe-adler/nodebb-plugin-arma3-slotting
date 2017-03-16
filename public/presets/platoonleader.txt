@@ -1,1 +1,1 @@
-<slot shortcode='KF' description='Kompanie-Führer'
+<slot shortcode='PTL' description='Platoon Lead'></slot>

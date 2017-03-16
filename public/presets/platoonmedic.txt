@@ -1,1 +1,1 @@
-<slot shortcode='KSA' description='Kompanie-Sanitäter'
+<slot shortcode='PLM' description='Platoon Medic'></slot>

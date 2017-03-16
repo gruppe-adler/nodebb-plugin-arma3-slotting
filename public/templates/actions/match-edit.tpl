@@ -9,6 +9,7 @@
 		<a href="/topic/{tid}" id="match-cancel" class="btn btn-default composer-discard"><i class="fa fa-times"></i> Abbrechen</a>
 	</div>
 
+	<!-- 
 	<div class="match-template-settings">
 		<ul>
 			<li>
@@ -54,6 +55,7 @@
 
 		</ul>
 	</div>
+	-->
 
 	<ul class="match-template-buttons">
 
@@ -66,16 +68,18 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" class="match-template-button" data-template="rifleman" data-closing="></slot>">Schütze</a></li>
-				<li><a href="#" class="match-template-button" data-template="mggunner" data-closing="></slot>">MG-Schütze</a></li>
-				<li><a href="#" class="match-template-button" data-template="mgassistant" data-closing="></slot>">MG-Assist</a></li>
-				<li><a href="#" class="match-template-button" data-template="atgunner" data-closing="></slot>">AT-Schütze</a></li>
-				<li><a href="#" class="match-template-button" data-template="medic" data-closing="></slot>">Sanitäter</a></li>
-				<li><a href="#" class="match-template-button" data-template="teamleader" data-closing="></slot>">Truppführer</a></li>
-				<li><a href="#" class="match-template-button" data-template="squadmedic" data-closing="></slot>">Zug-Sanitäter</a></li>
-				<li><a href="#" class="match-template-button" data-template="squadleader" data-closing="></slot>">Zugführer</a></li>
-				<li><a href="#" class="match-template-button" data-template="platoonmedic" data-closing="></slot>">Kompanie-Sanitäter</a></li>
-				<li><a href="#" class="match-template-button" data-template="platoonleader" data-closing="></slot>">Kompanieführer</a></li>
+				
+		        <li><a href="#" class="match-template-button" data-template="rifleman" data-name="Schütze" 
+		        data-skip="true">Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="mggunner" data-name="MG-Schütze" data-skip="true">MG-Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="mgassistant" data-name="MG-Assi" data-skip="true">MG-Assi</a></li>
+				<li><a href="#" class="match-template-button" data-template="atgunner" data-name="AT-Schütze" data-skip="true">AT-Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="medic" data-name="Sanitäter" data-skip="true">Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="teamleader" data-name="Truppführer" data-skip="true">Truppführer</a></li>
+				<li><a href="#" class="match-template-button" data-template="squadmedic" data-name="Zug-Sanitäter" data-skip="true">Zug-Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="squadleader" data-name="Zugführer" data-skip="true">Zugführer</a></li>
+				<li><a href="#" class="match-template-button" data-template="platoonmedic" data-name="Kompanie-Sanitäter" data-skip="true">Kompanie-Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="platoonleader" data-name="Kompanieführer" data-skip="true">Kompanieführer</a></li>
 			</ul>
 		</li>
 
@@ -88,12 +92,12 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" class="match-template-button" data-template="fireteam-3" data-closing="></fireteam>">Trupp-3</a></li>
-				<li><a href="#" class="match-template-button" data-template="fireteam-4" data-closing="></fireteam>">Trupp-4</a></li>
-				<li><a href="#" class="match-template-button" data-template="fireteam-5" data-closing="></fireteam>">Trupp-5</a></li>
-				<li><a href="#" class="match-template-button" data-template="squad-9" data-closing="></squad>">Zugtrupp-9</a></li>
-				<li><a href="#" class="match-template-button" data-template="platoon" data-closing="></platoon>">Zug</a></li>
-				<li><a href="#" class="match-template-button" data-template="company" data-closing="></company>">Kompanie</a></li>
+				<li><a href="#" class="match-template-button" data-template="fireteam-3" data-name="Trupp-3">Trupp-3</a></li>
+				<li><a href="#" class="match-template-button" data-template="fireteam-4" data-name="Trupp-4">Trupp-4</a></li>
+				<li><a href="#" class="match-template-button" data-template="fireteam-5" data-name="Trupp-5">Trupp-5</a></li>
+				<li><a href="#" class="match-template-button" data-template="squad-9" data-name="Zugtrupp-9">Zugtrupp-9</a></li>
+				<li><a href="#" class="match-template-button" data-template="platoon" data-name="Zug">Zug</a></li>
+				<li><a href="#" class="match-template-button" data-template="company" data-name="Kompanie">Kompanie</a></li>
 			</ul>
 		</li>
 
@@ -106,9 +110,9 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" class="match-template-button" data-template="motor-inf" data-closing="></squad>">Motor-Inf</a></li>
-				<li><a href="#" class="match-template-button" data-template="mech-inf" data-closing="></squad>">Mech-Inf</a></li>
-				<li><a href="#" class="match-template-button" data-template="mbt" data-closing="></squad>">Kpz</a></li>
+				<li><a href="#" class="match-template-button" data-template="motor-inf">Motor-Inf</a></li>
+				<li><a href="#" class="match-template-button" data-template="mech-inf">Mech-Inf</a></li>
+				<li><a href="#" class="match-template-button" data-template="mbt">Kpz</a></li>
 			</ul>
 		</li>
 
@@ -121,21 +125,74 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" class="match-template-button" data-template="empty" data-closing="inf">Infanterie</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="motor_inf">Motorisierte Infanterie</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="mech_inf">Mechanisierte Infanterie</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="recon">Recon</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="mortar">Mörser</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="art">Artillerie</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="armor">Panzer</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="air">Helikopter</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="air">Flugzeug</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="uav">Drohne</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="hq">HQ</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="med">Sanitäter</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="maint">Reparatur</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="service">Logistik</a></li>
-				<li><a href="#" class="match-template-button" data-closing="empty" data-closing="support">Support</a></li>
+				<li>
+				<small>Benachrichtigung bei neuen Beiträgen.<br>Ungelesen Beiträge anzeigen.</small>
+				</li>
+				<li>
+				<a href="#" class="match-template-button" data-template="empty" data-included="inf" data-skip="true">
+				<div class="natosymbol symbol_inf symbol_small"></div>Infanterie</a>
+				</li>
+
+				<li>
+				<a href="#" class="match-template-button" data-template="empty" data-included="motor_inf" data-skip="true">
+				<div class="natosymbol symbol_motor_inf symbol_small"></div>Motorisierte Infanterie</a>
+				</li>
+
+				<li>
+				<a href="#" class="match-template-button" data-template="empty" data-included="mech_inf" data-skip="true">
+				<div class="natosymbol symbol_mech_inf symbol_small"></div>Mechanisierte Infanterie</a>
+				</li>
+
+				<li>
+				<a href="#" class="match-template-button" data-template="empty" data-included="recon" data-skip="true">
+				<div class="natosymbol symbol_recon symbol_small"></div>Recon</a>
+				</li>
+
+				<li>
+				<a href="#" class="match-template-button" data-template="empty" data-included="mortar" data-skip="true">
+				<div class="natosymbol symbol_mortar symbol_small"></div>Mörser</a>
+				</li>
+
+				<li>
+				<a href="#" class="match-template-button" data-template="empty" data-included="art" data-skip="true">
+				<div class="natosymbol symbol_art symbol_small"></div>Artillerie</a>
+				</li>
+
+				<li>
+				<a href="#" class="match-template-button" data-template="empty" data-included="armor" data-skip="true">
+				<div class="natosymbol symbol_armor symbol_small"></div>Panzer</a>
+				</li>
+
+				<li><a href="#" class="match-template-button" data-template="empty" data-included="air" data-skip="true">
+				<div class="natosymbol symbol_air symbol_small"></div>Helikopter</a>
+				</li>
+
+				<li><a href="#" class="match-template-button" data-template="empty" data-included="plane" data-skip="true">
+				<div class="natosymbol symbol_plane symbol_small"></div>Flugzeug</a>
+				</li>
+
+				<li><a href="#" class="match-template-button" data-template="empty" data-included="uav" data-skip="true">
+				<div class="natosymbol symbol_uav symbol_small"></div>Drohne</a>
+				</li>
+
+				<li><a href="#" class="match-template-button" data-template="empty" data-included="hq" data-skip="true">
+				<div class="natosymbol symbol_hq symbol_small"></div>HQ</a>
+				</li>
+
+				<li><a href="#" class="match-template-button" data-template="empty" data-included="med" data-skip="true"><div class="natosymbol symbol_med symbol_small"></div>Sanitäter</a>
+				</li>
+
+				<li><a href="#" class="match-template-button" data-template="empty" data-included="maint" data-skip="true">
+				<div class="natosymbol symbol_maint symbol_small"></div>Reparatur</a>
+				</li>
+
+				<li><a href="#" class="match-template-button" data-template="empty" data-included="service" data-skip="true">
+				<div class="natosymbol symbol_service symbol_small"></div>Logistik</a>
+				</li>
+
+				<li><a href="#" class="match-template-button" data-template="empty" data-included="support" data-skip="true">
+				<div class="natosymbol symbol_support symbol_small"></div>Support</a>
+				</li>
 				
 			</ul>
 		</li>
@@ -173,7 +230,22 @@
 		/*global require*/
 		require(['arma3-slotting/formatXml'], function (formatXml) {
 		    var textarea = $('#match-definition')[0];
+
 			textarea.value = formatXml(textarea.value.trim());
+
+			var matchStart1 = textarea.value.indexOf("<");
+			var matchStart2 = textarea.value.indexOf(">");
+			window.matchString1 = textarea.value.slice(matchStart1, matchStart2 + 1);
+
+			var matchEnd1 = textarea.value.lastIndexOf("<");
+			var matchEnd2 = textarea.value.lastIndexOf(">");			
+			window.matchString2 = textarea.value.slice(matchEnd1, matchEnd2 + 1);
+
+			var firstEdit = textarea.value.replace(window.matchString1,'');
+			textarea.value = firstEdit.replace(window.matchString2,'');
+
+			console.log(window.matchString1);
+			console.log(window.matchString2);
 		});
 	</script>
 	

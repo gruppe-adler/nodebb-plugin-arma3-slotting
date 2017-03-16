@@ -1,1 +1,1 @@
-<slot shortcode='MGA' description='MG-Assistent'
+<slot shortcode='MGA' description='MG-Assistant'></slot>

@@ -1,1 +1,1 @@
-<slot shortcode='SAN' description='Sanitäter'
+<slot shortcode='MED' description='Medic'></slot>

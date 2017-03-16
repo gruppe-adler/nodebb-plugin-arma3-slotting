@@ -1,0 +1,1 @@
+<squad natosymbol="inf" vehicletype="Infanterie"

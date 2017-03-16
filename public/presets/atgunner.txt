@@ -1,1 +1,1 @@
-<slot shortcode='AT' description='AT-Schütze'
+<slot shortcode='AT' description='AT-Gunner'></slot>

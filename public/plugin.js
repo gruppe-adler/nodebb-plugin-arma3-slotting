@@ -121,45 +121,55 @@ require([
         console.log('insert preset');
 
         var templateName = $(this).attr('data-template');
+        var headerText = $(this).attr('data-name');
+        var skipDialog = $(this).attr('data-skip');
+        var dataIncluded = $(this).attr('data-included');
+        var dataClear = $(this).attr('data-included');
 
-        var callsign = "";
-        var vehicletype = "";
-        var radiofrequency = "";
-        var ingamelobby = "";
-        var natosymbol = "";
-        var closingTag = $(this).attr('data-closing');
+        var form = $('<form id="modal-presets" action="">\
+            <h2>' + headerText + ' einfügen</h2><br/>\
+            <small>Alle Felder optional</small><br/>\
+    <input type="text" placeholder="Rufname" name="callsign" /><br/>\
+    <input type="text" placeholder="Frequenz" name="frequency"/><br/>\
+    <input type="text" placeholder="Ingame-Lobby-Bezeichner" name="ingamelobby"/><br>\
+    </form>');
 
-        if (window.preset_boolean_callsign) {
-            callsign = "callsign=''";
+        /* dont show dialog for single slots */
+        if (!skipDialog) {
+
+            bootbox.alert(form, function(){
+                var callsign_input = form.find('input[name=callsign]').val();
+                var frequency_input = form.find('input[name=frequency]').val();
+                var ingamelobby_input = form.find('input[name=ingamelobby]').val();
+
+                var callsign = 'callsign="' + callsign_input + '" ';
+                var frequency = 'frequency="' + frequency_input + '" ';
+                var ingamelobby = 'ingamelobby="' + ingamelobby_input + '" ';
+
+                $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-header.txt', function (header) {
+                
+
+                     $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-footer.txt', function (footer) {
+                    
+
+                    insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
+                    });    
+
+                });    
+            });
+        } else {
+            if (dataIncluded) {
+                insertTextAtCursorPosition(dataIncluded, document.getElementById('match-definition'));
+            } else {
+                if (dataClear) {
+                    document.getElementById('match-definition').value = templateName;
+                } else {
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '.txt', function (template) {
+                        insertTextAtCursorPosition('\n' + template, document.getElementById('match-definition'));
+                    });  
+                }
+            }
         }
-
-        if (window.preset_boolean_vehicletype) {
-            vehicletype = "vehicletype=''";
-        }
-
-        if (window.preset_boolean_radiofrequency) {
-            radiofrequency = "radiofrequency=''";
-        }
-
-        if (window.preset_boolean_ingamelobby) {
-            ingamelobby = "ingamelobby=''";
-        }
-
-        if (window.preset_boolean_natosymbol) {
-            natosymbol = "natosymbol=''";
-        }
-       
-        $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '.txt', function (response) {
-            console.log('response is ' + response);
-            insertTextAtCursorPosition('\n' + response
-                + " " + callsign 
-                + " " + vehicletype
-                + " " + radiofrequency
-                + " " + ingamelobby
-                + " " + natosymbol
-                + closingTag
-                , document.getElementById('match-definition'));
-        });    
     });
     
 
@@ -215,7 +225,7 @@ require([
                 Accept: "application/json; charset=utf-8",
                 'Content-Type': 'application/xml',
             },
-            data: spec,
+            data: window.matchString1 + spec + window.matchString2,
             success: successCallback,
             error: function () {
                 bootbox.alert('das ging schief :(');
