@@ -386,6 +386,10 @@ input:checked + .slider:before {
 
 */
 
+[component="topic/arma3-slotting"] {
+	margin-bottom: 30px;
+}
+
 .topic .posts .content .dropdown-menu li {
 	list-style-type: none;
 }
