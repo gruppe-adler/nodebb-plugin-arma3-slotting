@@ -1,16 +1,21 @@
 <div class="container_squad">
 
-	<div class="squad_title_container <% if (!(x.fireteam)) {%> squad_empty<%}%>">
-		<span class="fakeVehicleType customTooltip" title="<%-x.vehicletype%>"></span>
+	<div class="squad_title_container <% if (!(x.fireteam)) { %> squad_empty<% } %>">
+		<span class="fakeVehicleType customTooltip" title="<%- x.vehicletype %>"></span>
 		<span class="squad_natosymbol natosymbol customTooltip <%
-				var symbol = x.natosymbol;
-		        var prefix = "symbol_";
-		        var resultingString = prefix.concat(symbol);
-		        %>
-		        <%= resultingString%>">
+		var symbol = x.natosymbol;
+		var prefix = "symbol_";
+		var resultingString = prefix.concat(symbol);
+		%>
+		        <%= resultingString %>">
 		</span>
-		<span class="squad_title container_title customTooltip" title="Lobby: <%-x.ingamelobby%>"><%-x.callsign%></span>
-		<span class="squad_radiofrequency radiofrequency"><%-x.radiofrequency%> <% if (x.radiofrequency) {%>MHz<%}%></span>
+		<span class="squad_title container_title customTooltip"
+			  title="Lobby: <%- x.ingamelobby %>"><%- x.callsign %></span>
+		<span class="squad_radiofrequency radiofrequency"><%- x.radiofrequency %>
+			<% if (x.radiofrequency) { %>
+			MHz
+			<% } %>
+		</span>
 	</div>
 
 	<div class="squad_head">

@@ -385,14 +385,16 @@ require([
         }
 
         var postBarNode = firstPostCheck.querySelector('[class="post-bar"]');
+        var attendanceNode = firstPostCheck.querySelector('[component="topic/attendance');
 
-        //only insert attendance if the postbar exists (if this is the first post)
+        //only insert if the postbar exists (if this is the first post)
         if (postBarNode) {
-            postBarNode.parentNode.insertBefore(slottingNode, postBarNode);
+            postBarNode.parentNode.insertBefore(slottingNode, attendanceNode || postBarNode);
         } else if (topicContentNode.children.length === 1) {
             firstPostCheck.appendChild(slottingNode);
         }
 
+        /*
         var content = topicContentNode.querySelector('[component="post/content"]');
         var existingSlottingComponentNode = content.querySelector('[component="topic/slotting"]');
         if (existingSlottingComponentNode) {
@@ -400,6 +402,7 @@ require([
         } else if (content.children.length === 1) {
             content.appendChild(slottingNode);
         }
+        */
         refreshToolTips();
     };
 
@@ -439,18 +442,17 @@ require([
                     insertAddMatchButton(templates.post_bar({tid: topicId}));
                 }
 
-                matches.forEach(function (match) {
+
+                var matchesFragment = document.createElement('div');
+                matchesFragment.setAttribute('component', 'topic/arma3-slotting');
+
+                matchesFragment.innerHTML = matches.map(function (match) {
                     match.tid = topicId;
                     match.hasPermissions = results.hasPermissions;
-                    var markup = templates.master(match);
+                    return templates.master(match);
+                }).join('\n<!-- match separation -->\n');
 
-                    var node = document.createElement('div');
-                    node.setAttribute('component', 'topic/arma3-slotting');
-                    node.innerHTML = markup;
-
-                    insertMatchNode(node);
-                    console.log("insertTopicSlottingNode...");
-                });
+                insertMatchNode(matchesFragment);
             }
         );
     }

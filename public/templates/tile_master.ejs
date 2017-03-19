@@ -1,54 +1,33 @@
-<div component="match" data-uuid="<%-x.uuid %>">
-<hr>
-<small class="left" style="float: left;
+<div component="match" data-uuid="<%- x.uuid %>">
+	<hr>
+	<small class="left" style="float: left;
 margin-left: 10px;
 margin-bottom: 10px;
 text-transform: uppercase;
 color: #777;
 font-weight: 300;
-font-size: 14px;">Slotliste</small>
-<br><br>
-		<!--
-		<div class="btn-group" component="match/controls" data-invisible="false">
-			<button class="match-control-edit btn dropdown-toggle" type="button">
-				<span class="match-control-icon fa fa-fw fa-edit"></span>
-				<span class="match-control-text">Ändern</span>
-			</button>
-			<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-				<span class="caret"></span>
-			</button>
-			<ul class="match-control dropdown-menu">
-				<li>
-					<a href="#" class="match-control-edit" type="button">
-						<i class="fa fa-fw fa-edit"></i>
-						Ändern
-					</a>
-				</li>
-				<li>
-					<a href="#" class="match-control-delete" type="button">
-						<i class="fa fa-fw fa-remove"></i>
-						Löschen
-					</a>
-				</li>
-			</ul>
-		</div>-->
+font-size: 14px;">Slotliste
+	</small>
+	<br><br>
 	<% if (x.hasPermissions) { %>
-		<small class="pull-right">
-		
+	<small class="pull-right">
 
-		<div class="dropdown moderator-tools" component="match/controls"  data-invisible="false">
+
+		<div class="dropdown moderator-tools" component="match/controls" data-invisible="false">
 			<a href="#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
 			<ul class="dropdown-menu dropdown-menu-right" role="menu">
 
-						<li role="presentation" class="dropdown-header">Slotliste</li>
+				<li role="presentation" class="dropdown-header">Slotliste</li>
 				<li role="presentation">
-					<a role="menuitem" tabindex="-1" href="/arma3-slotting/<%-x.tid%>/match/<%-x.uuid%>/edit" class="match-control-edit">
+					<a role="menuitem" tabindex="-1" href="/arma3-slotting/<%- x.tid %>/match/<%- x.uuid %>/edit"
+					   class="match-control-edit">
 						<span class="menu-icon"><i class="fa fa-pencil"></i></span> Edit
 					</a>
 				</li>
 				<li role="presentation">
 					<a role="menuitem" tabindex="-1" href="#" class="match-control-delete">
-						<div class="inline menu-icon"><i class="fa fa-trash-o"></i></div> <span>Delete</span>
+						<div class="inline menu-icon"><i class="fa fa-trash-o"></i></div>
+						<span>Delete</span>
 					</a>
 				</li>
 			</ul>
@@ -56,12 +35,12 @@ font-size: 14px;">Slotliste</small>
 	</small>
 	<% } %>
 	<div>
-		<%=x.side%>
+		<%= x.side %>
 		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
 		<%= ([].concat(x.fireteam || [])).map(pluginArma3SlottingTemplates.fireteam).join('') %>
 		<%= ([].concat(x.squad || [])).map(pluginArma3SlottingTemplates.squad).join('') %>
 		<%= ([].concat(x.platoon || [])).map(pluginArma3SlottingTemplates.platoon).join('') %>
 		<%= ([].concat(x.company || [])).map(pluginArma3SlottingTemplates.company).join('') %>
 	</div>
-	<div class="clearfix" />
+	<div class="clearfix"></div>
 </div>
