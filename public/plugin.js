@@ -256,9 +256,9 @@ require([
     }
 
     var hasPermissions = function (topicId, next) {
-        $.get(config.relative_path + '/api/arma3-slotting/' + topicId + '/has-permissions', function () { // success
-            next(null, true);
-        });
+        $.get(config.relative_path + '/api/arma3-slotting/' + topicId + '/has-permissions', function (response) {
+            next(null, response.result);
+        }, 'json');
     };
 
     var refreshToolTips = function () {
