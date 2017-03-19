@@ -349,15 +349,16 @@ require([
 
     function insertAddMatchButton(markup) {
         console.log("slotting-insertslottinbutton called");
-        var postBarNode = document.querySelectorAll(".post-bar .clearfix");
+        var postBarNodes = document.querySelectorAll(".post-bar");
 
-        _.each(postBarNode, function (postBarNode) {
+        _.each(postBarNodes, function (postBarNode) {
+            var mainButtonsNode = postBarNode.querySelector('.topic-main-buttons');
             console.log("slotting-insertslottinbutton array");
 
             var node = document.createElement('div');
             node.innerHTML = markup;
 
-            postBarNode.insertBefore(node.firstElementChild, postBarNode.querySelector('.topic-main-buttons'));
+            mainButtonsNode.parentNode.insertBefore(node.firstElementChild, mainButtonsNode);
 
         });
     }
@@ -375,7 +376,7 @@ require([
         return itsHistory;
     }
 
-    var insertMatchNode = function (slottingNode) {
+    var insertSlotlistsNode = function (slottingNode) {
         var topicContentNode = cache.topicNode;
 
         var firstPostCheck = topicContentNode.querySelector('[component="post"]');
@@ -452,7 +453,7 @@ require([
                     return templates.master(match);
                 }).join('\n<!-- match separation -->\n');
 
-                insertMatchNode(matchesFragment);
+                insertSlotlistsNode(matchesFragment);
             }
         );
     }
