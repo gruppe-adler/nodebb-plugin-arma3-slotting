@@ -1,0 +1,56 @@
+>      
+      <squad natosymbol="inf" vehicletype="Infanterie" callsign="" radiofrequency="" ingamelobby="">
+      <slot shortcode="SQL" description="Squad Leader"></slot>
+      <slot shortcode="SQM" description="Squad Medic"></slot>
+      <fireteam>
+        <slot shortcode="FTL" description="Fireteam Leader"/>
+        <slot shortcode="MG" description="Machine Gunner"/>
+        <slot shortcode="AMG" description="Assistant MG"/>
+        <slot shortcode="RF" description="Rifleman"/>
+        <slot shortcode="RF" description="Rifleman"/>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="FTL" description="Fireteam Leader"/>
+        <slot shortcode="MG" description="Machine Gunner"/>
+        <slot shortcode="AMG" description="Assistant MG"/>
+        <slot shortcode="RF" description="Rifleman"/>
+        <slot shortcode="RF" description="Rifleman"/>
+      </fireteam>
+  </squad>
+  <squad natosymbol="inf" vehicletype="Infanterie" callsign="" radiofrequency="" ingamelobby="">
+      <slot shortcode="SQL" description="Squad Leader"></slot>
+      <slot shortcode="SQM" description="Squad Medic"></slot>
+      <fireteam>
+        <slot shortcode="FTL" description="Fireteam Leader"/>
+        <slot shortcode="MG" description="Machine Gunner"/>
+        <slot shortcode="AMG" description="Assistant MG"/>
+        <slot shortcode="RF" description="Rifleman"/>
+        <slot shortcode="RF" description="Rifleman"/>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="FTL" description="Fireteam Leader"/>
+        <slot shortcode="MG" description="Machine Gunner"/>
+        <slot shortcode="AMG" description="Assistant MG"/>
+        <slot shortcode="RF" description="Rifleman"/>
+        <slot shortcode="RF" description="Rifleman"/>
+      </fireteam>
+  </squad>
+  <squad natosymbol="inf" vehicletype="Infanterie" callsign="" radiofrequency="" ingamelobby="">
+      <slot shortcode="SQL" description="Squad Leader"></slot>
+      <slot shortcode="SQM" description="Squad Medic"></slot>
+      <fireteam>
+        <slot shortcode="FTL" description="Fireteam Leader"/>
+        <slot shortcode="MG" description="Machine Gunner"/>
+        <slot shortcode="AMG" description="Assistant MG"/>
+        <slot shortcode="RF" description="Rifleman"/>
+        <slot shortcode="RF" description="Rifleman"/>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="FTL" description="Fireteam Leader"/>
+        <slot shortcode="MG" description="Machine Gunner"/>
+        <slot shortcode="AMG" description="Assistant MG"/>
+        <slot shortcode="RF" description="Rifleman"/>
+        <slot shortcode="RF" description="Rifleman"/>
+      </fireteam>
+  </squad>
+</platoon>

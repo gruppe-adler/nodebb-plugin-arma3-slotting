@@ -1,0 +1,1 @@
+<slot shortcode='S' description='Schütze'></slot>

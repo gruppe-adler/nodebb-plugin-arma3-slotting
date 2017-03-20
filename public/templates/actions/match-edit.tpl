@@ -9,53 +9,20 @@
 		<a href="/topic/{tid}" id="match-cancel" class="btn btn-default composer-discard"><i class="fa fa-times"></i> Abbrechen</a>
 	</div>
 
-	<!-- 
 	<div class="match-template-settings">
 		<ul>
 			<li>
-				<label class="switch boolean_callsign">
-				  <input type="checkbox">
+				<label class="switch">
+				  <input type="checkbox" id="boolean_language_eng">
 				  <div class="slider round"></div>
-				  <div class="switch_label">Rufname</div>
+				  <div class="switch_label">Slots Englisch</div>
 				</label>
-				
 			</li>
-			<li>
-				<label class="switch boolean_vehicletype">
-				  <input type="checkbox">
-				  <div class="slider round"></div>
-				  <div class="switch_label">Fahrzeugtyp</div>
-				</label>
-				
+			<li class="match-help pull-right">
+			<a href="https://wiki.gruppe-adler.de/index.php?title=Slotting-Plugin" target="_new"><i class="fa fa-question-circle" style="margin-right:5px;"></i>Readme im Wiki</a>
 			</li>
-			<li>
-				<label class="switch boolean_radiofrequency">
-				  <input type="checkbox">
-				  <div class="slider round"></div>
-				  <div class="switch_label">Funkfrequenz</div>
-				</label>
-				
-			</li>
-			<li>
-				<label class="switch boolean_ingamelobby">
-				  <input type="checkbox">
-				  <div class="slider round"></div>
-				  <div class="switch_label">LobbyBezeichner</div>
-				</label>
-				
-			</li>
-			<li>
-				<label class="switch boolean_natosymbol">
-				  <input type="checkbox">
-				  <div class="slider round"></div>
-				  <div class="switch_label">NATO Symbol</div>
-				</label>
-				
-			</li>
-
 		</ul>
 	</div>
-	-->
 
 	<ul class="match-template-buttons">
 
@@ -69,16 +36,16 @@
 
 			<ul class="dropdown-menu pull-right">
 				
-		        <li><a href="#" class="match-template-button" data-template="rifleman" data-name="Schütze" data-skip="true">Schütze</a></li>
-				<li><a href="#" class="match-template-button" data-template="mggunner" data-name="MG-Schütze" data-skip="true">MG-Schütze</a></li>
-				<li><a href="#" class="match-template-button" data-template="mgassistant" data-name="MG-Assi" data-skip="true">MG-Assi</a></li>
-				<li><a href="#" class="match-template-button" data-template="atgunner" data-name="AT-Schütze" data-skip="true">AT-Schütze</a></li>
-				<li><a href="#" class="match-template-button" data-template="medic" data-name="Sanitäter" data-skip="true">Sanitäter</a></li>
-				<li><a href="#" class="match-template-button" data-template="teamleader" data-name="Truppführer" data-skip="true">Truppführer</a></li>
-				<li><a href="#" class="match-template-button" data-template="squadmedic" data-name="Zug-Sanitäter" data-skip="true">Zug-Sanitäter</a></li>
-				<li><a href="#" class="match-template-button" data-template="squadleader" data-name="Zugführer" data-skip="true">Zugführer</a></li>
-				<li><a href="#" class="match-template-button" data-template="platoonmedic" data-name="Kompanie-Sanitäter" data-skip="true">Kompanie-Sanitäter</a></li>
-				<li><a href="#" class="match-template-button" data-template="platoonleader" data-name="Kompanieführer" data-skip="true">Kompanieführer</a></li>
+		        <li><a href="#" class="match-template-button" data-template="slot_rifleman" data-localized="true" data-name="Schütze" data-skip="true">Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_mggunner" data-name="MG-Schütze" data-localized="true" data-skip="true">MG-Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_mgassistant" data-name="MG-Assi" data-localized="true" data-skip="true">MG-Assi</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_atgunner" data-name="AT-Schütze" data-localized="true" data-skip="true">AT-Schütze</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_medic" data-name="Sanitäter" data-localized="true" data-skip="true">Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_teamleader" data-name="Truppführer" data-localized="true" data-skip="true">Truppführer</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_squadmedic" data-name="Zug-Sanitäter" data-localized="true" data-skip="true">Zug-Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_squadleader" data-name="Zugführer" data-localized="true" data-skip="true">Zugführer</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_platoonmedic" data-name="Kompanie-Sanitäter" data-localized="true" data-skip="true">Kompanie-Sanitäter</a></li>
+				<li><a href="#" class="match-template-button" data-template="slot_platoonleader" data-name="Kompanieführer" data-localized="true" data-skip="true">Kompanieführer</a></li>
 			</ul>
 		</li>
 
@@ -91,12 +58,12 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" class="match-template-button" data-template="fireteam-3" data-name="Trupp-3">Trupp-3</a></li>
-				<li><a href="#" class="match-template-button" data-template="fireteam-4" data-name="Trupp-4">Trupp-4</a></li>
-				<li><a href="#" class="match-template-button" data-template="fireteam-5" data-name="Trupp-5">Trupp-5</a></li>
-				<li><a href="#" class="match-template-button" data-template="squad-9" data-name="Zugtrupp-9">Zugtrupp-9</a></li>
-				<li><a href="#" class="match-template-button" data-template="platoon" data-name="Zug">Zug</a></li>
-				<li><a href="#" class="match-template-button" data-template="company" data-name="Kompanie">Kompanie</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="fireteam-3" data-name="Trupp-3">Trupp-3</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="fireteam-4" data-name="Trupp-4">Trupp-4</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="fireteam-5" data-name="Trupp-5">Trupp-5</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="squad-9" data-name="Gruppe-9">Gruppe-9</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="platoon-3" data-name="Zug-3">Zug-3</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="company-3" data-name="Kompanie-3">Kompanie-3</a></li>
 			</ul>
 		</li>
 
@@ -109,9 +76,13 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
+				<li>
+				<small style="display: block; padding: 10px; border-bottom: 1px solid #eee; cursor:default;">Platzhalter, noch keine Funktionalität</small>
+				</li>
 				<li><a href="#" class="match-template-button" data-template="motor-inf">Motor-Inf</a></li>
 				<li><a href="#" class="match-template-button" data-template="mech-inf">Mech-Inf</a></li>
 				<li><a href="#" class="match-template-button" data-template="mbt">Kpz</a></li>
+				<li><a href="#" class="match-template-button" data-template="mbt">...</a></li>
 			</ul>
 		</li>
 
@@ -205,12 +176,11 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Breaking Contact</a></li>
-				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Endgame</a></li>
-				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Holding Point</a></li>
-				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Money in the Mist</a></li>
-				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Urban Ops</a></li>
-				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact" data-skip="true" data-clear="true">Rattrap</a></li>
+				<li>
+				<small style="display: block; padding: 10px; border-bottom: 1px solid #eee; cursor:default;">Vollständige Missionstemplates für mehrmals gespielte Missionen. Eigene Formate bei Nomi einreichen.</small>
+				</li>
+				<li>
+				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact_40p" data-skip="true" data-clear="true">Breaking Contact</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -245,6 +215,7 @@
 
 			console.log(window.matchString1);
 			console.log(window.matchString2);
+
 		});
 	</script>
 	

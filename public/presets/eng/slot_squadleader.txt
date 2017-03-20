@@ -1,0 +1,1 @@
+<slot shortcode='SQL' description='Squad Leader'></slot>

@@ -25,6 +25,11 @@ a:focus {
 	color: #999;
 }
 
+.match-help {
+	margin-top: 8px;
+	padding: 10px 0px 10px 16px;
+}
+
 .natosymbol {
 	display: inline-block;
 	width: 70px;
@@ -234,6 +239,10 @@ a:focus {
 
 .match-template-buttons {
 	padding-left: 0px;
+}
+
+.match-template-settings ul { 
+	width: 100%;
 }
 
 .match-template-buttons li, .match-template-settings li{

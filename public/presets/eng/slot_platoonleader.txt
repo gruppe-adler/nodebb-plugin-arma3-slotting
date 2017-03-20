@@ -1,0 +1,1 @@
+<slot shortcode='PTL' description='Platoon Lead'></slot>

@@ -10,7 +10,7 @@
 		        <%= resultingString %>">
 		</span>
 		<span class="squad_title container_title customTooltip"
-			  title="Lobby: <%- x.ingamelobby %>"><%- x.callsign %></span>
+			  <% if (x.ingamelobby) {%> title="<%-x.ingamelobby%>"<% } %>><%- x.callsign %></span>
 		<span class="squad_radiofrequency radiofrequency"><%- x.radiofrequency %>
 			<% if (x.radiofrequency) { %>
 			MHz

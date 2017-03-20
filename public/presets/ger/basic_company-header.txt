@@ -1,0 +1,1 @@
+<company natosymbol="HQ" vehicletype="Headquarter"

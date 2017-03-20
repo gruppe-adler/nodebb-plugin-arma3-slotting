@@ -1,0 +1,1 @@
+<slot shortcode='GrSa' description='Gruppensanitäter'></slot>

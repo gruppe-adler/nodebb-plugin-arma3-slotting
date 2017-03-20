@@ -56,7 +56,7 @@ require([
         event.preventDefault();
         var form = document.getElementById('match-definition-form');
 
-        console.log(form);
+        // console.log(form);
         var val = $('#match-definition').val();
         var matchid = form.getAttribute('data-matchid');
         var tid = form.getAttribute('data-tid');
@@ -79,7 +79,7 @@ require([
     });
 
     $(document).on('click', '[component="topic"] .match-control-delete', function (event) {
-        console.log('match delete');
+        // console.log('match delete');
         var $button  = $(this);
         var topicID = $button.parents('[component="topic"]').attr("data-tid");
         var matchID = $button.parents('[component="match"]').attr("data-uuid");
@@ -91,44 +91,28 @@ require([
     });
 
     
-    window.preset_boolean_callsign = false;
-    window.preset_boolean_vehicletype = false;
-    window.preset_boolean_radiofrequency = false;
-    window.preset_boolean_ingamelobby = false;
     
-    $(document).on('click', '.boolean_callsign', function (event) {
-        window.preset_boolean_callsign = !(window.preset_boolean_callsign);
-        console.log("setting callsign to " + window.preset_boolean_callsign.toString());
+    /*
+    $(document).on('click', '#boolean_language_eng', function (event) {
+        window.preset_boolean_eng = !(window.preset_boolean_eng);
+        console.log("setting languageEng to " + window.preset_boolean_eng.toString());
     });
-
-    $(document).on('click', '.boolean_vehicletype', function (event) {
-        window.preset_boolean_vehicletype = !(window.preset_boolean_vehicletype);
-        console.log("setting vehicletype to " + window.preset_boolean_vehicletype.toString());
-    });
-
-    $(document).on('click', '.boolean_radiofrequency', function (event) {
-        window.preset_boolean_radiofrequency = !(window.preset_boolean_radiofrequency);
-        console.log("setting radiofrequency to " + window.preset_boolean_radiofrequency.toString());
-    });
-
-    $(document).on('click', '.boolean_ingamelobby', function (event) {
-        window.preset_boolean_ingamelobby = !(window.preset_boolean_ingamelobby);
-        console.log("setting ingamelobby to " + window.preset_boolean_ingamelobby.toString());
-    });
-
+    */
 
      $(document).on('click', '.match-template-button', function (event) {
-        console.log('insert preset');
+        // console.log('insert preset');
 
         var templateName = $(this).attr('data-template');
         var headerText = $(this).attr('data-name');
         var skipDialog = $(this).attr('data-skip');
         var dataIncluded = $(this).attr('data-included');
         var dataClear = $(this).attr('data-included');
+        var dataLocalized = $(this).attr('data-localized');
+        var templateLang = document.getElementById("boolean_language_eng").checked ?  'eng/' : 'ger/';
 
         var form = $('<form id="modal-presets" action="">\
             <h2>' + headerText + ' einfügen</h2><br/>\
-            <small>Alle Felder optional</small><br/>\
+            <small>Alle Felder optional. Rufname wird ggf. mit Dummy befüllt.</small><br/>\
     <input type="text" placeholder="Rufname" name="callsign" /><br/>\
     <input type="text" placeholder="Frequenz" name="frequency"/><br/>\
     <input type="text" placeholder="Ingame-Lobby-Bezeichner" name="ingamelobby"/><br>\
@@ -142,20 +126,38 @@ require([
                 var frequency_input = form.find('input[name=frequency]').val();
                 var ingamelobby_input = form.find('input[name=ingamelobby]').val();
 
+
+                if (!callsign_input) {callsign_input = 'Rufname Platzhalter';}
+
                 var callsign = 'callsign="' + callsign_input + '" ';
                 var frequency = 'frequency="' + frequency_input + '" ';
                 var ingamelobby = 'ingamelobby="' + ingamelobby_input + '" ';
+               
 
-                $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-header.txt', function (header) {
-                
+                if (dataLocalized) {
 
-                     $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-footer.txt', function (footer) {
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-header.txt', function (header) {
                     
 
-                    insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
-                    });    
+                         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-footer.txt', function (footer) {
+                        
 
-                });    
+                        insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
+                        });    
+
+                    });
+                } else {
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-header.txt', function (header) {
+                    
+
+                         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-footer.txt', function (footer) {
+                        
+
+                        insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
+                        });    
+
+                    });
+                }
             });
         } else {
             if (dataIncluded) {
@@ -164,7 +166,7 @@ require([
                 if (dataClear) {
                     document.getElementById('match-definition').value = templateName;
                 } else {
-                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '.txt', function (template) {
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '.txt', function (template) {
                         insertTextAtCursorPosition('\n' + template, document.getElementById('match-definition'));
                     });  
                 }
@@ -195,7 +197,7 @@ require([
                 Accept: "application/json; charset=utf-8",
                 'Content-Type': 'application/xml',
             },
-            data: spec,
+            data: window.matchString1 + spec + window.matchString2,
             success: successCallback,
             error: function () {
                 bootbox.alert('das ging schief :(');
@@ -294,7 +296,7 @@ require([
    
     function insertTextAtCursorPosition(text, inputField) {
       var input = inputField;
-      console.log(input);
+      // console.log(input);
       if (input == undefined) { return; }
       var scrollPos = input.scrollTop;
       var pos = 0;
@@ -348,12 +350,12 @@ require([
 
 
     function insertAddMatchButton(markup) {
-        console.log("slotting-insertslottinbutton called");
+        // console.log("slotting-insertslottinbutton called");
         var postBarNodes = document.querySelectorAll(".post-bar");
 
         _.each(postBarNodes, function (postBarNode) {
             var mainButtonsNode = postBarNode.querySelector('.topic-main-buttons');
-            console.log("slotting-insertslottinbutton array");
+            // console.log("slotting-insertslottinbutton array");
 
             var node = document.createElement('div');
             node.innerHTML = markup;
