@@ -211,7 +211,7 @@ a:focus {
 
 #match-definition {
 	width: 100%;
-	height: calc(100vh - 250px);
+	height: calc(100vh - 330px);
 	background-color: #f5f5f5;
 	border: 1px solid #e3e3e3;
 	border-radius: 0;
@@ -263,7 +263,7 @@ a:focus {
 }
 
 .match-template-settings {
-	height: 100px;
+	height: 80px;
 	display:flex;
 	align-items:center;
 }

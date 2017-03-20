@@ -1,0 +1,118 @@
+>      
+	<slot shortcode="KoFü" description="Kompanieführung"></slot>
+	<slot shortcode="KoSa" description="Kompaniesanitäter"></slot>
+	<platoon natosymbol="inf" vehicletype="Infanterie" callsign="Platoon1" frequency="44" ingamelobby="">
+  <slot shortcode="Zufü" description="Zugführung"></slot>
+  <slot shortcode="ZuSa" description="Zugsanitäter"></slot>
+      <squad natosymbol="inf" vehicletype="Infanterie" callsign="Squad1" frequency="45" ingamelobby="">
+      <slot shortcode="GrFü" description="Gruppenführung"></slot>
+      <slot shortcode="GrSa" description="Gruppensanitäter"></slot>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+  </squad>
+  <squad natosymbol="inf" vehicletype="Infanterie" callsign="Squad2" frequency="46" ingamelobby="">
+      <slot shortcode="GrFü" description="Gruppenführung"></slot>
+      <slot shortcode="GrSa" description="Gruppensanitäter"></slot>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+  </squad>
+  <squad natosymbol="inf" vehicletype="Infanterie" callsign="Squad3" frequency="47" ingamelobby="">
+      <slot shortcode="GrFü" description="Gruppenführung"></slot>
+      <slot shortcode="GrSa" description="Gruppensanitäter"></slot>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+  </squad>
+</platoon>
+<platoon natosymbol="inf" vehicletype="Infanterie" callsign="Platoon2" frequency="55" ingamelobby="">
+      <squad natosymbol="inf" vehicletype="Infanterie" callsign="Squad1" frequency="55" ingamelobby="">
+      <slot shortcode="GrFü" description="Gruppenführung"></slot>
+      <slot shortcode="GrSa" description="Gruppensanitäter"></slot>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+  </squad>
+  <squad natosymbol="inf" vehicletype="Infanterie" callsign="Squad2" frequency="56" ingamelobby="">
+      <slot shortcode="GrFü" description="Gruppenführung"></slot>
+      <slot shortcode="GrSa" description="Gruppensanitäter"></slot>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+  </squad>
+  <squad natosymbol="inf" vehicletype="Infanterie" callsign="Squad3" frequency="57" ingamelobby="">
+    <slot shortcode="GrFü" description="Gruppenführung"></slot>
+      <slot shortcode="GrSa" description="Gruppensanitäter"></slot>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+      <fireteam>
+        <slot shortcode="TrFü" description="Truppführung"></slot>
+        <slot shortcode="MG" description="MG-Schütze"></slot>
+        <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+        <slot shortcode="S" description="Schütze"></slot>
+      </fireteam>
+  </squad>
+</platoon>
+</company>

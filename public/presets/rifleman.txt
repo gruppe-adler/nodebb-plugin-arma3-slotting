@@ -1,1 +1,0 @@
-<slot shortcode='RF' description='Rifleman'></slot>

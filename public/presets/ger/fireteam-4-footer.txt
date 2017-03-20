@@ -1,10 +1,6 @@
 >
-  <slot shortcode="FTL" description="Truppführung">
-  </slot>
-  <slot shortcode="MG" description="MG-Schütze">
-  </slot>
-  <slot shortcode="AMG" description="MG Munitionsträger">
-  </slot>
-  <slot shortcode="MED" description="Sanitäter">
-  </slot>
+  <slot shortcode="FTL" description="Truppführung"></slot>
+  <slot shortcode="MG" description="MG-Schütze"></slot>
+  <slot shortcode="AMG" description="MG Munitionsträger"></slot>
+  <slot shortcode="MED" description="Sanitäter"></slot>
 </fireteam>

@@ -1,5 +1,5 @@
 >
-  <slot shortcode="FTL" description="Fireteam Leader"/>
-  <slot shortcode="MG" description="Machine Gunner"/>
-  <slot shortcode="AMG" description="Assistant MG"/>
+  <slot shortcode="FTL" description="Fireteam Leader"></slot>
+  <slot shortcode="MG" description="Machine Gunner"></slot>
+  <slot shortcode="AMG" description="Assistant MG"></slot>
 </fireteam>

@@ -1,7 +1,7 @@
 >
-  <slot shortcode="FTL" description="Fireteam Leader"/>
-  <slot shortcode="MG" description="Machine Gunner"/>
-  <slot shortcode="AMG" description="Assistant MG"/>
-  <slot shortcode="AT" description="AT Specialist"/>
-  <slot shortcode="MED" description="Medic"/>
+  <slot shortcode="FTL" description="Fireteam Leader"></slot>
+  <slot shortcode="MG" description="Machine Gunner"></slot>
+  <slot shortcode="AMG" description="Assistant MG"></slot>
+  <slot shortcode="AT" description="AT Specialist"></slot>
+  <slot shortcode="MED" description="Medic"></slot>
 </fireteam>

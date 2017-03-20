@@ -1,1 +1,0 @@
-<slot shortcode='MGA' description='MG-Assistant'></slot>

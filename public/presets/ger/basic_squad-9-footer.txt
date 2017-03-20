@@ -1,18 +1,18 @@
 >
-    <slot shortcode="SQL" description="Gruppenführung"></slot>
-    <slot shortcode="SQM" description="Gruppensanitäter"></slot>
+    <slot shortcode="GrFü" description="Gruppenführung"></slot>
+    <slot shortcode="GrSa" description="Gruppensanitäter"></slot>
     <fireteam>
-      <slot shortcode="FTL" description="Truppführung"/>
-      <slot shortcode="MG" description="MG-Schütze"/>
-      <slot shortcode="AMG" description="MG Munitionsträger"/>
-      <slot shortcode="RF" description="Schütze"/>
-      <slot shortcode="RF" description="Schütze"/>
+      <slot shortcode="TrFü" description="Truppführung"></slot>
+      <slot shortcode="MG" description="MG-Schütze"></slot>
+      <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+      <slot shortcode="S" description="Schütze"></slot>
+      <slot shortcode="S" description="Schütze"></slot>
     </fireteam>
     <fireteam>
-      <slot shortcode="FTL" description="Truppführung"/>
-      <slot shortcode="MG" description="MG-Schütze"/>
-      <slot shortcode="AMG" description="MG Munitionsträger"/>
-      <slot shortcode="RF" description="Schütze"/>
-      <slot shortcode="RF" description="Schütze"/>
+      <slot shortcode="TrFü" description="Truppführung"></slot>
+      <slot shortcode="MG" description="MG-Schütze"></slot>
+      <slot shortcode="MGA" description="MG Munitionsträger"></slot>
+      <slot shortcode="S" description="Schütze"></slot>
+      <slot shortcode="S" description="Schütze"></slot>
     </fireteam>
 </squad>

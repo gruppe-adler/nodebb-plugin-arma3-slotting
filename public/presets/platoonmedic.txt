@@ -1,1 +1,0 @@
-<slot shortcode='PLM' description='Platoon Medic'></slot>

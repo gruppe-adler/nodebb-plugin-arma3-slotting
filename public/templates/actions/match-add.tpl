@@ -60,12 +60,12 @@
 			</button>
 
 			<ul class="dropdown-menu pull-right">
-				<li><a href="#" class="match-template-button" data-localized="true" data-template="fireteam-3" data-name="Trupp-3">Trupp-3</a></li>
-				<li><a href="#" class="match-template-button" data-localized="true" data-template="fireteam-4" data-name="Trupp-4">Trupp-4</a></li>
-				<li><a href="#" class="match-template-button" data-localized="true" data-template="fireteam-5" data-name="Trupp-5">Trupp-5</a></li>
-				<li><a href="#" class="match-template-button" data-localized="true" data-template="squad-9" data-name="Gruppe-9">Gruppe-9</a></li>
-				<li><a href="#" class="match-template-button" data-localized="true" data-template="platoon-3" data-name="Zug-3">Zug-3</a></li>
-				<li><a href="#" class="match-template-button" data-localized="true" data-template="company-3" data-name="Kompanie-3">Kompanie-3</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="basic_fireteam-3" data-name="Trupp-3">Trupp-3</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="basic_fireteam-4" data-name="Trupp-4">Trupp-4</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="basic_fireteam-5" data-name="Trupp-5">Trupp-5</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="basic_squad-9" data-name="Gruppe-9">Gruppe-9</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="basic_platoon-3" data-name="Zug-3">Zug-3</a></li>
+				<li><a href="#" class="match-template-button" data-localized="true" data-template="basic_company-3" data-name="Kompanie-3">Kompanie-3</a></li>
 			</ul>
 		</li>
 
