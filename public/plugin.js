@@ -12,7 +12,7 @@ require([
     getTemplates,
     eventLoadedService
 ) {
-    var CACHEBUSTER = '3';
+    var CACHEBUSTER = '4';
 
     var cache = {
         topicNode: null,
@@ -90,8 +90,6 @@ require([
         });
     });
 
-    
-    
     /*
     $(document).on('click', '#boolean_language_eng', function (event) {
         window.preset_boolean_eng = !(window.preset_boolean_eng);
@@ -126,36 +124,24 @@ require([
                 var frequency_input = form.find('input[name=frequency]').val();
                 var ingamelobby_input = form.find('input[name=ingamelobby]').val();
 
-
                 if (!callsign_input) {callsign_input = 'Rufname Platzhalter';}
 
                 var callsign = 'callsign="' + callsign_input + '" ';
                 var frequency = 'frequency="' + frequency_input + '" ';
                 var ingamelobby = 'ingamelobby="' + ingamelobby_input + '" ';
-               
 
                 if (dataLocalized) {
-
-                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-header.txt', function (header) {
-                    
-
-                         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-footer.txt', function (footer) {
-                        
-
-                        insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-header.txt?v=' + CACHEBUSTER, function (header) {
+                         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-footer.txt?v=' + CACHEBUSTER, function (footer) {
+                            insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
                         });    
 
                     });
                 } else {
-                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-header.txt', function (header) {
-                    
-
-                         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-footer.txt', function (footer) {
-                        
-
-                        insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
-                        });    
-
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-header.txt?v=' + CACHEBUSTER, function (header) {
+                         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-footer.txt?v=' + CACHEBUSTER, function (footer) {
+                            insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
+                        });
                     });
                 }
             });
