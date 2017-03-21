@@ -106,7 +106,7 @@ require([
         var headerText = $(this).attr('data-name');
         var skipDialog = $(this).attr('data-skip');
         var dataIncluded = $(this).attr('data-included');
-        var dataClear = $(this).attr('data-included');
+        var dataClear = $(this).attr('data-clear');
         var dataLocalized = $(this).attr('data-localized');
         var templateLang = document.getElementById("boolean_language_eng").checked ?  'eng/' : 'ger/';
 
@@ -164,7 +164,9 @@ require([
                 insertTextAtCursorPosition(dataIncluded, document.getElementById('match-definition'));
             } else {
                 if (dataClear) {
-                    document.getElementById('match-definition').value = templateName;
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '.txt', function (template) {
+                        insertTextAtCursorPosition('\n' + template, document.getElementById('match-definition'));
+                    });
                 } else {
                     $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '.txt', function (template) {
                         insertTextAtCursorPosition('\n' + template, document.getElementById('match-definition'));
