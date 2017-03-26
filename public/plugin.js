@@ -44,11 +44,27 @@ require([
             // $button.attr('data-uid', false); probably not necessary if we reload the whole freaking thing anyway
             if (uid === app.user.uid) {
                 deleteAction();
+                app.alert({
+                    title: 'Slot gelöscht.',
+                    message: 'Bitte manuell abmelden, wenn nötig.',
+                    location: 'left-bottom',
+                    timeout: 2500,
+                    type: 'warning',
+                    image: ''
+                });
             } else {
                 confirmUnslottingOfOthers($button.attr('data-username'), deleteAction);
             }
         } else {
             actionOnMySlot('PUT', {uid: app.user.uid}, load);
+            app.alert({
+                title: 'Eingeslottet',
+                message: 'Jetzt bist du drin.',
+                location: 'left-bottom',
+                timeout: 2500,
+                type: 'success',
+                image: ''
+            });
         }
     });
 

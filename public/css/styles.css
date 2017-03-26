@@ -703,6 +703,32 @@ div .squad_head {
 	display: block;
 }
 
+@media (max-width: 768px) {
+	#match-edit-submit, #match-cancel {
+		width: 60px;
+		color: transparent;
+	}
+
+	#match-edit-submit .fa {
+		color: #fff;
+	}
+
+	#match-cancel .fa {
+		color: #333;
+	}
+
+	.match-template-buttons .visible-sm-inline, 
+	.match-template-buttons .visible-md-inline,
+	.match-template-buttons .visible-lg-inline {
+		display: block !important;
+		max-width: 50px;
+		white-space: nowrap;
+  		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+}
+
 @media (max-width: 320px) {
 	.container_fireteam{
 		min-height: 50px;
