@@ -124,6 +124,8 @@ require([
 
 
     $(document).on('drop', '[component="topic/arma3-slotting"] .slot .avatar', function (event) {
+        event.preventDefault();
+        
         var user = JSON.parse(event.originalEvent.dataTransfer.getData("application/json"));
         if (!user.uid || !user.username) {
             return;
