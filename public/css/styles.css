@@ -782,3 +782,7 @@ div .squad_head {
 	border-left: 1px solid #d9d9d9;
 }
 
+
+.slot_button {
+	cursor: pointer;
+}

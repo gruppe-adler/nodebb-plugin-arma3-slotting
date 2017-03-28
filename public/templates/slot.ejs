@@ -11,7 +11,7 @@
 	
 
 	<% if (x.user) { %>
-		<a href="#" class="slot_button"
+		<div class="slot_button"
 			data-username="<%- x.user.username %>"
 			data-uid="<%- x.user.uid %>"
 		>
@@ -33,7 +33,7 @@
 					style="background-color: <%- x.user['icon:bgColor'] %>"><%- x.user['icon:text'] %>
 				</div>
 			<% } %>
-		</a>
+		</div>
 	<% } else { %>
 		
 		<a href="#" class="slot_button">

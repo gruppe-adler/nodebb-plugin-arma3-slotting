@@ -108,8 +108,13 @@ require([
 
     $(document).on('dragstart', '[component="topic/arma3-slotting"] .avatar[data-uid]', function (event) {
         var originalEvent = event.originalEvent;
-        originalEvent.dataTransfer.setData("uid", event.target.getAttribute('data-uid'));
-        originalEvent.dataTransfer.setData("username", event.target.getAttribute('data-username'));
+        originalEvent.dataTransfer.setData(
+            "application/json",
+            JSON.stringify({
+                uid: event.target.getAttribute('data-uid'),
+                username: event.target.getAttribute('data-username')
+            })
+        );
     });
 
 
@@ -119,11 +124,8 @@ require([
 
 
     $(document).on('drop', '[component="topic/arma3-slotting"] .slot .avatar', function (event) {
-        //event.preventDefault();
-
-        var uid = event.originalEvent.dataTransfer.getData("uid");
-        var username = event.originalEvent.dataTransfer.getData("username");
-        if (!uid || !username) {
+        var user = JSON.parse(event.originalEvent.dataTransfer.getData("application/json"));
+        if (!user.uid || !user.username) {
             return;
         }
 
@@ -133,7 +135,7 @@ require([
         var matchID = $slot.parents('[component="match"]').attr("data-uuid");
         var actionOnMySlot = _.partial(slotAction, slotID, topicID, matchID);
 
-        actionOnMySlot('PUT', {uid: uid}, load);
+        actionOnMySlot('PUT', {uid: user.uid}, load);
     });
 
     /*
