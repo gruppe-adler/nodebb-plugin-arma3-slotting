@@ -106,6 +106,13 @@ require([
         });
     });
 
+    $(document).on('dragstart', '[component="topic/arma3-slotting"] .avatar[data-uid]', function (event) {
+        var originalEvent = event.originalEvent;
+        originalEvent.dataTransfer.setData("uid", event.target.getAttribute('data-uid'));
+        originalEvent.dataTransfer.setData("username", event.target.getAttribute('data-username'));
+    });
+
+
     $(document).on('dragover', '.slot .avatar', function (event) {
         event.preventDefault();
     });

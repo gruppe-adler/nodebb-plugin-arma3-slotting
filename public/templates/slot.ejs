@@ -17,13 +17,19 @@
 		>
 			<% if (x.user.picture) { %>
 				<img class="user-img avatar avatar-md avatar-rounded"
+					 draggable="true"
 					 src="<%=x.user.picture %>"
 					 title="<%= x.user.username%>"
+					 data-uid="<%-x.user.uid%>"
+					 data-username="<%-x.user.username%>"
 				/>
 			<% } else { %>
 				<div
 					class="avatar avatar-sm avatar-rounded"
 					title="<%- x.user.username %>"
+					draggable="true"
+					data-uid="<%-x.user.uid%>"
+					data-username="<%-x.user.username%>"
 					style="background-color: <%- x.user['icon:bgColor'] %>"><%- x.user['icon:text'] %>
 				</div>
 			<% } %>
