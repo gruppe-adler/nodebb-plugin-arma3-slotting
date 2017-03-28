@@ -106,6 +106,29 @@ require([
         });
     });
 
+    $(document).on('dragover', '.slot .avatar', function (event) {
+        event.preventDefault();
+    });
+
+
+    $(document).on('drop', '[component="topic/arma3-slotting"] .slot .avatar', function (event) {
+        //event.preventDefault();
+
+        var uid = event.originalEvent.dataTransfer.getData("uid");
+        var username = event.originalEvent.dataTransfer.getData("username");
+        if (!uid || !username) {
+            return;
+        }
+
+        var $slot = $(this).parents('.slot');
+        var slotID = $slot.attr("data-uuid");
+        var topicID = $slot.parents('[component="topic"]').attr("data-tid");
+        var matchID = $slot.parents('[component="match"]').attr("data-uuid");
+        var actionOnMySlot = _.partial(slotAction, slotID, topicID, matchID);
+
+        actionOnMySlot('PUT', {uid: uid}, load);
+    });
+
     /*
     $(document).on('click', '#boolean_language_eng', function (event) {
         window.preset_boolean_eng = !(window.preset_boolean_eng);
