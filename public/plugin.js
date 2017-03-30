@@ -56,15 +56,19 @@ require([
                 confirmUnslottingOfOthers($button.attr('data-username'), deleteAction);
             }
         } else {
-            actionOnMySlot('PUT', {uid: app.user.uid}, load);
-            app.alert({
-                title: 'Eingeslottet',
-                message: 'Jetzt bist du drin.',
-                location: 'left-bottom',
-                timeout: 2500,
-                type: 'success',
-                image: ''
+            actionOnMySlot('PUT', {uid: app.user.uid}, function () {
+                app.alert({
+                    title: 'Eingeslottet',
+                    message: 'Jetzt bist du drin.',
+                    location: 'left-bottom',
+                    timeout: 2500,
+                    type: 'success',
+                    image: ''
+                });
+                $(window).trigger('arma3-slotting:slotted', {tid: topicID});
+                load();
             });
+
         }
     });
 
