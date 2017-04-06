@@ -45,13 +45,15 @@ require([
             if (uid === app.user.uid) {
                 deleteAction();
                 app.alert({
-                    title: 'Slot gelöscht.',
-                    message: 'Bitte manuell abmelden, wenn nötig.',
+                    title: 'Ausgeslottet',
+                    message: 'und abgemeldet.',
                     location: 'left-bottom',
                     timeout: 2500,
                     type: 'warning',
                     image: ''
                 });
+                $(window).trigger('arma3-slotting:unslotted', {tid: topicID});
+                load();
             } else {
                 confirmUnslottingOfOthers($button.attr('data-username'), deleteAction);
             }
@@ -59,7 +61,7 @@ require([
             actionOnMySlot('PUT', {uid: app.user.uid}, function () {
                 app.alert({
                     title: 'Eingeslottet',
-                    message: 'Jetzt bist du drin.',
+                    message: 'und angemeldet.',
                     location: 'left-bottom',
                     timeout: 2500,
                     type: 'success',
