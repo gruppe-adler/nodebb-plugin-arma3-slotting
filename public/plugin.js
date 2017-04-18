@@ -227,7 +227,19 @@ require([
             contentType: 'application/json',
             data: data ? JSON.stringify(data) : undefined,
             success: successCallback,
-            error: function () {
+            error: function (xhr) {
+                var errorMessage = 'Fehler :(';
+                if (xhr && xhr.responseJSON) {
+                    errorMessage = xhr.responseJSON.message;
+                    app.alert({
+                        title: [xhr.status, xhr.statusText].join(': '),
+                        message: errorMessage,
+                        location: 'left-bottom',
+                        timeout: 4000,
+                        type: 'danger',
+                        image: ''
+                    });
+                }
                 console.error(arguments);
             }
         });
