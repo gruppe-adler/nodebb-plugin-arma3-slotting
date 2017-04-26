@@ -181,6 +181,8 @@
 				</li>
 				<li>
 				<li><a href="#" class="match-template-button" data-template="mission_breakingcontact_40p" data-skip="true" data-clear="true">Breaking Contact</a></li>
+				<li><a href="#" class="match-template-button" data-template="mission_urbanops" data-skip="true" data-clear="true">Urban Ops</a></li>
+				
 			</ul>
 		</li>
 	</ul>
