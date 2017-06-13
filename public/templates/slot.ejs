@@ -7,7 +7,12 @@
 		</ul>
 	</div>
 
-	<% __tmpIsAllowedToEditClass = (!x['reserved-for'] || window.app.groupNames.indexOf(x['reserved-for'].toLowerCase()) !== -1) ? 'slot_button' : ''; %>
+	<% __tmpIsAllowedToEditClass = (
+	    !x['reserved-for']
+		|| _.intersection(
+			window.app.groupNames.map(function (u) {return u.toLowerCase()}),
+			x['reserved-for'].split(',').map(function (u) {return u.trim()}).map(function (u) {return u.toLowerCase()})
+		).length > 0) ? 'slot_button' : ''; %>
 
 	<% if (x.user) { %>
 		<div class="<%- __tmpIsAllowedToEditClass%>"

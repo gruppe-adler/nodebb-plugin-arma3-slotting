@@ -19,7 +19,7 @@ console.log('adding reservations…');
             });
             unit.slot.forEach(function (slot) {
                 if (!slot.reservation) {
-                    slot.reservation = reservation;
+                    slot.reservation = reservation || slot[RESERVATION_KEY];
                 }
             });
         }
