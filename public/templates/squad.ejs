@@ -19,9 +19,9 @@
 	</div>
 
 	<div class="squad_head">
-		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
+		<%= x.slot.map(pluginArma3SlottingTemplates.slot).join('') %>
 	</div>
 	<div class="squad_body <% if (x.fireteam && (x.fireteam.length % 2)) { %>odd<% } %>">
-		<%= ([].concat(x.fireteam || [])).map(pluginArma3SlottingTemplates.fireteam).join('') %>
+		<%= x.fireteam.map(pluginArma3SlottingTemplates.fireteam).join('') %>
 	</div>
 </div>

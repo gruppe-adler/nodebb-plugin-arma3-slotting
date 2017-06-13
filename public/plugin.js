@@ -5,12 +5,14 @@ require([
     'async',
     'underscore',
     'arma3-slotting/getTemplates',
-    'arma3-slotting/eventTopicLoadedService'
+    'arma3-slotting/eventTopicLoadedService',
+    'arma3-slotting/expandUnitTree'
 ], function (
     async,
     _,
     getTemplates,
-    eventLoadedService
+    eventLoadedService,
+    expandUnitTree
 ) {
     var CACHEBUSTER = '4';
 
@@ -465,6 +467,7 @@ require([
         refreshToolTips();
     };
 
+
     function load() {
 
         var topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
@@ -508,7 +511,7 @@ require([
                 matchesFragment.innerHTML = matches.map(function (match) {
                     match.tid = topicId;
                     match.hasPermissions = results.hasPermissions;
-                    return templates.master(match);
+                    return templates.master(expandUnitTree(match));
                 }).join('\n<!-- match separation -->\n');
 
                 insertSlotlistsNode(matchesFragment);

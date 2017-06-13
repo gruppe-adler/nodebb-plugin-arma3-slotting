@@ -14,9 +14,9 @@
 	</div>
 
 	<div class="platoon_head">
-		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
+		<%= x.slot.map(pluginArma3SlottingTemplates.slot).join('') %>
 	</div>
 	<div class="platoon_body">
-		<%= ([].concat(x.squad || [])).map(pluginArma3SlottingTemplates.squad).join('') %>
+		<%= x.squad.map(pluginArma3SlottingTemplates.squad).join('') %>
 	</div>
 </div>

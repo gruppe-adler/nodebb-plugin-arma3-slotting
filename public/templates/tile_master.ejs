@@ -35,11 +35,11 @@ font-size: 14px;">Slotliste
 	<% } %>
 	<div>
 		<%= x.side %>
-		<%= ([].concat(x.slot || [])).map(pluginArma3SlottingTemplates.slot).join('') %>
-		<%= ([].concat(x.fireteam || [])).map(pluginArma3SlottingTemplates.fireteam).join('') %>
-		<%= ([].concat(x.squad || [])).map(pluginArma3SlottingTemplates.squad).join('') %>
-		<%= ([].concat(x.platoon || [])).map(pluginArma3SlottingTemplates.platoon).join('') %>
-		<%= ([].concat(x.company || [])).map(pluginArma3SlottingTemplates.company).join('') %>
+		<%= x.slot.map(pluginArma3SlottingTemplates.slot).join('') %>
+		<%= x.fireteam.map(pluginArma3SlottingTemplates.fireteam).join('') %>
+		<%= x.squad.map(pluginArma3SlottingTemplates.squad).join('') %>
+		<%= x.platoon.map(pluginArma3SlottingTemplates.platoon).join('') %>
+		<%= x.company.map(pluginArma3SlottingTemplates.company).join('') %>
 	</div>
 	<div class="clearfix"></div>
 </div>

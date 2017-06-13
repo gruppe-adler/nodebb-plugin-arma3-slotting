@@ -11,6 +11,7 @@
     "templates": "public/templates",
      "scripts": [
          "../../node_modules/underscore/underscore-min.js",
+         "./public/js/expandUnitTree.js",
          "./public/js/formatXml.js",
          "./public/js/eventTopicLoadedService.js",
          "./public/js/getTemplates.js",
