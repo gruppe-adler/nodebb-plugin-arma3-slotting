@@ -1,0 +1,153 @@
+<!DOCTYPE match SYSTEM "match.dtd">
+<match>
+	<squad side="blufor" callsign="Hostage">
+		<slot shortcode="HOS" description="hostage with greenfor"/>
+	</squad>
+	<company side="blufor">
+		<squad side="blufor" callsign="Heli" vehicletype="MH-9" natosymbol="air">
+			<slot shortcode="PLT" description="pilot"/>
+			<slot shortcode="PLT" description="pilot"/>
+		</squad>
+		<squad side="blufor" callsign="BLUFOR" natosymbol="inf">
+			<slot shortcode="SQL" description="squad leader"/>
+			<slot shortcode="SQM" description="squad medic"/>
+
+			<fireteam natosymbol="recon">
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+				<slot shortcode="R" description="rifleman"/>
+				<slot shortcode="R" description="rifleman"/>
+			</fireteam>
+			<fireteam natosymbol="recon">
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+				<slot shortcode="R" description="rifleman"/>
+				<slot shortcode="R" description="rifleman"/>
+			</fireteam>
+		</squad>
+	</company>
+	<company side="greenfor" callsign="GREENFOR">
+		<slot shortcode="PTL" description="platoon lead"/>
+		<slot shortcode="PTS" description="platoon sergeant"/>
+		<slot shortcode="PTM" description="platoon medic"/>
+		<slot shortcode="R"/>
+		<squad callsign="A" natosymbol="inf">
+			<slot shortcode="SQL" description="squad leader"/>
+			<slot shortcode="SQM" description="squad medic"/>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+				<!-- <slot shortcode="R" description="rifleman"/>
+				<slot shortcode="R" description="rifleman"/> -->
+			</fireteam>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+			</fireteam>
+		</squad>
+		<squad callsign="B" natosymbol="inf">
+			<slot shortcode="SQL" description="squad leader"/>
+			<slot shortcode="SQM" description="squad medic"/>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+				<!-- <slot shortcode="R" description="rifleman"/>
+				<slot shortcode="R" description="rifleman"/> -->
+			</fireteam>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+			</fireteam>
+		</squad>
+		<squad callsign="C" natosymbol="inf">
+			<slot shortcode="SQL" description="squad leader"/>
+			<slot shortcode="SQM" description="squad medic"/>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+				<!-- <slot shortcode="R" description="rifleman"/>
+				<slot shortcode="R" description="rifleman"/> -->
+			</fireteam>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+			</fireteam>
+		</squad>
+	</company>
+	<company side="opfor" callsign="REDFOR">
+		<slot shortcode="PTL" description="platoon lead"/>
+		<slot shortcode="PTS" description="platoon sergeant"/>
+		<slot shortcode="PTM" description="platoon medic"/>
+		<slot shortcode="R"/>
+		<squad callsign="A" natosymbol="inf">
+			<slot shortcode="SQL" description="squad leader"/>
+			<slot shortcode="SQM" description="squad medic"/>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+				<!-- <slot shortcode="R" description="rifleman"/>
+				<slot shortcode="R" description="rifleman"/> -->
+			</fireteam>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+			</fireteam>
+		</squad>
+		<squad callsign="B" natosymbol="inf">
+			<slot shortcode="SQL" description="squad leader"/>
+			<slot shortcode="SQM" description="squad medic"/>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+				<!-- <slot shortcode="R" description="rifleman"/>
+				<slot shortcode="R" description="rifleman"/> -->
+			</fireteam>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+			</fireteam>
+		</squad>
+		<squad callsign="C" natosymbol="inf">
+			<slot shortcode="SQL" description="squad leader"/>
+			<slot shortcode="SQM" description="squad medic"/>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+				<!-- <slot shortcode="R" description="rifleman"/>
+				<slot shortcode="R" description="rifleman"/> -->
+			</fireteam>
+			<fireteam>
+				<slot shortcode="FTL" description="fireteam lead"/>
+				<slot shortcode="AR" description="automatic rifleman"/>
+				<slot shortcode="AT" description="anti tank specialist"/>
+				<slot shortcode="AAR" description="assistant automatic rifleman"/>
+			</fireteam>
+		</squad>
+	</company>
+</match>

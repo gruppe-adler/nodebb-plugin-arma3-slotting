@@ -1,12 +1,20 @@
 <!DOCTYPE match SYSTEM "match.dtd">
 <match>
+	<company side="blufor">
+		<fireteam callsign="MH-9" natosymbol="">
+			<slot shortcode="PLT"></slot>
+			<slot shortcode="PLT"></slot>
+		</fireteam>
+		<platoon>
+		</platoon>
+	</company>
 	<company side="greenfor">
 		<platoon>
 			<slot shortcode="PTL"/>
 			<slot shortcode="PTS"/>
 			<slot shortcode="PTM"/>
 			<slot shortcode="R"/>
-			<squad callsign="Reaper" radio-frequency="85.5">
+			<squad callsign="Reaper" frequency="85.5">
 				<slot shortcode="SQL" description="squad leader"/>
 				<slot shortcode="SQM" description="squad medic"/>
 				<fireteam>
