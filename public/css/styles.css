@@ -188,6 +188,11 @@ a:focus {
 	text-shadow: 0px 1px 0px rgba(255,255,255,0.9);
 }
 
+
+.slot_button .reservation:before {
+	color: #6c6;
+}
+
 #match-edit-submit, #match-add-submit, #match-dtd, #match-cancel {
 	float:right;
 }
@@ -658,7 +663,6 @@ div .squad_head {
 	  -o-transition: background-color 100ms ease-in-out;
 	  -ms-transition: background-color 100ms ease-in-out;
 	  transition: background-color 100ms ease-in-out;
-
 }
 
 .company_head .slot:first-child .slot_descr, .platoon_head .slot:first-child .slot_descr, .squad_head .slot:first-child .slot_descr {

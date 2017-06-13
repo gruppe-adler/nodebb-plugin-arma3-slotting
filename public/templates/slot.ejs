@@ -7,11 +7,10 @@
 		</ul>
 	</div>
 
-	
-	
+	<% __tmpIsAllowedToEditClass = (!x['reserved-for'] || window.app.groupNames.indexOf(x['reserved-for'].toLowerCase()) !== -1) ? 'slot_button' : ''; %>
 
 	<% if (x.user) { %>
-		<div class="slot_button"
+		<div class="<%- __tmpIsAllowedToEditClass%>"
 			data-username="<%- x.user.username %>"
 			data-uid="<%- x.user.uid %>"
 		>
@@ -36,7 +35,7 @@
 		</div>
 	<% } else { %>
 		
-		<a href="#" class="slot_button">
+		<a href="#" class="<%- __tmpIsAllowedToEditClass%>">
 			<div class="avatar avatar-sm avatar-rounded" title="<% if (typeof x.reservation !== 'undefined') {%><%- x.reservation %><%}%>">
 				<span class="<% if (typeof x.reservation !== 'undefined') {%>reservation<%} %>"></span>
 			</div>	

@@ -131,7 +131,7 @@ require([
     });
 
 
-    $(document).on('drop', '[component="topic/arma3-slotting"] .slot .avatar', function (event) {
+    $(document).on('drop', '[component="topic/arma3-slotting"] .slot .slot_button .avatar', function (event) {
         event.preventDefault();
         
         var user = JSON.parse(event.originalEvent.dataTransfer.getData("application/json"));
@@ -317,6 +317,7 @@ require([
 
     var hasPermissions = function (topicId, next) {
         $.get(config.relative_path + '/api/arma3-slotting/' + topicId + '/has-permissions', function (response) {
+            window.app.groupNames = response.groups || [];
             next(null, response.result);
         }, 'json');
     };
