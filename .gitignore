@@ -1,3 +1,4 @@
 .idea
+.npmignore
+node_module
 npm-debug.log
-npm-debug.log.2671245269

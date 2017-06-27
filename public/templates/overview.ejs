@@ -1,0 +1,23 @@
+<div style="border: 1px solid orange;">
+	<a href="/arma3-slotting/<%-x.tid %>/match/<%-x.uuid%>/show"><%-x.uuid%></a>
+	<% x.users.forEach(function (user) { %>
+		<% if (user.picture) { %>
+		<img class="user-img avatar avatar-md avatar-rounded"
+			 draggable="true"
+			 src="<%= user.picture %>"
+			 title="<%=  user.username%>"
+			 data-uid="<%- user.uid%>"
+			 data-username="<%- user.username%>"
+		/>
+		<% } else { %>
+		<div
+			class="avatar avatar-sm avatar-rounded"
+			title="<%- user.username %>"
+			draggable="true"
+			data-uid="<%- user.uid%>"
+			data-username="<% user.username%>"
+			style="background-color: <%- user['icon:bgColor'] %>"><%- user['icon:text'] %>
+		</div>
+		<% } %>
+	<% }); %>
+</div>
