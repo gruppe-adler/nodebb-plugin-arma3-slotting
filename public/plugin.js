@@ -48,7 +48,7 @@ require([
                 deleteAction();
                 app.alert({
                     title: 'Ausgeslottet',
-                    message: 'und abgemeldet.',
+                    message: 'Ausgeslottet',
                     location: 'left-bottom',
                     timeout: 2500,
                     type: 'warning',
