@@ -31,6 +31,11 @@
             "hook": "filter:admin.header.build",
             "method": "admin.menu",
             "callbacked": true
+        },
+        {
+            "hook": "action:attendance.set",
+            "method": "catchAttendanceChange",
+            "callbacked": true
         }
     ]
 }

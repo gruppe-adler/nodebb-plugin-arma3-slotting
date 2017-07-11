@@ -3,6 +3,9 @@
 var meta = require('./plugin.json');
 meta.nbbId = meta.id.replace(/nodebb-plugin-/, '');
 
+var unattendUser = require('./lib/unattendUser');
+var notifications = require('./lib/db/notifications');
+
 module.exports.setup = function (params, callback) {
     let admin = require('./lib/admin');
     let api = require('./lib/api');
@@ -17,6 +20,18 @@ module.exports.setup = function (params, callback) {
 
     actions(params, meta, function () {
         console.log('arma3-slotting actions registered')
+    });
+};
+
+module.exports.catchAttendanceChange = function (params, callback) {
+    if (params.probability >= 1) {
+        return callback && callback();
+    }
+    unattendUser.unattendUser(params.tid, params.uid, function (err, resultCount) {
+        if (resultCount) {
+            notifications.notifyAutoUnslotted(params.tid, params.uid, resultCount);
+        }
+        callback && callback();
     });
 };
 
