@@ -4,17 +4,20 @@
 require([
     'async',
     'underscore',
+    'arma3-slotting/expandUnitTree',
     'arma3-slotting/getTemplates',
-    'arma3-slotting/eventTopicLoadedService',
-    'arma3-slotting/expandUnitTree'
-], function (
-    async,
-    _,
-    getTemplates,
-    eventLoadedService,
-    expandUnitTree
+    'arma3-slotting/getMatchTemplates',
+    'arma3-slotting/getMatchPermissions',
+    'arma3-slotting/eventTopicLoadedService'
+], function (async,
+             _,
+             expandUnitTree,
+             getTemplates,
+             getMatchTemplates,
+             getMatchPermissions,
+             eventLoadedService
 ) {
-    var CACHEBUSTER = '4';
+    var CACHEBUSTER = '5';
 
     var cache = {
         topicNode: null,
@@ -33,49 +36,6 @@ require([
         document.head.appendChild(css);
     }());
 
-    $(document).on('click', '[component="topic"] .slot_button', function (event) {
-        var $button = $(this);
-        var uid = Number($button.attr('data-uid'));
-        var slotID = $button.parent().attr("data-uuid");
-        var topicID = $button.parents('[component="topic"]').attr("data-tid");
-        var matchID = $button.parents('[component="match"]').attr("data-uuid");
-        var actionOnMySlot = _.partial(slotAction, slotID, topicID, matchID);
-
-        if (uid) {
-            var deleteAction = _.partial(actionOnMySlot, 'DELETE', null, load);
-            // $button.attr('data-uid', false); probably not necessary if we reload the whole freaking thing anyway
-            if (uid === app.user.uid) {
-                deleteAction();
-                app.alert({
-                    title: 'Ausgeslottet',
-                    message: 'Ausgeslottet',
-                    location: 'left-bottom',
-                    timeout: 2500,
-                    type: 'warning',
-                    image: ''
-                });
-                $(window).trigger('arma3-slotting:unslotted', {tid: topicID});
-                load();
-            } else {
-                confirmUnslottingOfOthers($button.attr('data-username'), deleteAction);
-            }
-        } else {
-            actionOnMySlot('PUT', {uid: app.user.uid}, function () {
-                app.alert({
-                    title: 'Eingeslottet',
-                    message: 'und angemeldet.',
-                    location: 'left-bottom',
-                    timeout: 2500,
-                    type: 'success',
-                    image: ''
-                });
-                $(window).trigger('arma3-slotting:slotted', {tid: topicID});
-                load();
-            });
-
-        }
-    });
-
     $(document).on('click', '#match-edit-submit', function (event) {
         event.preventDefault();
         var form = document.getElementById('match-definition-form');
@@ -90,7 +50,6 @@ require([
         });
     });
 
-
     $(document).on('click', '#match-add-submit', function (event) {
         event.preventDefault();
         var form = document.getElementById('match-definition-form');
@@ -104,7 +63,7 @@ require([
 
     $(document).on('click', '[component="topic"] .match-control-delete', function (event) {
         // console.log('match delete');
-        var $button  = $(this);
+        var $button = $(this);
         var topicID = $button.parents('[component="topic"]').attr("data-tid");
         var matchID = $button.parents('[component="match"]').attr("data-uuid");
         bootbox.confirm('match ' + matchID + ' wirklich löschen?', function (result) {
@@ -114,48 +73,7 @@ require([
         });
     });
 
-    $(document).on('dragstart', '[component="topic/arma3-slotting"] .avatar[data-uid]', function (event) {
-        var originalEvent = event.originalEvent;
-        originalEvent.dataTransfer.setData(
-            "application/json",
-            JSON.stringify({
-                uid: event.target.getAttribute('data-uid'),
-                username: event.target.getAttribute('data-username')
-            })
-        );
-    });
-
-
-    $(document).on('dragover', '.slot .avatar', function (event) {
-        event.preventDefault();
-    });
-
-
-    $(document).on('drop', '[component="topic/arma3-slotting"] .slot .slot_button .avatar', function (event) {
-        event.preventDefault();
-        
-        var user = JSON.parse(event.originalEvent.dataTransfer.getData("application/json"));
-        if (!user.uid || !user.username) {
-            return;
-        }
-
-        var $slot = $(this).parents('.slot');
-        var slotID = $slot.attr("data-uuid");
-        var topicID = $slot.parents('[component="topic"]').attr("data-tid");
-        var matchID = $slot.parents('[component="match"]').attr("data-uuid");
-        var actionOnMySlot = _.partial(slotAction, slotID, topicID, matchID);
-
-        actionOnMySlot('PUT', {uid: user.uid}, load);
-    });
-
-    /*
-    $(document).on('click', '#boolean_language_eng', function (event) {
-        window.preset_boolean_eng = !(window.preset_boolean_eng);
-        console.log("setting languageEng to " + window.preset_boolean_eng.toString());
-    });
-    */
-
-     $(document).on('click', '.match-template-button', function (event) {
+    $(document).on('click', '.match-template-button', function (event) {
         // console.log('insert preset');
 
         var templateName = $(this).attr('data-template');
@@ -164,7 +82,7 @@ require([
         var dataIncluded = $(this).attr('data-included');
         var dataClear = $(this).attr('data-clear');
         var dataLocalized = $(this).attr('data-localized');
-        var templateLang = document.getElementById("boolean_language_eng").checked ?  'eng/' : 'ger/';
+        var templateLang = document.getElementById("boolean_language_eng").checked ? 'eng/' : 'ger/';
 
         var form = $('<form id="modal-presets" action="">\
             <h2>' + headerText + ' einfügen</h2><br/>\
@@ -177,12 +95,14 @@ require([
         /* dont show dialog for single slots */
         if (!skipDialog) {
 
-            bootbox.alert(form, function(){
+            bootbox.alert(form, function () {
                 var callsign_input = form.find('input[name=callsign]').val();
                 var frequency_input = form.find('input[name=frequency]').val();
                 var ingamelobby_input = form.find('input[name=ingamelobby]').val();
 
-                if (!callsign_input) {callsign_input = 'Rufname Platzhalter';}
+                if (!callsign_input) {
+                    callsign_input = 'Rufname Platzhalter';
+                }
 
                 var callsign = 'callsign="' + callsign_input + '" ';
                 var frequency = 'frequency="' + frequency_input + '" ';
@@ -190,14 +110,14 @@ require([
 
                 if (dataLocalized) {
                     $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-header.txt?v=' + CACHEBUSTER, function (header) {
-                         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-footer.txt?v=' + CACHEBUSTER, function (footer) {
+                        $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '-footer.txt?v=' + CACHEBUSTER, function (footer) {
                             insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
-                        });    
+                        });
 
                     });
                 } else {
                     $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-header.txt?v=' + CACHEBUSTER, function (header) {
-                         $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-footer.txt?v=' + CACHEBUSTER, function (footer) {
+                        $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '-footer.txt?v=' + CACHEBUSTER, function (footer) {
                             insertTextAtCursorPosition('\n' + header + ' ' + callsign + ' ' + frequency + ' ' + ingamelobby + ' ' + footer, document.getElementById('match-definition'));
                         });
                     });
@@ -214,38 +134,11 @@ require([
                 } else {
                     $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '.txt', function (template) {
                         insertTextAtCursorPosition('\n' + template, document.getElementById('match-definition'));
-                    });  
+                    });
                 }
             }
         }
     });
-    
-
-
-    var slotAction = function (slotID, tid, matchID, method, data, successCallback) {
-        $.ajax({
-            method: method,
-            url: config.relative_path + '/api/arma3-slotting/' + tid + '/match/' + matchID + '/slot/' + slotID + '/user',
-            contentType: 'application/json',
-            data: data ? JSON.stringify(data) : undefined,
-            success: successCallback,
-            error: function (xhr) {
-                var errorMessage = 'Fehler :(';
-                if (xhr && xhr.responseJSON) {
-                    errorMessage = xhr.responseJSON.message;
-                    app.alert({
-                        title: [xhr.status, xhr.statusText].join(': '),
-                        message: errorMessage,
-                        location: 'left-bottom',
-                        timeout: 4000,
-                        type: 'danger',
-                        image: ''
-                    });
-                }
-                console.error(arguments);
-            }
-        });
-    };
 
     var createMatch = function (spec, tid, successCallback) {
         $.ajax({
@@ -293,34 +186,7 @@ require([
         });
     };
 
-    function confirmUnslottingOfOthers(targetUsername, callback) {
-        bootbox.confirm({
-            message: targetUsername + " vom Slot schmeißen?",
-            size: "small",
-            buttons: {
-                confirm: {
-                    label: 'Runterschmeißen',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: 'Abbrechen',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (isConfirmed) {
-                if (isConfirmed) {
-                    callback();
-                }
-            }
-        });
-    }
 
-    var hasPermissions = function (topicId, next) {
-        $.get(config.relative_path + '/api/arma3-slotting/' + topicId + '/has-permissions', function (response) {
-            window.app.groupNames = response.groups || [];
-            next(null, response.result);
-        }, 'json');
-    };
 
     var refreshToolTips = function () {
         var attendanceAvatar = document.querySelectorAll(".avatar, .slot_descr, .container_title, .natosymbol, .customTooltip");
@@ -335,62 +201,46 @@ require([
         });
     };
 
-    function getMatchAsXml(topicId, matchUuid, cb) {
-        $.ajax({
-            method: 'GET',
-            url: '/api/arma3-slotting/' + topicId + '/match/' + matchUuid,
-            headers: {
-                Accept: 'application/xml',
-                'Content-Type': 'application/xml'
-            },
-            dataType: "text", // else jquery will parse xml response and return an xml dom object
-            success: cb,
-            error: function () {
-                alert('nooo this should not happen');
-                console.warn(arguments);
-            }
-        });
-    }
-
-   
     function insertTextAtCursorPosition(text, inputField) {
-      var input = inputField;
-      // console.log(input);
-      if (input == undefined) { return; }
-      var scrollPos = input.scrollTop;
-      var pos = 0;
-      var browser = ((input.selectionStart || input.selectionStart == "0") ? 
-        "ff" : (document.selection ? "ie" : false ) );
-      if (browser == "ie") { 
-        input.focus();
-        var range = document.selection.createRange();
-        range.moveStart ("character", -input.value.length);
-        pos = range.text.length;
-      }
-      else if (browser == "ff") { pos = input.selectionStart };
+        var input = inputField;
+        // console.log(input);
+        if (input == undefined) {
+            return;
+        }
+        var scrollPos = input.scrollTop;
+        var pos = 0;
+        var browser = ((input.selectionStart || input.selectionStart == "0") ?
+            "ff" : (document.selection ? "ie" : false ) );
+        if (browser == "ie") {
+            input.focus();
+            var range = document.selection.createRange();
+            range.moveStart("character", -input.value.length);
+            pos = range.text.length;
+        }
+        else if (browser == "ff") {
+            pos = input.selectionStart
+        }
+        ;
 
-      var front = (input.value).substring(0, pos);  
-      var back = (input.value).substring(pos, input.value.length); 
-      input.value = front+text+back;
-      pos = pos + text.length;
-      if (browser == "ie") { 
-        input.focus();
-        var range = document.selection.createRange();
-        range.moveStart ("character", -input.value.length);
-        range.moveStart ("character", pos);
-        range.moveEnd ("character", 0);
-        range.select();
-      }
-      else if (browser == "ff") {
-        input.selectionStart = pos;
-        input.selectionEnd = pos;
-        input.focus();
-      }
-      input.scrollTop = scrollPos;
+        var front = (input.value).substring(0, pos);
+        var back = (input.value).substring(pos, input.value.length);
+        input.value = front + text + back;
+        pos = pos + text.length;
+        if (browser == "ie") {
+            input.focus();
+            var range = document.selection.createRange();
+            range.moveStart("character", -input.value.length);
+            range.moveStart("character", pos);
+            range.moveEnd("character", 0);
+            range.select();
+        }
+        else if (browser == "ff") {
+            input.selectionStart = pos;
+            input.selectionEnd = pos;
+            input.focus();
+        }
+        input.scrollTop = scrollPos;
     }
-
-
-
 
     // cb = callback
     function getMatches(topicId, cb) {
@@ -402,11 +252,6 @@ require([
             cb(null, response);
         });
     }
-
-  
-
-   
-
 
     function insertAddMatchButton(markup) {
         // console.log("slotting-insertslottinbutton called");
@@ -422,19 +267,6 @@ require([
             mainButtonsNode.parentNode.insertBefore(node.firstElementChild, mainButtonsNode);
 
         });
-    }
-
-    function checkDateLock(d) {
-        var now = (new Date());
-
-        var fillDate = new Date(d);
-        fillDate.setHours(20);
-        fillDate.setMinutes(0);
-
-        var itsHistory = (now.getTime() > fillDate.getTime());
-        console.log("now is: " + now + " - fillDate is: " + fillDate);
-
-        return itsHistory;
     }
 
     var insertSlotlistsNode = function (slottingNode) {
@@ -456,18 +288,8 @@ require([
             firstPostCheck.appendChild(slottingNode);
         }
 
-        /*
-        var content = topicContentNode.querySelector('[component="post/content"]');
-        var existingSlottingComponentNode = content.querySelector('[component="topic/slotting"]');
-        if (existingSlottingComponentNode) {
-            content.replaceChild(slottingNode, existingSlottingComponentNode);
-        } else if (content.children.length === 1) {
-            content.appendChild(slottingNode);
-        }
-        */
         refreshToolTips();
     };
-
 
     function load() {
 
@@ -475,23 +297,15 @@ require([
         async.parallel(
             {
                 matches: _.partial(getMatches, topicId),
-                templates: _.partial(getTemplates, {
-                    master: 'tile_master.ejs',
-                    slave: 'tile_slave.ejs',
-                    company: 'company.ejs',
-                    platoon: 'platoon.ejs',
-                    squad: 'squad.ejs',
-                    fireteam: 'fireteam.ejs',
-                    slot: 'slot.ejs',
-                    post_bar: 'post_bar.ejs'
-                }),
-                hasPermissions: _.partial(hasPermissions, topicId)
+                templates: getMatchTemplates,
+                hasPermissions: _.partial(getMatchPermissions, topicId)
             },
             function (err, results) {
                 var matches = results.matches;
-                var templates = results.templates;
-                window.pluginArma3SlottingTemplates = _.each(templates, function (templateString, index, obj) {
-                    obj[index] = _.template(templateString, {variable: 'x'});
+
+                matches.forEach(function (match) {
+                    expandUnitTree(match);
+                    match.tid = topicId;
                 });
 
                 _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
@@ -502,23 +316,43 @@ require([
                 });
 
                 if (results.hasPermissions) {
-                    insertAddMatchButton(templates.post_bar({tid: topicId}));
+                    insertAddMatchButton(results.templates.post_bar({tid: topicId}));
                 }
-
 
                 var matchesFragment = document.createElement('div');
                 matchesFragment.setAttribute('component', 'topic/arma3-slotting');
 
-                matchesFragment.innerHTML = matches.map(function (match) {
-                    match.tid = topicId;
-                    match.hasPermissions = results.hasPermissions;
-                    return templates.master(expandUnitTree(match));
-                }).join('\n<!-- match separation -->\n');
+                matches.forEach(function (match) {
+                    var matchNode = document.createElement('div');
+                    matchNode.innerHTML = results.templates.overview(getMatchWithUsers(match));
+                    matchesFragment.appendChild(matchNode);
+                });
 
                 insertSlotlistsNode(matchesFragment);
             }
         );
     }
+
+    var getMatchWithUsers = function (match) {
+        match.users = matchToUsers(match);
+
+        return match;
+    };
+
+    var matchToUsers = function (match) {
+        var users = [];
+        ['company', 'platoon', 'squad', 'fireteam', 'slot'].forEach(function (subUnitName) {
+            if (match[subUnitName]) {
+                match[subUnitName].forEach(function(subUnit) {
+                    users = users.concat(matchToUsers(subUnit));
+                })
+            }
+        });
+        if (match.user) {
+            users.push(match.user);
+        }
+        return users;
+    };
 
     var topicLoaded = function (event, topicNode /*: Node*/, eventDate /*: Date*/) {
         cache.topicNode = topicNode;

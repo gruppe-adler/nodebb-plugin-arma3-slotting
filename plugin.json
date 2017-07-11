@@ -11,10 +11,14 @@
     "templates": "public/templates",
      "scripts": [
          "../../node_modules/underscore/underscore-min.js",
+         "./public/js/eventTopicLoadedService.js",
          "./public/js/expandUnitTree.js",
          "./public/js/formatXml.js",
-         "./public/js/eventTopicLoadedService.js",
+         "./public/js/getMatch.js",
+         "./public/js/getMatchPermissions.js",
+         "./public/js/getMatchTemplates.js",
          "./public/js/getTemplates.js",
+         "./public/js/renderMatch.js",
          "./public/plugin.js"
     ],
     "hooks": [
