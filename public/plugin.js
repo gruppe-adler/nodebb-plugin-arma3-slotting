@@ -69,7 +69,7 @@ require([
                     type: 'success',
                     image: ''
                 });
-                $(window).trigger('arma3-slotting:slotted', {tid: topicID});
+                // $(window).trigger('arma3-slotting:slotted', {tid: topicID});
                 load();
             });
 
