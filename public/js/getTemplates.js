@@ -18,7 +18,7 @@ define("arma3-slotting/getTemplates",
         var getTemplate = (function () {
             var loadedTemplates = {};
             return function (templateName, cb) {
-                templateName = '/plugins/nodebb-plugin-arma3-slotting/templates/' + templateName;
+                templateName = '/plugins/nodebb-plugin-arma3-slotting/ejs-templates/' + templateName;
                 if (loadedTemplates[templateName]) {
                     return cb(loadedTemplates[templateName]);
                 }
