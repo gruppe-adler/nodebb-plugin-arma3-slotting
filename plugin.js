@@ -19,7 +19,6 @@ module.exports.setup = function (params, callback) {
     });
 
     actions(params, meta, function () {
-        console.log('arma3-slotting actions registered')
     });
 };
 
