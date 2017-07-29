@@ -9,7 +9,6 @@ define(
         function addReservationsToSubUnits(unit) {
             var reservation = unit[RESERVATION_KEY];
 
-console.log('adding reservations…');
             subUnitCategories.forEach(function (subUnitCategory) {
                 unit[subUnitCategory].forEach(function (subUnit) {
                     //only add reservation to subunit if it has not defined its own reservation!
@@ -36,7 +35,6 @@ console.log('adding reservations…');
         function walkUnitTree(unit) {
             expandChildrenToArrays(unit);
             addReservationsToSubUnits(unit);
-            console.log(unit);
             return unit;
         }
 

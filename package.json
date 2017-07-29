@@ -1,14 +1,17 @@
 {
   "name": "nodebb-plugin-arma3-slotting",
-  "version": "0.8.4",
+  "version": "0.9.0",
   "dependencies": {
     "async": "^1",
     "libxmljs": "*",
     "node-uuid": "*",
     "nodebb-plugin-frontend-async": "*",
     "underscore": "^1",
-    "winston": "*",
     "xml2json": "*"
+  },
+  "peerDependencies": {
+    "nodebb-plugin-attendance": "^0.13.0",
+    "winston": "*"
   },
   "devDependencies": {
     "underscore": "*"
