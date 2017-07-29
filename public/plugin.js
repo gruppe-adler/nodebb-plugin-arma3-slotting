@@ -54,7 +54,7 @@ require([
                     type: 'warning',
                     image: ''
                 });
-                $(window).trigger('arma3-slotting:unslotted', {tid: topicID});
+                $(window).trigger('action:arma3-slotting.unset', {tid: topicID});
                 load();
             } else {
                 confirmUnslottingOfOthers($button.attr('data-username'), deleteAction);
@@ -69,7 +69,7 @@ require([
                     type: 'success',
                     image: ''
                 });
-                // $(window).trigger('arma3-slotting:slotted', {tid: topicID});
+                $(window).trigger('action:arma3-slotting.set', {tid: topicID});
                 load();
             });
 
@@ -528,4 +528,9 @@ require([
     };
 
     eventLoadedService.subscribe(topicLoaded);
+    $(window).bind('action:attendance.set', function () {
+        if (cache.topicNode) {
+            setTimeout(load, 50);
+        }
+    });
 });
