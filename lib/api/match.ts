@@ -13,11 +13,22 @@ const userDb = require('../db/users');
 import * as matchDb from '../db/match';
 import {NodebbRequest, NodebbResponse} from '../../types/nodebb';
 
-function ensureUuidsForSlots(xmlDoc) {
+function ensureUuidsForSlots(xmlDoc: XMLDocument) {
     xmlDoc.find('//slot').forEach(function(slot) {
         if (!slot.attr('uuid')) {
             slot.attr({uuid: uuid.v4()});
         }
+    });
+}
+
+function validateUuidUniqueness(xmlDoc: XMLDocument): void {
+    const uuids = [];
+    xmlDoc.find('//slot').forEach(function (slot) {
+        const uuid = slot.attr('uuid').value();
+        if (uuids.indexOf(uuid) !== -1) {
+            throw new Error('duplicate uuid ' + JSON.stringify(uuid));
+        }
+        uuids.push(uuid);
     });
 }
 
@@ -175,6 +186,12 @@ function putMatch(tid: number, matchId: string, res: NodebbResponse, reqBody: st
     }
 
     ensureUuidsForSlots(xmlDoc);
+    try {
+        validateUuidUniqueness(xmlDoc);
+    } catch (e) {
+        return res.status(400).json({message: e.message});
+    }
+
 
     async.parallel([
         _.partial(saveReservations, xmlDoc),
@@ -217,7 +234,7 @@ export function put(req: NodebbRequest, res: NodebbResponse, next) {
     let tid: number = Number(req.params.tid);
     let matchId: string = req.params.matchid;
 
-    putMatch(tid, matchId, res, req.body, function (err) {
+    putMatch(tid, matchId, res, req.body, function (err: Error) {
         if (err) {
             return res.status(500).json(err);
         }
