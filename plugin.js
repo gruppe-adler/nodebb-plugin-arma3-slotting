@@ -15,7 +15,7 @@ module.exports.setup = function (params, callback) {
 
         api.setAllowedCategories(admin.getAllowedCategories());
         api.setApiKey(admin.getApiKey());
-        api(params, callback);
+        api.default(params, callback);
     });
 
     actions(params, meta, function () {
