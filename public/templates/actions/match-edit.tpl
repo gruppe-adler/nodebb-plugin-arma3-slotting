@@ -224,17 +224,18 @@
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script src="/plugins/nodebb-plugin-arma3-slotting/lib/jquery.xmleditor.js"></script>
+	<script src="/plugins/nodebb-plugin-arma3-slotting/lib/xsd2json.js"></script>
 	<script>
-        $(function() {
-            var extractor = new Xsd2Json("/plugins/nodebb-plugin-arma3-slotting/schema/match.xsd", {
-				schemaURI: "match/",
-				rootElement: "match"
-            });
-            window.schemaExtractor = extractor;
-            $("#match-definition").xmlEditor({
-                schema: xtractor.getSchema()
-            });
-        });
+		$(function() {
+			var extractor = new Xsd2Json(
+				document.location.href.split('/plugins/')[0] + "/plugins/nodebb-plugin-arma3-slotting/schema/match.xsd",
+				{rootElement: "match"}
+			);
+			window.schemaExtractor = extractor;
+			$("#match-definition").xmlEditor({
+				schema: extractor.getSchema()
+			});
+		});
 	</script>
 	
 </div>
