@@ -199,6 +199,7 @@
 	</form>
 	<script>
 		/*global require*/
+		/*
 		require(['arma3-slotting/formatXml'], function (formatXml) {
 		    var textarea = $('#match-definition')[0];
 
@@ -219,6 +220,20 @@
 			console.log(window.matchString2);
 
 		});
+		*/
+	</script>
+	<script src="/plugins/nodebb-plugin-arma3-slotting/lib/jquery.xmleditor.js"></script>
+	<script>
+        $(function() {
+            var extractor = new Xsd2Json("/plugins/nodebb-plugin-arma3-slotting/schema/match.xsd", {
+				schemaURI: "match/",
+				rootElement: "match"
+            });
+            window.schemaExtractor = extractor;
+            $("#match-definition").xmlEditor({
+                schema: xtractor.getSchema()
+            });
+        });
 	</script>
 	
 </div>
