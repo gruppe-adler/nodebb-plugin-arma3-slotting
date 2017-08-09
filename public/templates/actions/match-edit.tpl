@@ -222,6 +222,7 @@
 		});
 		*/
 	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script src="/plugins/nodebb-plugin-arma3-slotting/lib/jquery.xmleditor.js"></script>
 	<script>
         $(function() {
