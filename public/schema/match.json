@@ -1,0 +1,99 @@
+{
+    "definitions": {
+        "fireteamType": {
+            "type": "object",
+            "properties": {
+                "slot": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/slotType"
+                    },
+                    "minItems": 0
+                }
+            }
+        },
+        "slotType": {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "value"
+            ]
+        },
+        "squadType": {
+            "properties": {
+                "callsign": {
+                    "type": "string"
+                },
+                "@frequency": {
+                    "type": "string"
+                },
+                "@natosymbol": {
+                    "type": "string"
+                },
+                "slot": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/slotType"
+                    },
+                    "minItems": 0
+                },
+                "fireteam": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/fireteamType"
+                    },
+                    "minItems": 0
+                }
+            },
+            "type": "object"
+        },
+        "platoonType": {
+            "properties": {
+                "callsign": {
+                    "type": "string"
+                },
+                "slot": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/slotType"
+                    },
+                    "minItems": 0
+                },
+                "squad": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/squadType"
+                    },
+                    "minItems": 0
+                }
+            },
+            "type": "object"
+        },
+        "companyType": {
+            "properties": {
+                "side": {
+                    "type": "string"
+                },
+                "platoon": {
+                    "$ref": "#/definitions/platoonType"
+                }
+            },
+            "type": "object",
+            "required": [
+                "platoon"
+            ]
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/companyType"
+        }
+    ]
+}

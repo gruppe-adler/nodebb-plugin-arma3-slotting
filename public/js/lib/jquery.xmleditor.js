@@ -92,6 +92,7 @@ $.widget( "xml.xmlEditor", {
 		// User set default template settings
 		templateOptions : {
 			templatePath : false,
+
 			templates : [],
 			cancelFunction : false
 		},

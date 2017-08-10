@@ -1,148 +1,45 @@
-<schema
-  xmlns='http://www.w3.org/2000/10/XMLSchema'
-  targetNamespace='http://www.w3.org/namespace/'
-  xmlns:t='http://www.w3.org/namespace/'>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+		   xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="company" type="companyType"/>
 
- <element name='match'>
-  <complexType>
-   <choice maxOccurs='unbounded'>
-    <element ref='t:company'/>
-    <element ref='t:platoon'/>
-    <element ref='t:squad'/>
-    <element ref='t:fireteam'/>
-   </choice>
-  </complexType>
- </element>
+	<xs:complexType name="slotType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="shortcode" use="optional"/>
+				<xs:attribute type="xs:string" name="description" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 
- <element name='company'>
-  <complexType>
-   <choice maxOccurs='unbounded'>
-    <element ref='t:platoon'/>
-    <element ref='t:squad'/>
-    <element ref='t:fireteam'/>
-    <element ref='t:slot'/>
-   </choice>
-   <attribute name='side' type='string' use='optional'/>
-   <attribute name='id' type='string' use='optional'/>
-   <attribute name='callsign' type='string' use='optional'/>
-   <attribute name='radiofrequency' type='string' use='optional'/>
-   <attribute name='ingamelobby' type='string' use='optional'/>
-   <attribute name='vehicletype' type='string' use='optional'/>
-   <attribute name='natosymbol' type='string' use='default' value='('/>
-   <attribute name='inf' type='string' use='default' value='motor_inf'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='armor' type='string' use='default' value='recon'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='plane' type='string' use='default' value='uav'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='art' type='string' use='default' value='mortar'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='support' type='string' use='default' value='maint'/>
-   <attribute name=')' type='string' use='default' value=''/>
-  </complexType>
- </element>
+	<xs:complexType name="companyType">
+		<xs:sequence>
+			<xs:element type="platoonType" name="platoon"/>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="side"/>
+	</xs:complexType>
 
- <element name='platoon'>
-  <complexType>
-   <choice maxOccurs='unbounded'>
-    <element ref='t:squad'/>
-    <element ref='t:slot'/>
-   </choice>
-   <attribute name='side' type='string' use='optional'/>
-   <attribute name='id' type='string' use='optional'/>
-   <attribute name='callsign' type='string' use='optional'/>
-   <attribute name='radiofrequency' type='string' use='optional'/>
-   <attribute name='ingamelobby' type='string' use='optional'/>
-   <attribute name='vehicletype' type='string' use='optional'/>
-   <attribute name='natosymbol' type='string' use='default' value='('/>
-   <attribute name='inf' type='string' use='default' value='motor_inf'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='armor' type='string' use='default' value='recon'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='plane' type='string' use='default' value='uav'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='art' type='string' use='default' value='mortar'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='support' type='string' use='default' value='maint'/>
-   <attribute name=')' type='string' use='default' value=''/>
-  </complexType>
- </element>
+	<xs:complexType name="fireteamType">
+		<xs:sequence>
+			<xs:element type="slotType" name="slot" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
 
- <element name='squad'>
-  <complexType>
-   <choice maxOccurs='unbounded'>
-    <element ref='t:fireteam'/>
-    <element ref='t:slot'/>
-   </choice>
-   <attribute name='side' type='string' use='optional'/>
-   <attribute name='id' type='string' use='optional'/>
-   <attribute name='callsign' type='string' use='optional'/>
-   <attribute name='radiofrequency' type='string' use='optional'/>
-   <attribute name='ingamelobby' type='string' use='optional'/>
-   <attribute name='vehicletype' type='string' use='optional'/>
-   <attribute name='natosymbol' type='string' use='default' value='('/>
-   <attribute name='inf' type='string' use='default' value='motor_inf'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='armor' type='string' use='default' value='recon'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='plane' type='string' use='default' value='uav'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='art' type='string' use='default' value='mortar'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='support' type='string' use='default' value='maint'/>
-   <attribute name=')' type='string' use='default' value=''/>
-  </complexType>
- </element>
+	<xs:complexType name="platoonType">
+		<xs:sequence>
+			<xs:element type="slotType" name="slot" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element type="squadType" name="squad" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="callsign"/>
+	</xs:complexType>
 
- <element name='fireteam'>
-  <complexType>
-   <sequence maxOccurs='unbounded'>
-    <element ref='t:slot'/>
-   </sequence>
-   <attribute name='side' type='string' use='optional'/>
-   <attribute name='id' type='string' use='optional'/>
-   <attribute name='callsign' type='string' use='optional'/>
-   <attribute name='radiofrequency' type='string' use='optional'/>
-   <attribute name='ingamelobby' type='string' use='optional'/>
-   <attribute name='natosymbol' type='string' use='default' value='('/>
-   <attribute name='inf' type='string' use='default' value='motor_inf'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='armor' type='string' use='default' value='recon'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='plane' type='string' use='default' value='uav'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='art' type='string' use='default' value='mortar'/>
-   <attribute name='|' type='string' use='default' value='|'/>
-   <attribute name='support' type='string' use='default' value='maint'/>
-   <attribute name=')' type='string' use='default' value=''/>
-  </complexType>
- </element>
-
- <element name='slot'>
-  <complexType>
-   <choice minOccurs='0' maxOccurs='1'>
-    <element ref='t:user'/>
-    <element ref='t:reservation'/>
-   </choice>
-   <attribute name='shortcode' type='string' use='required'/>
-   <attribute name='description' type='string' use='optional'/>
-   <attribute name='callsign' type='string' use='optional'/>
-   <attribute name='uuid' type='ID' use='optional'/>
-  </complexType>
- </element>
-
- <element name='user'>
-  <complexType mixed='true'>
-   <sequence minOccurs='0' maxOccurs='1'>
-   </sequence>
-   <attribute name='uid' type='ID' use='required'/>
-  </complexType>
- </element>
-
- <element name='reservation'>
-  <complexType mixed='true'>
-   <sequence minOccurs='0' maxOccurs='1'>
-   </sequence>
-  </complexType>
- </element>
-</schema>
+	<xs:complexType name="squadType">
+		<xs:sequence>
+			<xs:element type="slotType" name="slot" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element type="fireteamType" name="fireteam" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="callsign" use="optional"/>
+		<xs:attribute type="xs:string" name="frequency" use="optional"/>
+		<xs:attribute type="xs:string" name="natosymbol" use="optional"/>
+	</xs:complexType>
+</xs:schema>

@@ -187,11 +187,6 @@
 		</li>
 	</ul>
 
-
-	
-
-
-
 	<form data-matchid="{matchid}" data-tid="{tid}" id="match-definition-form">
 		<textarea id="match-definition">
 			{spec}
@@ -222,19 +217,23 @@
 		});
 		*/
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script src="/plugins/nodebb-plugin-arma3-slotting/lib/jquery.xmleditor.js"></script>
-	<script src="/plugins/nodebb-plugin-arma3-slotting/lib/xsd2json.js"></script>
+	<script src="http://unc-libraries.github.io/jquery.xmleditor/lib/ace/src-min/ace.js"></script>
+	<!-- <script src="http://unc-libraries.github.io/jquery.xmleditor/lib/cycle.js"></script> -->
 	<script>
-		$(function() {
-			var extractor = new Xsd2Json(
-				document.location.href.split('/plugins/')[0] + "/plugins/nodebb-plugin-arma3-slotting/schema/match.xsd",
-				{rootElement: "match"}
-			);
-			window.schemaExtractor = extractor;
-			$("#match-definition").xmlEditor({
-				schema: extractor.getSchema()
-			});
+		app.loadJQueryUI(function() {
+		    var s = document.createElement('script');
+		    s.src = '/plugins/nodebb-plugin-arma3-slotting/lib/jquery.xmleditor.js';
+		    s.onload = function () {
+                $.get('/plugins/nodebb-plugin-arma3-slotting/schema/match.json', function (schema) {
+                    // var schema = <!-- IMPORT ../../schema/match.json -->;
+                    $("#match-definition").xmlEditor({
+                        schema: schema,
+                        libPath: 'http://unc-libraries.github.io/jquery.xmleditor/lib/'
+                    });
+                });
+			};
+		    document.head.appendChild(s);
+
 		});
 	</script>
 	
