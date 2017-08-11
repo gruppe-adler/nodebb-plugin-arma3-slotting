@@ -1,19 +1,22 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var logger = require("../logger");
-var _ = require("underscore");
-var async = require("async");
-var topics = require("./topics");
-var notifications = require('../../../../src/notifications');
-function notifySlotted(matchWrapper, oldUser, newUser) {
-    var match = (matchWrapper.match || matchWrapper);
+import * as logger from '../logger';
+import * as _ from 'underscore';
+import * as async from 'async';
+import * as topics from './topics';
+import {MatchWrapper, Match} from './match'
+import {User} from '../../types/nodebb'
+
+const notifications = require('../../../../src/notifications');
+
+export function notifySlotted(matchWrapper: MatchWrapper, oldUser: User, newUser: User) {
+    const match = <Match>(matchWrapper.match || matchWrapper);
     async.parallel({
         eventTitle: _.partial(topics.getTitle, match.tid),
         followingUids: _.partial(topics.getFollowers, match.tid)
-    }, function (err, data) {
-        var eventTitle = data.eventTitle;
-        var followingUids = data.followingUids;
-        var msg = '%s slotted into "%s"'.replace('%s', newUser.username).replace('%s', eventTitle);
+    }, function (err: Error, data: {eventTitle: string, followingUids: any}) {
+        const eventTitle = data.eventTitle;
+        const followingUids = data.followingUids;
+
+        let msg = '%s slotted into "%s"'.replace('%s', newUser.username).replace('%s', eventTitle);
         if (oldUser) {
             msg = '%s slotted into "%s", replacing user %s'.replace('%s', newUser.username).replace('%s', eventTitle).replace('%s', oldUser.username);
         }
@@ -25,7 +28,8 @@ function notifySlotted(matchWrapper, oldUser, newUser) {
             path: '/topic/' + match.tid,
             tid: match.tid,
             from: newUser.uid
-        }, function (err, notification) {
+
+        }, function(err, notification) {
             notifications.push(notification, _.values(followingUids), function (err) {
                 if (err) {
                     logger.error(err);
@@ -34,18 +38,19 @@ function notifySlotted(matchWrapper, oldUser, newUser) {
         });
     });
 }
-exports.notifySlotted = notifySlotted;
-function notifyUnslotted(matchWrapper, oldUser) {
-    var match = (matchWrapper.match || matchWrapper);
+
+export function notifyUnslotted(matchWrapper: MatchWrapper, oldUser: User) {
+    const match = <Match>(matchWrapper.match || matchWrapper);
     async.parallel({
         eventTitle: _.partial(topics.getTitle, match.tid),
         followingUids: _.partial(topics.getFollowers, match.tid)
     }, function (err, data) {
-        var eventTitle = data.eventTitle;
-        var followingUids = data.followingUids;
-        var msg = '%s slotted out of "%s"'
+        const eventTitle = <string>data.eventTitle;
+        const followingUids = <any>data.followingUids;
+        let msg = '%s slotted out of "%s"'
             .replace('%s', oldUser.username)
             .replace('%s', eventTitle);
+
         notifications.create({
             bodyShort: msg,
             bodyLong: msg,
@@ -54,24 +59,26 @@ function notifyUnslotted(matchWrapper, oldUser) {
             path: '/topic/' + match.tid,
             tid: match.tid,
             from: oldUser.uid
-        }, function (err, notification) {
+        }, function(err, notification) {
             notifications.push(notification, _.values(followingUids), function (err) {
                 if (err) {
                     logger.error(err);
                 }
             });
         });
+
     });
 }
-exports.notifyUnslotted = notifyUnslotted;
-function notifyAutoUnslotted(tid, uid, slotCount) {
+
+export function notifyAutoUnslotted(tid, uid, slotCount) {
     async.parallel({
         eventTitle: _.partial(topics.getTitle, tid)
-    }, function (err, data) {
-        var eventTitle = data.eventTitle;
-        var msg = 'You were removed from %s slots in event %s'
+    }, function (err: Error, data: any) {
+        const eventTitle = <string>data.eventTitle;
+        let msg = 'You were removed from %s slots in event %s'
             .replace('%s', slotCount)
             .replace('%s', eventTitle);
+
         notifications.create({
             bodyShort: msg,
             bodyLong: msg,
@@ -79,7 +86,7 @@ function notifyAutoUnslotted(tid, uid, slotCount) {
             path: '/topic/' + tid,
             tid: tid,
             from: uid
-        }, function (err, notification) {
+        }, function(err, notification) {
             notifications.push(notification, [uid], function (err) {
                 if (err) {
                     logger.error(err);
@@ -88,4 +95,3 @@ function notifyAutoUnslotted(tid, uid, slotCount) {
         });
     });
 }
-exports.notifyAutoUnslotted = notifyAutoUnslotted;

@@ -2,10 +2,15 @@
 
 import {Db, DbCallback} from '../../types/nodebb'
 const db: Db = <Db>require('../../../../src/database');
-// import * as async from 'async';
+
+export interface Company {
+    callsign?: string;
+}
 
 export interface Match {
     tid: number;
+    uuid: string;
+    companies?: Company[]|Company; // aaaargs
 }
 
 export interface MatchWrapper {
@@ -31,7 +36,7 @@ export function getAllFromDb(tid: number, callback: (err: Error, matches: Match[
         Object.keys(result || {}).forEach(function (key) {
             if (result[key]) {
                 let match: MatchWrapper = <MatchWrapper>JSON.parse(result[key]);
-                matches.push(match.match || match);
+                matches.push(<Match>(match.match || match));
             }
         });
         callback(err, matches);

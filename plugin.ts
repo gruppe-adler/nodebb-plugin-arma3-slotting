@@ -1,23 +1,26 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var unattendUser = require("./lib/unattendUser");
-var notifications = require("./lib/db/notifications");
-var meta = require('./plugin.json');
+import * as unattendUser from './lib/unattendUser';
+import * as notifications from './lib/db/notifications';
+
+const meta = require('./plugin.json');
+
 meta.nbbId = meta.id.replace(/nodebb-plugin-/, '');
-function setup(params, callback) {
-    var admin = require('./lib/admin');
-    var api = require('./lib/api');
-    var actions = require('./lib/actions').default;
+
+export function setup(params, callback) {
+    let admin = require('./lib/admin');
+    let api = require('./lib/api');
+    let actions = require('./lib/actions').default;
+
     admin.init(params, meta, function () {
         api.setAllowedCategories(admin.getAllowedCategories());
         api.setApiKey(admin.getApiKey());
         api.init(params, callback);
     });
+
     actions(params, meta, function () {
     });
 }
-exports.setup = setup;
-function catchAttendanceChange(params, callback) {
+
+export function catchAttendanceChange(params, callback) {
     if (params.probability >= 1) {
         return callback && callback();
     }
@@ -28,14 +31,15 @@ function catchAttendanceChange(params, callback) {
         callback && callback();
     });
 }
-exports.catchAttendanceChange = catchAttendanceChange;
-exports.admin = {
-    menu: function (custom_header, callback) {
+
+export const admin = {
+    menu: function (custom_header, callback: Function) {
         custom_header.plugins.push({
             "route": '/plugins/' + meta.nbbId,
             "icon": 'fa-calendar',
             "name": meta.name
         });
+
         callback(null, custom_header);
     }
 };

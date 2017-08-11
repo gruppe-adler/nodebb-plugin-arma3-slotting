@@ -1,9 +1,12 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var slotDb = require("../db/slot");
-function getAll(req, res) {
-    var tid = Number(req.params.tid);
-    var matchid = req.params.matchid;
+
+import * as slotDb from '../db/slot';
+import {NodebbRequest, NodebbResponse} from '../../types/nodebb'
+
+export function getAll(req: NodebbRequest, res: NodebbResponse) {
+    const tid: number = Number(req.params.tid);
+    const matchid: string = req.params.matchid;
+
     slotDb.getMatchUsers(tid, matchid, function (err, users) {
         if (err) {
             return res.status(500).json(err);
@@ -17,8 +20,9 @@ function getAll(req, res) {
                 return res.status(500).json(err);
             }
             reservations = reservations || {};
-            return res.status(200).json({ users: users, reservations: reservations });
+
+            return res.status(200).json({users: users, reservations: reservations});
+
         });
-    });
+    })
 }
-exports.getAll = getAll;
