@@ -1,17 +1,16 @@
 "use strict";
 
-var matchdb = require('../lib/db/match');
-var xml2json = require('xml2json');
+import * as matchdb from '../lib/db/match';
+import * as xml2json from 'xml2json';
+import {NodebbRequest, NodebbResponse} from '../types/nodebb';
 
-module.exports = function (params, meta, callback) {
+export default function (params, meta, callback) {
 
-    var renderMatchEdit = function(req, res, next) {
+    const renderMatchEdit = function (req, res, next) {
         let tid = req.params.tid;
         let matchid = req.params.matchid;
 
-
-
-        matchdb.getFromDb(tid, matchid, function (err, match) {
+        matchdb.getFromDb(tid, matchid, function (err: Error, match: matchdb.MatchWrapper) {
             if (err) {
                 return res.render('actions/500', {tid: tid, matchid: matchid});
             }
@@ -29,7 +28,7 @@ module.exports = function (params, meta, callback) {
         });
     };
 
-    var renderMatchAdd = function (req, res, next) {
+    const renderMatchAdd = function (req: NodebbRequest, res: NodebbResponse, next) {
         let tid = req.params.tid;
 
         res.render('actions/match-add', {

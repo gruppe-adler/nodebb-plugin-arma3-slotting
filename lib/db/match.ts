@@ -1,6 +1,6 @@
 "use strict";
 
-import {Db, DbCallback} from '../../types/db'
+import {Db, DbCallback} from '../../types/nodebb'
 const db: Db = <Db>require('../../../../src/database');
 // import * as async from 'async';
 
