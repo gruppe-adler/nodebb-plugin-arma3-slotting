@@ -9,7 +9,7 @@ var notifications = require('./lib/db/notifications');
 module.exports.setup = function (params, callback) {
     let admin = require('./lib/admin');
     let api = require('./lib/api');
-    let actions = require('./lib/actions');
+    let actions = require('./lib/actions').default;
 
     admin(params, meta, function () {
 
