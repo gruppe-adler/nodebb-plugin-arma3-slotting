@@ -189,9 +189,7 @@
 	</ul>
 
 	<form  data-tid="{tid}" id="match-definition-form">
-		<textarea id="match-definition">
-			{spec}
-		</textarea>
+		<textarea id="match-definition"><match></match></textarea>
 	</form>
 	<script>
 		window.matchString1 = "<match>";

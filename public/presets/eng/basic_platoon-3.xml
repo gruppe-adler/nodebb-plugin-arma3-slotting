@@ -1,4 +1,4 @@
->      
+<platoon natosymbol="inf" vehicletype="Infanterie">
       <squad natosymbol="inf" vehicletype="Infanterie" callsign="" frequency="" ingamelobby="">
       <slot shortcode="SQL" description="Squad Leader"></slot>
       <slot shortcode="SQM" description="Squad Medic"></slot>

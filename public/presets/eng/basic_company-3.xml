@@ -1,4 +1,4 @@
->      
+<company natosymbol="HQ" vehicletype="Headquarter">
 	<slot shortcode="CPL" description="Company Leader"></slot>
 	<slot shortcode="CPA" description="Company Assistant Leader"></slot>
 	<platoon natosymbol="inf" vehicletype="Infanterie" callsign="Platoon1" frequency="44" ingamelobby="">
