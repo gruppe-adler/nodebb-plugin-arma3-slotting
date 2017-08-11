@@ -19,6 +19,7 @@ export default function (params, meta, callback) {
                 return res.render('actions/match-not-found', {tid: tid, matchid: matchid});
             }
 
+            delete match.tid;
             let xmlString = xml2json.toXml(match);
             res.render('actions/match-edit', {
                 tid: tid,
