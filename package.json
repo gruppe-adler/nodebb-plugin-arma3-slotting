@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-arma3-slotting",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "async": "^1",
     "libxmljs": "*",
