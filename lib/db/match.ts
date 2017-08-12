@@ -2,10 +2,36 @@
 
 import {Db, DbCallback} from '../../types/nodebb'
 const db: Db = <Db>require('../../../../src/database');
-// import * as async from 'async';
+
+export interface Unit {
+    callsign?: string;
+    frequency?: string;
+    slot?: Slot|Slot[];
+}
+export interface Company extends Platoon {
+    platoon?: Platoon|Platoon[];
+}
+export interface Platoon extends Squad {
+    squad?: Squad|Squad[];
+}
+export interface Squad extends Fireteam {
+    fireteam?: Fireteam|Fireteam[];
+}
+export interface Fireteam extends Unit {
+}
+export interface Slot {
+}
+
 
 export interface Match {
     tid: number;
+    uuid: string;
+    // this stinks. it should be companies: Company[] period. non-optional.deserialization should take care of it TODO
+    company?: Company[]|Company;
+    platoon?: Platoon|Platoon[];
+    squad?: Squad|Squad[];
+    fireteam?: Fireteam|Fireteam[];
+    slot?: Slot|Slot[];
 }
 
 export interface MatchWrapper {
@@ -31,7 +57,7 @@ export function getAllFromDb(tid: number, callback: (err: Error, matches: Match[
         Object.keys(result || {}).forEach(function (key) {
             if (result[key]) {
                 let match: MatchWrapper = <MatchWrapper>JSON.parse(result[key]);
-                matches.push(match.match || match);
+                matches.push(<Match>(match.match || match));
             }
         });
         callback(err, matches);

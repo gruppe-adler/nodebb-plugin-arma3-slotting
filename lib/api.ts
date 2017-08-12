@@ -4,13 +4,12 @@ import {RequestHandler, Response, Router} from 'express';
 import {NodebbRequest} from '../types/nodebb';
 
 import * as _ from 'underscore';
-
 import * as matchApi from './api/match';
-const userApi = require('./api/users');
-const userDb = require('./db/users');
-const reservationApi = require('./api/reservations');
-const slotApi = require('./api/slot');
-const topicDb = require('./db/topics');
+import * as userApi from './api/users';
+import * as userDb from './db/users';
+import * as reservationApi from './api/reservations';
+import * as slotApi from './api/slot';
+import * as topicDb from './db/topics';
 import * as logger from './logger';
 
 const canAttend = require('../../nodebb-plugin-attendance/lib/admin').canAttend;
@@ -218,7 +217,7 @@ const getApiMethodGenerator = function (router: Router, methodName: string) {
     };
 };
 
-export default function (params, callback) {
+export function init(params, callback) {
     const routedMethodGenerator = _.partial(getApiMethodGenerator, params.router);
     const get = routedMethodGenerator('get');
     const pos = routedMethodGenerator('post');
@@ -249,18 +248,18 @@ export default function (params, callback) {
     all('/:tid/match/:matchid/slot', methodNotAllowed);
 
     put('/:tid/match/:matchid/slot/:slotid/user', requireCanWriteAttendance, userApi.put); // security is being done by the action here!
-    del('/:tid/match/:matchid/slot/:slotid/user', requireCanWriteAttendance, userApi.delete); // security is being done by the action here!
+    del('/:tid/match/:matchid/slot/:slotid/user', requireCanWriteAttendance, userApi.del); // security is being done by the action here!
     get('/:tid/match/:matchid/slot/:slotid/user', requireCanSeeAttendance, userApi.get);
     all('/:tid/match/:matchid/slot/:slotid/user', methodNotAllowed);
 
     put('/:tid/match/:matchid/slot/:slotid/reservation', requireAdminOrThreadOwner, reservationApi.put);
-    del('/:tid/match/:matchid/slot/:slotid/reservation', requireAdminOrThreadOwner, reservationApi.delete);
+    del('/:tid/match/:matchid/slot/:slotid/reservation', requireAdminOrThreadOwner, reservationApi.del);
     get('/:tid/match/:matchid/slot/:slotid/reservation', requireCanSeeAttendance, reservationApi.get);
     all('/:tid/match/:matchid/slot/:slotid/reservation', methodNotAllowed);
 
 
     callback();
-};
+}
 
 export function setApiKey(newApiKey: string) {
     apiKey = newApiKey;
