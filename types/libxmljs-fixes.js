@@ -1,3 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var libxmljs = require("libxmljs");
+const libxmljs = require("libxmljs");
+//# sourceMappingURL=libxmljs-fixes.js.map

@@ -1,0 +1,21 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "CommonJS",
+        "noImplicitAny": false,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "allowJs": false,
+        "moduleResolution": "Node",
+        "target": "ES2015"
+    },
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts",
+        "**/*.js",
+        "../**.js",
+        "../../**.js"
+    ],
+    "skipLibCheck": true
+}

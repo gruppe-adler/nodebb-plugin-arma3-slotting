@@ -1,240 +1,181 @@
 "use strict";
 
-const xml2json = require('xml2json');
-import {Element, XMLDocument} from '../../types/libxmljs-fixes'
-import {parseXml} from 'libxmljs';
-const uuid = require('node-uuid');
-const _ = require('underscore');
+const xml2json = require("xml2json") as { toJson: (xml: any, conf: any) => any, toXml: (obj: any) => string };
 
-const slotDb = require('../db/slot');
-const async = require('async');
-const logger = require('../logger');
-const userDb = require('../db/users');
-import * as matchDb from '../db/match';
-import {NodebbRequest, NodebbResponse} from '../../types/nodebb';
+import {AnyCallback} from "../fn";
 
-function ensureUuidsForSlots(xmlDoc: XMLDocument) {
-    xmlDoc.find('//slot').forEach(function(slot) {
-        if (!slot.attr('uuid')) {
-            slot.attr({uuid: uuid.v4()});
-        }
-    });
-}
+import * as _ from "underscore";
 
-function validateUuidUniqueness(xmlDoc: XMLDocument): void {
-    const uuids = [];
-    xmlDoc.find('//slot').forEach(function (slot) {
-        const uuid = slot.attr('uuid').value();
-        if (uuids.indexOf(uuid) !== -1) {
-            throw new Error('duplicate uuid ' + JSON.stringify(uuid));
-        }
-        uuids.push(uuid);
-    });
-}
+import * as async from "async";
+import {INodebbRequest, INodebbResponse} from "../../types/nodebb";
+import * as matchDb from "../db/match";
+import * as slotDb from "../db/slot";
+import * as userDb from "../db/users";
+import * as logger from "../logger";
+import {IMatchUser, Match, Slot} from "../match";
+import {XmlMatchRequest} from "../xml-match-request";
 
-function sendMatchesResult(req: NodebbRequest, res: NodebbResponse, result) {
-    let accepts = req.header('Accept');
-    if (accepts === 'application/xml') {
-        let xmlString = xml2json.toXml(result);
-        res.append('Content-Type', 'application/xml');
+function sendMatchesResult(req: INodebbRequest, res: INodebbResponse, result: Match[]) {
+    const accepts = req.header("Accept");
+    if (accepts === "application/xml") {
+        const xmlString = xml2json.toXml({matches: result});
+        res.append("Content-Type", "application/xml");
         return res.send(xmlString);
     }
 
-    res.json(result ? (result.matches || result) : result);
+    res.json(result);
 }
 
-function sendMatchResult(req, res, result) {
-    let accepts = req.header('Accept');
-    if (accepts === 'application/xml') {
-        let xmlString = xml2json.toXml({match: result});
-        res.append('Content-Type', 'application/xml');
+function sendMatchResult(req: INodebbRequest, res: INodebbResponse, result: Match) {
+    const accepts = req.header("Accept");
+    if (accepts === "application/xml") {
+        const xmlString = xml2json.toXml({match: result});
+        res.append("Content-Type", "application/xml");
         return res.send(xmlString);
     }
 
-    res.json(result ? (result.match || result) : result);
+    res.json(result);
 }
 
-function addUsersAndReservations(currentUser, tid, match, callback) {
-    async.parallel(
-        [
-            _.partial(slotDb.getMatchUsers, tid, match.uuid),
-            _.partial(slotDb.getMatchReservations, tid, match.uuid)
-        ],
-        function (err, results) {
+function addUsersAndReservations(currentUser, tid: number, match: Match, callback: (Error, newMatch: Match) => any) {
+    slotDb.getMatchUsers(tid, match.uuid, function (err: Error, slotidUidMap: { [uuid: string]: string }) {
+            slotidUidMap = slotidUidMap || {};
             if (err) {
-                return callback(err);
+                return callback(err, null);
             }
 
-            let slotidUidMap = results[0] || {};
-            const uidUserNodeMap = {};
-            let reservations = results[1] || {};
-            var newMatch = match;
-            let xmlDoc: XMLDocument;
+            const uidUserNodeMap: { [uid: number]: IMatchUser } = {};
 
             try {
-                // winston.info(JSON.stringify(match));
-                let xmlString = xml2json.toXml({match: match});
-                // winston.warn(xmlString);
-                xmlDoc = parseXml(xmlString);
-                xmlDoc.find('//slot').forEach(function (slot: Element) {
-                    const slotid = slot.attr('uuid').value();
+                match.getSlots().forEach(function (slot: Slot) {
+                    const slotid = slot.uuid;
 
                     if (slotidUidMap[slotid]) {
-                        let user = slot.node('user');
-                        let uid = slotidUidMap[slotid];
+                        const uid = Number(slotidUidMap[slotid]);
                         if (uid > 0) {
-                            user.attr('uid', uid);
-                            uidUserNodeMap[uid] = user;
+                            slot.user = {uid};
+                            uidUserNodeMap[uid] = slot.user;
                         } else {
-                            logger.warn('slot ' + slotid + ' contains uid<=0 ');
+                            logger.warn("slot " + slotid + " contains uid<=0 ");
                         }
-                    }
-                    if (reservations[slotid]) {
-                        let reservation = slot.node('reservation');
-                        reservation.text(reservations[slotid]);
                     }
                 });
             } catch (e) {
-                return callback(e);
+                return callback(e, null);
             }
 
-            userDb.getUsers(currentUser, Object.getOwnPropertyNames(uidUserNodeMap), function (err, users) {
-//                winston.info(JSON.stringify(users));
-                users.forEach(function (user) {
-                    const node = uidUserNodeMap[user.uid];
-                    if (!node) {
-                        return logger.error('something went wrong. WRONG, I SAY! ' + user.uid + ' not found in node map');
-                    }
-                    Object.getOwnPropertyNames(user).forEach(function (propName) {
-                        node.attr(propName, user[propName]);
+            userDb.getUsers(
+                currentUser,
+                Object.getOwnPropertyNames(uidUserNodeMap).map(Number),
+                function (error, users) {
+                    users.forEach(function (user) {
+                        const matchUser = uidUserNodeMap[user.uid];
+                        if (!matchUser) {
+                            return logger.error("something went wrong. " + user.uid + " not found in node map");
+                        }
+                        Object.getOwnPropertyNames(user).forEach(function (propName) { // copy over properties
+                            matchUser[propName] = user[propName];
+                        });
                     });
-                });
-                try {
-                    newMatch = xml2json.toJson(xmlDoc.toString(false), {object: true}).match;
-                    callback(null, newMatch);
-                } catch (e) {
-                    callback(e, null);
-                }
-            });
+                    try {
+                        callback(null, match);
+                    } catch (e) {
+                        callback(e, null);
+                    }
+                },
+            );
 
-        }
+        },
     );
 }
 
-function putMatch(tid: number, matchId: string, res: NodebbResponse, reqBody: string, callback) {
+function putMatch(tid: number,
+                  match: Match,
+                  callback: (error: Error, match?: Match) => any) {
 
-    function saveUsers(xmlDoc, next) {
-        const funcs = xmlDoc.find('//user').map(function (user) {
-            return function (next) {
-                const slot = user.parent();
+    function saveUsers(next: AnyCallback) {
+        const funcs = match.getSlots().map(function (slot: Slot) {
+            const user = slot.user;
+            if (!user) {
+                return function (cb) {
+                    cb();
+                };
+            }
+            return function (cb: AnyCallback) {
 
-                user.remove(); // when saving the occupant somewhere else, we can do away with the user definition in xml
+                // when saving the occupant somewhere else,we can do away with the user definition here
+                slot.user = undefined;
 
-                if (!slot || slot.name() !== 'slot') {
-                    next(new Error('found user node with non-slot parent ' + slot)); return;
-                }
-                const uid = user.attr('uid') ? user.attr('uid').value() : null;
+                const uid: number = user.uid;
                 if (!uid) {
-                    next(new Error('user without uid found!')); return;
+                    cb(new Error("user without uid found!"));
+                    return;
                 }
 
-                const slotid = slot.attr('uuid').value();
-                logger.info('saving user %s to slot %s'.replace('%s', uid).replace('%s', slotid));
-                slotDb.deleteMatchUser(tid, matchId, uid, function (err) {
+                const slotid = slot.uuid;
+                logger.info(`saving user ${uid} to slot ${slotid}`);
+
+                slotDb.deleteMatchUser(tid, match.uuid, uid, function (err) {
                     if (err) {
-                        next(err); return
+                        cb(err);
+                        return;
                     }
-                    slotDb.putSlotUser(tid, matchId, slotid, uid, next);
+                    slotDb.putSlotUser(tid, match.uuid, slotid, uid, cb);
                 });
 
-            }
-        });
-        async.parallel(funcs, next);
-    }
-    function saveReservations(xmlDoc, next) {
-        const funcs = xmlDoc.find('//reservation').map(function (reservation) {
-            return function (next) {
-                const slot = reservation.parent();
-                if (!slot || slot.name() !== 'slot') {
-                    next(new Error('found user node with non-slot parent ' + slot)); return;
-                }
-
-                reservation.remove();
-
-                const slotid = slot.attr('uuid').value();
-                logger.info('saving reservation %s to slot %s'.replace('%s', reservation.text()).replace('%s', slotid));
-                slotDb.putSlotReservation(tid, matchId, slotid, reservation.text(), next);
             };
         });
         async.parallel(funcs, next);
     }
 
-    let xmlDoc;
-    let xml: string = reqBody;
-    try {
-        if (typeof reqBody !== 'string') { // i.e. if its already an object (auto-parsed JSON…)
-            xml = xml2json.toXml(reqBody);
-        }
-        xmlDoc = parseXml(xml);
-    } catch (e) {
-        return res.status(400).json({offendingBody: reqBody, offendingXmlString: xml, error: {message: e.message, type: e.source}});
-    }
-
-    if (xmlDoc.find('//slot').length === 0) {
-        // seems to be short form. expand!
-        return res.status(501).json({"message": "expansion not yet supported"});
-    }
-
-    ensureUuidsForSlots(xmlDoc);
-    try {
-        validateUuidUniqueness(xmlDoc);
-    } catch (e) {
-        return res.status(400).json({message: e.message});
-    }
-
-
-    async.parallel([
-        _.partial(saveReservations, xmlDoc),
-        _.partial(saveUsers, xmlDoc)
-    ], function (err, result) {
-        logger.info('saved match ' + matchId + ' to topic ' + tid);
+    saveUsers(function (err: Error) {
+        logger.info("saved match " + match.uuid + " to topic " + tid);
         if (err) {
             logger.error("error saving match :(");
             return callback(err);
         }
 
-        let finalJson = xml2json.toJson(xmlDoc.toString(false), {object: true});
-        if (!finalJson.match) {
-            return res.status(400).json({message: 'no <match> element? oO'});
-        }
-        finalJson.match.uuid = matchId;
-
-        matchDb.saveToDb(tid, matchId, finalJson, function (err) {
-            callback(err, finalJson);
+        matchDb.saveToDb(tid, match.uuid, match, function (error: Error) {
+            callback(error, match);
         });
     });
 }
 
-export function post(req: NodebbRequest, res: NodebbResponse, next) {
-    let tid: number = Number(req.params.tid);
-    let matchId: string = uuid.v4();
+export function post(req: INodebbRequest, res: INodebbResponse) {
+    const tid: number = Number(req.params.tid);
+    let match: Match = null;
+    try {
+        match = (new XmlMatchRequest(req)).getMatch();
+    } catch (e) {
+        return res
+            .status(400)
+            .json({offendingBody: req.body, error: {message: e.message, type: e.source}});
+    }
 
-    putMatch(tid, matchId, res, req.body, function (err: Error, finalJson) {
+    putMatch(tid, match, function (err: Error, newMatch: Match) {
         if (err) {
             return res.status(500).json(err);
         }
 
-        res.setHeader('Location', '/api/arma3-slotting/match/' + matchId);
+        res.setHeader("Location", "/api/arma3-slotting/match/" + newMatch.uuid);
         res.status(201);
-        return sendMatchResult(req, res, finalJson);
+        return sendMatchResult(req, res, newMatch);
     });
 }
 
-export function put(req: NodebbRequest, res: NodebbResponse, next) {
-    let tid: number = Number(req.params.tid);
-    let matchId: string = req.params.matchid;
+export function put(req: INodebbRequest, res: INodebbResponse) {
+    const tid: number = Number(req.params.tid);
 
-    putMatch(tid, matchId, res, req.body, function (err: Error) {
+    let match: Match = null;
+    try {
+        match = (new XmlMatchRequest(req)).getMatch();
+    } catch (e) {
+        return res
+            .status(400)
+            .json({offendingBody: req.body, error: {message: e.message, type: e.source}});
+    }
+
+    putMatch(tid, match, function (err: Error) {
         if (err) {
             return res.status(500).json(err);
         }
@@ -242,10 +183,10 @@ export function put(req: NodebbRequest, res: NodebbResponse, next) {
     });
 }
 
-export function getAll(req: NodebbRequest, res: NodebbResponse, next) {
-    let tid = req.params.tid;
+export function getAll(req: INodebbRequest, res: INodebbResponse) {
+    const tid: number = Number(req.params.tid);
 
-    matchDb.getAllFromDb(tid, function (err, matches/*: Array<Match>*/) {
+    matchDb.getAllFromDb(tid, function (err, matches: Match[]) {
         if (err) {
             return res.status(500).json(err);
         }
@@ -255,23 +196,23 @@ export function getAll(req: NodebbRequest, res: NodebbResponse, next) {
             return sendMatchesResult(req, res, matches);
         }
 
-        async.parallel(matches.map(function (match) {
-            return _.partial(addUsersAndReservations, req.uid, tid, match)
-        }), function (err, newMatches) {
-            if (err) {
-                return res.status(500).json({exception: err, message: err.message, stacktrace: err.stack});
+        async.parallel(matches.map(function (match: Match) {
+            return _.partial(addUsersAndReservations, req.uid, tid, match);
+        }), function (error: Error, newMatches) {
+            if (error) {
+                return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
             }
             res.status(200);
-            sendMatchesResult(req, res, {matches: newMatches});
+            sendMatchesResult(req, res, newMatches);
         });
     });
 }
 
-export function get(req: NodebbRequest, res: NodebbResponse, next) {
-    let tid = req.params.tid;
-    let matchid = req.params.matchid;
+export function get(req: INodebbRequest, res: INodebbResponse) {
+    const tid = req.params.tid;
+    const matchid = req.params.matchid;
 
-    matchDb.getFromDb(tid, matchid, function (err: Error, match: matchDb.MatchWrapper) {
+    matchDb.getFromDb(tid, matchid, function (err: Error, match: Match) {
         if (err) {
             return res.status(500).json(err);
         }
@@ -282,12 +223,12 @@ export function get(req: NodebbRequest, res: NodebbResponse, next) {
 
         if (!req.query.withusers) {
             res.status(200);
-            return sendMatchResult(req, res, match.match);
+            return sendMatchResult(req, res, match);
         }
 
-        return addUsersAndReservations(req.uid, tid, match.match, function (err, newMatch) {
-            if (err) {
-                return res.status(500).json({exception: err, message: err.message, stacktrace: err.stack});
+        return addUsersAndReservations(req.uid, tid, match, function (error, newMatch) {
+            if (error) {
+                return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
             }
             res.status(200);
             sendMatchResult(req, res, newMatch);
@@ -295,11 +236,11 @@ export function get(req: NodebbRequest, res: NodebbResponse, next) {
     });
 }
 
-export function del (req: NodebbRequest, res: NodebbResponse, next) {
-    let tid = req.params.tid;
-    let matchid = req.params.matchid;
+export function del(req: INodebbRequest, res: INodebbResponse) {
+    const tid = req.params.tid;
+    const matchid = req.params.matchid;
 
-    matchDb.delFromDb(tid, matchid, function (err, result) {
+    matchDb.delFromDb(tid, matchid, function (err) {
         if (err) {
             return res.status(500).json(err);
         }

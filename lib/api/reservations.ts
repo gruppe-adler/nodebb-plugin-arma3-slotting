@@ -1,13 +1,13 @@
-import {NodebbRequest, NodebbResponse} from '../../types/nodebb';
-import * as slotDb from '../db/slot';
-import * as logger from '../logger';
+import {INodebbRequest, INodebbResponse} from "../../types/nodebb";
+import * as matchDb from "../db/match";
+import * as logger from "../logger";
 
-export function get(req: NodebbRequest, res: NodebbResponse) {
+export function get(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 
-    slotDb.getMatchReservations(tid, matchid, function (err, result) {
+    matchDb.getMatchReservations(tid, matchid, function (err, result: {[slotid: string]: string}) {
         if (err) {
             return res.status(500).json(err);
         }
@@ -23,31 +23,31 @@ export function get(req: NodebbRequest, res: NodebbResponse) {
     });
 }
 
-export function put(req: NodebbRequest, res: NodebbResponse) {
+export function put(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 
-    let model = req.body;
-    if (!model['reserved-for']) {
-        return res.status(400).json({"message": "missing reservation string 'reserved-for'"});
+    const model = req.body;
+    if (!model["reserved-for"]) {
+        return res.status(400).json({message: "missing reservation string 'reserved-for'"});
     }
 
-    slotDb.putSlotReservation(tid, matchid, slotid, model['reserved-for'], function (err, result) {
+    matchDb.putSlotReservation(tid, matchid, slotid, model["reserved-for"], function (err) {
         if (err) {
             return res.status(500).json(err);
         }
-        logger.info('reservation put for match %s, slot %s'.replace('%s', matchid).replace('%s', slotid));
+        logger.info("reservation put for match %s, slot %s".replace("%s", matchid).replace("%s", slotid));
         return res.status(204).json(null);
     });
 }
 
-export function del(req: NodebbRequest, res: NodebbResponse) {
+export function del(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 
-    slotDb.deleteSlotReservation(tid, matchid, slotid, function (err) {
+    matchDb.deleteSlotReservation(tid, matchid, slotid, function (err) {
         if (err) {
             return res.status(500).json(err);
         }

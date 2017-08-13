@@ -1,19 +1,21 @@
-import * as winston from '../../winston/lib/winston';
+import {Winston} from "winston";
 
-const id = 'plugin/arma3-slotting';
+const winston = require("../../winston/lib/winston") as Winston;
+
+const id = "plugin/arma3-slotting";
 
 function format(message: string): string {
-    return '[%s] %s'.replace('%s', id).replace('%s', message);
+    return "[%s] %s".replace("%s", id).replace("%s", message);
 }
 
-function makeLogFunction(level: string) {
-    return function (message: string) {
+function makeLogFunction(level: string): (message: string, e?: Error) => any {
+    return function (message: string, e?: Error) {
         arguments[0] = format(message);
         winston[level].apply(winston, arguments);
     };
 }
 
-export const debug = makeLogFunction('debug');
-export const info = makeLogFunction('info');
-export const warn = makeLogFunction('warn');
-export const error = makeLogFunction('error');
+export const debug = makeLogFunction("debug");
+export const info = makeLogFunction("info");
+export const warn = makeLogFunction("warn");
+export const error = makeLogFunction("error");
