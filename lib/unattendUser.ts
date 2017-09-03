@@ -1,7 +1,7 @@
-import * as matchDb from './db/match';
-import * as slotDb from './db/slot';
-import * as async from 'async';
-import * as _ from 'underscore';
+import * as async from "async";
+import * as _ from "underscore";
+import * as matchDb from "./db/match";
+import * as slotDb from "./db/slot";
 
 export function unattendUser(tid: number, uid: number, callback) {
     matchDb.getAllFromDb(tid, function (err, matches) {
@@ -9,15 +9,15 @@ export function unattendUser(tid: number, uid: number, callback) {
             matches.map(function (match) {
                 return _.partial(slotDb.deleteMatchUser, tid, match.uuid, uid);
             }),
-            function (err: Error, results: number[]) {
+            function (err2: Error, results: number[]) {
                 callback(
-                    err,
+                    err2,
                     results.reduce(
                         (prev: number, unslottedCount: number) => prev + unslottedCount,
-                        0
-                    )
+                        0,
+                    ),
                 );
-            }
+            },
         );
     });
 }

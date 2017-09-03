@@ -186,12 +186,6 @@
 			</ul>
 		</li>
 	</ul>
-
-
-	
-
-
-
 	<form data-matchid="{matchid}" data-tid="{tid}" id="match-definition-form">
 		<textarea id="match-definition">
 			{spec}
@@ -201,23 +195,7 @@
 		/*global require*/
 		require(['arma3-slotting/formatXml'], function (formatXml) {
 		    var textarea = $('#match-definition')[0];
-
 			textarea.value = formatXml(textarea.value.trim());
-
-			var matchStart1 = textarea.value.indexOf("<");
-			var matchStart2 = textarea.value.indexOf(">");
-			window.matchString1 = textarea.value.slice(matchStart1, matchStart2 + 1);
-
-			var matchEnd1 = textarea.value.lastIndexOf("<");
-			var matchEnd2 = textarea.value.lastIndexOf(">");			
-			window.matchString2 = textarea.value.slice(matchEnd1, matchEnd2 + 1);
-
-			var firstEdit = textarea.value.replace(window.matchString1,'');
-			textarea.value = firstEdit.replace(window.matchString2,'');
-
-			console.log(window.matchString1);
-			console.log(window.matchString2);
-
 		});
 	</script>
 	

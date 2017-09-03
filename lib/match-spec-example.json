@@ -1,0 +1,206 @@
+{
+    "company": [
+        {
+            "side": "blufor",
+            "callsign": "",
+            "frequency": "",
+            "natosymbol": "inf",
+            "vehicletype": "",
+            "reserved-for": "",
+            "slot": [],
+            "fireteam": [],
+            "squad": [
+                {
+                    "side": "",
+                    "callsign": "MH-9",
+                    "frequency": "",
+                    "natosymbol": "inf",
+                    "vehicletype": "",
+                    "reserved-for": "",
+                    "slot": [
+                        {
+                            "uuid": "577f07ea-144f-4459-8219-9429bdb03666",
+                            "shortcode": "PLT",
+                            "description": "",
+                            "reserved-for": ""
+                        },
+                        {
+                            "uuid": "c201476a-c49c-4f61-a811-b395ac35ef43",
+                            "shortcode": "PLT",
+                            "description": "",
+                            "reserved-for": ""
+                        }
+                    ],
+                    "fireteam": []
+                }
+            ],
+            "platoon": []
+        },
+        {
+            "side": "independent",
+            "callsign": "",
+            "frequency": "",
+            "natosymbol": "inf",
+            "vehicletype": "",
+            "reserved-for": "",
+            "slot": [],
+            "fireteam": [],
+            "squad": [],
+            "platoon": [
+                {
+                    "side": "",
+                    "callsign": "",
+                    "frequency": "",
+                    "natosymbol": "inf",
+                    "vehicletype": "",
+                    "reserved-for": "",
+                    "slot": [
+                        {
+                            "uuid": "fd1763f3-926e-4773-a925-41b024980f59",
+                            "shortcode": "PTL",
+                            "description": "",
+                            "reserved-for": ""
+                        },
+                        {
+                            "uuid": "0e3c57c5-abda-4d27-b4c6-78a31042fc47",
+                            "shortcode": "PTS",
+                            "description": "",
+                            "reserved-for": ""
+                        },
+                        {
+                            "uuid": "55776566-4b45-451a-8dd1-4de84a7b2afa",
+                            "shortcode": "PTM",
+                            "description": "",
+                            "reserved-for": ""
+                        },
+                        {
+                            "uuid": "05f5ffb9-22c8-4161-83ec-0f2cf758ecfd",
+                            "shortcode": "R",
+                            "description": "",
+                            "reserved-for": ""
+                        }
+                    ],
+                    "fireteam": [],
+                    "squad": [
+                        {
+                            "side": "",
+                            "callsign": "Reaper",
+                            "frequency": "85.5",
+                            "natosymbol": "inf",
+                            "vehicletype": "",
+                            "reserved-for": "",
+                            "slot": [
+                                {
+                                    "uuid": "a69e7c3d-b7a6-49a5-892a-9fa49a498981",
+                                    "shortcode": "SQL",
+                                    "description": "squad leader",
+                                    "reserved-for": ""
+                                },
+                                {
+                                    "uuid": "2670edad-90f0-48ab-a34a-9efa033e3f03",
+                                    "shortcode": "SQM",
+                                    "description": "squad medic",
+                                    "reserved-for": ""
+                                }
+                            ],
+                            "fireteam": [
+                                {
+                                    "slot": [
+                                        {
+                                            "uuid": "9f8f9730-e13f-4a89-81bb-64286dc0089b",
+                                            "shortcode": "FTL",
+                                            "description": "fireteam lead",
+                                            "reserved-for": ""
+                                        },
+                                        {
+                                            "uuid": "d45a2b6a-ed44-4030-b967-ffa99c9ba2a0",
+                                            "shortcode": "GR",
+                                            "description": "fireteam lead",
+                                            "reserved-for": ""
+                                        },
+                                        {
+                                            "uuid": "2b2d2c56-4785-4f50-869d-22fe5ef0ccfa",
+                                            "shortcode": "R",
+                                            "description": "",
+                                            "reserved-for": ""
+                                        },
+                                        {
+                                            "uuid": "15e41bb9-f46a-4ef9-956d-36a949a7a3a8",
+                                            "shortcode": "AR",
+                                            "description": "automatic rifleman",
+                                            "reserved-for": ""
+                                        }
+                                    ],
+                                    "reserved-for": ""
+                                },
+                                {
+                                    "slot": [
+                                        {
+                                            "uuid": "dc7298da-304f-4671-bb26-becbf995b064",
+                                            "shortcode": "FTL",
+                                            "description": "fireteam lead",
+                                            "reserved-for": ""
+                                        },
+                                        {
+                                            "uuid": "03301c9a-103e-4880-83e8-cd468853fcd5",
+                                            "shortcode": "GR",
+                                            "description": "fireteam lead",
+                                            "reserved-for": ""
+                                        },
+                                        {
+                                            "uuid": "726f5030-4e46-4ab2-90c5-b2f16cc64b2d",
+                                            "shortcode": "R",
+                                            "description": "",
+                                            "reserved-for": ""
+                                        },
+                                        {
+                                            "uuid": "0480c35f-216f-42d5-89cd-f59b0501f810",
+                                            "shortcode": "AR",
+                                            "description": "automatic rifleman",
+                                            "reserved-for": ""
+                                        }
+                                    ],
+                                    "reserved-for": ""
+                                }
+                            ]
+                        },
+                        {
+                            "side": "",
+                            "callsign": "Hunter",
+                            "frequency": "",
+                            "natosymbol": "inf",
+                            "vehicletype": "",
+                            "reserved-for": "",
+                            "slot": [
+                                {
+                                    "uuid": "bdcdd593-fb4f-4d1b-b840-3127974012db",
+                                    "shortcode": "PIL",
+                                    "description": "pilot",
+                                    "reserved-for": ""
+                                }
+                            ],
+                            "fireteam": []
+                        }
+                    ]
+                },
+                {
+                    "side": "",
+                    "callsign": "bumper",
+                    "frequency": "",
+                    "natosymbol": "inf",
+                    "vehicletype": "",
+                    "reserved-for": "",
+                    "slot": [],
+                    "fireteam": [],
+                    "squad": []
+                }
+            ]
+        }
+    ],
+    "platoon": [],
+    "squad": [],
+    "fireteam": [],
+    "slot": [],
+    "uuid": "59d383c6-8554-47d3-b549-29d5aba149e0",
+    "reserved-for": ""
+}

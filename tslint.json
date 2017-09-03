@@ -1,0 +1,16 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "max-classes-per-file": [false],
+        "no-require-imports": false,
+        "no-var-requires": false,
+        "only-arrow-functions": false,
+        "arrow-parens": false,
+        "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
+    },
+    "rulesDirectory": []
+}

@@ -1,24 +1,25 @@
-import * as slotDb from '../db/slot';
-import * as matchDb from '../db/match';
-import * as topicDb from '../db/topics';
-import * as notifications from '../db/notifications';
-import * as users from '../db/users';
-import {plugins, NodebbRequest, NodebbResponse, User} from '../../types/nodebb';
-import * as logger from '../logger';
-import * as _ from 'underscore';
-import * as async from 'async';
+import {noop} from "../fn";
 
-const plugins = <plugins>require('../../../../src/plugins');
+import * as async from "async";
+import * as _ from "underscore";
+import {INodebbRequest, INodebbResponse, IPlugins, IUser} from "../../types/nodebb";
+import * as matchDb from "../db/match";
+import * as notifications from "../db/notifications";
+import * as slotDb from "../db/slot";
+import * as topicDb from "../db/topics";
+import * as users from "../db/users";
+import * as logger from "../logger";
+import {Match} from "../match";
 
-const noop = function () {};
+const plugins = require("../../../../src/plugins") as IPlugins;
 
 function getSingleUser(currentUser: number, requestedUserid: number, callback) {
-    users.getUsers(currentUser, [requestedUserid], function (err, users) {
-        callback(err, users.shift());
-    })
+    users.getUsers(currentUser, [requestedUserid], function (err, resultUsers) {
+        callback(err, resultUsers.shift());
+    });
 }
 
-export function get (req: NodebbRequest, res: NodebbResponse) {
+export function get(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
@@ -39,39 +40,41 @@ export function get (req: NodebbRequest, res: NodebbResponse) {
     });
 }
 
-export function put(req: NodebbRequest, res) {
-    const tid = req.params.tid;
-    const matchid = req.params.matchid;
-    const slotid = req.params.slotid;
+export function put(req: INodebbRequest, res: INodebbResponse) {
+    const tid: number = Number(req.params.tid);
+    const matchid: string = req.params.matchid;
+    const slotid: string = req.params.slotid;
 
     const uid = Number(req.body.uid);
     if (!uid) {
-        return res.status(400).json({"message": "missing user id 'uid'"});
+        return res.status(400).json({message: "missing user id 'uid'"});
     }
 
-    async.parallel({
-        isTopicAdmin: _.partial(topicDb.isAllowedToEdit, req.uid, tid),
-        match: _.partial(matchDb.getFromDb, tid, matchid),
-        currentlySlottedUser: function (next) {
-            slotDb.getSlotUser(tid, matchid, slotid, function (err, slotUid) {
-                if (slotUid) {
-                    getSingleUser(req.uid, slotUid, next);
-                } else {
-                    next();
-                }
-            });
-        },
-        newUser: _.partial(getSingleUser, req.uid, uid)
-    }, function (err: Error, results: any /*{isTopicAdmin: boolean, match: matchDb.MatchWrapper, currentlySlottedUser: User, newUser: User}*/) {
+    async.parallel(
+        {
+            isTopicAdmin: _.partial(topicDb.isAllowedToEdit, req.uid, tid),
+            match: _.partial(matchDb.getFromDb, tid, matchid),
+            currentlySlottedUser(next) {
+                slotDb.getSlotUser(tid, matchid, slotid, function (err: Error, slotUid: number) {
+                    if (slotUid) {
+                        getSingleUser(req.uid, slotUid, next);
+                    } else {
+                        next();
+                    }
+                });
+            },
+            newUser: _.partial(getSingleUser, req.uid, uid),
+        } as any,
+        /*{isTopicAdmin: boolean, match: matchDb.MatchWrapper, currentlySlottedUser: User, newUser: User}*/
+        function (err: Error, results: any) {
         if (err) {
             return res.status(500).json({message: err.message});
         }
 
-        let isTopicAdmin = <boolean>results.isTopicAdmin;
-        let match = <matchDb.MatchWrapper>results.match;
-        let currentlySlottedUser = <User>results.currentlySlottedUser;
-        let newUser = results.newUser;
-
+        const isTopicAdmin = results.isTopicAdmin as boolean;
+        const match = results.match as Match;
+        const currentlySlottedUser = results.currentlySlottedUser as IUser;
+        const newUser = results.newUser;
 
         if (!isTopicAdmin) {
             if (currentlySlottedUser) {
@@ -85,28 +88,27 @@ export function put(req: NodebbRequest, res) {
             return res.status(404).json({message: "match %s not found".replace("%s", matchid)});
         }
 
-        slotDb.putSlotUser(tid, matchid, slotid, uid, function (err) {
-            if (err) {
-                return res.status(500).json({message: err.message});
+        slotDb.putSlotUser(tid, matchid, slotid, uid, function (error: Error) {
+            if (error) {
+                return res.status(500).json({message: error.message});
             }
-            logger.info('user put for match %s, slot %s'.replace('%s', matchid).replace('%s', slotid));
-            notifications.notifySlotted(match, currentlySlottedUser, newUser);
-            plugins.fireHook('action:arma3-slotting.set', {tid: tid, uid: uid, matchid: matchid}, noop);
+            logger.info("user put for match %s, slot %s".replace("%s", matchid).replace("%s", slotid));
+            notifications.notifySlotted({match, tid}, currentlySlottedUser, newUser);
+            plugins.fireHook("action:arma3-slotting.set", {tid, uid, matchid}, noop);
             return res.status(204).json(null);
         });
     });
 }
 
-export function del(req: NodebbRequest, res: NodebbResponse) {
+export function del(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 
-
     async.parallel({
         isTopicAdmin: _.partial(topicDb.isAllowedToEdit, req.uid, tid),
         match: _.partial(matchDb.getFromDb, tid, matchid),
-        currentlySlottedUser: function (next) {
+        currentlySlottedUser(next) {
             slotDb.getSlotUser(tid, matchid, slotid, function (err, slotUid) {
                 if (slotUid) {
                     getSingleUser(req.uid, slotUid, next);
@@ -114,16 +116,16 @@ export function del(req: NodebbRequest, res: NodebbResponse) {
                     next();
                 }
             });
-        }
+        },
     }, function (err: Error, results) {
         if (err) {
             return res.status(500).json({message: err.message});
         }
 
-        let isTopicAdmin = results.isTopicAdmin;
-        let match = <matchDb.MatchWrapper>results.match;
-        let currentlySlottedUser = <User>results.currentlySlottedUser;
-        let currentlySlottedUserId = currentlySlottedUser && Number(currentlySlottedUser.uid);
+        const isTopicAdmin = results.isTopicAdmin;
+        const match = results.match as Match;
+        const currentlySlottedUser = results.currentlySlottedUser as IUser;
+        const currentlySlottedUserId = currentlySlottedUser && Number(currentlySlottedUser.uid);
 
         if ((currentlySlottedUserId !== req.uid) && !isTopicAdmin) {
             return res.status(403).json({message: "You're not allowed to unslot that user."});
@@ -132,12 +134,12 @@ export function del(req: NodebbRequest, res: NodebbResponse) {
             return res.status(404).json({message: "Cant delete. Nobody is slotted there."});
         }
 
-        slotDb.deleteSlotUser(tid, matchid, slotid, function (err) {
-            if (err) {
-                return res.status(500).json(err);
+        slotDb.deleteSlotUser(tid, matchid, slotid, function (error: Error) {
+            if (error) {
+                return res.status(500).json(error);
             }
 
-            notifications.notifyUnslotted(match, currentlySlottedUser);
+            notifications.notifyUnslotted({match, tid}, currentlySlottedUser);
             return res.status(204).json(null);
         });
     });

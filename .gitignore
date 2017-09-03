@@ -1,2 +1,6 @@
-*.map
+**.js.map
+lib/*.js
+lib/*/*.js
+/plugin.js
+
 /node_modules

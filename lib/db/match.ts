@@ -1,49 +1,16 @@
-"use strict";
+import {DbCallback, IDb} from "../../types/nodebb";
+import {error} from "../logger";
+import {Match} from "../match";
 
-import {Db, DbCallback} from '../../types/nodebb'
-const db: Db = <Db>require('../../../../src/database');
+const db: IDb = require("../../../../src/database") as IDb;
 
-export interface Unit {
-    callsign?: string;
-    frequency?: string;
-    slot?: Slot|Slot[];
-}
-export interface Company extends Platoon {
-    platoon?: Platoon|Platoon[];
-}
-export interface Platoon extends Squad {
-    squad?: Squad|Squad[];
-}
-export interface Squad extends Fireteam {
-    fireteam?: Fireteam|Fireteam[];
-}
-export interface Fireteam extends Unit {
-}
-export interface Slot {
-}
-
-
-export interface Match {
-    tid: number;
-    uuid: string;
-    // this stinks. it should be companies: Company[] period. non-optional.deserialization should take care of it TODO
-    company?: Company[]|Company;
-    platoon?: Platoon|Platoon[];
-    squad?: Squad|Squad[];
-    fireteam?: Fireteam|Fireteam[];
-    slot?: Slot|Slot[];
-}
-
-export interface MatchWrapper {
-    tid: number;
-    match: Match;
-}
+type SlotReservationCallback = (err: Error, reservations: {[slotid: string]: string}) => any;
 
 function getRedisMatchesKey(tid: number): string {
-    return 'tid:%d:arma3-slotting:matches'.replace('%d', String(tid));
+    return "tid:%d:arma3-slotting:matches".replace("%d", String(tid));
 }
 
-export function delFromDb(tid, matchid: string, callback) {
+export function delFromDb(tid: number, matchid: string, callback) {
     db.deleteObjectField(getRedisMatchesKey(tid), matchid, callback);
 }
 
@@ -53,30 +20,66 @@ export function getAllFromDb(tid: number, callback: (err: Error, matches: Match[
             return callback(err, null);
         }
 
-        let matches: Match[] = [];
+        const matches: Match[] = [];
         Object.keys(result || {}).forEach(function (key) {
             if (result[key]) {
-                let match: MatchWrapper = <MatchWrapper>JSON.parse(result[key]);
-                matches.push(<Match>(match.match || match));
+                try {
+                    const match: Match = new Match(JSON.parse(result[key]).match);
+                    matches.push(match);
+                } catch (e) {
+                    error(`could not create a match from DB, tid ${tid}, match ${key}`, e);
+                }
             }
         });
         callback(err, matches);
-    })
+    });
 }
 
-export function getFromDb(tid, matchid, callback: (err: Error, match: MatchWrapper) => any) {
+export function getFromDb(tid: number, matchid: string, callback: (err: Error, match: Match) => any) {
     db.getObjectField(getRedisMatchesKey(tid), matchid, function (err, result) {
-        const match: MatchWrapper = <MatchWrapper>JSON.parse(result || "null");
-        if (match) {
-            match.tid = tid;
+        if (!result) {
+            return callback(err, result);
         }
-        if (match.match) {
-            match.match.tid = tid;
+
+        let match: Match;
+        try {
+            match = new Match(JSON.parse(result).match);
+        } catch (e) {
+            error(`could not create a match from DB, tid ${tid}, match ${matchid}`, e);
+            return callback(e, null);
         }
+
         callback(err, match);
     });
 }
 
-export function saveToDb(tid: number, matchid: string, matchJson: any, callback: DbCallback) {
-    db.setObjectField(getRedisMatchesKey(tid), matchid, JSON.stringify(matchJson), callback);
+export function saveToDb(tid: number, matchid: string, match: Match, callback: DbCallback) {
+    db.setObjectField(getRedisMatchesKey(tid), matchid, JSON.stringify({match: match.toJson(), tid}), callback);
+}
+
+export function putSlotReservation(tid: number, matchid: string, slotid: string, reservedFor: string, cb: DbCallback) {
+    getFromDb(tid, matchid, (err, match) => {
+        const s = match.getSlot(slotid);
+        if (s) {
+            s.setReservations([reservedFor]);
+        }
+        saveToDb(tid, matchid, match, cb);
+    });
+}
+
+export function getMatchReservations(tid: number, matchid: string, callback: SlotReservationCallback) {
+    return getFromDb(tid, matchid, (err, match) => {
+        const slots = match.getSlots();
+        const reservations = {};
+        slots.forEach(s => reservations[s.uuid] = s.getReservations().join(","));
+        callback(err, reservations);
+    });
+}
+
+export function deleteSlotReservation(tid: number, matchid: string, slotid: string, callback: DbCallback) {
+    return getFromDb(tid, matchid, (err, match) => {
+        const slot = match.getSlot(slotid);
+        slot.setReservations([]);
+        saveToDb(tid, matchid, match, callback);
+    });
 }
