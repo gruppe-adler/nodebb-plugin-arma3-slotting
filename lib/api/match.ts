@@ -202,6 +202,7 @@ export function getAll(req: INodebbRequest, res: INodebbResponse) {
             if (error) {
                 return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
             }
+            newMatches.forEach(newMatch => newMatch.updateSlottedPlayerCount())
             res.status(200);
             sendMatchesResult(req, res, newMatches);
         });
@@ -230,6 +231,7 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
             if (error) {
                 return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
             }
+            newMatch.updateSlottedPlayerCount();
             res.status(200);
             sendMatchResult(req, res, newMatch);
         });

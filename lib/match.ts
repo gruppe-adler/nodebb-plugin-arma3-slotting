@@ -7,7 +7,7 @@ function toArray(m: any): any[] {
         return [];
     }
     if (!Array.isArray(m)) {
-        m = [m];
+        return [m];
     }
     return m;
 }
@@ -46,7 +46,9 @@ export interface IReservable {
 
 interface ISlotContainer {
     slot: Slot[];
+    slottedPlayerCount: number;
     getSlots(): Slot[];
+    updateSlottedPlayerCount(): void;
 }
 interface IFireteamContainer {
     fireteam: Fireteam[];
@@ -145,6 +147,7 @@ export class Slot implements IReservable {
 export class Fireteam implements IReservable, ISlotContainer {
     public slot: Slot[] = [];
     public "reserved-for": string|undefined;
+    public slottedPlayerCount: number;
 
     constructor(dto?: any) {
         if (!dto) {
@@ -162,10 +165,15 @@ export class Fireteam implements IReservable, ISlotContainer {
         const v = this["reserved-for"] || "";
         return v.split(",").filter(Boolean);
     }
+
+    public updateSlottedPlayerCount(): void {
+        this.slottedPlayerCount = this.getSlots().filter(s => s.user).length;
+    }
 }
 export class Squad extends BasicSelfContainedUnit implements IFireteamContainer, ISlotContainer {
     public slot: Slot[] = [];
     public fireteam: Fireteam[] = [];
+    public slottedPlayerCount: number;
 
     constructor(dto?: any) {
         super(dto);
@@ -178,6 +186,14 @@ export class Squad extends BasicSelfContainedUnit implements IFireteamContainer,
 
     public getSlots(): Slot[] {
         return this.fireteam.reduce((slots, ft) => slots.concat(ft.getSlots()), this.slot);
+    }
+
+    public updateSlottedPlayerCount(): void {
+        this.slottedPlayerCount = this.getSlots().filter(s => s.user).length;
+    }
+
+    public getSlotContainer(): ISlotContainer[] {
+        return this.fireteam;
     }
 }
 export class Platoon extends Squad implements ISquadContainer, IFireteamContainer, ISlotContainer, ISelfContainedUnit {
@@ -194,6 +210,11 @@ export class Platoon extends Squad implements ISquadContainer, IFireteamContaine
 
     public getSlots(): Slot[] {
        return this.squad.reduce((slots, squad) => slots.concat(squad.getSlots()), super.getSlots());
+    }
+
+    public getSlotContainer(): ISlotContainer[] {
+        return this.squad
+            .reduce((slotContainer, squad) => slotContainer.concat(squad.getSlotContainer()), super.getSlotContainer());
     }
 }
 
@@ -215,6 +236,11 @@ export class Company
     public getSlots(): Slot[] {
         return this.platoon.reduce((slots, platoon) => slots.concat(platoon.getSlots()), super.getSlots());
     }
+
+    public getSlotContainer(): ISlotContainer[] {
+        return this.platoon
+            .reduce((slotContainer, squad) => slotContainer.concat(squad.getSlotContainer()), super.getSlotContainer());
+    }
 }
 
 export class Match
@@ -231,7 +257,9 @@ export class Match
     public squad: Squad[] = [];
     public fireteam: Fireteam[] = [];
     public slot: Slot[] = [];
+    public slottedPlayerCount: number;
     public "reserved-for": string|undefined;
+
     constructor(dto?: any) {
         if (!dto) {
             this.uuid = v4();
@@ -251,6 +279,13 @@ export class Match
 
     public toJson(): any {
         return JSON.parse(JSON.stringify(this));
+    }
+
+    public updateSlottedPlayerCount(): void {
+        [this.fireteam, this.squad, this.platoon, this.company]
+            .forEach(units => units.forEach(fireteam => fireteam.updateSlottedPlayerCount()));
+
+        this.slottedPlayerCount = this.getSlots().filter(s => s.user).length;
     }
 
     public getReservations(): string[] {
