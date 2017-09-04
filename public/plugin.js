@@ -262,8 +262,9 @@ require([
             },
             data: spec,
             success: successCallback,
-            error: function () {
-                bootbox.alert('das ging schief :(');
+            error: function (request) {
+                var message = (request.responseJSON && request.responseJSON.error && request.responseJSON.error.message) || request.statusText;
+                bootbox.alert('<div>Statuscode: ' + request.status + '</div><div><blockquote>' + message + '</blockquote></div>');
             }
         });
     };
