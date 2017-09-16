@@ -14,14 +14,10 @@ require([
     eventLoadedService,
     expandUnitTree
 ) {
-    var CACHEBUSTER = '4';
-
     var cache = {
         topicNode: null,
         eventDate: null
     };
-
-    getTemplates.setCacheBuster(CACHEBUSTER);
 
     console.log("arma3-slotting plugin js successfully started");
 
@@ -29,7 +25,7 @@ require([
         var css = document.createElement('link');
         css.rel = 'stylesheet';
         css.type = 'text/css';
-        css.href = '/plugins/nodebb-plugin-arma3-slotting/css/styles.css?v=' + CACHEBUSTER;
+        css.href = '/plugins/nodebb-plugin-arma3-slotting/css/styles.css?' + app.cacheBuster;
         document.head.appendChild(css);
     }());
 
@@ -195,13 +191,13 @@ require([
                 }
 
                 if (dataLocalized) {
-                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '.xml?v=' + CACHEBUSTER, function (doc) {
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '.xml?' + app.cacheBuster, function (doc) {
                         addcustomAttributesToDoc(doc);
                         insertTextAtCursorPosition('\n' + doc.firstElementChild.outerHTML, document.getElementById('match-definition'));
                     });
 
                 } else {
-                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '.xml?v=' + CACHEBUSTER, function (doc) {
+                    $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateName + '.xml?' + app.cacheBuster, function (doc) {
                         addcustomAttributesToDoc(doc);
                         insertTextAtCursorPosition('\n' + doc.firstElementChild.outerHTML, document.getElementById('match-definition'));
                     });

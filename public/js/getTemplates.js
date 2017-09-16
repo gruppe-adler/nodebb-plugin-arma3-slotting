@@ -1,12 +1,11 @@
 define("arma3-slotting/getTemplates",
     ["async", "underscore"],
     function(async, _) {
-        var CACHEBUSTER = '4';
         var getTemplates = function (templatePaths /*array of or object with paths relative to public/templates*/, callback) {
             async.parallel(
                 _.each(templatePaths, function (templatePath, index, list) {
                     list[index] = function (next) {
-                        getTemplate(templatePath + '?' + CACHEBUSTER, function (template) {
+                        getTemplate(templatePath + '?' + app.cacheBuster, function (template) {
                             next(null, template);
                         });
                     };
@@ -28,10 +27,6 @@ define("arma3-slotting/getTemplates",
                 });
             }
         }());
-
-        getTemplates.setCacheBuster = function (x) {
-            CACHEBUSTER = x;
-        };
 
         return getTemplates;
     }
