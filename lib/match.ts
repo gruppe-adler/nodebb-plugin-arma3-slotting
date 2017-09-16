@@ -77,20 +77,21 @@ export interface IMatchUser {
 class BasicSelfContainedUnit implements ISelfContainedUnit {
 
     public side: Side = Side.none;
-    public callsign: string = "";
-    public frequency: string = "";
+    public callsign: string|undefined;
+    public frequency: string|undefined;
     public natosymbol: Natosymbol = Natosymbol.inf;
-    public vehicletype: string = "";
+    public vehicletype: string|undefined;
     public "reserved-for": string|undefined;
+    public "min-slotted-player-count": number|undefined;
     constructor(dto?: any) {
         if (!dto) {
             return;
         }
 
-        ["callsign", "frequency", "vehicletype"].forEach((name) => {
-            this.setStringProperty(name, dto);
-        });
-        this["reserved-for"] = dto["reserved-for"] || "";
+        ["callsign", "frequency", "vehicletype", "reserved-for"]
+            .forEach((name) => this[name] = dto[name]);
+        ["min-slotted-player-count"]
+            .forEach((name) => this[name] = Number(dto[name]) || undefined);
         this.setEnum("side", dto, Side);
         this.setEnum("natosymbol", dto, Natosymbol);
     }
@@ -110,28 +111,26 @@ class BasicSelfContainedUnit implements ISelfContainedUnit {
 
         this[name] = dto[name];
     }
-
-    protected setStringProperty(name: string, dto: any) {
-        const value = dto[name];
-        this[name] = value ? String(value) : "";
-    }
 }
 
 export class Slot implements IReservable {
-    public readonly uuid: string = "";
-    public shortcode: string = "";
-    public description: string = "";
+    public readonly uuid: string|undefined;
+    public shortcode: string|undefined;
+    public description: string|undefined;
     public "reserved-for": string|undefined;
+    public "min-slotted-player-count": number|undefined;
     public user?: IMatchUser;
-    constructor(obj?: any) {
-        if (!obj) {
+    constructor(dto?: any) {
+        if (!dto) {
             this.uuid = v4();
             return;
         }
-        this.shortcode = obj.shortcode || "";
-        this.description = obj.description || "";
-        this["reserved-for"] = obj["reserved-for"] || "";
-        this.uuid = obj.uuid || v4();
+        this.shortcode = dto.shortcode;
+        this.description = dto.description;
+        this["reserved-for"] = dto["reserved-for"];
+        ["min-slotted-player-count"]
+            .forEach((name) => this[name] = Number(dto[name]) || undefined);
+        this.uuid = dto.uuid || v4();
     }
 
     public getReservations(): string[] {
@@ -147,6 +146,7 @@ export class Slot implements IReservable {
 export class Fireteam implements IReservable, ISlotContainer {
     public slot: Slot[] = [];
     public "reserved-for": string|undefined;
+    public "min-slotted-player-count": number|undefined;
     public slottedPlayerCount: number;
 
     constructor(dto?: any) {
@@ -154,7 +154,9 @@ export class Fireteam implements IReservable, ISlotContainer {
             return;
         }
         this.slot = toArray(dto.slot).map((obj) => new Slot(obj));
-        this["reserved-for"] = dto["reserved-for"] || "";
+        this["reserved-for"] = dto["reserved-for"];
+        ["min-slotted-player-count"]
+            .forEach((name) => this[name] = Number(dto[name]) || undefined);
     }
 
     public getSlots(): Slot[] {
@@ -272,7 +274,7 @@ export class Match
         this.squad = toArray(dto.squad).map((obj) => new Squad(obj));
         this.platoon = toArray(dto.platoon).map((obj) => new Platoon(obj));
         this.company = toArray(dto.company).map((obj) => new Company(obj));
-        this["reserved-for"] = typeof dto["reserved-for"] === "string" ? dto["reserved-for"] : "";
+        this["reserved-for"] = dto["reserved-for"];
 
         this.validateSlotUuidUniqueness();
     }

@@ -1,11 +1,13 @@
 <div component="match" data-uuid="<%- x.uuid %>">
 	<small class="left" style="float: left;
-margin-left: 10px;
-margin-bottom: 10px;
-text-transform: uppercase;
-color: #777;
-font-weight: 300;
-font-size: 14px;">Slotliste
+		margin-left: 10px;
+		margin-bottom: 10px;
+		text-transform: uppercase;
+		color: #777;
+		font-weight: 300;
+		font-size: 14px;"
+	>
+		Slotliste (geslottet: <%- x.slottedPlayerCount %>)
 	</small>
 	<br><br>
 	<% if (x.hasPermissions) { %>

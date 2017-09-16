@@ -6,9 +6,10 @@
 			<li><a href="#" class=""><i class="fa fa-fw"></i> Selbst slotten</a></li>
 		</ul>
 	</div>
-
+<!-- <%= JSON.stringify(x) %> -->
 	<% __tmpIsAllowedToEditClass = (
-	    !x['reserved-for']
+		x.minSlottedPlayerCountFulfilled &&
+		(!x['reserved-for']
 		|| _.intersection(
 			window.app.groupNames
 				.map(function (u) {return u.toLowerCase()}),
@@ -17,8 +18,7 @@
 				.map(function (u) {return u.trim()})
 				.map(function (u) {return u.toLowerCase()})
 				.filter(Boolean)
-		).length > 0) ? 'slot_button' : ''; %>
-
+		).length > 0)) ? 'slot_button' : ''; %>
 	<% if (x.user) { %>
 		<div class="<%- __tmpIsAllowedToEditClass%>"
 			data-username="<%- x.user.username %>"
@@ -46,7 +46,9 @@
 	<% } else { %>
 		
 		<a href="#" class="<%- __tmpIsAllowedToEditClass%>">
-			<div class="avatar avatar-sm avatar-rounded" title="<% if (x.reservation) {%><%- x.reservation %><%}%>">
+			<div class="avatar avatar-sm avatar-rounded"
+				 title="<%- [(x['min-slotted-player-count'] ? x['min-slotted-player-count'] + "+ players" : ""), (x['reserved-for'] || "")].filter(Boolean).join(',') %>"
+			>
 				<span class="<% if (x.reservation) {%>reservation<%} %>"></span>
 			</div>	
 		</a>

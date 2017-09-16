@@ -1,7 +1,7 @@
 "use strict";
 
-import {Match, Natosymbol, Slot, Squad} from "./match";
 import {readFileSync} from "fs";
+import {Match, Natosymbol, Slot, Squad} from "./match";
 
 function assertDeepEqual(a, b, path?: string) {
     path = path || "";
@@ -80,13 +80,12 @@ describe("Match", function () {
                 (new Match({uuid: "1"})).toJson(),
             ).toEqual(
                 {
-                    "company": [],
-                    "fireteam": [],
-                    "platoon": [],
-                    "reserved-for": "",
-                    "slot": [],
-                    "squad": [],
-                    "uuid": "1",
+                    company: [],
+                    fireteam: [],
+                    platoon: [],
+                    slot: [],
+                    squad: [],
+                    uuid: "1",
                 },
             );
         });
