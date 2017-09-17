@@ -187,12 +187,12 @@ const isAdminOrThreadOwner = function (req: INodebbRequest, res) {
             return res.status(500).json(err);
         }
 
-        userDb.getGroups(req.uid, function (error, groups) {
+        userDb.getGroups([req.uid], function (error, groups) {
             if (error) {
                 return res.status(500).json(error);
             }
             return res.status(200).json({
-                groups,
+                groups: groups[req.uid],
                 result: hasAdminPermission,
             });
         });

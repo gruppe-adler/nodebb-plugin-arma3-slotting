@@ -29,6 +29,10 @@ export interface IUser {
     picture?: string;
 }
 
+export interface IUserGroup {
+    name: string;
+}
+
 export interface IUsers {
     getUsersWithFields: (userids: number[], attributes: string[], currentUser: number, callback: DbCallback) => any;
     isModerator: (uid: number, cid: number, cb: BooleanResultCallback) => any;

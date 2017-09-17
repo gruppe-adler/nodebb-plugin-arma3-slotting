@@ -12,7 +12,7 @@ import * as matchDb from "../db/match";
 import * as slotDb from "../db/slot";
 import * as userDb from "../db/users";
 import * as logger from "../logger";
-import {IMatchUser, Match, Slot} from "../match";
+import {IMatchInputUser, IMatchOutputUser, Match, Slot} from "../match";
 import {XmlMatchRequest} from "../xml-match-request";
 
 function sendMatchesResult(req: INodebbRequest, res: INodebbResponse, result: Match[]) {
@@ -44,7 +44,7 @@ function addUsersAndReservations(currentUser, tid: number, match: Match, callbac
                 return callback(err, null);
             }
 
-            const uidUserNodeMap: { [uid: number]: IMatchUser } = {};
+            const uidUserNodeMap: { [uid: number]: IMatchInputUser } = {};
 
             try {
                 match.getSlots().forEach(function (slot: Slot) {
@@ -68,7 +68,7 @@ function addUsersAndReservations(currentUser, tid: number, match: Match, callbac
                 currentUser,
                 Object.getOwnPropertyNames(uidUserNodeMap).map(Number),
                 function (error, users) {
-                    users.forEach(function (user) {
+                    users.forEach(function (user: IMatchOutputUser) {
                         const matchUser = uidUserNodeMap[user.uid];
                         if (!matchUser) {
                             return logger.error("something went wrong. " + user.uid + " not found in node map");
@@ -202,7 +202,7 @@ export function getAll(req: INodebbRequest, res: INodebbResponse) {
             if (error) {
                 return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
             }
-            newMatches.forEach(newMatch => newMatch.updateSlottedPlayerCount())
+            newMatches.forEach(newMatch => newMatch.updateSlottedPlayerCount());
             res.status(200);
             sendMatchesResult(req, res, newMatches);
         });

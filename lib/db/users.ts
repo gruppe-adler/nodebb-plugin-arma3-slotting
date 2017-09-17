@@ -1,38 +1,58 @@
-import * as async from "async";
-import * as  _ from "underscore";
+import {parallel} from "async";
+import {partial} from "underscore";
 
-import {BooleanResultCallback, IUsers} from "../../types/nodebb";
+import {BooleanResultCallback, IUser, IUserGroup, IUsers} from "../../types/nodebb";
 import {AnyCallback} from "../fn";
+import {IMatchOutputUser} from "../match";
 
 const nodebbUsersModule = require("../../../../src/user") as IUsers;
 const nodebbGroupsModule = require("../../../../src/groups");
 
-export function getUsers(currentUser: number, userids: number[], callback: AnyCallback) {
-    nodebbUsersModule.getUsersWithFields(
-        userids,
-        ["uid", "username", "userslug", "picture", "icon:bgColor", "icon:text"],
-        currentUser,
-        callback,
-    );
+export function getUsers(
+    currentUser: number,
+    userids: number[], callback: (error: Error, users: IMatchOutputUser[]) => void,
+) {
+    parallel({
+        groups: (next) => {
+            getGroups(userids, next);
+        },
+        users: (next: AnyCallback) => {
+            nodebbUsersModule.getUsersWithFields(
+                userids,
+                ["uid", "username", "userslug", "picture", "icon:bgColor", "icon:text"],
+                currentUser,
+                next,
+            );
+        },
+    }, (error: Error, results: {users: IUser[], groups: {[uid: number]: string[]}}) => {
+        const outputUsers: IMatchOutputUser[] = results.users.map(user => {
+            (user as IMatchOutputUser).groups = results.groups[user.uid];
+            return user as IMatchOutputUser;
+        });
+        callback(error, outputUsers);
+    });
 }
 
 export function isModerator(uid: number, cid: number, callback: BooleanResultCallback) {
-    async.parallel([
-        _.partial(nodebbUsersModule.isModerator, uid, cid),
-        _.partial(nodebbUsersModule.isAdminOrGlobalMod, uid),
+    parallel([
+        partial(nodebbUsersModule.isModerator, uid, cid),
+        partial(nodebbUsersModule.isAdminOrGlobalMod, uid),
     ], function (err, results) {
         callback(err, results[0] || results[1]);
     });
 }
 
-export function getGroups(uid: number, callback) {
-    nodebbGroupsModule.getUserGroups([uid], function (err, groupsForUids) {
+export function getGroups(uids: number[], callback: (error: Error, groups: {[uid: number]: string[]}) => void) {
+    nodebbGroupsModule.getUserGroups(uids, function (err: Error, groupsForUids: IUserGroup[][]) {
+        const groupMap = {};
         if (err) {
-            throw callback(err);
+            throw callback(err, {});
         }
 
-        const groups = groupsForUids[0];
+        groupsForUids.forEach((groups: IUserGroup[], idx: number) => {
+            groupMap[uids[idx]] = groups.map(_ => _.name);
+        });
 
-        callback(err, groups.map(function (group) { return group.name; }));
+        callback(err, groupMap);
     });
 }

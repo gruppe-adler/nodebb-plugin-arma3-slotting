@@ -1,4 +1,5 @@
 import {v4} from "node-uuid";
+import {IUser} from "../types/nodebb";
 
 const jsonToXml = require("xml2json");
 
@@ -70,7 +71,11 @@ interface ISelfContainedUnit extends IReservable {
     vehicletype: string;
 }
 
-export interface IMatchUser {
+export interface IMatchOutputUser extends IUser {
+    groups: string[];
+}
+
+export interface IMatchInputUser {
     uid: number;
 }
 
@@ -119,7 +124,7 @@ export class Slot implements IReservable {
     public description: string|undefined;
     public "reserved-for": string|undefined;
     public "min-slotted-player-count": number|undefined;
-    public user?: IMatchUser;
+    public user?: IMatchInputUser;
     constructor(dto?: any) {
         if (!dto) {
             this.uuid = v4();
