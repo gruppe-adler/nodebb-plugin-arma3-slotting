@@ -49,7 +49,13 @@ function addUsersAndReservations(currentUser, tid: number, match: Match, callbac
                 function (error: Error, users) {
                     Object.keys(slot2user).forEach((slotid: string) => {
                         const uid = slot2user[slotid];
-                        match.getSlot(slotid).user = users.find(_ => _.uid === uid);
+                        const slot = match.getSlot(slotid);
+                        if (slot) {
+                            slot.user = users.find(_ => _.uid === uid);
+                        } else {
+                            logger.debug(`slot ${slotid} seems to not exist in match ${tid}/${match.uuid} anymore, ` +
+                                `although user ${uid} is slotted`);
+                        }
                     });
                     try {
                         callback(null, match);
