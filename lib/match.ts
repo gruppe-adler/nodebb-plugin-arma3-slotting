@@ -308,7 +308,7 @@ export class Match
     }
 
     public getSlots(): Slot[] {
-        const subUnits: ISlotContainer[][] = [this.fireteam, this.platoon, this.company];
+        const subUnits: ISlotContainer[][] = [this.squad, this.fireteam, this.platoon, this.company];
         return subUnits.reduce((slots, units) => {
             return units.reduce((unitSlots, unit) => unitSlots.concat(unit.getSlots()), slots);
         }, this.slot);

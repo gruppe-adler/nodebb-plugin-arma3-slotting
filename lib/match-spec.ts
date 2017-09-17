@@ -171,7 +171,7 @@ describe("Match", function () {
             expect(match.getSlots().find(s => s.uuid === "2")).toBeTruthy();
         });
 
-        it("recursively returns all slots", function () {
+        it("recursively returns all slots company/platoon/squad/fireteam/slot", function () {
             const match = (new Match(
                 {
                     company: [{platoon: [{squad: [{fireteam: [{slot: [{uuid: "2"}]}]}]}]}],
@@ -183,6 +183,41 @@ describe("Match", function () {
             expect(match.getSlots().length).toEqual(2);
             expect(match.getSlots().find(s => s.uuid === "1")).toBeTruthy();
             expect(match.getSlots().find(s => s.uuid === "2")).toBeTruthy();
+        });
+
+        it("recursively returns all slots company/squad/slot", function () {
+            const match = (new Match(
+                {
+                    company: [
+                        {squad: [
+                            {slot: [{uuid: "x"}]},
+                        ]},
+                    ],
+                    uuid: "1",
+                },
+            ));
+
+            expect(match.getSlots().length).toEqual(1);
+            expect(match.getSlots()[0].uuid).toEqual("x");
+        });
+        it("returns all slots even in squad/slot", () => {
+            const match = (new Match({
+                squad: [{
+                    callsign: "Zulu",
+                    natosymbol: "inf",
+                    slot: [{
+                        description: "Truppführung",
+                        shortcode: "TL",
+                        uuid: "e614d183-3e7c-4041-8735-4e6223a9b64c",
+                    }, {
+                        description: "Rifelman",
+                        shortcode: "RF",
+                        uuid: "8754cc7f-ddff-4258-bdb2-4af3a2a98eef",
+                    }],
+                }],
+                uuid: "acb32e76-c4a8-406f-bc6c-9e4896fcf273",
+            }));
+            expect(match.getSlots().length).toBe(2);
         });
     });
 });
