@@ -1,6 +1,6 @@
 "use strict";
 
-/*global $, app, bootbox */
+/*global $, app, bootbox, JSON, window, console, config */
 require([
     'async',
     'underscore',
@@ -29,7 +29,7 @@ require([
         document.head.appendChild(css);
     }());
 
-    $(document).on('click', '[component="topic"] .slot_button', function (event) {
+    $(document).on('click', '[component="topic"] .slot_button', function () {
         var $button = $(this);
         var uid = Number($button.attr('data-uid'));
         var slotID = $button.parent().attr("data-uuid");
@@ -86,7 +86,6 @@ require([
         });
     });
 
-
     $(document).on('click', '#match-add-submit', function (event) {
         event.preventDefault();
         var form = document.getElementById('match-definition-form');
@@ -98,7 +97,7 @@ require([
         });
     });
 
-    $(document).on('click', '[component="topic"] .match-control-delete', function (event) {
+    $(document).on('click', '[component="topic"] .match-control-delete', function () {
         // console.log('match delete');
         var $button  = $(this);
         var topicID = $button.parents('[component="topic"]').attr("data-tid");
@@ -121,11 +120,9 @@ require([
         );
     });
 
-
     $(document).on('dragover', '.slot .avatar', function (event) {
         event.preventDefault();
     });
-
 
     $(document).on('drop', '[component="topic/arma3-slotting"] .slot .slot_button .avatar', function (event) {
         event.preventDefault();
@@ -144,13 +141,6 @@ require([
         actionOnMySlot('PUT', {uid: user.uid}, load);
     });
 
-    /*
-    $(document).on('click', '#boolean_language_eng', function (event) {
-        window.preset_boolean_eng = !(window.preset_boolean_eng);
-        console.log("setting languageEng to " + window.preset_boolean_eng.toString());
-    });
-    */
-
      $(document).on('click', '.match-template-button', function (event) {
         // console.log('insert preset');
 
@@ -165,9 +155,9 @@ require([
         var form = $('<form id="modal-presets" action="">\
             <h2>' + headerText + ' einfügen</h2><br/>\
             <small>Alle Felder optional. Rufname wird ggf. mit Dummy befüllt.</small><br/>\
-    <input type="text" placeholder="Rufname" name="callsign" /><br/>\
-    <input type="text" placeholder="Frequenz" name="frequency"/><br/>\
-    <input type="text" placeholder="Ingame-Lobby-Bezeichner" name="ingamelobby"/><br>\
+    <input placeholder="Rufname" name="callsign" /><br/>\
+    <input placeholder="Frequenz" name="frequency"/><br/>\
+    <input placeholder="Ingame-Lobby-Bezeichner" name="ingamelobby"/><br>\
     </form>');
 
         /* dont show dialog for single slots */
@@ -247,7 +237,7 @@ require([
 
     var createMatch = function (spec, tid, successCallback) {
         if (spec.indexOf('<match') !== 0) {
-            spec = window.matchString1 + spec + window.matchString2;
+            spec = '<match>' + spec + '</match>';
         }
         $.ajax({
             method: 'POST',
@@ -281,7 +271,7 @@ require([
 
     var putMatch = function (spec, tid, matchUuid, successCallback) {
         if (spec.indexOf('<match') !== 0) {
-            spec = window.matchString1 + spec + window.matchString2;
+            spec = '<match>' + spec + '</match>';
         }
         $.ajax({
             method: 'PUT',
@@ -340,62 +330,41 @@ require([
         });
     };
 
-    function getMatchAsXml(topicId, matchUuid, cb) {
-        $.ajax({
-            method: 'GET',
-            url: '/api/arma3-slotting/' + topicId + '/match/' + matchUuid,
-            headers: {
-                Accept: 'application/xml',
-                'Content-Type': 'application/xml'
-            },
-            dataType: "text", // else jquery will parse xml response and return an xml dom object
-            success: cb,
-            error: function () {
-                alert('nooo this should not happen');
-                console.warn(arguments);
-            }
-        });
-    }
-
-   
     function insertTextAtCursorPosition(text, inputField) {
-      var input = inputField;
+      var input = inputField, range;
       // console.log(input);
-      if (input == undefined) { return; }
+      if (!input) { return; }
       var scrollPos = input.scrollTop;
       var pos = 0;
       var browser = ((input.selectionStart || input.selectionStart == "0") ? 
         "ff" : (document.selection ? "ie" : false ) );
-      if (browser == "ie") { 
+      if (browser === "ie") {
         input.focus();
-        var range = document.selection.createRange();
+        range = document.selection.createRange();
         range.moveStart ("character", -input.value.length);
         pos = range.text.length;
       }
-      else if (browser == "ff") { pos = input.selectionStart };
+      else if (browser === "ff") { pos = input.selectionStart }
 
       var front = (input.value).substring(0, pos);  
       var back = (input.value).substring(pos, input.value.length); 
       input.value = front+text+back;
       pos = pos + text.length;
-      if (browser == "ie") { 
+      if (browser === "ie") {
         input.focus();
-        var range = document.selection.createRange();
+        range = document.selection.createRange();
         range.moveStart ("character", -input.value.length);
         range.moveStart ("character", pos);
         range.moveEnd ("character", 0);
         range.select();
       }
-      else if (browser == "ff") {
+      else if (browser === "ff") {
         input.selectionStart = pos;
         input.selectionEnd = pos;
         input.focus();
       }
       input.scrollTop = scrollPos;
     }
-
-
-
 
     // cb = callback
     function getMatches(topicId, cb) {
@@ -407,11 +376,6 @@ require([
             cb(null, response);
         });
     }
-
-  
-
-   
-
 
     function insertAddMatchButton(markup) {
         // console.log("slotting-insertslottinbutton called");
@@ -427,19 +391,6 @@ require([
             mainButtonsNode.parentNode.insertBefore(node.firstElementChild, mainButtonsNode);
 
         });
-    }
-
-    function checkDateLock(d) {
-        var now = (new Date());
-
-        var fillDate = new Date(d);
-        fillDate.setHours(20);
-        fillDate.setMinutes(0);
-
-        var itsHistory = (now.getTime() > fillDate.getTime());
-        console.log("now is: " + now + " - fillDate is: " + fillDate);
-
-        return itsHistory;
     }
 
     var insertSlotlistsNode = function (slottingNode) {
@@ -461,15 +412,6 @@ require([
             firstPostCheck.appendChild(slottingNode);
         }
 
-        /*
-        var content = topicContentNode.querySelector('[component="post/content"]');
-        var existingSlottingComponentNode = content.querySelector('[component="topic/slotting"]');
-        if (existingSlottingComponentNode) {
-            content.replaceChild(slottingNode, existingSlottingComponentNode);
-        } else if (content.children.length === 1) {
-            content.appendChild(slottingNode);
-        }
-        */
         refreshToolTips();
     };
 

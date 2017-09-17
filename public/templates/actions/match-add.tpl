@@ -191,8 +191,4 @@
 	<form  data-tid="{tid}" id="match-definition-form">
 		<textarea id="match-definition"><match></match></textarea>
 	</form>
-	<script>
-		window.matchString1 = "<match>";
-		window.matchString2 = "</match>";
-	</script>
 </div>
