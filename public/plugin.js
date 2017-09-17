@@ -446,7 +446,8 @@ require([
                         obj[index] = _.template(templateString, {variable: 'x'});
                     }),
                     allUserGroups: allGroups,
-                    currentUserGroupNames: permissionsAndGroups.groups
+                    currentUserGroupNames: permissionsAndGroups.groups,
+                    setShowGroupColor: setShowGroupColor
                 };
 
                 _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
@@ -464,7 +465,7 @@ require([
                 var matchesFragment = document.createElement('div');
                 matchesFragment.setAttribute('component', 'topic/arma3-slotting');
 
-                matchesFragment.innerHTML = matches.map(function (match) {
+                matchesFragment.innerHTML = getEventControlsMarkup() + matches.map(function (match) {
                     match.tid = topicId;
                     match.hasPermissions = permissionsAndGroups.result;
                     var x = expandUnitTree(match);
@@ -472,8 +473,29 @@ require([
                 }).join('\n<!-- match separation -->\n');
 
                 insertSlotlistsNode(matchesFragment);
+                var showGroupColorCheckbox = document.querySelector('#input_arma3-slotting-show-group-color');
+                // showGroupColorCheckbox.checked = getInitialGroupColorCheckboxState();
+                setShowGroupColor(showGroupColorCheckbox);
             }
         );
+    }
+
+    function getEventControlsMarkup() {
+        return '<label>Gruppenfarbe zeigen: <input type="checkbox" id="input_arma3-slotting-show-group-color" onchange="pluginArma3Slotting.setShowGroupColor(this)"></label>';
+    }
+
+    function updateShowGroupColor(state) {
+        if (state) {
+            $('.slot .slot_descr.plain').hide();
+            $('.slot .slot_descr.group-color').show();
+        } else {
+            $('.slot .slot_descr.plain').show();
+            $('.slot .slot_descr.group-color').hide();
+        }
+    }
+
+    function setShowGroupColor(element) {
+        updateShowGroupColor(element.checked);
     }
 
     var topicLoaded = function (event, topicNode /*: Node*/, eventDate /*: Date*/) {

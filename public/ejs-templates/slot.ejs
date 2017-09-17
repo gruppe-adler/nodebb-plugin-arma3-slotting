@@ -41,19 +41,7 @@
 					style="background-color: <%- x.user['icon:bgColor'] %>"><%- x.user['icon:text'] %>
 				</div>
 			<% } %>
-			<%
-				__tmpUserGroupDetails =
-					pluginArma3Slotting.allUserGroups.find(function (g) { return g.title === x.user.groupTitle})
-					|| pluginArma3Slotting.allUserGroups.find(function (g) { return x.user.groups.indexOf(g.name) !== -1; });
-			if (__tmpUserGroupDetails) {
-			%>
-			<span
-				class="user-group-badge"
-				style="border-color: <%- __tmpUserGroupDetails.color %>;"
-				title="<%- __tmpUserGroupDetails.title %>"
-			>
-			</span>
-			<% } %>
+
 		</div>
 	<% } else { %>
 		
@@ -62,10 +50,22 @@
 				 title="<%- [(x['min-slotted-player-count'] ? x['min-slotted-player-count'] + "+ players" : ""), (x['reserved-for'] || "")].filter(Boolean).join(',') %>"
 			>
 				<span class="<% if (x.reservation) {%>reservation<%} %>"></span>
-			</div>	
+			</div>
 		</a>
 	<% } %>
 
-	<div class="slot_descr" title="<%= x.description %>"><%- x.shortcode %></div>
+	<%
+	__tmpUserGroupDetails = (
+	    x.user && (
+		    pluginArma3Slotting.allUserGroups.find(function (g) { return g.title === x.user.groupTitle})
+			|| pluginArma3Slotting.allUserGroups.find(function (g) { return x.user.groups.indexOf(g.name) !== -1; })
+			)
+		) || {title: 'no user group', color: '#000'};
+	%>
 
+	<div class="slot_descr plain" title="<%= x.description %>"><%- x.shortcode %></div>
+	<div class="slot_descr group-color"
+		 title="<%- (x.description + ' (' + __tmpUserGroupDetails.title + ')') %>"
+		 style="color: white; background-color: <%- __tmpUserGroupDetails.color %>;"><%- x.shortcode %>
+	</div>
 </div>
