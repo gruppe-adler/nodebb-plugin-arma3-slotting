@@ -26,6 +26,7 @@ export function getUsers(
         },
     }, (error: Error, results: {users: IUser[], groups: {[uid: number]: string[]}}) => {
         const outputUsers: IMatchOutputUser[] = results.users.map(user => {
+            user.uid = Number(user.uid);
             (user as IMatchOutputUser).groups = results.groups[user.uid];
             return user as IMatchOutputUser;
         });

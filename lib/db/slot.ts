@@ -17,8 +17,17 @@ export function putSlotUser(tid: number, matchid: string, slotid: string, uid: n
     });
 }
 
-export function getMatchUsers(tid: number, matchid, callback) {
-    db.getObject(getUsersKey(tid, matchid), callback);
+export function getMatchUsers(
+    tid: number,
+    matchid,
+    callback: (err: Error, slot2user: {[slot: string]: number}) => void,
+) {
+    db.getObject(getUsersKey(tid, matchid), (err, slot2user: {[slot: string]: string}) => {
+        slot2user = slot2user || {};
+        const slot2userNumeric: {[slot: string]: number} = {};
+        Object.keys(slot2user).forEach(slot => slot2userNumeric[slot] = Number(slot2user[slot]));
+        callback(err, slot2userNumeric);
+    });
 }
 
 export function getSlotUser(tid: number, matchid: string, slotid: string, callback) {

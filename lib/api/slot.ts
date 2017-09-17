@@ -12,10 +12,6 @@ export function getAll(req: INodebbRequest, res: INodebbResponse) {
         if (error) {
             return res.status(500).json(error);
         }
-        users = users || {};
-        Object.keys(users).forEach(function (key) {
-            users[key] = parseInt(users[key], 10);
-        });
         matchDb.getMatchReservations(tid, matchid, function (err, reservations) {
             if (err) {
                 return res.status(500).json(err);

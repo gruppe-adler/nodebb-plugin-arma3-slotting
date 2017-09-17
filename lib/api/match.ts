@@ -4,7 +4,7 @@ const xml2json = require("xml2json") as { toJson: (xml: any, conf: any) => any, 
 
 import {AnyCallback} from "../fn";
 
-import * as _ from "underscore";
+import {partial, values} from "underscore";
 
 import * as async from "async";
 import {INodebbRequest, INodebbResponse} from "../../types/nodebb";
@@ -12,7 +12,7 @@ import * as matchDb from "../db/match";
 import * as slotDb from "../db/slot";
 import * as userDb from "../db/users";
 import * as logger from "../logger";
-import {IMatchInputUser, IMatchOutputUser, Match, Slot} from "../match";
+import {Match, Slot} from "../match";
 import {XmlMatchRequest} from "../xml-match-request";
 
 function sendMatchesResult(req: INodebbRequest, res: INodebbResponse, result: Match[]) {
@@ -38,44 +38,18 @@ function sendMatchResult(req: INodebbRequest, res: INodebbResponse, result: Matc
 }
 
 function addUsersAndReservations(currentUser, tid: number, match: Match, callback: (Error, newMatch: Match) => any) {
-    slotDb.getMatchUsers(tid, match.uuid, function (err: Error, slotidUidMap: { [uuid: string]: string }) {
-            slotidUidMap = slotidUidMap || {};
+    slotDb.getMatchUsers(tid, match.uuid, function (err: Error, slot2user: { [uuid: string]: number }) {
             if (err) {
                 return callback(err, null);
             }
 
-            const uidUserNodeMap: { [uid: number]: IMatchInputUser } = {};
-
-            try {
-                match.getSlots().forEach(function (slot: Slot) {
-                    const slotid = slot.uuid;
-
-                    if (slotidUidMap[slotid]) {
-                        const uid = Number(slotidUidMap[slotid]);
-                        if (uid > 0) {
-                            slot.user = {uid};
-                            uidUserNodeMap[uid] = slot.user;
-                        } else {
-                            logger.warn("slot " + slotid + " contains uid<=0 ");
-                        }
-                    }
-                });
-            } catch (e) {
-                return callback(e, null);
-            }
-
             userDb.getUsers(
                 currentUser,
-                Object.getOwnPropertyNames(uidUserNodeMap).map(Number),
-                function (error, users) {
-                    users.forEach(function (user: IMatchOutputUser) {
-                        const matchUser = uidUserNodeMap[user.uid];
-                        if (!matchUser) {
-                            return logger.error("something went wrong. " + user.uid + " not found in node map");
-                        }
-                        Object.getOwnPropertyNames(user).forEach(function (propName) { // copy over properties
-                            matchUser[propName] = user[propName];
-                        });
+                values(slot2user),
+                function (error: Error, users) {
+                    Object.keys(slot2user).forEach((slotid: string) => {
+                        const uid = slot2user[slotid];
+                        match.getSlot(slotid).user = users.find(_ => _.uid === uid);
                     });
                     try {
                         callback(null, match);
@@ -197,7 +171,7 @@ export function getAll(req: INodebbRequest, res: INodebbResponse) {
         }
 
         async.parallel(matches.map(function (match: Match) {
-            return _.partial(addUsersAndReservations, req.uid, tid, match);
+            return partial(addUsersAndReservations, req.uid, tid, match);
         }), function (error: Error, newMatches) {
             if (error) {
                 return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});

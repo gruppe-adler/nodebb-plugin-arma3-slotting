@@ -124,7 +124,7 @@ export class Slot implements IReservable {
     public description: string|undefined;
     public "reserved-for": string|undefined;
     public "min-slotted-player-count": number|undefined;
-    public user?: IMatchInputUser;
+    public user?: IMatchInputUser|IMatchOutputUser;
     constructor(dto?: any) {
         if (!dto) {
             this.uuid = v4();
