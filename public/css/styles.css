@@ -178,7 +178,7 @@ a:focus {
 	text-shadow: none;
 }
 
-.reservation:before {
+.locked:before {
 	font-family: "FontAwesome";
     content:"\f023";
     color: #999;
@@ -189,7 +189,7 @@ a:focus {
 }
 
 
-.slot_button .reservation:before {
+.slot_button .locked:before {
 	color: #6c6;
 }
 

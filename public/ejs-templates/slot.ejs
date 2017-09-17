@@ -49,7 +49,7 @@
 			<div class="avatar avatar-sm avatar-rounded"
 				 title="<%- [(x['min-slotted-player-count'] ? x['min-slotted-player-count'] + "+ players" : ""), (x['reserved-for'] || "")].filter(Boolean).join(',') %>"
 			>
-				<span class="<% if (x.reservation) {%>reservation<%} %>"></span>
+				<span class="<% if (x['reserved-for'] || !x.minSlottedPlayerCountFulfilled) {%>locked<%} %>"></span>
 			</div>
 		</a>
 	<% } %>
