@@ -41,9 +41,11 @@
 					style="background-color: <%- x.user['icon:bgColor'] %>"><%- x.user['icon:text'] %>
 				</div>
 			<% } %>
-			<% if (x.user.groups.length) {
-			    __tmpUserGroup = x.user.groups[0];
-			    __tmpUserGroupDetails = pluginArma3Slotting.allUserGroups[__tmpUserGroup];
+			<%
+				__tmpUserGroupDetails =
+					pluginArma3Slotting.allUserGroups.find(function (g) { return g.title === x.user.groupTitle})
+					|| pluginArma3Slotting.allUserGroups.find(function (g) { return x.user.groups.indexOf(g.name) !== -1; });
+			if (__tmpUserGroupDetails) {
 			%>
 			<span
 				class="user-group-badge"

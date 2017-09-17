@@ -73,6 +73,7 @@ interface ISelfContainedUnit extends IReservable {
 
 export interface IMatchOutputUser extends IUser {
     groups: string[];
+    groupTitle?: string;
 }
 
 export interface IMatchInputUser {

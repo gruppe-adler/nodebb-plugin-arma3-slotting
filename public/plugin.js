@@ -467,9 +467,7 @@ require([
                 matchesFragment.innerHTML = matches.map(function (match) {
                     match.tid = topicId;
                     match.hasPermissions = permissionsAndGroups.result;
-                    console.log(JSON.stringify(x, null, '\t'));
                     var x = expandUnitTree(match);
-                    console.info(JSON.stringify(x, null, '\t'));
                     return templates.master(x);
                 }).join('\n<!-- match separation -->\n');
 

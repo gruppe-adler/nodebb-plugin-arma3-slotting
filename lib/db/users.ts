@@ -19,7 +19,7 @@ export function getUsers(
         users: (next: AnyCallback) => {
             nodebbUsersModule.getUsersWithFields(
                 userids,
-                ["uid", "username", "userslug", "picture", "icon:bgColor", "icon:text"],
+                ["uid", "username", "userslug", "picture", "icon:bgColor", "icon:text", "groupTitle"],
                 currentUser,
                 next,
             );

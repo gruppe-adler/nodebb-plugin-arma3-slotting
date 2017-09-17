@@ -9,11 +9,11 @@ define("arma3-slotting/getGroups",
                 return cb(null, groups);
             }
             $.get(path, function (response) {
-                var groups = {};
-                response.groups.forEach(function (group) {
-                    groups[group.name] = {
+                var groups = response.groups.map(function (group) {
+                    return {
                         title: group.userTitle,
-                        color: group.labelColor
+                        color: group.labelColor,
+                        name: group.name
                     }
                 });
                 cb(null, groups);
