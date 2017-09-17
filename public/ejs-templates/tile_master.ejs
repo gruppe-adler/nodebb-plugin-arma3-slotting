@@ -37,11 +37,10 @@
 	<% } %>
 	<div>
 		<%= x.side %>
-		<%= x.slot.map(pluginArma3SlottingTemplates.slot).join('') %>
-		<%= x.fireteam.map(pluginArma3SlottingTemplates.fireteam).join('') %>
-		<%= x.squad.map(pluginArma3SlottingTemplates.squad).join('') %>
-		<%= x.platoon.map(pluginArma3SlottingTemplates.platoon).join('') %>
-		<%= x.company.map(pluginArma3SlottingTemplates.company).join('') %>
+		<%= x.slot.map(pluginArma3Slotting.templates.slot).join('') %>
+		<%= x.squad.map(pluginArma3Slotting.templates.squad).join('') %>
+		<%= x.platoon.map(pluginArma3Slotting.templates.platoon).join('') %>
+		<%= x.company.map(pluginArma3Slotting.templates.company).join('') %>
 	</div>
 	<div class="clearfix"></div>
 </div>

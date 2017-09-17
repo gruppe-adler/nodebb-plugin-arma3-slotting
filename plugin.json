@@ -16,6 +16,7 @@
          "./public/js/formatXml.js",
          "./public/js/eventTopicLoadedService.js",
          "./public/js/getTemplates.js",
+         "./public/js/getGroups.js",
          "./public/plugin.js"
     ],
     "hooks": [

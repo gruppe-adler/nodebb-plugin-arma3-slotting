@@ -6,18 +6,18 @@
 			<li><a href="#" class=""><i class="fa fa-fw"></i> Selbst slotten</a></li>
 		</ul>
 	</div>
-	<% __tmpIsAllowedToEditClass = (
+	<% console.info(pluginArma3Slotting);__tmpIsAllowedToEditClass = (
 		x.minSlottedPlayerCountFulfilled &&
 		(!x['reserved-for']
 		|| _.intersection(
-			window.app.groupNames
+				pluginArma3Slotting.currentUserGroupNames
 				.map(function (u) {return u.toLowerCase()}),
 			x['reserved-for']
 				.split(',')
 				.map(function (u) {return u.trim()})
 				.map(function (u) {return u.toLowerCase()})
 				.filter(Boolean)
-		).length > 0)) ? 'slot_button' : ''; %>
+		).length > 0)) ? 'slot_button' : ''; console.debug('end') %>
 	<% if (x.user) { %>
 		<div class="<%- __tmpIsAllowedToEditClass%>"
 			data-username="<%- x.user.username %>"
@@ -40,6 +40,17 @@
 					data-username="<%-x.user.username%>"
 					style="background-color: <%- x.user['icon:bgColor'] %>"><%- x.user['icon:text'] %>
 				</div>
+			<% } %>
+			<% if (x.user.groups.length) {
+			    __tmpUserGroup = x.user.groups[0];
+			    __tmpUserGroupDetails = pluginArma3Slotting.allUserGroups[__tmpUserGroup];
+			%>
+			<span
+				class="user-group-badge"
+				style="border-color: <%- __tmpUserGroupDetails.color %>;"
+				title="<%- __tmpUserGroupDetails.title %>"
+			>
+			</span>
 			<% } %>
 		</div>
 	<% } else { %>

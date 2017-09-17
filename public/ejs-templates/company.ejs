@@ -13,10 +13,10 @@
 		<span class="company_radiofrequency radiofrequency"><%-x.radiofrequency%> <% if (x.radiofrequency) {%>MHz<%}%></span>
 	</div>
 	<div class="company_head">
-		<%= x.slot.map(pluginArma3SlottingTemplates.slot).join('') %>
+		<%= x.slot.map(pluginArma3Slotting.templates.slot).join('') %>
 	</div>
 	<div class="company_body">
-		<%= x.squad.map(pluginArma3SlottingTemplates.squad).join('') %>
-		<%= x.platoon.map(pluginArma3SlottingTemplates.platoon).join('') %>
+		<%= x.squad.map(pluginArma3Slotting.templates.squad).join('') %>
+		<%= x.platoon.map(pluginArma3Slotting.templates.platoon).join('') %>
 	</div>
 </div>

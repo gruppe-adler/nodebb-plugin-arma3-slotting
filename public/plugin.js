@@ -6,13 +6,15 @@ require([
     'underscore',
     'arma3-slotting/getTemplates',
     'arma3-slotting/eventTopicLoadedService',
-    'arma3-slotting/expandUnitTree'
+    'arma3-slotting/expandUnitTree',
+    'arma3-slotting/getGroups'
 ], function (
     async,
     _,
     getTemplates,
     eventLoadedService,
-    expandUnitTree
+    expandUnitTree,
+    getGroups
 ) {
     var cache = {
         topicNode: null,
@@ -310,10 +312,9 @@ require([
         });
     }
 
-    var hasPermissions = function (topicId, next) {
+    var getPermissionsAndGroups = function (topicId, next) {
         $.get(config.relative_path + '/api/arma3-slotting/' + topicId + '/has-permissions', function (response) {
-            window.app.groupNames = response.groups || [];
-            next(null, response.result);
+            next(null, response);
         }, 'json');
     };
 
@@ -420,9 +421,9 @@ require([
 
         var topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
         async.parallel(
-            {
-                matches: _.partial(getMatches, topicId),
-                templates: _.partial(getTemplates, {
+            [
+                _.partial(getMatches, topicId),
+                _.partial(getTemplates, {
                     master: 'tile_master.ejs',
                     slave: 'tile_slave.ejs',
                     company: 'company.ejs',
@@ -432,14 +433,21 @@ require([
                     slot: 'slot.ejs',
                     post_bar: 'post_bar.ejs'
                 }),
-                hasPermissions: _.partial(hasPermissions, topicId)
-            },
+                _.partial(getPermissionsAndGroups, topicId),
+                getGroups
+            ],
             function (err, results) {
-                var matches = results.matches;
-                var templates = results.templates;
-                window.pluginArma3SlottingTemplates = _.each(templates, function (templateString, index, obj) {
-                    obj[index] = _.template(templateString, {variable: 'x'});
-                });
+                var matches = results[0];
+                var templates = results[1];
+                var permissionsAndGroups = results[2];
+                var allGroups = results[3];
+                window.pluginArma3Slotting = {
+                    templates: _.each(templates, function (templateString, index, obj) {
+                        obj[index] = _.template(templateString, {variable: 'x'});
+                    }),
+                    allUserGroups: allGroups,
+                    currentUserGroupNames: permissionsAndGroups.groups
+                };
 
                 _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
                     node.parentNode.removeChild(node);
@@ -448,7 +456,7 @@ require([
                     node.parentNode.removeChild(node);
                 });
 
-                if (results.hasPermissions) {
+                if (permissionsAndGroups.result) {
                     insertAddMatchButton(templates.post_bar({tid: topicId}));
                 }
 
@@ -458,8 +466,11 @@ require([
 
                 matchesFragment.innerHTML = matches.map(function (match) {
                     match.tid = topicId;
-                    match.hasPermissions = results.hasPermissions;
-                    return templates.master(expandUnitTree(match));
+                    match.hasPermissions = permissionsAndGroups.result;
+                    console.log(JSON.stringify(x, null, '\t'));
+                    var x = expandUnitTree(match);
+                    console.info(JSON.stringify(x, null, '\t'));
+                    return templates.master(x);
                 }).join('\n<!-- match separation -->\n');
 
                 insertSlotlistsNode(matchesFragment);

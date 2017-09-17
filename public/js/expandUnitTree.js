@@ -12,7 +12,7 @@ define(
             var minSlottedPlayerCount = unit[MIN_SLOTTED_PLAYER_COUNT_KEY];
 
             subUnitCategories.forEach(function (subUnitCategory) {
-                unit[subUnitCategory].forEach(function (subUnit) {
+                unit[subUnitCategory] && unit[subUnitCategory].forEach(function (subUnit) {
                     //only add reservation to subunit if it has not defined its own reservation!
                     subUnit[RESERVATION_KEY] = subUnit[RESERVATION_KEY] || reservation;
                     subUnit[MIN_SLOTTED_PLAYER_COUNT_KEY] = subUnit[MIN_SLOTTED_PLAYER_COUNT_KEY] || minSlottedPlayerCount;
@@ -20,17 +20,8 @@ define(
                     propagateInheritables(subUnit, totalSlotted);
                 });
             });
-            unit.slot.forEach(function (slot) {
+            unit.slot && unit.slot.forEach(function (slot) {
                 slot.minSlottedPlayerCountFulfilled = (slot[MIN_SLOTTED_PLAYER_COUNT_KEY] || 0) <= totalSlotted;
-            });
-        }
-
-        function expandChildrenToArrays(unit) {
-            // ensure we have *arrays* for subunits
-            // undefined => [], subUnit => [subUnit], [subUnit] => [subUnit]
-            subUnitCategories.forEach(function (subUnitCategory) {
-                unit[subUnitCategory] = [].concat(unit[subUnitCategory] || []);
-                unit[subUnitCategory].forEach(expandChildrenToArrays);
             });
         }
 
@@ -57,7 +48,7 @@ define(
          *          reservation: Adler
          */
         return function (match) {
-            expandChildrenToArrays(match);
+            // expandChildrenToArrays(match);
             propagateInheritables(match, match.slottedPlayerCount);
             return match;
         };
