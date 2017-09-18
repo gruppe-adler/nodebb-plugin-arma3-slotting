@@ -60,7 +60,7 @@
 		    pluginArma3Slotting.allUserGroups.find(function (g) { return g.title === x.user.groupTitle})
 			|| pluginArma3Slotting.allUserGroups.find(function (g) { return x.user.groups.indexOf(g.name) !== -1; })
 			)
-		) || {title: 'no user group', color: '#000'};
+		) || {title: 'no user group', color: 'transparent'};
 	%>
 
 	<div class="slot_descr plain" title="<%= x.description %>"><%- x.shortcode %></div>
