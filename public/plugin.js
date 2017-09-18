@@ -7,14 +7,16 @@ require([
     'arma3-slotting/getTemplates',
     'arma3-slotting/eventTopicLoadedService',
     'arma3-slotting/expandUnitTree',
-    'arma3-slotting/getGroups'
+    'arma3-slotting/getGroups',
+    'arma3-slotting/showGroupsToggle',
 ], function (
     async,
     _,
     getTemplates,
     eventLoadedService,
     expandUnitTree,
-    getGroups
+    getGroups,
+    showGroupsToggle
 ) {
     var cache = {
         topicNode: null,
@@ -446,8 +448,7 @@ require([
                         obj[index] = _.template(templateString, {variable: 'x'});
                     }),
                     allUserGroups: allGroups,
-                    currentUserGroupNames: permissionsAndGroups.groups,
-                    setShowGroupColor: setShowGroupColor
+                    currentUserGroupNames: permissionsAndGroups.groups
                 };
 
                 _.each(cache.topicNode.querySelectorAll('[component="topic/arma3-slotting"]'), function (node) {
@@ -465,7 +466,7 @@ require([
                 var matchesFragment = document.createElement('div');
                 matchesFragment.setAttribute('component', 'topic/arma3-slotting');
 
-                matchesFragment.innerHTML = getEventControlsMarkup() + matches.map(function (match) {
+                matchesFragment.innerHTML = showGroupsToggle.getToggleMarkup() + matches.map(function (match) {
                     match.tid = topicId;
                     match.hasPermissions = permissionsAndGroups.result;
                     var x = expandUnitTree(match);
@@ -473,29 +474,9 @@ require([
                 }).join('\n<!-- match separation -->\n');
 
                 insertSlotlistsNode(matchesFragment);
-                var showGroupColorCheckbox = document.querySelector('#input_arma3-slotting-show-group-color');
-                // showGroupColorCheckbox.checked = getInitialGroupColorCheckboxState();
-                setShowGroupColor(showGroupColorCheckbox);
+                showGroupsToggle.init();
             }
         );
-    }
-
-    function getEventControlsMarkup() {
-        return '<label>Gruppenfarbe zeigen: <input type="checkbox" id="input_arma3-slotting-show-group-color" onchange="pluginArma3Slotting.setShowGroupColor(this)"></label>';
-    }
-
-    function updateShowGroupColor(state) {
-        if (state) {
-            $('.slot .slot_descr.plain').hide();
-            $('.slot .slot_descr.group-color').show();
-        } else {
-            $('.slot .slot_descr.plain').show();
-            $('.slot .slot_descr.group-color').hide();
-        }
-    }
-
-    function setShowGroupColor(element) {
-        updateShowGroupColor(element.checked);
     }
 
     var topicLoaded = function (event, topicNode /*: Node*/, eventDate /*: Date*/) {

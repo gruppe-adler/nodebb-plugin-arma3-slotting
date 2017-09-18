@@ -17,6 +17,7 @@
          "./public/js/eventTopicLoadedService.js",
          "./public/js/getTemplates.js",
          "./public/js/getGroups.js",
+         "./public/js/showGroupsToggle.js",
          "./public/plugin.js"
     ],
     "hooks": [
