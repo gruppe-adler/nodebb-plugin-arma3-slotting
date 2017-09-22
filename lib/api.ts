@@ -4,6 +4,7 @@ import {RequestHandler, Response, Router} from "express";
 import {INodebbRequest} from "../types/nodebb";
 
 import * as _ from "underscore";
+import * as slottedUsersApi from "./api/slotted-users";
 import * as matchApi from "./api/match";
 import * as reservationApi from "./api/reservations";
 import * as slotApi from "./api/slot";
@@ -228,6 +229,7 @@ export function init(params, callback) {
 
     get("/:tid", requireCanSeeAttendance, matchApi.getAll);
 
+    get("/:tid/slotted-user-ids", requireCanSeeAttendance, slottedUsersApi.get);
     get("/:tid/has-permissions", isAdminOrThreadOwner, returnSuccess);
 
     pos("/:tid/match", requireAdminOrThreadOwner, matchApi.post);

@@ -6,6 +6,20 @@ const db: IDb = require("../../../../src/database") as IDb;
 
 type SlotReservationCallback = (err: Error, reservations: {[slotid: string]: string}) => any;
 
+export class MatchRepository {
+    constructor(
+        private db: IDb) {
+    }
+
+    public getMatchIds(tid: number, callback: (error: Error, matchIds: string[]) => void): void {
+        db.getObject(getRedisMatchesKey(tid), (err: Error, matches: any) => {
+            callback(err, Object.keys(matches || {}));
+        });
+    }
+}
+
+export const matchRepository = new MatchRepository(db);
+
 function getRedisMatchesKey(tid: number): string {
     return "tid:%d:arma3-slotting:matches".replace("%d", String(tid));
 }

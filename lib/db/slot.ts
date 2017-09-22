@@ -17,10 +17,12 @@ export function putSlotUser(tid: number, matchid: string, slotid: string, uid: n
     });
 }
 
+export type Slot2User = {[slot: string]: number};
+
 export function getMatchUsers(
     tid: number,
     matchid,
-    callback: (err: Error, slot2user: {[slot: string]: number}) => void,
+    callback: (err: Error, slot2user: Slot2User) => void,
 ) {
     db.getObject(getUsersKey(tid, matchid), (err, slot2user: {[slot: string]: string}) => {
         slot2user = slot2user || {};
