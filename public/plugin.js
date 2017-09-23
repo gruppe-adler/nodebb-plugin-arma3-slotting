@@ -462,6 +462,9 @@ require([
                     insertAddMatchButton(templates.post_bar({tid: topicId}));
                 }
 
+                if (!matches.length) {
+                    return;
+                }
 
                 var matchesFragment = document.createElement('div');
                 matchesFragment.setAttribute('component', 'topic/arma3-slotting');
