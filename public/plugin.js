@@ -406,7 +406,7 @@ require([
         }
 
         var postBarNode = firstPostCheck.querySelector('[class="post-bar"]');
-        var attendanceNode = firstPostCheck.querySelector('[component="topic/attendance]');
+        var attendanceNode = firstPostCheck.querySelector('[component="topic/attendance"]');
 
         //only insert if the postbar exists (if this is the first post)
         if (postBarNode) {
