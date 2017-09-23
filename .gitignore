@@ -4,3 +4,4 @@ lib/*/*.js
 /plugin.js
 
 /node_modules
+.idea/
