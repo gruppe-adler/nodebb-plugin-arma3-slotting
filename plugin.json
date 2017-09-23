@@ -2,6 +2,7 @@
     "id": "nodebb-plugin-arma3-slotting",
     "name": "NodeBB Arma3 match slotting",
     "description": "define an ORBAT-like structure and let players select their slot",
+    "url": "https://github.com/Fusselwurm/nodebb-plugin-arma3-slotting",
     "library": "./plugin.js",
     "staticDirs": {
         "ejs-templates": "public/ejs-templates",
