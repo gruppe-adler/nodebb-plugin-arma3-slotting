@@ -1,6 +1,7 @@
 import * as notifications from "./lib/db/notifications";
 import {AnyCallback, noop} from "./lib/fn";
 import * as unattendUser from "./lib/unattendUser";
+import {eventRepository} from "./lib/db/event";
 const meta = require("./plugin.json");
 
 meta.nbbId = meta.id.replace(/nodebb-plugin-/, "");
@@ -19,7 +20,7 @@ export function setup(params, callback): void {
     actions(params, meta, noop);
 }
 
-export function catchAttendanceChange(params, callback?: AnyCallback) {
+export function catchAttendanceChange(params, callback?: AnyCallback): void {
     callback = callback || noop;
     if (params.probability >= 1) {
         return callback(null, null);
@@ -29,6 +30,15 @@ export function catchAttendanceChange(params, callback?: AnyCallback) {
             notifications.notifyAutoUnslotted(params.tid, params.uid, resultCount);
         }
         callback(null, null);
+    });
+}
+
+export function filterAttendanceSlotted(params, callback: (err: Error, userIds: number[])=> void): void {
+    const tid = params.tid;
+
+    eventRepository.getSlottedUserIds(tid, (error, userIds) => {
+        params.userIds = userIds;
+        callback(error, userIds);
     });
 }
 

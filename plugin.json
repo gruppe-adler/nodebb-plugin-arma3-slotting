@@ -35,6 +35,11 @@
             "hook": "action:attendance.set",
             "method": "catchAttendanceChange",
             "callbacked": true
+        },
+        {
+            "hook": "filter:attendance:slotted",
+            "method": "filterAttendanceSlotted",
+            "callbacked": true
         }
     ]
 }
