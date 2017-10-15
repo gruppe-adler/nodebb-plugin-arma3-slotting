@@ -66,6 +66,9 @@
 	<div class="slot_descr plain" title="<%= x.description %>"><%- x.shortcode %></div>
 	<div class="slot_descr group-color"
 		 title="<%- (x.description + ' (' + __tmpUserGroupDetails.title + ')') %>"
-		 style="color: white; background-color: <%- __tmpUserGroupDetails.color %>;"><%- x.shortcode %>
+		 style="
+			 background-color: <%- __tmpUserGroupDetails.color %>;
+			 <%- __tmpUserGroupDetails.color !== 'transparent' ? 'color: white' : ''%>;
+			 "><%- x.shortcode %>
 	</div>
 </div>
