@@ -26,6 +26,7 @@ export enum Natosymbol {
     art = "art",
     mortar = "mortar",
     hq = "hq",
+    service = "service",
     support = "support",
     maint = "maint",
     none = "",
