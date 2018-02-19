@@ -6,6 +6,7 @@ import {INodebbRequest} from "../types/nodebb";
 import * as _ from "underscore";
 import * as slottedUsersApi from "./api/slotted-users";
 import * as matchApi from "./api/match";
+import * as shareApi from "./api/share";
 import * as reservationApi from "./api/reservations";
 import * as slotApi from "./api/slot";
 import * as userApi from "./api/users";
@@ -239,6 +240,12 @@ export function init(params, callback) {
     get("/:tid/match/:matchid", requireCanSeeAttendance, matchApi.get);
     del("/:tid/match/:matchid", requireAdminOrThreadOwner, matchApi.del);
     all("/:tid/match/:matchid", methodNotAllowed);
+
+    get("/:tid/match/:matchid/share", requireTopic, shareApi.get);
+    get("/:tid/match/:matchid/share/:shareid", requireTopic, shareApi.getAll);
+    pos("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.post);
+    del("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.del);
+    all("/:tid/match/:matchid/share", methodNotAllowed);
 
     get("/:tid/match/:matchid/slot", requireCanSeeAttendance, slotApi.getAll);
     all("/:tid/match/:matchid/slot", methodNotAllowed);
