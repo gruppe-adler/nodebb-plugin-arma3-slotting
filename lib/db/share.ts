@@ -1,6 +1,9 @@
 import {DbCallback, IDb} from "../../types/nodebb";
 import {error} from "../logger";
 import {Match} from "../match";
+import * as logger from "../logger";
+import {v4} from "node-uuid";
+import * as matchDb from "./match";
 
 const db: IDb = require("../../../../src/database") as IDb;
 
@@ -18,35 +21,40 @@ export function getAllFromDb(tid: number, matchid: string, callback: (err: Error
             return callback(err, null);
         }
 
-        const matches: Match[] = [];
+        const shares = [];
         Object.keys(result || {}).forEach(function (key) {
             if (result[key]) {
-                try {
-                    const match: Match = new Match(JSON.parse(result[key]).match);
-                    matches.push(match);
-                } catch (e) {
-                    error(`could not create a match from DB, tid ${tid}, match ${key}`, e);
-                }
+                shares.push({uuid: key, reservation: result[key]});
             }
         });
-        callback(err, matches);
+        callback(err, shares);
     });
 }
 
-export function getFromDb(tid: number, matchid: string, shareId: string, callback: (err: Error, match: Match) => any) {
+export function getFromDb(tid: number, matchid: string, shareId: string, callback: (err: Error, result: string) => any) {
     db.getObjectField(getRedisMatchesKey(tid, matchid), shareId, function (err, result) {
-        if (!result) {
-            return callback(err, result);
-        }
+       callback(err, result);
+    });
+}
 
-        let match: Match;
-        try {
-            match = new Match(JSON.parse(result).match);
-        } catch (e) {
-            error(`could not create a match from DB, tid ${tid}, match ${matchid}`, e);
-            return callback(e, null);
-        }
+export function insertIntoDb(tid: number, matchid: string, reservation: string, callback: (err: Error, result: string) => any) {
+    matchDb.getMatchReservations(tid, matchid, (error, reservations) => {
+        let reservationFound = false;
 
-        callback(err, match);
+        Object.keys(reservations).forEach(key => {
+            if (reservations[key] === reservation) {
+                reservationFound = true;
+            }
+        });
+
+        if (reservationFound) {
+            const key = v4();
+            db.setObjectField(getRedisMatchesKey(tid, matchid), key, reservation, function (err, result) {
+                callback(err, key);
+            });
+        } else {
+            logger.info(`No reservation for ${reservation} found in match ${matchid} of tid ${tid}`);
+            callback(error, null);
+        }
     });
 }

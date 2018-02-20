@@ -9,31 +9,63 @@ export function post(req: INodebbRequest, res: INodebbResponse) {
     const tid = +req.params.tid;
     const matchid = req.params.matchid;
     const data = req.body;
-    if (!data.target) {
-        return res.status(400).json();
+    if (!data.reservation) {
+        return res.status(400).json({error: "Missing body parameter: reservation"});
     }
 
-    return res.status(200).json();
+    shareDB.insertIntoDb(tid, matchid, data.reservation, (error, result) => {
+        if (result) {
+            return res.status(200).json({uuid: result, reservation: data.reservation});
+        } else {
+            return res.status(400).json(error);
+        }
+    });
 }
 
 export function get(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
+    const shareid = req.params.shareid;
 
-    return res.status(200).json(tid);
+    shareDB.getFromDb(tid, matchid, shareid, (error, result) => {
+        if (error) {
+            return res.status(400).json(error);
+        } else {
+            return res.status(200).json({uuid: shareid, reservation: result});
+        }
+    });
 }
 
 export function getAll(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
-    const shareid = req.params.shareid;
 
-    return res.status(200).json(shareid);
+    shareDB.getAllFromDb(tid, matchid, (error, result) => {
+        if (error) {
+            return res.status(400).json(error);
+        } else {
+            return res.status(200).json(result);
+        }
+    });
 }
 
 export function del(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
+
+    if (!req.body.uuid) {
+        return res.status(400).json();
+    }
+
+    shareDB.delFromDb(tid, matchid, req.body.uuid, (error, result) => {
+        logger.info(error);
+        logger.info(result);
+        if (error) {
+            return res.status(400).json(error);
+        } else {
+            return res.status(200).json({uuid: req.body.uuid});
+        }
+    });
 }
 
 export class Share {

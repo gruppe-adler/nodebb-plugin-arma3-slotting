@@ -241,8 +241,8 @@ export function init(params, callback) {
     del("/:tid/match/:matchid", requireAdminOrThreadOwner, matchApi.del);
     all("/:tid/match/:matchid", methodNotAllowed);
 
-    get("/:tid/match/:matchid/share", requireTopic, shareApi.get);
-    get("/:tid/match/:matchid/share/:shareid", requireTopic, shareApi.getAll);
+    get("/:tid/match/:matchid/share", requireTopic, shareApi.getAll);
+    get("/:tid/match/:matchid/share/:shareid", requireTopic, shareApi.get);
     pos("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.post);
     del("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.del);
     all("/:tid/match/:matchid/share", methodNotAllowed);
