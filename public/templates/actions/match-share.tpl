@@ -7,7 +7,7 @@
     </div>
 
     <div class="match-template-settings">
-        Per Reservation-for Attribut kann ein Slottinglink erstellt werden. Dieser ermöglicht externen Clans das Slotten in unsere Slotliste.
+        Per Clan im Reservation-for Attribut kann ein Slottinglink erstellt werden. Dieser ermöglicht externen Clans das Slotten in unserer Slotliste.
     </div>
 
     <!-- IF availableReservations.length -->
