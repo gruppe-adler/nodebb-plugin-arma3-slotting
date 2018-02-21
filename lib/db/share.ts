@@ -15,7 +15,7 @@ export function delFromDb(tid: number, matchid: string, shareId: string, callbac
     db.deleteObjectField(getRedisMatchesKey(tid, matchid), shareId, callback);
 }
 
-export function getAllFromDb(tid: number, matchid: string, callback: (err: Error, matches: Match[]) => any) {
+export function getAllFromDb(tid: number, matchid: string, callback: (err: Error, shares: any[]) => any) {
     db.getObject(getRedisMatchesKey(tid, matchid), function (err: Error, result) {
         if (err) {
             return callback(err, null);

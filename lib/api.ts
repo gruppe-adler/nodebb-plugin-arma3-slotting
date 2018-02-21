@@ -11,6 +11,7 @@ import * as reservationApi from "./api/reservations";
 import * as slotApi from "./api/slot";
 import * as userApi from "./api/users";
 import * as topicDb from "./db/topics";
+import * as shareDb from "./db/share";
 import * as userDb from "./db/users";
 import * as logger from "./logger";
 
@@ -131,15 +132,26 @@ const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, ne
 };
 
 const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, next) {
-    canAttend(req.uid, req.params.tid, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        if (result) {
-            next(); return;
-        }
-        return res.status(403).json({message: "you are not allowed to edit this"});
-    });
+    if (req.header('X-Api-Key')) {
+        shareDb.getFromDb(req.params.tid, req.params.matchid, req.header('X-Api-Key'), (err, result) => {
+            if (result) {
+                next();
+                return;
+            } else {
+                return res.status(403).json({message: "Invalid share id"});
+            }
+        });
+    } else {
+        canAttend(req.uid, req.params.tid, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            if (result) {
+                next(); return;
+            }
+            return res.status(403).json({message: "you are not allowed to edit this"});
+        });
+    }
 };
 
 const requireAdminOrThreadOwner = function (req: INodebbRequest, res: Response, next) {

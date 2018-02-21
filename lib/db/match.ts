@@ -90,6 +90,20 @@ export function getMatchReservations(tid: number, matchid: string, callback: Slo
     });
 }
 
+export function getUniqueMatchReservations(tid: number, matchid: string, callback: (err: Error, result: any[]) => any) {
+    return getFromDb(tid, matchid, (err, match) => {
+        const slots = match.getSlots();
+        const uniqueReservations = [];
+        slots.forEach(s => {
+            const reservation = s.getReservations().join(",");
+            if (uniqueReservations.indexOf(reservation) == -1 && reservation != '') {
+               uniqueReservations.push(reservation);
+            }
+        });
+        callback(err, uniqueReservations);
+    });
+}
+
 export function deleteSlotReservation(tid: number, matchid: string, slotid: string, callback: DbCallback) {
     return getFromDb(tid, matchid, (err, match) => {
         const slot = match.getSlot(slotid);
