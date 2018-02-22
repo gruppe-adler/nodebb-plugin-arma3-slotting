@@ -10,12 +10,12 @@ export function post(req: INodebbRequest, res: INodebbResponse) {
     const matchid = req.params.matchid;
     const data = req.body;
     if (!data.reservation) {
-        return res.status(400).json({error: "Missing body parameter: reservation"});
+        return res.status(400).json({message: "Missing body parameter: reservation"});
     }
 
     shareDB.insertIntoDb(tid, matchid, data.reservation, (error, result) => {
         if (result) {
-            return res.status(200).json({uuid: result, reservation: data.reservation});
+            return res.status(200).json(result);
         } else {
             return res.status(400).json(error);
         }
@@ -53,11 +53,11 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
 
-    if (!req.body.uuid) {
-        return res.status(400).json();
+    if (!req.body.reservation) {
+        return res.status(400).json({message: "Missing body parameter: reservation"});
     }
 
-    shareDB.delFromDb(tid, matchid, req.body.uuid, (error, result) => {
+    shareDB.delFromDb(tid, matchid, req.body.reservation, (error, result) => {
         logger.info(error);
         logger.info(result);
         if (error) {
@@ -66,11 +66,4 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
             return res.status(200).json({uuid: req.body.uuid});
         }
     });
-}
-
-export class Share {
-    uuid: string;
-    name: string;
-    tid: number;
-    matchid: string;
 }
