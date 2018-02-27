@@ -84,7 +84,7 @@ export default function (params, meta, callback) {
     params.router.get("/api/" + meta.nbbId + "/:tid/match/add", renderMatchAdd);
 
     params.router.get("/" + meta.nbbId + "/:tid/match/:matchid/share", params.middleware.buildHeader, renderMatchShare);
-    // params.router.get("/api/" + meta.nbbId + "/:tid/match/:matchid/share", renderMatchShare);
+    params.router.get("/api/" + meta.nbbId + "/:tid/match/:matchid/share", renderMatchShare);
 
     callback();
 }

@@ -113,6 +113,13 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
     if (apiKey && (req.header("X-Api-Key") === apiKey)) {
         next(); return;
     }
+
+    logger.info(JSON.stringify(req.body));
+
+    if (req.body.shareKey && req.body.reservation) {
+        next(); return;
+    }
+
     if (req.uid) {
         next(); return;
     }
@@ -132,13 +139,15 @@ const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, ne
 };
 
 const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, next) {
-    if (req.header('X-Api-Key')) {
-        shareDb.getFromDb(req.params.tid, req.params.matchid, req.header('X-Api-Key'), (err, result) => {
-            if (result) {
+    const shareid = req.body.shareKey;
+    const reservation = req.body.reservation;
+    if (shareid && reservation) {
+        shareDb.isValidShare(req.params.tid, req.params.matchid, reservation, shareid, (err, result) => {
+            if (result === "none") {
+                return res.status(403).json({message: "Invalid reservation or share id"});
+            } else {
                 next();
                 return;
-            } else {
-                return res.status(403).json({message: "Invalid share id"});
             }
         });
     } else {
@@ -253,7 +262,7 @@ export function init(params, callback) {
     del("/:tid/match/:matchid", requireAdminOrThreadOwner, matchApi.del);
     all("/:tid/match/:matchid", methodNotAllowed);
 
-    get("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.getAll);
+    // get("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.getAll);
     get("/:tid/match/:matchid/share/:shareid", requireTopic, shareApi.get);
     pos("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.post);
     del("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.del);

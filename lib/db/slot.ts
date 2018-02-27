@@ -17,6 +17,15 @@ export function putSlotUser(tid: number, matchid: string, slotid: string, uid: n
     });
 }
 
+export function putSlotExternUser(tid: number, matchid: string, slotid: string, name: string, callback: DbCallback) {
+    deleteSlotUser(tid, matchid, slotid, function (err) {
+        if (err) {
+            return callback(err);
+        }
+        db.setObjectField(getUsersKey(tid, matchid), slotid, name, callback);
+    });
+}
+
 export type Slot2User = {[slot: string]: number};
 
 export function getMatchUsers(

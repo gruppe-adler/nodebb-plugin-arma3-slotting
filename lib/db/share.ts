@@ -31,10 +31,13 @@ export function getAllFromDb(tid: number, matchid: string, callback: (err: Error
     });
 }
 
-export function getFromDb(tid: number, matchid: string, reservation: string, callback: (err: Error, result: DBShare) => any) {
+export function getFromDb(tid: number, matchid: string, reservation: string, shareid: string, callback: (err: Error, result: DBShare) => any) {
     db.getObjectField(getRedisMatchesKey(tid, matchid), reservation, function (err, result) {
         const parsedResult = JSON.parse(result);
-        parsedResult.reservation = reservation;
+        if(parsedResult.adminUuid !== shareid) {
+            delete parsedResult.publicUuic;
+        }
+
         callback(err, parsedResult);
     });
 }
@@ -49,6 +52,22 @@ export function insertIntoDb(tid: number, matchid: string, reservation: string, 
         } else {
             logger.info(`No reservation for ${reservation} found in match ${matchid} of tid ${tid}`);
             callback(error, null);
+        }
+    });
+}
+
+export function isValidShare(tid: number, matchid: string, reservation: string, shareid: string, callback: (err: Error, result: string) => any) {
+    getFromDb(tid, matchid, reservation, shareid, (err, dbResult) => {
+        if (dbResult) {
+            if (shareid === dbResult.adminUuid) {
+                callback(err, "admin");
+            } else if (shareid === dbResult.publicUuid) {
+                callback(err, "user");
+            } else {
+                callback(err, "none");
+            }
+        } else {
+            callback(err, "none");
         }
     });
 }

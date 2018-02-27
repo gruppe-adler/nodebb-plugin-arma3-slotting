@@ -25,13 +25,13 @@ export function post(req: INodebbRequest, res: INodebbResponse) {
 export function get(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
-    const shareid = req.params.shareid;
+    const reservation = req.params.shareid;
 
-    shareDB.getFromDb(tid, matchid, shareid, (error, result) => {
+    shareDB.getFromDb(tid, matchid, reservation, req.header("X-Share-Key"), (error, result) => {
         if (error) {
             return res.status(400).json(error);
         } else {
-            return res.status(200).json({uuid: shareid, reservation: result});
+            return res.status(200).json({message: error});
         }
     });
 }

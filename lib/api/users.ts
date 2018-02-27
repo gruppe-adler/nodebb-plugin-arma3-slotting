@@ -7,6 +7,7 @@ import * as matchDb from "../db/match";
 import * as notifications from "../db/notifications";
 import * as slotDb from "../db/slot";
 import * as topicDb from "../db/topics";
+import * as shareDb from "../db/share";
 import * as users from "../db/users";
 import * as logger from "../logger";
 import {Match} from "../match";
@@ -41,9 +42,14 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function put(req: INodebbRequest, res: INodebbResponse) {
+    logger.info('test');
     const tid: number = Number(req.params.tid);
     const matchid: string = req.params.matchid;
     const slotid: string = req.params.slotid;
+
+    if (req.body.shareKey) {
+        return putExtern(req, res);
+    }
 
     const uid = Number(req.body.uid);
     if (!uid) {
@@ -98,6 +104,62 @@ export function put(req: INodebbRequest, res: INodebbResponse) {
             return res.status(204).json(null);
         });
     });
+}
+
+export function putExtern(req: INodebbRequest, res: INodebbResponse) {
+    const tid: number = Number(req.params.tid);
+    const matchid: string = req.params.matchid;
+    const slotid: string = req.params.slotid;
+    const shareid = req.body.shareKey;
+    const reservation = req.body.reservation;
+    const userName = req.body.username;
+
+    async.parallel(
+            {
+                isTopicAdmin: _.partial(topicDb.isAllowedToEdit, req.uid, tid),
+                match: _.partial(matchDb.getFromDb, tid, matchid),
+                currentlySlottedUser(next) {
+                    slotDb.getSlotUser(tid, matchid, slotid, function (err: Error, slotUid: number) {
+                        if (slotUid) {
+                            getSingleUser(req.uid, slotUid, next);
+                        } else {
+                            next();
+                        }
+                    });
+                },
+                shareStatus: _.partial(shareDb.isValidShare, tid, matchid, reservation, shareid)
+            } as any,
+            /*{isTopicAdmin: boolean, match: matchDb.MatchWrapper, currentlySlottedUser: User, newUser: User}*/
+            function (err: Error, results: any) {
+                if (err) {
+                    return res.status(500).json({message: err.message});
+                }
+
+                const match = results.match as Match;
+                const currentlySlottedUser = results.currentlySlottedUser as IUser;
+                const shareStatus = results.shareStatus as string;
+
+                if (shareStatus === "user") {
+                    if (currentlySlottedUser) {
+                        return res.status(403).json({message: "Slot is already taken!"});
+                    }
+                }
+                if (!match) {
+                    return res.status(404).json({message: "match %s not found".replace("%s", matchid)});
+                }
+
+                slotDb.putSlotExternUser(tid, matchid, slotid, userName, function (error: Error) {
+                    if (error) {
+                        return res.status(500).json({message: error.message});
+                    }
+                    logger.info("user put for match %s, slot %s".replace("%s", matchid).replace("%s", slotid));
+                    // notifications.notifySlotted({match, tid}, currentlySlottedUser, newUser);
+                    // TODO: Create notification for external users
+                    // plugins.fireHook("action:arma3-slotting.set", {tid, uid, matchid}, noop);
+                    // TODO: add hook
+                    return res.status(204).json(null);
+                });
+            });
 }
 
 export function del(req: INodebbRequest, res: INodebbResponse) {
