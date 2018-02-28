@@ -54,18 +54,12 @@ export default function (params, meta, callback) {
                     return res.render("actions/500", {tid, matchid});
                 }
 
-                logger.info(JSON.stringify(result));
-                logger.info(JSON.stringify(shares));
-
                 shares.forEach(share => {
                     const index = result.indexOf(share.reservation);
                     if (index > -1) {
                         result.splice(index, 1);
                     }
                 });
-
-                logger.info(JSON.stringify(result));
-                logger.info(JSON.stringify(shares));
 
                 res.render("actions/match-share", {
                     tid,

@@ -31,14 +31,16 @@ export function getAllFromDb(tid: number, matchid: string, callback: (err: Error
     });
 }
 
-export function getFromDb(tid: number, matchid: string, reservation: string, shareid: string, callback: (err: Error, result: DBShare) => any) {
-    db.getObjectField(getRedisMatchesKey(tid, matchid), reservation, function (err, result) {
-        const parsedResult = JSON.parse(result);
-        if(parsedResult.adminUuid !== shareid) {
-            delete parsedResult.publicUuic;
+export function getFromDb(tid: number, matchid: string, shareid: string, callback: (err: Error, result: DBShare) => any) {
+    getAllFromDb(tid, matchid, (error, shares) => {
+        const share = shares.find(s => s.publicUuid === shareid || s.adminUuid === shareid);
+        if (share) {
+            if (shareid != share.adminUuid) {
+                delete share.adminUuid;
+            }
         }
-
-        callback(err, parsedResult);
+        logger.info(JSON.stringify(share));
+        callback(error, share);
     });
 }
 
@@ -56,8 +58,8 @@ export function insertIntoDb(tid: number, matchid: string, reservation: string, 
     });
 }
 
-export function isValidShare(tid: number, matchid: string, reservation: string, shareid: string, callback: (err: Error, result: string) => any) {
-    getFromDb(tid, matchid, reservation, shareid, (err, dbResult) => {
+export function isValidShare(tid: number, matchid: string, shareid: string, callback: (err: Error, result: string) => any) {
+    getFromDb(tid, matchid, shareid, (err, dbResult) => {
         if (dbResult) {
             if (shareid === dbResult.adminUuid) {
                 callback(err, "admin");
@@ -69,6 +71,16 @@ export function isValidShare(tid: number, matchid: string, reservation: string, 
         } else {
             callback(err, "none");
         }
+    });
+}
+
+export function getTopic(tid: number, callback: (err: Error, result: string) => any) {
+    db.getObject('topic:' + tid, (error, result) => {
+        db.getObject('post:' + result.mainPid, (error, initialPost) => {
+            result.mainPost = initialPost;
+            logger.info(JSON.stringify(result));
+            callback(error, result);
+        });
     });
 }
 

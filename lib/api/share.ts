@@ -1,9 +1,7 @@
-import * as logger from "../logger";
 import * as shareDB from "../db/share";
 import { INodebbRequest, INodebbResponse } from '../../types/nodebb';
-import { partial } from 'underscore';
-import * as async from 'async';
-
+import * as logger from "../logger";
+import { isValidShare } from '../db/share';
 
 export function post(req: INodebbRequest, res: INodebbResponse) {
     const tid = +req.params.tid;
@@ -25,13 +23,12 @@ export function post(req: INodebbRequest, res: INodebbResponse) {
 export function get(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
-    const reservation = req.params.shareid;
-    const shareKey = req.body.shareKey;
+    const shareKey = req.params.shareid;
     if (!shareKey) {
         return res.status(400).json({message: "Missing body parameter: shareKey"});
     }
 
-    shareDB.getFromDb(tid, matchid, reservation, shareKey, (error, result) => {
+    shareDB.getFromDb(tid, matchid, shareKey, (error, result) => {
         if (error) {
             return res.status(400).json(error);
         } else {
@@ -40,16 +37,12 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
     });
 }
 
-export function getAll(req: INodebbRequest, res: INodebbResponse) {
+export function getTopicData(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
-    const matchid = req.params.matchid;
 
-    shareDB.getAllFromDb(tid, matchid, (error, result) => {
-        if (error) {
-            return res.status(400).json(error);
-        } else {
-            return res.status(200).json(result);
-        }
+    shareDB.getTopic(tid, (error, topic) => {
+        logger.info(JSON.stringify(topic));
+        return res.status(200).json(topic);
     });
 }
 

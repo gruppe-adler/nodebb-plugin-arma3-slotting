@@ -127,10 +127,9 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
 };
 
 const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, next) {
-    const shareid = req.header("X-Share-Key");
-    const reservation = req.header("X-Reservation");
-    if (shareid && reservation) {
-        shareDb.isValidShare(req.params.tid, req.params.matchid, reservation, shareid, (err, result) => {
+    const shareid = req.header("X-Share-Key") || req.params.shareid;
+    if (shareid) {
+        shareDb.isValidShare(req.params.tid, req.params.matchid, shareid, (err, result) => {
             if (result === "none") {
                 return res.status(403).json({message: "Invalid reservation or share id"});
             } else {
@@ -152,10 +151,9 @@ const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, ne
 };
 
 const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, next) {
-    const shareid = req.body.shareKey;
-    const reservation = req.body.reservation;
-    if (shareid && reservation) {
-        shareDb.isValidShare(req.params.tid, req.params.matchid, reservation, shareid, (err, result) => {
+    const shareid = req.header("X-Share-Key") || req.params.shareid;
+    if (shareid) {
+        shareDb.isValidShare(req.params.tid, req.params.matchid, shareid, (err, result) => {
             if (result === "none") {
                 return res.status(403).json({message: "Invalid reservation or share id"});
             } else {
@@ -276,6 +274,7 @@ export function init(params, callback) {
     all("/:tid/match/:matchid", methodNotAllowed);
 
     // get("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.getAll);
+    get("/:tid/match/:matchid/share/:shareid/topic", requireCanSeeAttendance, shareApi.getTopicData);
     get("/:tid/match/:matchid/share/:shareid", requireTopic, shareApi.get);
     pos("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.post);
     del("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.del);
