@@ -127,15 +127,28 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
 };
 
 const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, next) {
-    canSee(req.uid, req.params.tid, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        if (result) {
-            next(); return;
-        }
-        return res.status(403).json({message: "you are not allowed to see this"});
-    });
+    const shareid = req.header("X-Share-Key");
+    const reservation = req.header("X-Reservation");
+    if (shareid && reservation) {
+        shareDb.isValidShare(req.params.tid, req.params.matchid, reservation, shareid, (err, result) => {
+            if (result === "none") {
+                return res.status(403).json({message: "Invalid reservation or share id"});
+            } else {
+                next();
+                return;
+            }
+        });
+    } else {
+        canSee(req.uid, req.params.tid, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            if (result) {
+                next(); return;
+            }
+            return res.status(403).json({message: "you are not allowed to see this"});
+        });
+    }
 };
 
 const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, next) {
