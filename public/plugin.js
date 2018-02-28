@@ -130,7 +130,7 @@ require([
 
     $(document).on('drop', '[component="topic/arma3-slotting"] .slot .slot_button .avatar', function (event) {
         event.preventDefault();
-        
+
         var user = JSON.parse(event.originalEvent.dataTransfer.getData("application/json"));
         if (!user.uid || !user.username) {
             return;
@@ -208,7 +208,7 @@ require([
                 } else {
                     $.get('/plugins/nodebb-plugin-arma3-slotting/presets/' + templateLang + templateName + '.xml', function (xmlDocument) {
                         insertTextAtCursorPosition('\n' + xmlDocument.firstElementChild.outerHTML, document.getElementById('match-definition'));
-                    });  
+                    });
                 }
             }
         }
@@ -339,7 +339,7 @@ require([
       if (!input) { return; }
       var scrollPos = input.scrollTop;
       var pos = 0;
-      var browser = ((input.selectionStart || input.selectionStart == "0") ? 
+      var browser = ((input.selectionStart || input.selectionStart == "0") ?
         "ff" : (document.selection ? "ie" : false ) );
       if (browser === "ie") {
         input.focus();
@@ -349,8 +349,8 @@ require([
       }
       else if (browser === "ff") { pos = input.selectionStart }
 
-      var front = (input.value).substring(0, pos);  
-      var back = (input.value).substring(pos, input.value.length); 
+      var front = (input.value).substring(0, pos);
+      var back = (input.value).substring(pos, input.value.length);
       input.value = front+text+back;
       pos = pos + text.length;
       if (browser === "ie") {
@@ -473,6 +473,7 @@ require([
                     match.tid = topicId;
                     match.hasPermissions = permissionsAndGroups.result;
                     var x = expandUnitTree(match);
+                    console.log(x);
                     return templates.master(x);
                 }).join('\n<!-- match separation -->\n');
 

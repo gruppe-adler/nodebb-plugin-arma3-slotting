@@ -26,12 +26,16 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
     const reservation = req.params.shareid;
+    const shareKey = req.body.shareKey;
+    if (!shareKey) {
+        return res.status(400).json({message: "Missing body parameter: shareKey"});
+    }
 
-    shareDB.getFromDb(tid, matchid, reservation, req.header("X-Share-Key"), (error, result) => {
+    shareDB.getFromDb(tid, matchid, reservation, shareKey, (error, result) => {
         if (error) {
             return res.status(400).json(error);
         } else {
-            return res.status(200).json({message: error});
+            return res.status(200).json(result);
         }
     });
 }
@@ -58,8 +62,6 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
     }
 
     shareDB.delFromDb(tid, matchid, req.body.reservation, (error, result) => {
-        logger.info(error);
-        logger.info(result);
         if (error) {
             return res.status(400).json(error);
         } else {

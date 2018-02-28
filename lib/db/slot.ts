@@ -36,14 +36,14 @@ export function getMatchUsers(
     db.getObject(getUsersKey(tid, matchid), (err, slot2user: {[slot: string]: string}) => {
         slot2user = slot2user || {};
         const slot2userNumeric: {[slot: string]: number} = {};
-        Object.keys(slot2user).forEach(slot => slot2userNumeric[slot] = Number(slot2user[slot]));
+        Object.keys(slot2user).forEach(slot => slot2userNumeric[slot] = tryParseInt(slot2user[slot], slot2user[slot]));
         callback(err, slot2userNumeric);
     });
 }
 
 export function getSlotUser(tid: number, matchid: string, slotid: string, callback) {
     db.getObjectField(getUsersKey(tid, matchid), slotid, function (err, uid) {
-        callback(err, Number(uid));
+        callback(err, tryParseInt(uid, uid));
     });
 }
 
@@ -71,4 +71,16 @@ export function deleteMatchUser(tid: number, matchid: string, uidToUnslot: numbe
             (error, results) => callback(error, results.length),
         );
     });
+}
+
+function tryParseInt(str,defaultValue) {
+    let retValue = defaultValue;
+    if(str !== null) {
+        if(str.length > 0) {
+            if (!isNaN(str)) {
+                retValue = parseInt(str);
+            }
+        }
+    }
+    return retValue;
 }

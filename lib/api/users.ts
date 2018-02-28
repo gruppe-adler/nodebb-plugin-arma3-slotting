@@ -42,7 +42,6 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function put(req: INodebbRequest, res: INodebbResponse) {
-    logger.info('test');
     const tid: number = Number(req.params.tid);
     const matchid: string = req.params.matchid;
     const slotid: string = req.params.slotid;
@@ -148,7 +147,7 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
                     return res.status(404).json({message: "match %s not found".replace("%s", matchid)});
                 }
 
-                slotDb.putSlotExternUser(tid, matchid, slotid, userName, function (error: Error) {
+                slotDb.putSlotExternUser(tid, matchid, slotid, reservation + ":" + userName, function (error: Error) {
                     if (error) {
                         return res.status(500).json({message: error.message});
                     }
@@ -192,9 +191,12 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
         if ((currentlySlottedUserId !== req.uid) && !isTopicAdmin) {
             return res.status(403).json({message: "You're not allowed to unslot that user."});
         }
+
+        // If there is nobody slotted, just ignore it
+        /*
         if (!currentlySlottedUserId) {
             return res.status(404).json({message: "Cant delete. Nobody is slotted there."});
-        }
+        }*/
 
         slotDb.deleteSlotUser(tid, matchid, slotid, function (error: Error) {
             if (error) {
