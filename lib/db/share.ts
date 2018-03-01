@@ -62,13 +62,17 @@ export function isValidShare(tid: number, matchid: string, shareid: string, call
     getFromDb(tid, matchid, shareid, (err, dbResult) => {
         if (dbResult) {
             if (shareid === dbResult.adminUuid) {
+                logger.info('share ' + shareid + ' is valid as admin');
                 callback(err, "admin");
             } else if (shareid === dbResult.publicUuid) {
+                logger.info('share ' + shareid + ' is valid as user');
                 callback(err, "user");
             } else {
+                logger.info('share ' + shareid + ' is not valid');
                 callback(err, "none");
             }
         } else {
+            logger.info('share ' + shareid + ' is faulty');
             callback(err, "none");
         }
     });

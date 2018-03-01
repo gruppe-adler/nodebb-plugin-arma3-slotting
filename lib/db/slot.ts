@@ -1,5 +1,6 @@
 import * as async from "async";
 import * as _ from "underscore";
+import * as logger from "../logger";
 import {DbCallback, IDb} from "../../types/nodebb";
 
 const db = require("../../../../src/database") as IDb;

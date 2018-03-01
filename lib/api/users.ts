@@ -115,7 +115,6 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
 
     async.parallel(
             {
-                isTopicAdmin: _.partial(topicDb.isAllowedToEdit, req.uid, tid),
                 match: _.partial(matchDb.getFromDb, tid, matchid),
                 currentlySlottedUser(next) {
                     slotDb.getSlotUser(tid, matchid, slotid, function (err: Error, slotUid: number) {
@@ -126,7 +125,7 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
                         }
                     });
                 },
-                shareStatus: _.partial(shareDb.isValidShare, tid, matchid, reservation, shareid)
+                shareStatus: _.partial(shareDb.isValidShare, tid, matchid, shareid)
             } as any,
             /*{isTopicAdmin: boolean, match: matchDb.MatchWrapper, currentlySlottedUser: User, newUser: User}*/
             function (err: Error, results: any) {
@@ -156,7 +155,7 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
                     // TODO: Create notification for external users
                     // plugins.fireHook("action:arma3-slotting.set", {tid, uid, matchid}, noop);
                     // TODO: add hook
-                    return res.status(204).json(null);
+                    return res.status(204).json();
                 });
             });
 }
@@ -165,6 +164,10 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
+
+    if (req.body.shareKey) {
+        return delExtern(req, res);
+    }
 
     async.parallel({
         isTopicAdmin: _.partial(topicDb.isAllowedToEdit, req.uid, tid),
@@ -204,6 +207,63 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
             }
 
             notifications.notifyUnslotted({match, tid}, currentlySlottedUser);
+            return res.status(204).json(null);
+        });
+    });
+}
+
+export function delExtern(req: INodebbRequest, res: INodebbResponse) {
+    const tid = req.params.tid;
+    const matchid = req.params.matchid;
+    const slotid = req.params.slotid;
+    const shareid = req.body.shareKey;
+    const reservation = req.body.reservation;
+    const userName = req.body.username;
+
+    async.parallel({
+        isTopicAdmin: _.partial(topicDb.isAllowedToEdit, req.uid, tid),
+        match: _.partial(matchDb.getFromDb, tid, matchid),
+        shareStatus: _.partial(shareDb.isValidShare, tid, matchid, shareid),
+        currentlySlottedUser(next) {
+            slotDb.getSlotUser(tid, matchid, slotid, function (err, slotUid) {
+                if (slotUid && typeof slotUid === typeof '') {
+                    getSingleUser(req.uid, slotUid, next);
+                } else {
+                    next();
+                }
+            });
+        },
+    }, function (err: Error, results) {
+        if (err) {
+            return res.status(500).json({message: err.message});
+        }
+
+        const shareStatus = results.shareStatus;
+        const match = results.match as Match;
+        const currentlySlottedUser = results.currentlySlottedUser;
+
+        if (shareStatus === "none") {
+            logger.info('invalid share');
+            return res.status(401).json();
+        }
+
+        if (typeof currentlySlottedUser !== typeof '') {
+            logger.info('wanted to unslot forum user with share key')
+            return res.status(401).json();
+        }
+
+        // If there is nobody slotted, just ignore it
+        /*
+        if (!currentlySlottedUserId) {
+            return res.status(404).json({message: "Cant delete. Nobody is slotted there."});
+        }*/
+
+        slotDb.deleteSlotUser(tid, matchid, slotid, function (error: Error) {
+            if (error) {
+                return res.status(500).json(error);
+            }
+
+            // notifications.notifyUnslotted({match, tid}, currentlySlottedUser);
             return res.status(204).json(null);
         });
     });
