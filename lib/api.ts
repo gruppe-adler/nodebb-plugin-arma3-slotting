@@ -89,6 +89,13 @@ const requireTopic = function (req: INodebbRequest, res: Response, next) {
 };
 
 const methodNotAllowed = function (req: INodebbRequest, res: Response) {
+    if(req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Share-Key, X-Reservation');
+        res.status(200).send();
+        return;
+    }
     res.status(405).json({message: "Method not allowed"});
 };
 
@@ -246,14 +253,29 @@ const getApiMethodGenerator = function (router: Router, methodName: string) {
     };
 };
 
+const optionsHandle = function (req: INodebbRequest, res: Response) {
+    const headers = {};
+    // IE8 does not allow domains to be specified, just the *
+    // headers["Access-Control-Allow-Origin"] = req.headers.origin;
+    headers["Access-Control-Allow-Origin"] = "*";
+    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+    headers["Access-Control-Allow-Credentials"] = false;
+    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+    headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+    res.writeHead(200, headers);
+    res.end();
+};
+
 export function init(params, callback) {
     const routedMethodGenerator = _.partial(getApiMethodGenerator, params.router);
     const get = routedMethodGenerator("get");
     const pos = routedMethodGenerator("post");
     const del = routedMethodGenerator("delete");
     const put = routedMethodGenerator("put");
+    const options = routedMethodGenerator("options");
     const all = routedMethodGenerator("all");
 
+    options("/:tid", optionsHandle);
     all("/:tid", requireTopic, restrictCategories);
     all("/:tid/*", requireTopic, restrictCategories);
     pos("/:tid/*", requireLoggedIn, restrictCategories, requireEventInFuture);
