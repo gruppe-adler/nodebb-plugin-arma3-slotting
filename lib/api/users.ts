@@ -226,10 +226,10 @@ export function delExtern(req: INodebbRequest, res: INodebbResponse) {
         shareStatus: _.partial(shareDb.isValidShare, tid, matchid, shareid),
         currentlySlottedUser(next) {
             slotDb.getSlotUser(tid, matchid, slotid, function (err, slotUid) {
-                if (slotUid && typeof slotUid === typeof '') {
+                if (slotUid && typeof slotUid !== typeof '') {
                     getSingleUser(req.uid, slotUid, next);
                 } else {
-                    next();
+                    next(null, slotUid);
                 }
             });
         },
@@ -248,6 +248,7 @@ export function delExtern(req: INodebbRequest, res: INodebbResponse) {
         }
 
         if (typeof currentlySlottedUser !== typeof '') {
+            logger.info(JSON.stringify(currentlySlottedUser));
             logger.info('wanted to unslot forum user with share key')
             return res.status(401).json();
         }
@@ -264,7 +265,7 @@ export function delExtern(req: INodebbRequest, res: INodebbResponse) {
             }
 
             // notifications.notifyUnslotted({match, tid}, currentlySlottedUser);
-            return res.status(204).json(null);
+            return res.status(204).json();
         });
     });
 }
