@@ -77,7 +77,7 @@
         };
 
         const openSlotlink = function(tid, matchid, adminUuid, reservation) {
-            window.open('//localhost:4200/events?tid=' + tid + '&matchid=' + matchid + '&uuid=' + adminUuid + '&reservation=' + reservation,'_blank');
+            window.open('//dev.gruppe-adler.de/events?tid=' + tid + '&matchid=' + matchid + '&uuid=' + adminUuid + '&reservation=' + reservation, '_blank');
         }
     </script>
 </div>

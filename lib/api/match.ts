@@ -1,5 +1,7 @@
 "use strict";
 
+import * as websocket from '../websocket';
+
 const xml2json = require("xml2json") as { toJson: (xml: any, conf: any) => any, toXml: (obj: any) => string };
 
 import {AnyCallback} from "../fn";
@@ -37,7 +39,7 @@ function sendMatchResult(req: INodebbRequest, res: INodebbResponse, result: Matc
     res.json(result);
 }
 
-function addUsersAndReservations(currentUser, tid: number, match: Match, callback: (Error, newMatch: Match) => any) {
+export function addUsersAndReservations(currentUser, tid: number, match: Match, callback: (Error, newMatch: Match) => any) {
     slotDb.getMatchUsers(tid, match.uuid, function (err: Error, slot2user: { [uuid: string]: any }) {
             if (err) {
                 return callback(err, null);
@@ -137,6 +139,11 @@ function putMatch(tid: number,
             logger.error("error saving match :(");
             return callback(err);
         }
+
+        websocket.send(new websocket.MatchUpdate(websocket.UpdateType.MATCH_CHANGED, {
+            matchid: match.uuid,
+            match: match
+        }));
 
         matchDb.saveToDb(tid, match.uuid, match, function (error: Error) {
             callback(error, match);

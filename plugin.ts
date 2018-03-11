@@ -10,6 +10,7 @@ export function setup(params, callback): void {
     const adminModule = require("./lib/admin");
     const api = require("./lib/api");
     const actions = require("./lib/actions").default;
+    const websocket = require("./lib/websocket");
 
     adminModule.init(params, meta, function () {
         api.setAllowedCategories(adminModule.getAllowedCategories());
@@ -18,6 +19,7 @@ export function setup(params, callback): void {
     });
 
     actions(params, meta, noop);
+    websocket.init();
 }
 
 export function catchAttendanceChange(params, callback?: AnyCallback): void {
