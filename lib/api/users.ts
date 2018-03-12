@@ -104,6 +104,7 @@ export function put(req: INodebbRequest, res: INodebbResponse) {
             plugins.fireHook("action:arma3-slotting.set", {tid, uid, matchid}, noop);
 
             websocket.send(new websocket.MatchUpdate(websocket.UpdateType.USER_SLOTTED, {
+                tid: tid,
                 matchid: matchid,
                 slot: slotid,
                 user: newUser
@@ -166,6 +167,7 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
                     // TODO: add hook
 
                     websocket.send(new websocket.MatchUpdate(websocket.UpdateType.USER_SLOTTED, {
+                        tid: tid,
                         matchid: matchid,
                         slot: slotid,
                         user: <IMatchOutputUser>{
@@ -233,6 +235,7 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
 
             notifications.notifyUnslotted({match, tid}, currentlySlottedUser);
             websocket.send(new websocket.MatchUpdate(websocket.UpdateType.USER_UNSLOTTED, {
+                tid: tid,
                 matchid: matchid,
                 slot: slotid
             }));
@@ -295,6 +298,7 @@ export function delExtern(req: INodebbRequest, res: INodebbResponse) {
             }
 
             websocket.send(new websocket.MatchUpdate(websocket.UpdateType.USER_UNSLOTTED, {
+                tid: tid,
                 matchid: matchid,
                 slot: slotid
             }));

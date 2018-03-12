@@ -141,8 +141,8 @@ function putMatch(tid: number,
         }
 
         websocket.send(new websocket.MatchUpdate(websocket.UpdateType.MATCH_CHANGED, {
-            matchid: match.uuid,
-            match: match
+            tid: tid,
+            matchid: match.uuid
         }));
 
         matchDb.saveToDb(tid, match.uuid, match, function (error: Error) {
