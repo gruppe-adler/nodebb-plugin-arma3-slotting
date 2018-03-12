@@ -1,7 +1,4 @@
 "use strict";
-
-import * as websocket from '../websocket';
-
 const xml2json = require("xml2json") as { toJson: (xml: any, conf: any) => any, toXml: (obj: any) => string };
 
 import {AnyCallback} from "../fn";
@@ -16,6 +13,8 @@ import * as userDb from "../db/users";
 import * as logger from "../logger";
 import { IMatchOutputUser, Match, Slot } from '../match';
 import {XmlMatchRequest} from "../xml-match-request";
+const socketio = require.main.require('./src/socket.io');
+const websocket = socketio.server.of('/slotting');
 
 function sendMatchesResult(req: INodebbRequest, res: INodebbResponse, result: Match[]) {
     const accepts = req.header("Accept");
@@ -140,13 +139,12 @@ function putMatch(tid: number,
             return callback(err);
         }
 
-        websocket.send(new websocket.MatchUpdate(websocket.UpdateType.MATCH_CHANGED, {
-            tid: tid,
-            matchid: match.uuid
-        }));
-
         matchDb.saveToDb(tid, match.uuid, match, function (error: Error) {
             callback(error, match);
+            websocket.emit('event:match-changed', {
+                tid: tid,
+                matchid: match.uuid
+            });
         });
     });
 }

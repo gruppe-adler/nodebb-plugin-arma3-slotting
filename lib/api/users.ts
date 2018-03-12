@@ -11,8 +11,9 @@ import * as topicDb from "../db/topics";
 import * as shareDb from "../db/share";
 import * as users from "../db/users";
 import * as logger from "../logger";
-import * as websocket from "../websocket";
 import { IMatchOutputUser, Match } from '../match';
+const socketio = require.main.require('./src/socket.io');
+const websocket = socketio.server.of('/slotting');
 
 const plugins = require("../../../../src/plugins") as IPlugins;
 
@@ -103,12 +104,12 @@ export function put(req: INodebbRequest, res: INodebbResponse) {
             notifications.notifySlotted({match, tid}, currentlySlottedUser, newUser);
             plugins.fireHook("action:arma3-slotting.set", {tid, uid, matchid}, noop);
 
-            websocket.send(new websocket.MatchUpdate(websocket.UpdateType.USER_SLOTTED, {
+            websocket.emit('event:user-slotted', {
                 tid: tid,
                 matchid: matchid,
                 slot: slotid,
                 user: newUser
-            }));
+            });
 
             return res.status(204).json(null);
         });
@@ -144,7 +145,7 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
                 }
 
                 const match = results.match as Match;
-                const currentlySlottedUser = results.currentlySlottedUser as IUser;
+                const currentlySlottedUser = results.currentlySlottedUser;
                 const shareStatus = results.shareStatus as string;
 
                 if (shareStatus === "user") {
@@ -161,12 +162,10 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
                         return res.status(500).json({message: error.message});
                     }
                     logger.info("user put for match %s, slot %s".replace("%s", matchid).replace("%s", slotid));
-                    // notifications.notifySlotted({match, tid}, currentlySlottedUser, newUser);
-                    // TODO: Create notification for external users
-                    // plugins.fireHook("action:arma3-slotting.set", {tid, uid, matchid}, noop);
-                    // TODO: add hook
+                    notifications.notifySlottedExternal({match, tid}, currentlySlottedUser, '[' + reservation + '] ' + username);
+                    plugins.fireHook("action:arma3-slotting.setExternal", {tid, username, reservation, matchid}, noop);
 
-                    websocket.send(new websocket.MatchUpdate(websocket.UpdateType.USER_SLOTTED, {
+                    websocket.emit('event:user-slotted', {
                         tid: tid,
                         matchid: matchid,
                         slot: slotid,
@@ -180,7 +179,7 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
                             groupTitle: "",
                             groups: []
                         }
-                    }));
+                    });
 
                     return res.status(204).json();
                 });
@@ -234,11 +233,12 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
             }
 
             notifications.notifyUnslotted({match, tid}, currentlySlottedUser);
-            websocket.send(new websocket.MatchUpdate(websocket.UpdateType.USER_UNSLOTTED, {
+
+            websocket.emit('event:user-unslotted', {
                 tid: tid,
                 matchid: matchid,
                 slot: slotid
-            }));
+            });
 
             return res.status(204).json(null);
         });
@@ -251,7 +251,7 @@ export function delExtern(req: INodebbRequest, res: INodebbResponse) {
     const slotid = req.params.slotid;
     const shareid = req.body.shareKey;
     const reservation = req.body.reservation;
-    const userName = req.body.username;
+    const username = req.body.username;
 
     async.parallel({
         isTopicAdmin: _.partial(topicDb.isAllowedToEdit, req.uid, tid),
@@ -297,13 +297,13 @@ export function delExtern(req: INodebbRequest, res: INodebbResponse) {
                 return res.status(500).json(error);
             }
 
-            websocket.send(new websocket.MatchUpdate(websocket.UpdateType.USER_UNSLOTTED, {
+            websocket.emit('event:user-unslotted', {
                 tid: tid,
                 matchid: matchid,
                 slot: slotid
-            }));
+            });
 
-            // notifications.notifyUnslotted({match, tid}, currentlySlottedUser);
+            notifications.notifyUnslottedExternal({match, tid}, '[' + reservation + '] ' + username);
             return res.status(204).json();
         });
     });
