@@ -1,4 +1,5 @@
 <div component="match" data-uuid="<%- x.uuid %>">
+
 	<small class="left" style="float: left;
 		margin-left: 10px;
 		margin-bottom: 10px;
@@ -12,8 +13,6 @@
 	<br><br>
 	<% if (x.hasPermissions) { %>
 	<small class="pull-right">
-
-
 		<div class="dropdown moderator-tools" component="match/controls" data-invisible="false">
 			<a href="#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
 			<ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -49,4 +48,8 @@
 		<%= x.company.map(pluginArma3Slotting.templates.company).join('') %>
 	</div>
 	<div class="clearfix"></div>
+<!--
+    <iframe id="slotlist-<%- x.uuid %>" style="border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://dev.gruppe-adler.de/slotting?tid=<%- x.tid %>&matchid=<%- x.uuid %>&raw=1" onload="iFrameResize({log:true})"></iframe>
+-->
+    <div class="clearfix"></div>
 </div>

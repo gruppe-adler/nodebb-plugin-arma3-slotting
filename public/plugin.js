@@ -9,6 +9,7 @@ require([
     'arma3-slotting/expandUnitTree',
     'arma3-slotting/getGroups',
     'arma3-slotting/showGroupsToggle',
+	'iframe-resize'
 ], function (
     async,
     _,
@@ -16,13 +17,15 @@ require([
     eventLoadedService,
     expandUnitTree,
     getGroups,
-    showGroupsToggle
+    showGroupsToggle,
+	iframeResize
 ) {
+	window.iFrameResize = iframeResize;
+	console.log(iframeResize);
     var cache = {
         topicNode: null,
         eventDate: null
     };
-
     console.log("arma3-slotting plugin js successfully started");
 
     (function () {
