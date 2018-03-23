@@ -17,6 +17,7 @@ import * as logger from "./logger";
 
 const canAttend = require("../../nodebb-plugin-attendance/lib/admin").canAttend;
 const canSee = require("../../nodebb-plugin-attendance/lib/admin").canSee;
+const meta = require("../../../src/meta");
 
 const prefixApiPath = function (path) {
     return "/api/arma3-slotting" + path;
@@ -90,10 +91,7 @@ const requireTopic = function (req: INodebbRequest, res: Response, next) {
 
 const methodNotAllowed = function (req: INodebbRequest, res: Response) {
     if(req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Share-Key, X-Reservation');
-        res.status(200).send();
+        optionsHandle(req, res);
         return;
     }
     res.status(405).json({message: "Method not allowed"});
@@ -255,13 +253,11 @@ const getApiMethodGenerator = function (router: Router, methodName: string) {
 
 const optionsHandle = function (req: INodebbRequest, res: Response) {
     const headers = {};
-    // IE8 does not allow domains to be specified, just the *
-    // headers["Access-Control-Allow-Origin"] = req.headers.origin;
-    headers["Access-Control-Allow-Origin"] = "*";
-    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+    headers["Access-Control-Allow-Origin"] = encodeURI(meta.config['access-control-allow-origin'] || '*');
+    headers["Access-Control-Allow-Methods"] = encodeURI(meta.config['access-control-allow-methods'] || '');
     headers["Access-Control-Allow-Credentials"] = false;
     headers["Access-Control-Max-Age"] = '86400'; // 24 hours
-    headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+    headers["Access-Control-Allow-Headers"] = encodeURI(meta.config['access-control-allow-headers'] || '');
     res.writeHead(200, headers);
     res.end();
 };
