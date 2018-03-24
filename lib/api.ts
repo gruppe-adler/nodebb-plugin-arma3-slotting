@@ -255,11 +255,16 @@ const optionsHandle = function (req: INodebbRequest, res: Response) {
     const headers = {};
     headers["Access-Control-Allow-Origin"] = encodeURI(meta.config['access-control-allow-origin'] || '*');
     headers["Access-Control-Allow-Methods"] = encodeURI(meta.config['access-control-allow-methods'] || '');
-    headers["Access-Control-Allow-Credentials"] = false;
+    headers["Access-Control-Allow-Credentials"] = true;
     headers["Access-Control-Max-Age"] = '86400'; // 24 hours
     headers["Access-Control-Allow-Headers"] = encodeURI(meta.config['access-control-allow-headers'] || '');
     res.writeHead(200, headers);
     res.end();
+};
+
+const setGlobalHeaders = function (req: INodebbRequest, res: Response, next) {
+    res.setHeader("Access-Control-Allow-Credentials", 'true');
+    next();
 };
 
 export function init(params, callback) {
@@ -271,7 +276,9 @@ export function init(params, callback) {
     const options = routedMethodGenerator("options");
     const all = routedMethodGenerator("all");
 
-    options("/:tid", optionsHandle);
+    options("/:tid/*", optionsHandle);
+    all("/:tid/*", setGlobalHeaders);
+    all("/:tid", requireTopic, restrictCategories);
     all("/:tid", requireTopic, restrictCategories);
     all("/:tid/*", requireTopic, restrictCategories);
     pos("/:tid/*", requireLoggedIn, restrictCategories, requireEventInFuture);
