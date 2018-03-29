@@ -37,6 +37,19 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
     });
 }
 
+export function getAll(req: INodebbRequest, res: INodebbResponse) {
+    const tid = req.params.tid;
+    const matchid = req.params.matchid;
+
+    shareDB.getAllFromDb(tid, matchid, (error, result) => {
+        if (error) {
+            return res.status(400).json(error);
+        } else {
+            return res.status(200).json(result);
+        }
+    });
+}
+
 export function getTopicData(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
 

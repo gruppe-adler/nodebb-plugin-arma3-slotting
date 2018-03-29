@@ -42,6 +42,11 @@
             "hook": "filter:attendance:slotted",
             "method": "filterAttendanceSlotted",
             "callbacked": true
+        },
+        {
+            "hook": "filter:middleware.buildHeader",
+            "method": "handleHeaders",
+            "callbacked": true
         }
     ]
 }

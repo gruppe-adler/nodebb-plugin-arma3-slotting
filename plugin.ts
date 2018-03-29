@@ -43,6 +43,11 @@ export function filterAttendanceSlotted(params, callback: (err: Error, userIds: 
     });
 }
 
+export function handleHeaders(params, callback): void {
+    logger.info('test');
+    callback(null, null);
+}
+
 export const admin = {
     menu(customHeader, callback: AnyCallback) {
         customHeader.plugins.push({

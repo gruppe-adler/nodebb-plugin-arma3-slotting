@@ -298,7 +298,7 @@ export function init(params, callback) {
     del("/:tid/match/:matchid", requireAdminOrThreadOwner, matchApi.del);
     all("/:tid/match/:matchid", methodNotAllowed);
 
-    // get("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.getAll);
+    get("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.getAll);
     get("/:tid/match/:matchid/share/:shareid/topic", requireCanSeeAttendance, shareApi.getTopicData);
     get("/:tid/match/:matchid/share/:shareid", requireTopic, shareApi.get);
     pos("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.post);
