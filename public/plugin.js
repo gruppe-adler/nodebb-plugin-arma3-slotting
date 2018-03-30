@@ -475,6 +475,11 @@ require([
                 matchesFragment.innerHTML = showGroupsToggle.getToggleMarkup() + matches.map(function (match) {
                     match.tid = topicId;
                     match.hasPermissions = permissionsAndGroups.result;
+                    match.experimental = app.user.username === 'Jörgn';
+                    if (match.experimental) {
+                        console.log('Experimental slotlist activated');
+                    }
+
                     var x = expandUnitTree(match);
                     console.log(x);
                     return templates.master(x);

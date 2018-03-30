@@ -47,9 +47,11 @@
 		<%= x.platoon.map(pluginArma3Slotting.templates.platoon).join('') %>
 		<%= x.company.map(pluginArma3Slotting.templates.company).join('') %>
 	</div>
-	<div class="clearfix"></div>
-<!--
-    <iframe id="slotlist-<%- x.uuid %>" style="border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://dev.gruppe-adler.de/slotting?tid=<%- x.tid %>&matchid=<%- x.uuid %>&raw=1" onload="iFrameResize({log:true})"></iframe>
--->
+
+	<% if (x.experimental) { %>
+		<span>! Experimental !</span>
+    	<iframe id="slotlist-<%- x.uuid %>" style="border: none; min-width: 100%; width: 1px;" scrolling="no" src="http://localhost:4200/slotting?tid=<%- x.tid %>" onload="iFrameResize({log:true})"></iframe>
+
+	<% } %>
     <div class="clearfix"></div>
 </div>
