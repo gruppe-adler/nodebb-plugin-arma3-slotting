@@ -21,12 +21,33 @@ require([
 	iframeResize
 ) {
 	window.iFrameResize = iframeResize;
-	console.log(iframeResize);
     var cache = {
         topicNode: null,
         eventDate: null
     };
     console.log("arma3-slotting plugin js successfully started");
+
+    window.addEventListener('message', function(e) {
+        if (!e.data || !e.data.type) {
+            return;
+        }
+
+        switch (e.data.type) {
+            case 'alert': {
+                app.alert(e.data.data);
+            } break;
+
+            case 'bootboxConfirm': {
+                bootbox.confirm(e.data.data, function (result) {
+                    document.getElementById('slotlist-external').contentWindow.postMessage(
+                    {
+                        type: 'bootboxConfirmResult',
+                        data: result
+                    });
+                });
+            } break;
+        }
+    });
 
     (function () {
         var css = document.createElement('link');
