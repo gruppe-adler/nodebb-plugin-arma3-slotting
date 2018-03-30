@@ -497,6 +497,7 @@ require([
                     match.tid = topicId;
                     match.hasPermissions = permissionsAndGroups.result;
                     match.experimental = app.user.username === 'Jörgn';
+                    match.testThread = app.currentRoom === 'topic_2005';
                     if (match.experimental) {
                         console.log('Experimental slotlist activated');
                     }

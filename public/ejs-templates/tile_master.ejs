@@ -1,5 +1,6 @@
 <div component="match" data-uuid="<%- x.uuid %>">
 
+	<% if (!x.testThread) { %>
 	<small class="left" style="float: left;
 		margin-left: 10px;
 		margin-bottom: 10px;
@@ -47,6 +48,7 @@
 		<%= x.platoon.map(pluginArma3Slotting.templates.platoon).join('') %>
 		<%= x.company.map(pluginArma3Slotting.templates.company).join('') %>
 	</div>
+	<% } %>
 
 	<% if (x.experimental) { %>
 		<span>! Experimental !</span>
