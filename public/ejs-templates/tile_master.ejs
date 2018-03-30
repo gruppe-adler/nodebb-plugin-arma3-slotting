@@ -50,7 +50,7 @@
 	</div>
 	<% } %>
 
-	<% if (x.experimental) { %>
+	<% if (x.experimental && !x.testThread) { %>
 		<span>! Experimental !</span>
     	<iframe id="slotlist-external" style="border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://slotting.gruppe-adler.de/slotting?tid=<%- x.tid %>" onload="iFrameResize({log:true})"></iframe>
 
