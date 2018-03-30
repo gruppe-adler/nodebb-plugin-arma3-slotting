@@ -43,7 +43,7 @@ require([
                     {
                         type: 'bootboxConfirmResult',
                         data: result
-                    });
+                    }, '*');
                 });
             } break;
         }
