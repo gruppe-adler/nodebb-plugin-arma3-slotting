@@ -36,6 +36,10 @@ require([
             case 'alert': {
                 app.alert(e.data.data);
             } break;
+			
+			case 'bootboxAlert': {
+                bootbox.alert(e.data.data);
+            } break;
 
             case 'bootboxConfirm': {
                 bootbox.confirm(e.data.data, function (result) {
@@ -45,6 +49,10 @@ require([
                         data: result
                     }, '*');
                 });
+            } break;
+			
+			case 'windowScrollBy': {
+                window.scrollBy(e.data.data.x, e.data.data.y);
             } break;
         }
     });
