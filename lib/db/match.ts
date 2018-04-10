@@ -94,7 +94,6 @@ export function getMatchReservations(tid: number, matchid: string, callback: Slo
 export function getUniqueMatchReservations(tid: number, matchid: string, callback: (err: Error, result: any[]) => any) {
     return getFromDb(tid, matchid, (err, match) => {
         const result = searchForReservations(match);
-        logger.info(JSON.stringify(result));
 
         callback(err, result);
     });

@@ -119,8 +119,6 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
         next(); return;
     }
 
-    logger.info(JSON.stringify(req.body));
-
     if (req.body.shareKey && req.body.reservation) {
         next(); return;
     }

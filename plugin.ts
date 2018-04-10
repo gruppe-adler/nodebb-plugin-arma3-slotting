@@ -44,7 +44,6 @@ export function filterAttendanceSlotted(params, callback: (err: Error, userIds: 
 }
 
 export function handleHeaders(params, callback): void {
-    logger.info('test');
     callback(null, null);
 }
 

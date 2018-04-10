@@ -39,7 +39,6 @@ export function getFromDb(tid: number, matchid: string, shareid: string, callbac
                 delete share.adminUuid;
             }
         }
-        logger.info(JSON.stringify(share));
         callback(error, share);
     });
 }
@@ -82,7 +81,6 @@ export function getTopic(tid: number, callback: (err: Error, result: string) => 
     db.getObject('topic:' + tid, (error, result) => {
         db.getObject('post:' + result.mainPid, (error, initialPost) => {
             result.mainPost = initialPost;
-            logger.info(JSON.stringify(result));
             callback(error, result);
         });
     });

@@ -281,7 +281,6 @@ export function delExtern(req: INodebbRequest, res: INodebbResponse) {
         }
 
         if (typeof currentlySlottedUser !== typeof '') {
-            logger.info(JSON.stringify(currentlySlottedUser));
             logger.info('wanted to unslot forum user with share key')
             return res.status(401).json();
         }

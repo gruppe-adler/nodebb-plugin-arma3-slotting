@@ -54,7 +54,6 @@ export function getTopicData(req: INodebbRequest, res: INodebbResponse) {
     const tid = req.params.tid;
 
     shareDB.getTopic(tid, (error, topic) => {
-        logger.info(JSON.stringify(topic));
         return res.status(200).json(topic);
     });
 }
