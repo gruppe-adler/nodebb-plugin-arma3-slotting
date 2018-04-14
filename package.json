@@ -38,6 +38,9 @@
     "test:run": "node_modules/.bin/jasmine --config=jasmine.json --helper=jasmine.js",
     "build": "node_modules/.bin/tsc",
     "build:watch": "node_modules/.bin/tsc -w",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "release:patch": "release-it -n",
+    "release:minor": "release-it minor -n",
+    "release:major": "release-it major -n"
   }
 }

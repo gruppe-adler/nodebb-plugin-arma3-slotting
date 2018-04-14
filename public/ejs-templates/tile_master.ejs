@@ -1,6 +1,5 @@
 <div component="match" data-uuid="<%- x.uuid %>">
 
-	<% if (!x.testThread) { %>
 	<small class="left" style="float: left;
 		margin-left: 10px;
 		margin-bottom: 10px;
@@ -48,12 +47,5 @@
 		<%= x.platoon.map(pluginArma3Slotting.templates.platoon).join('') %>
 		<%= x.company.map(pluginArma3Slotting.templates.company).join('') %>
 	</div>
-	<% } %>
-
-	<% if (x.experimental || x.testThread) { %>
-		<span>! Experimental !</span>
-    	<iframe id="slotlist-external" style="border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://slotting.gruppe-adler.de/slotting?tid=<%- x.tid %>" onload="iFrameResize({log:true})"></iframe>
-
-	<% } %>
     <div class="clearfix"></div>
 </div>

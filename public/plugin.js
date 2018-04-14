@@ -36,7 +36,7 @@ require([
             case 'alert': {
                 app.alert(e.data.data);
             } break;
-			
+
 			case 'bootboxAlert': {
                 bootbox.alert(e.data.data);
             } break;
@@ -50,7 +50,7 @@ require([
                     }, '*');
                 });
             } break;
-			
+
 			case 'windowScrollBy': {
                 window.scrollBy(e.data.data.x, e.data.data.y);
             } break;
@@ -504,8 +504,6 @@ require([
                 matchesFragment.innerHTML = showGroupsToggle.getToggleMarkup() + matches.map(function (match) {
                     match.tid = topicId;
                     match.hasPermissions = permissionsAndGroups.result;
-                    match.experimental = app.user.username === 'Jörgn';
-                    match.testThread = app.currentRoom === 'topic_2005';
                     if (match.experimental) {
                         console.log('Experimental slotlist activated');
                     }
@@ -514,6 +512,13 @@ require([
                     console.log(x);
                     return templates.master(x);
                 }).join('\n<!-- match separation -->\n');
+
+				if (app.user.username === 'Jörgn' || app.currentRoom === 'topic_2005') {
+					const matchesIframeFragment = document.createElement('div');
+					matchesIframeFragment.setAttribute('component', 'topic/arma3-slotting');
+					matchesIframeFragment.innerHTML = '<iframe id="slotlist-external" style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://slotting.gruppe-adler.de/slotting?tid=' + topicId + '" onload="iFrameResize()"></iframe>';
+					insertSlotlistsNode(matchesIframeFragment);
+				}
 
                 insertSlotlistsNode(matchesFragment);
                 showGroupsToggle.init();
