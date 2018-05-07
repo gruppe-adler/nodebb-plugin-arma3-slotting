@@ -490,39 +490,11 @@ require([
                     node.parentNode.removeChild(node);
                 });
 
-                /*
-                if (permissionsAndGroups.result) {
-                    insertAddMatchButton(templates.post_bar({tid: topicId}));
-                }
-                
-                if (!matches.length) {
-                    return;
-                }
-                
-                var matchesFragment = document.createElement('div');
-                matchesFragment.setAttribute('component', 'topic/arma3-slotting');
-                
-                matchesFragment.innerHTML = showGroupsToggle.getToggleMarkup() + matches.map(function (match) {
-                    match.tid = topicId;
-                    match.hasPermissions = permissionsAndGroups.result;
-                    if (match.experimental) {
-                        console.log('Experimental slotlist activated');
-                    }
+                const matchesIframeFragment = document.createElement('div');
+                matchesIframeFragment.setAttribute('component', 'topic/arma3-slotting');
+                matchesIframeFragment.innerHTML = '<iframe id="slotlist-external" style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://slotting.gruppe-adler.de/slotting?tid=' + topicId + '" onload="iFrameResize()"></iframe>';
+                insertSlotlistsNode(matchesIframeFragment);
 
-                    var x = expandUnitTree(match);
-                    console.log(x);
-                    return templates.master(x);
-                }).join('\n<!-- match separation -->\n');
-
-				if (app.user.username === 'Jörgn' || app.currentRoom === 'topic_2005') {
-                    */
-					const matchesIframeFragment = document.createElement('div');
-					matchesIframeFragment.setAttribute('component', 'topic/arma3-slotting');
-					matchesIframeFragment.innerHTML = '<iframe id="slotlist-external" style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://slotting.gruppe-adler.de/slotting?tid=' + topicId + '" onload="iFrameResize()"></iframe>';
-					insertSlotlistsNode(matchesIframeFragment);
-				// }
-
-                insertSlotlistsNode(matchesFragment);
                 showGroupsToggle.init();
             }
         );
