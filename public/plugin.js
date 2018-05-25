@@ -99,7 +99,11 @@ require([
     function load() {
 
         let topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
-
+        const matchesIframe = document.querySelector('#slotlist-external');
+	if (matchesIframe) {		
+		matchesIframe.src = matchesIframe.src;
+		return;
+	}
         const matchesIframeFragment = document.createElement('div');
         matchesIframeFragment.setAttribute('component', 'topic/arma3-slotting');
         matchesIframeFragment.innerHTML = '<iframe id="slotlist-external" style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://slotting.gruppe-adler.de/slotting?tid=' + topicId + '" onload="iFrameResize()"></iframe>';
