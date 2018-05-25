@@ -43,6 +43,40 @@ export function notifySlotted(matchWrapper: { tid: number, match: Match }, oldUs
     });
 }
 
+export function notifySlottedExternal(matchWrapper: { tid: number, match: Match }, oldUser: string, newUser: string) {
+    const tid = matchWrapper.tid;
+    async.parallel({
+        eventTitle: _.partial(topics.getTitle, tid),
+        followingUids: _.partial(topics.getFollowers, tid),
+    }, function (err: Error, data: { eventTitle: string, followingUids: any }) {
+        const eventTitle = data.eventTitle;
+        const followingUids = data.followingUids;
+
+        let msg = '%s slotted into "%s"'.replace("%s", newUser).replace("%s", eventTitle);
+        if (oldUser) {
+            msg = '%s slotted into "%s", replacing user %s'
+                    .replace("%s", newUser)
+                    .replace("%s", eventTitle)
+                    .replace("%s", oldUser);
+        }
+        notifications.create(
+                {
+                    bodyLong: msg,
+                    bodyShort: msg,
+                    nid: "arma3-slotting:" + matchWrapper.match.uuid + ":slotting:" + newUser,
+                    path: "/topic/" + tid,
+                    tid,
+                },
+                function (error: Error, notification) {
+                    notifications.push(notification, _.values(followingUids), function (error3: Error) {
+                        if (error3) {
+                            logger.error(error3.message, error3);
+                        }
+                    });
+                });
+    });
+}
+
 export function notifyUnslotted(matchWrapper: {tid: number, match: Match}, oldUser: IUser) {
     const tid = matchWrapper.tid;
     async.parallel({
@@ -61,6 +95,35 @@ export function notifyUnslotted(matchWrapper: {tid: number, match: Match}, oldUs
             from: oldUser.uid,
             image: oldUser.picture,
             nid: "arma3-slotting:" + matchWrapper.match.uuid + ":slotting:" + oldUser.uid,
+            path: "/topic/" + tid,
+            tid,
+        }, function (error, notification) {
+            notifications.push(notification, _.values(followingUids), function (error3) {
+                if (error3) {
+                    logger.error(error3.message, error3);
+                }
+            });
+        });
+
+    });
+}
+
+export function notifyUnslottedExternal(matchWrapper: {tid: number, match: Match}, oldUser: string) {
+    const tid = matchWrapper.tid;
+    async.parallel({
+        eventTitle: _.partial(topics.getTitle, tid),
+        followingUids: _.partial(topics.getFollowers, tid),
+    }, function (err, data) {
+        const eventTitle = data.eventTitle as string;
+        const followingUids = data.followingUids as any;
+        const msg = '%s slotted out of "%s"'
+                .replace("%s", oldUser)
+                .replace("%s", eventTitle);
+
+        notifications.create({
+            bodyLong: msg,
+            bodyShort: msg,
+            nid: "arma3-slotting:" + matchWrapper.match.uuid + ":slotting:" + oldUser,
             path: "/topic/" + tid,
             tid,
         }, function (error, notification) {

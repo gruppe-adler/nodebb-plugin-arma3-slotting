@@ -7,18 +7,13 @@
     "staticDirs": {
         "ejs-templates": "public/ejs-templates",
         "templates": "public/templates",
-        "css": "public/css",
-        "presets": "public/presets"
+        "css": "public/css"
     },
     "templates": "public/templates",
      "scripts": [
          "../../node_modules/underscore/underscore-min.js",
-         "./public/js/expandUnitTree.js",
-         "./public/js/formatXml.js",
+         "./public/js/iframeResizer.js",
          "./public/js/eventTopicLoadedService.js",
-         "./public/js/getTemplates.js",
-         "./public/js/getGroups.js",
-         "./public/js/showGroupsToggle.js",
          "./public/plugin.js"
     ],
     "hooks": [
@@ -40,6 +35,11 @@
         {
             "hook": "filter:attendance:slotted",
             "method": "filterAttendanceSlotted",
+            "callbacked": true
+        },
+        {
+            "hook": "filter:middleware.buildHeader",
+            "method": "handleHeaders",
             "callbacked": true
         }
     ]

@@ -6,15 +6,18 @@ import {INodebbRequest} from "../types/nodebb";
 import * as _ from "underscore";
 import * as slottedUsersApi from "./api/slotted-users";
 import * as matchApi from "./api/match";
+import * as shareApi from "./api/share";
 import * as reservationApi from "./api/reservations";
 import * as slotApi from "./api/slot";
 import * as userApi from "./api/users";
 import * as topicDb from "./db/topics";
+import * as shareDb from "./db/share";
 import * as userDb from "./db/users";
 import * as logger from "./logger";
 
 const canAttend = require("../../nodebb-plugin-attendance/lib/admin").canAttend;
 const canSee = require("../../nodebb-plugin-attendance/lib/admin").canSee;
+const meta = require("../../../src/meta");
 
 const prefixApiPath = function (path) {
     return "/api/arma3-slotting" + path;
@@ -87,6 +90,10 @@ const requireTopic = function (req: INodebbRequest, res: Response, next) {
 };
 
 const methodNotAllowed = function (req: INodebbRequest, res: Response) {
+    if(req.method === 'OPTIONS') {
+        optionsHandle(req, res);
+        return;
+    }
     res.status(405).json({message: "Method not allowed"});
 };
 
@@ -111,6 +118,11 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
     if (apiKey && (req.header("X-Api-Key") === apiKey)) {
         next(); return;
     }
+
+    if (req.body.shareKey && req.body.reservation) {
+        next(); return;
+    }
+
     if (req.uid) {
         next(); return;
     }
@@ -118,27 +130,51 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
 };
 
 const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, next) {
-    canSee(req.uid, req.params.tid, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        if (result) {
-            next(); return;
-        }
-        return res.status(403).json({message: "you are not allowed to see this"});
-    });
+    const shareid = req.header("X-Share-Key") || req.params.shareid;
+    if (shareid) {
+        shareDb.isValidShare(req.params.tid, req.params.matchid, shareid, (err, result) => {
+            if (result === "none") {
+                return res.status(403).json({message: "Invalid reservation or share id"});
+            } else {
+                next();
+                return;
+            }
+        });
+    } else {
+        canSee(req.uid, req.params.tid, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            if (result) {
+                next(); return;
+            }
+            return res.status(403).json({message: "you are not allowed to see this"});
+        });
+    }
 };
 
 const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, next) {
-    canAttend(req.uid, req.params.tid, function (err, result) {
-        if (err) {
-            throw err;
-        }
-        if (result) {
-            next(); return;
-        }
-        return res.status(403).json({message: "you are not allowed to edit this"});
-    });
+    const shareid = req.header("X-Share-Key") || req.params.shareid;
+    if (shareid) {
+        shareDb.isValidShare(req.params.tid, req.params.matchid, shareid, (err, result) => {
+            if (result === "none") {
+                return res.status(403).json({message: "Invalid reservation or share id"});
+            } else {
+                next();
+                return;
+            }
+        });
+    } else {
+        canAttend(req.uid, req.params.tid, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            if (result) {
+                next(); return;
+            }
+            return res.status(403).json({message: "you are not allowed to edit this"});
+        });
+    }
 };
 
 const requireAdminOrThreadOwner = function (req: INodebbRequest, res: Response, next) {
@@ -213,14 +249,34 @@ const getApiMethodGenerator = function (router: Router, methodName: string) {
     };
 };
 
+const optionsHandle = function (req: INodebbRequest, res: Response) {
+    const headers = {};
+    headers["Access-Control-Allow-Origin"] = encodeURI(meta.config['access-control-allow-origin'] || '*');
+    headers["Access-Control-Allow-Methods"] = encodeURI(meta.config['access-control-allow-methods'] || '');
+    headers["Access-Control-Allow-Credentials"] = true;
+    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+    headers["Access-Control-Allow-Headers"] = encodeURI(meta.config['access-control-allow-headers'] || '');
+    res.writeHead(200, headers);
+    res.end();
+};
+
+const setGlobalHeaders = function (req: INodebbRequest, res: Response, next) {
+    res.setHeader("Access-Control-Allow-Credentials", 'true');
+    next();
+};
+
 export function init(params, callback) {
     const routedMethodGenerator = _.partial(getApiMethodGenerator, params.router);
     const get = routedMethodGenerator("get");
     const pos = routedMethodGenerator("post");
     const del = routedMethodGenerator("delete");
     const put = routedMethodGenerator("put");
+    const options = routedMethodGenerator("options");
     const all = routedMethodGenerator("all");
 
+    options("/:tid/*", optionsHandle);
+    all("/:tid/*", setGlobalHeaders);
+    all("/:tid", requireTopic, restrictCategories);
     all("/:tid", requireTopic, restrictCategories);
     all("/:tid/*", requireTopic, restrictCategories);
     pos("/:tid/*", requireLoggedIn, restrictCategories, requireEventInFuture);
@@ -239,6 +295,13 @@ export function init(params, callback) {
     get("/:tid/match/:matchid", requireCanSeeAttendance, matchApi.get);
     del("/:tid/match/:matchid", requireAdminOrThreadOwner, matchApi.del);
     all("/:tid/match/:matchid", methodNotAllowed);
+
+    // get("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.getAll);
+    get("/:tid/match/:matchid/share/:shareid/topic", requireCanSeeAttendance, shareApi.getTopicData);
+    get("/:tid/match/:matchid/share/:shareid", requireTopic, shareApi.get);
+    pos("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.post);
+    del("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.del);
+    all("/:tid/match/:matchid/share", methodNotAllowed);
 
     get("/:tid/match/:matchid/slot", requireCanSeeAttendance, slotApi.getAll);
     all("/:tid/match/:matchid/slot", methodNotAllowed);

@@ -1,6 +1,7 @@
 import {DbCallback, IDb} from "../../types/nodebb";
 import {error} from "../logger";
 import {Match} from "../match";
+import * as logger from '../logger';
 
 const db: IDb = require("../../../../src/database") as IDb;
 
@@ -88,6 +89,30 @@ export function getMatchReservations(tid: number, matchid: string, callback: Slo
         slots.forEach(s => reservations[s.uuid] = s.getReservations().join(","));
         callback(err, reservations);
     });
+}
+
+export function getUniqueMatchReservations(tid: number, matchid: string, callback: (err: Error, result: any[]) => any) {
+    return getFromDb(tid, matchid, (err, match) => {
+        const result = searchForReservations(match);
+
+        callback(err, result);
+    });
+}
+
+function searchForReservations(match, reservations = []) {
+    ['company', 'platoon', 'squad', 'fireteam', 'slot'].forEach(currentFilter => {
+        if (match[currentFilter] && match[currentFilter].length > 0) {
+            match[currentFilter].forEach(current => {
+                reservations.concat(searchForReservations(current, reservations));
+                const reservation = current['reserved-for'];
+                if(current['reserved-for'] && typeof reservation === typeof '' && reservations.indexOf(reservation) === -1) {
+                    reservations.push(reservation);
+                }
+            });
+        }
+    });
+
+    return reservations;
 }
 
 export function deleteSlotReservation(tid: number, matchid: string, slotid: string, callback: DbCallback) {

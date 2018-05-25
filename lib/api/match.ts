@@ -1,5 +1,4 @@
 "use strict";
-
 const xml2json = require("xml2json") as { toJson: (xml: any, conf: any) => any, toXml: (obj: any) => string };
 
 import {AnyCallback} from "../fn";
@@ -12,8 +11,10 @@ import * as matchDb from "../db/match";
 import * as slotDb from "../db/slot";
 import * as userDb from "../db/users";
 import * as logger from "../logger";
-import {Match, Slot} from "../match";
+import { IMatchOutputUser, Match, Slot } from '../match';
 import {XmlMatchRequest} from "../xml-match-request";
+const socketio = require.main.require('./src/socket.io');
+const websocket = socketio.server.of('/slotting');
 
 function sendMatchesResult(req: INodebbRequest, res: INodebbResponse, result: Match[]) {
     const accepts = req.header("Accept");
@@ -37,8 +38,8 @@ function sendMatchResult(req: INodebbRequest, res: INodebbResponse, result: Matc
     res.json(result);
 }
 
-function addUsersAndReservations(currentUser, tid: number, match: Match, callback: (Error, newMatch: Match) => any) {
-    slotDb.getMatchUsers(tid, match.uuid, function (err: Error, slot2user: { [uuid: string]: number }) {
+export function addUsersAndReservations(currentUser, tid: number, match: Match, callback: (Error, newMatch: Match) => any) {
+    slotDb.getMatchUsers(tid, match.uuid, function (err: Error, slot2user: { [uuid: string]: any }) {
             if (err) {
                 return callback(err, null);
             }
@@ -51,7 +52,30 @@ function addUsersAndReservations(currentUser, tid: number, match: Match, callbac
                         const uid = slot2user[slotid];
                         const slot = match.getSlot(slotid);
                         if (slot) {
-                            slot.user = users.find(_ => _.uid === uid);
+                            // Check if uid is typeof string indicating that the user is external
+                            if (typeof uid === typeof "") {
+                                let iconText = "E";
+                                let username = uid;
+                                // Parse out clan shortcode
+                                if (uid.indexOf(':') > -1) {
+                                    const splitted = uid.split(':', 2);
+                                    iconText = splitted[0];
+                                    username = splitted[1];
+                                }
+
+                                slot.user = <IMatchOutputUser>{
+                                    uid: -1,
+                                    username: username,
+                                    userslug: username,
+                                    picture: "",
+                                    "icon:bgColor": "#673ab7",
+                                    "icon:text": iconText,
+                                    groupTitle: "",
+                                    groups: []
+                                };
+                            } else {
+                                slot.user = users.find(_ => _.uid === uid);
+                            }
                         } else {
                             logger.debug(`slot ${slotid} seems to not exist in match ${tid}/${match.uuid} anymore, ` +
                                 `although user ${uid} is slotted`);
@@ -117,6 +141,10 @@ function putMatch(tid: number,
 
         matchDb.saveToDb(tid, match.uuid, match, function (error: Error) {
             callback(error, match);
+            websocket.emit('event:match-changed', {
+                tid: tid,
+                matchid: match.uuid
+            });
         });
     });
 }

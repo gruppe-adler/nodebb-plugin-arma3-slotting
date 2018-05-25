@@ -2,6 +2,7 @@ import * as notifications from "./lib/db/notifications";
 import {AnyCallback, noop} from "./lib/fn";
 import * as unattendUser from "./lib/unattendUser";
 import {eventRepository} from "./lib/db/event";
+const logger = require('./lib/logger');
 const meta = require("./plugin.json");
 
 meta.nbbId = meta.id.replace(/nodebb-plugin-/, "");
@@ -40,6 +41,10 @@ export function filterAttendanceSlotted(params, callback: (err: Error, userIds: 
         params.userIds = userIds;
         callback(error, userIds);
     });
+}
+
+export function handleHeaders(params, callback): void {
+    callback(null, null);
 }
 
 export const admin = {
