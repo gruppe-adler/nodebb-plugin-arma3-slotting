@@ -7,14 +7,16 @@ require([
     'iframe-resize',
     'arma3-slotting/getTemplates',
     'arma3-slotting/eventTopicLoadedService',
+    'arma3-slotting/getPluginConfig'
 ], function (
     async,
     _,
     iframeResize,
     getTemplates,
     eventLoadedService,
+    getPluginConfig
 ) {
-	window.iFrameResize = iframeResize;
+    window.iFrameResize = iframeResize;
     var cache = {
         topicNode: null,
         eventDate: null
@@ -31,7 +33,7 @@ require([
                 app.alert(e.data.data);
             } break;
 
-			case 'bootboxAlert': {
+            case 'bootboxAlert': {
                 bootbox.alert(e.data.data);
             } break;
 
@@ -45,7 +47,7 @@ require([
                 });
             } break;
 
-			case 'windowScrollBy': {
+            case 'windowScrollBy': {
                 window.scrollBy(e.data.data.x, e.data.data.y);
             } break;
         }
@@ -100,14 +102,22 @@ require([
 
         var topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
         var matchesIframe = document.querySelector('#slotlist-external');
-	if (matchesIframe) {		
-		matchesIframe.src = matchesIframe.src;
-		return;
-	}
+        if (matchesIframe) {
+            matchesIframe.src = matchesIframe.src;
+            return;
+        }
         var matchesIframeFragment = document.createElement('div');
         matchesIframeFragment.setAttribute('component', 'topic/arma3-slotting');
-        matchesIframeFragment.innerHTML = '<iframe id="slotlist-external" style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://slotting.gruppe-adler.de/slotting?tid=' + topicId + '" onload="iFrameResize()"></iframe>';
-        insertSlotlistsNode(matchesIframeFragment);
+        getPluginConfig(function (err, config) {
+            matchesIframeFragment.innerHTML = '<iframe ' +
+                'id="slotlist-external" ' +
+                'style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" ' +
+                'scrolling="no" ' +
+                'src="' + config.slottingUiUrl + '/slotting?tid=' + topicId + '" ' +
+                'onload="iFrameResize()">' +
+                '</iframe>';
+            insertSlotlistsNode(matchesIframeFragment);
+        });
     }
 
     var topicLoaded = function (event, topicNode /*: Node*/, eventDate /*: Date*/) {

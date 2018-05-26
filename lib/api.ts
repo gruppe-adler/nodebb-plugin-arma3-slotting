@@ -14,6 +14,7 @@ import * as topicDb from "./db/topics";
 import * as shareDb from "./db/share";
 import * as userDb from "./db/users";
 import * as logger from "./logger";
+import {IPluginSettings} from './../lib/admin';
 
 const canAttend = require("../../nodebb-plugin-attendance/lib/admin").canAttend;
 const canSee = require("../../nodebb-plugin-attendance/lib/admin").canSee;
@@ -23,8 +24,7 @@ const prefixApiPath = function (path) {
     return "/api/arma3-slotting" + path;
 };
 
-let apiKey;
-let allowedCategories = [];
+let config: IPluginSettings;
 
 const exceptionToErrorResponse = function (e) {
     return {
@@ -97,8 +97,15 @@ const methodNotAllowed = function (req: INodebbRequest, res: Response) {
     res.status(405).json({message: "Method not allowed"});
 };
 
+const getConfig = function (req: INodebbRequest, res: Response, next) {
+    res.status(200).json({ // take care *not* to pass the apiKey ^^
+        slottingUiUrl: config.slottingUiUrl,
+        allowedCategories: config.allowedCategories,
+    });
+};
+
 const restrictCategories = function (req: INodebbRequest, res: Response, next) {
-    if (allowedCategories.length === 0) {
+    if (config.allowedCategories.length === 0) {
         next(); return;
     }
 
@@ -106,7 +113,7 @@ const restrictCategories = function (req: INodebbRequest, res: Response, next) {
         if (err) {
             return res.status(500).json(exceptionToErrorResponse(err));
         }
-        if (allowedCategories.indexOf(cid) === -1) {
+        if (config.allowedCategories.indexOf(cid) === -1) {
             return res.status(404).json({message: "API disabled for this category"});
         }
 
@@ -115,7 +122,7 @@ const restrictCategories = function (req: INodebbRequest, res: Response, next) {
 };
 
 const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
-    if (apiKey && (req.header("X-Api-Key") === apiKey)) {
+    if (config.apiKey && (req.header("X-Api-Key") === config.apiKey)) {
         next(); return;
     }
 
@@ -181,7 +188,7 @@ const requireAdminOrThreadOwner = function (req: INodebbRequest, res: Response, 
     const tid = parseInt(req.params.tid, 10);
     const uid = req.uid;
 
-    if (apiKey && (req.header("X-Api-Key") === apiKey)) {
+    if (config.apiKey && (req.header("X-Api-Key") === config.apiKey)) {
         next(); return;
     }
 
@@ -208,7 +215,7 @@ const isAdminOrThreadOwner = function (req: INodebbRequest, res) {
     const reqApiKey = req.header("X-Api-Key");
 
     if (reqApiKey) {
-        return res.status(200).json({result: reqApiKey === apiKey});
+        return res.status(200).json({result: reqApiKey === config.apiKey});
     }
 
     if (!uid) {
@@ -274,6 +281,8 @@ export function init(params, callback) {
     const options = routedMethodGenerator("options");
     const all = routedMethodGenerator("all");
 
+    get("/config", getConfig);
+
     options("/:tid/*", optionsHandle);
     all("/:tid/*", setGlobalHeaders);
     all("/:tid", requireTopic, restrictCategories);
@@ -319,10 +328,6 @@ export function init(params, callback) {
     callback();
 }
 
-export function setApiKey(newApiKey: string) {
-    apiKey = newApiKey;
-}
-
-export function setAllowedCategories(newAllowedCategories) {
-    allowedCategories = newAllowedCategories;
+export function setConfig(newConfig: IPluginSettings) {
+    config = newConfig;
 }

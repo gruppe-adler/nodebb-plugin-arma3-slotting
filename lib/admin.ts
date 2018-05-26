@@ -5,19 +5,25 @@ import * as logger from "./logger";
 
 const Meta = require("../../../src/meta") as nodebb.IMeta;
 
-interface IPluginSettings {"api-key": string; "allowed-categories": number[]; }
+export interface IPluginSettings {
+    apiKey: string;
+    allowedCategories: number[];
+    slottingUiUrl: string;
+}
 let pluginSettings: IPluginSettings = {
-    "allowed-categories": [],
-    "api-key": "",
+    allowedCategories: [],
+    apiKey: "",
+    slottingUiUrl: "https://slotting.gruppe-adler.de"
 };
 
 function parsePluginSettings(rawSettings): IPluginSettings {
     return {
-        "allowed-categories": (rawSettings["allowed-categories"] || "").
+        allowedCategories: (rawSettings["allowed-categories"] || "").
             split(",").
             map(function (bit) { return Number(bit.trim()); }).
             filter(function (id) {return id; }),
-        "api-key": rawSettings["api-key"],
+        apiKey: rawSettings["api-key"],
+        slottingUiUrl: rawSettings["slotting-ui-url"] || "https://slotting.gruppe-adler.de",
     };
 }
 
@@ -41,10 +47,6 @@ export function init(params, meta, callback: AnyCallback) {
     });
 }
 
-export function getApiKey(): string {
-    return pluginSettings["api-key"];
-}
-
-export function getAllowedCategories(): number[] {
-    return pluginSettings["allowed-categories"];
+export function getPluginSettings(): IPluginSettings {
+    return pluginSettings;
 }
