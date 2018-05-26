@@ -1,6 +1,5 @@
 define('arma3-slotting/eventTopicLoadedService', ['async', 'underscore'], function () {
 
-
     var getEventDate = function (title) {
         var dateMatch = title.trim().match(/([0-9]{4}-[0-9]{2}-[0-9]{2})([^0-9a-z])/i);
         return dateMatch ? new Date(dateMatch[1]) : null;
@@ -16,7 +15,6 @@ define('arma3-slotting/eventTopicLoadedService', ['async', 'underscore'], functi
         _.each(document.querySelectorAll('[component="topic"]'), function (topicNode) {
             var eventDate = getEventDate(getTopicTitle(document));
             if (eventDate) {
-                var topicId = parseInt(topicNode.getAttribute('data-tid'), 10);
                 $(window).trigger('action:event-topic.loaded', [topicNode, eventDate]);
             }
         });

@@ -12,6 +12,7 @@
     "templates": "public/templates",
      "scripts": [
          "../../node_modules/underscore/underscore-min.js",
+         "./public/js/getPluginConfig.js",
          "./public/js/iframeResizer.js",
          "./public/js/eventTopicLoadedService.js",
          "./public/plugin.js"

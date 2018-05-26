@@ -9,6 +9,15 @@
 					<input placeholder="API key" type="text" class="form-control" id="api-key" name="api-key" />
 				</div>
 			</div>
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label for="slotting-ui-url">URL of external slotting tool</label>
+					<input id="slotting-ui-url" name="slotting-ui-url"
+						placeholder="https://slotting.gruppe-adler.de"
+						class="form-control"
+					/>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="form-group">

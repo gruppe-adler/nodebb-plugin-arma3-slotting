@@ -7,12 +7,14 @@ require([
     'iframe-resize',
     'arma3-slotting/getTemplates',
     'arma3-slotting/eventTopicLoadedService',
+    'arma3-slotting/getPluginConfig'
 ], function (
     async,
     _,
     iframeResize,
     getTemplates,
-    eventLoadedService
+    eventLoadedService,
+    getPluginConfig
 ) {
     window.iFrameResize = iframeResize;
     var cache = {
@@ -106,8 +108,16 @@ require([
         }
         var matchesIframeFragment = document.createElement('div');
         matchesIframeFragment.setAttribute('component', 'topic/arma3-slotting');
-        matchesIframeFragment.innerHTML = '<iframe id="slotlist-external" style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" scrolling="no" src="https://slotting.gruppe-adler.de/slotting?tid=' + topicId + '" onload="iFrameResize()"></iframe>';
-        insertSlotlistsNode(matchesIframeFragment);
+        getPluginConfig(function (err, config) {
+            matchesIframeFragment.innerHTML = '<iframe ' +
+                'id="slotlist-external" ' +
+                'style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" ' +
+                'scrolling="no" ' +
+                'src="' + config.slottingUiUrl + '/slotting?tid=' + topicId + '" ' +
+                'onload="iFrameResize()">' +
+                '</iframe>';
+            insertSlotlistsNode(matchesIframeFragment);
+        });
     }
 
     var topicLoaded = function (event, topicNode /*: Node*/, eventDate /*: Date*/) {

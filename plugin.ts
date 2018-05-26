@@ -13,8 +13,7 @@ export function setup(params, callback): void {
     const actions = require("./lib/actions").default;
 
     adminModule.init(params, meta, function () {
-        api.setAllowedCategories(adminModule.getAllowedCategories());
-        api.setApiKey(adminModule.getApiKey());
+        api.setConfig(adminModule.getPluginSettings());
         api.init(params, callback);
     });
 
