@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-arma3-slotting",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "dependencies": {
     "@types/async": "^2.0.40",
     "@types/express": "^4.0.36",
@@ -27,7 +27,8 @@
   "devDependencies": {
     "jasmine": "^2.7.0",
     "jasmine-spec-reporter": "^4.2.0",
-    "underscore": "*"
+    "underscore": "*",
+    "winston": "*"
   },
   "nbbpm": {
     "compatibility": "^1.4.0"

@@ -1,6 +1,4 @@
-import {Winston} from "winston";
-
-const winston = require("../../winston/lib/winston") as Winston;
+import * as winston from "winston";
 
 const id = "plugin/arma3-slotting";
 
