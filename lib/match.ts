@@ -14,6 +14,7 @@ function toArray(m: any): any[] {
 }
 
 export enum Natosymbol {
+    zeus = "zeus",
     inf = "inf",
     motor_inf = "motor_inf",
     mech_inf = "mech_inf",

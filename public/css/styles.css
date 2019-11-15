@@ -44,6 +44,11 @@ a:focus {
 }
 
 /* NATO SYMBOLS handmade by nomisum */
+.symbol_zeus {
+	background-image: url(icons/zeus.svg);
+  	background-size: 30px 20px;	
+}
+
 .symbol_air {
 	background-image: url(icons/air.svg);
   	background-size: 30px 20px;	
