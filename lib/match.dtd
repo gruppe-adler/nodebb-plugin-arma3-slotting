@@ -22,7 +22,7 @@
 				radiofrequency CDATA #IMPLIED
 				ingamelobby CDATA #IMPLIED
 				vehicletype CDATA #IMPLIED
-				natosymbol TYPE (inf|motor_inf|mech_inf|armor|recon|air|plane|uav|med|art|mortar|hq|support|maint) "inf"
+				natosymbol TYPE (zeus|inf|motor_inf|mech_inf|armor|recon|air|plane|uav|med|art|mortar|hq|support|maint) "inf"
 				>
 		<!ATTLIST platoon
 				side CDATA #IMPLIED
@@ -31,7 +31,7 @@
 				radiofrequency CDATA #IMPLIED
 				ingamelobby CDATA #IMPLIED
 				vehicletype CDATA #IMPLIED
-				natosymbol TYPE (inf|motor_inf|mech_inf|armor|recon|air|plane|uav|med|art|mortar|hq|support|maint) "inf"
+				natosymbol TYPE (zeus|inf|motor_inf|mech_inf|armor|recon|air|plane|uav|med|art|mortar|hq|support|maint) "inf"
 				>
 		<!ATTLIST squad
 				side CDATA #IMPLIED
@@ -40,7 +40,7 @@
 				radiofrequency CDATA #IMPLIED
 				ingamelobby CDATA #IMPLIED
 				vehicletype CDATA #IMPLIED
-				natosymbol TYPE (inf|motor_inf|mech_inf|armor|recon|air|plane|uav|med|art|mortar|hq|support|maint) "inf"
+				natosymbol TYPE (zeus|inf|motor_inf|mech_inf|armor|recon|air|plane|uav|med|art|mortar|hq|support|maint) "inf"
 				>
 		<!ATTLIST fireteam
 				side CDATA #IMPLIED
@@ -48,5 +48,5 @@
 				callsign CDATA #IMPLIED
 				radiofrequency CDATA #IMPLIED
 				ingamelobby CDATA #IMPLIED
-				natosymbol TYPE (inf|motor_inf|mech_inf|armor|recon|air|plane|uav|med|art|mortar|hq|support|maint) "inf"
+				natosymbol TYPE (zeus|inf|motor_inf|mech_inf|armor|recon|air|plane|uav|med|art|mortar|hq|support|maint) "inf"
 				>
