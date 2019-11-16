@@ -52,7 +52,7 @@ const secondsToEvent = function (title) {
 };
 
 const requireEventInFuture = function (req: INodebbRequest, res: Response, next) {
-    topicDb.getTitle(req.params.tid, function (err, title) {
+    topicDb.getTitle(Number(req.params.tid), function (err, title) {
         if (err) {
             return res.status(500).json(exceptionToErrorResponse(err));
         }
@@ -77,7 +77,7 @@ const requireEventInFuture = function (req: INodebbRequest, res: Response, next)
 };
 
 const requireTopic = function (req: INodebbRequest, res: Response, next) {
-    topicDb.exists(req.params.tid, function (err, result) {
+    topicDb.exists(Number(req.params.tid), function (err, result) {
         if (err) {
             return res.status(500).json(exceptionToErrorResponse(err));
         }
@@ -109,7 +109,7 @@ const restrictCategories = function (req: INodebbRequest, res: Response, next) {
         next(); return;
     }
 
-    topicDb.getCategoryId(req.params.tid, function (err, cid) {
+    topicDb.getCategoryId(Number(req.params.tid), function (err, cid) {
         if (err) {
             return res.status(500).json(exceptionToErrorResponse(err));
         }
@@ -139,7 +139,7 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
 const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, next) {
     const shareid = req.header("X-Share-Key") || req.params.shareid;
     if (shareid) {
-        shareDb.isValidShare(req.params.tid, req.params.matchid, shareid, (err, result) => {
+        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid, (err, result) => {
             if (result === "none") {
                 return res.status(403).json({message: "Invalid reservation or share id"});
             } else {
@@ -163,7 +163,7 @@ const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, ne
 const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, next) {
     const shareid = req.header("X-Share-Key") || req.params.shareid;
     if (shareid) {
-        shareDb.isValidShare(req.params.tid, req.params.matchid, shareid, (err, result) => {
+        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid, (err, result) => {
             if (result === "none") {
                 return res.status(403).json({message: "Invalid reservation or share id"});
             } else {

@@ -218,7 +218,7 @@ export function getAll(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function get(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
 
     matchDb.getFromDb(tid, matchid, function (err: Error, match: Match) {
@@ -247,7 +247,7 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function del(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
 
     matchDb.delFromDb(tid, matchid, function (err) {

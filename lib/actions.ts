@@ -33,7 +33,7 @@ export default function (params, meta, callback) {
     };
 
     const renderMatchAdd = function (req: INodebbRequest, res: INodebbResponse) {
-        const tid = req.params.tid;
+        const tid = Number(req.params.tid);
 
         res.render("actions/match-add", {
             tid,
@@ -41,7 +41,7 @@ export default function (params, meta, callback) {
     };
 
     const renderMatchShare = function (req: INodebbRequest, res: INodebbResponse) {
-        const tid = req.params.tid;
+        const tid: number = Number(req.params.tid);
         const matchid = req.params.matchid;
 
         matchdb.getUniqueMatchReservations(tid, matchid, (err, result) => {
