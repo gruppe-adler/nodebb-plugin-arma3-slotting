@@ -3,7 +3,7 @@ import * as matchDb from "../db/match";
 import * as logger from "../logger";
 
 export function get(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 
@@ -24,7 +24,7 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function put(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 
@@ -43,7 +43,7 @@ export function put(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function del(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 

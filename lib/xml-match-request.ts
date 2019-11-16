@@ -12,8 +12,8 @@ function requestBodyToMatchJson(body: any): any {
 export class XmlMatchRequest {
     private body: any;
     private tid: number;
-    constructor(req: {body: any, params: {tid: number, matchid?: string}}) {
-        this.tid = req.params.tid;
+    constructor(req: {body: any, params: {tid: string, matchid?: string}}) {
+        this.tid = Number(req.params.tid);
 
         this.body = requestBodyToMatchJson(req.body);
 

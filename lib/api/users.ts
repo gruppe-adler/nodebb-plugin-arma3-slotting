@@ -24,7 +24,7 @@ function getSingleUser(currentUser: number, requestedUserid: number, callback) {
 }
 
 export function get(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 
@@ -187,7 +187,7 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function del(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
 
@@ -246,7 +246,7 @@ export function del(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function delExtern(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
     const slotid = req.params.slotid;
     const shareid = req.body.shareKey;

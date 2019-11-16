@@ -4,7 +4,7 @@ import * as logger from "../logger";
 import { isValidShare } from '../db/share';
 
 export function post(req: INodebbRequest, res: INodebbResponse) {
-    const tid = +req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
     const data = req.body;
     if (!data.reservation) {
@@ -21,7 +21,7 @@ export function post(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function get(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
     const shareKey = req.params.shareid;
     if (!shareKey) {
@@ -38,7 +38,7 @@ export function get(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function getAll(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
 
     shareDB.getAllFromDb(tid, matchid, (error, result) => {
@@ -51,7 +51,7 @@ export function getAll(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function getTopicData(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
 
     shareDB.getTopic(tid, (error, topic) => {
         return res.status(200).json(topic);
@@ -59,7 +59,7 @@ export function getTopicData(req: INodebbRequest, res: INodebbResponse) {
 }
 
 export function del(req: INodebbRequest, res: INodebbResponse) {
-    const tid = req.params.tid;
+    const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
 
     if (!req.body.reservation) {
