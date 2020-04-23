@@ -16,8 +16,8 @@ import * as userDb from "./db/users";
 import * as logger from "./logger";
 import {IPluginSettings} from './../lib/admin';
 
-const canAttend = require("../../nodebb-plugin-attendance/lib/admin").canAttend;
-const canSee = require("../../nodebb-plugin-attendance/lib/admin").canSee;
+const canAttend = require("../../nodebb-plugin-attendance/lib/permissions").canAttend;
+const canSee = require("../../nodebb-plugin-attendance/lib/permissions").canSee;
 const meta = require("../../../src/meta");
 
 const prefixApiPath = function (path) {
@@ -148,15 +148,13 @@ const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, ne
             }
         });
     } else {
-        canSee(req.uid, req.params.tid, function (err, result) {
-            if (err) {
-                throw err;
-            }
+        canSee(req.uid, req.params.tid).then(result => {
             if (result) {
-                next(); return;
+                next();
+                return;
             }
             return res.status(403).json({message: "you are not allowed to see this"});
-        });
+        }).catch(err => {throw err});
     }
 };
 
@@ -172,14 +170,13 @@ const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, 
             }
         });
     } else {
-        canAttend(req.uid, req.params.tid, function (err, result) {
-            if (err) {
-                throw err;
-            }
+        canAttend(req.uid, req.params.tid).then(result => {
             if (result) {
                 next(); return;
             }
             return res.status(403).json({message: "you are not allowed to edit this"});
+        }).catch(err => {
+            throw err;
         });
     }
 };
