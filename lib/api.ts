@@ -15,10 +15,11 @@ import * as shareDb from "./db/share";
 import * as userDb from "./db/users";
 import * as logger from "./logger";
 import {IPluginSettings} from './../lib/admin';
+import {Meta as meta} from './nodebb';
 
 const canAttend = require("../../nodebb-plugin-attendance/lib/permissions").canAttend;
 const canSee = require("../../nodebb-plugin-attendance/lib/permissions").canSee;
-const meta = require("../../../src/meta");
+
 
 const prefixApiPath = function (path) {
     return "/api/arma3-slotting" + path;
@@ -52,10 +53,7 @@ const secondsToEvent = function (title) {
 };
 
 const requireEventInFuture = function (req: INodebbRequest, res: Response, next) {
-    topicDb.getTitle(Number(req.params.tid), function (err, title) {
-        if (err) {
-            return res.status(500).json(exceptionToErrorResponse(err));
-        }
+    topicDb.getTitle(Number(req.params.tid)).then(title => {
         if (!title) {
             return res
                 .status(404)
@@ -73,19 +71,19 @@ const requireEventInFuture = function (req: INodebbRequest, res: Response, next)
         }
 
         next();
+    }).catch(err => {
+        return res.status(500).json(exceptionToErrorResponse(err));
     });
 };
 
 const requireTopic = function (req: INodebbRequest, res: Response, next) {
-    topicDb.exists(Number(req.params.tid), function (err, result) {
-        if (err) {
-            return res.status(500).json(exceptionToErrorResponse(err));
-        }
+    topicDb.exists(Number(req.params.tid)).then(result => {
         if (!result) {
             return res.status(404).json({message: "topic %d does not exist".replace("%d", req.params.tid)});
         }
-
         next();
+    }).catch(err => {
+        return res.status(500).json(exceptionToErrorResponse(err));
     });
 };
 
@@ -109,15 +107,14 @@ const restrictCategories = function (req: INodebbRequest, res: Response, next) {
         next(); return;
     }
 
-    topicDb.getCategoryId(Number(req.params.tid), function (err, cid) {
-        if (err) {
-            return res.status(500).json(exceptionToErrorResponse(err));
-        }
+    topicDb.getCategoryId(Number(req.params.tid)).then(cid => {
         if (config.allowedCategories.indexOf(cid) === -1) {
             return res.status(404).json({message: "API disabled for this category"});
         }
 
         next();
+    }).catch(err => {
+        return res.status(500).json(exceptionToErrorResponse(err));
     });
 };
 
@@ -139,7 +136,7 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
 const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, next) {
     const shareid = req.header("X-Share-Key") || req.params.shareid;
     if (shareid) {
-        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid, (err, result) => {
+        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid).then(result => {
             if (result === "none") {
                 return res.status(403).json({message: "Invalid reservation or share id"});
             } else {
@@ -161,7 +158,7 @@ const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, ne
 const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, next) {
     const shareid = req.header("X-Share-Key") || req.params.shareid;
     if (shareid) {
-        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid, (err, result) => {
+        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid).then(result => {
             if (result === "none") {
                 return res.status(403).json({message: "Invalid reservation or share id"});
             } else {
@@ -193,16 +190,15 @@ const requireAdminOrThreadOwner = function (req: INodebbRequest, res: Response, 
         return res.status(400).json({message: "must be logged in and provide topic id"});
     }
 
-    topicDb.isAllowedToEdit(req.uid, tid, function (err, result) {
-        if (err) {
-            return res.status(500).json(err);
-        }
+    topicDb.isAllowedToEdit(req.uid, tid).then(result => {
         if (!result) {
             logger.error("user " + req.uid + " tried to edit topic " + tid);
             return res.status(403).json({message: "You're not admin or owner of this topic"});
         }
 
         next();
+    }).catch(err => {
+        return res.status(500).json(err);
     });
 };
 
@@ -223,20 +219,17 @@ const isAdminOrThreadOwner = function (req: INodebbRequest, res) {
         return res.status(400).json({error: "must provide topic id"});
     }
 
-    topicDb.isAllowedToEdit(req.uid, tid, function (err, hasAdminPermission) {
-        if (err) {
-            return res.status(500).json(err);
-        }
-
-        userDb.getGroups([req.uid], function (error, groups) {
-            if (error) {
-                return res.status(500).json(error);
-            }
+    topicDb.isAllowedToEdit(req.uid, tid).then(hasAdminPermission => {
+        userDb.getGroups([req.uid]).then(groups => {
             return res.status(200).json({
                 groups: groups[req.uid],
                 result: hasAdminPermission,
             });
+        }).catch(error => {
+            return res.status(500).json(error);
         });
+    }).catch(err => {
+        return res.status(500).json(err);
     });
 };
 
@@ -269,7 +262,7 @@ const setGlobalHeaders = function (req: INodebbRequest, res: Response, next) {
     next();
 };
 
-export function init(params, callback) {
+export async function init(params): Promise<void> {
     const routedMethodGenerator = _.partial(getApiMethodGenerator, params.router);
     const get = routedMethodGenerator("get");
     const pos = routedMethodGenerator("post");
@@ -321,8 +314,6 @@ export function init(params, callback) {
     del("/:tid/match/:matchid/slot/:slotid/reservation", requireAdminOrThreadOwner, reservationApi.del);
     get("/:tid/match/:matchid/slot/:slotid/reservation", requireCanSeeAttendance, reservationApi.get);
     all("/:tid/match/:matchid/slot/:slotid/reservation", methodNotAllowed);
-
-    callback();
 }
 
 export function setConfig(newConfig: IPluginSettings) {

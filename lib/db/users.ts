@@ -1,59 +1,40 @@
-import {parallel} from "async";
-import {partial} from "underscore";
-
-import {BooleanResultCallback, IUser, IUserGroup, IUsers} from "../../types/nodebb";
-import {AnyCallback} from "../fn";
+import {IUserGroup, IUsers} from "../../types/nodebb";
 import {IMatchOutputUser} from "../match";
+import {user as nodebbUsersModule, groups as nodebbGroupsModule} from "../nodebb";
 
-const nodebbUsersModule = require("../../../../src/user") as IUsers;
-const nodebbGroupsModule = require("../../../../src/groups");
-
-export function getUsers(
+export async function getUsers(
     currentUser: number,
-    userids: number[], callback: (error: Error, users: IMatchOutputUser[]) => void,
-) {
-    parallel({
-        groups: (next) => {
-            getGroups(userids, next);
-        },
-        users: (next: AnyCallback) => {
-            nodebbUsersModule.getUsersWithFields(
-                userids,
+    userids: number[]
+): Promise<IMatchOutputUser[]> {
+    const [groups, users] = await Promise.all([
+        getGroups(userids),
+        nodebbUsersModule.getUsersWithFields(userids,
                 ["uid", "username", "userslug", "picture", "icon:bgColor", "icon:text", "groupTitle"],
-                currentUser,
-                next,
-            );
-        },
-    }, (error: Error, results: {users: IUser[], groups: {[uid: number]: string[]}}) => {
-        const outputUsers: IMatchOutputUser[] = results.users.map(user => {
-            user.uid = Number(user.uid);
-            (user as IMatchOutputUser).groups = results.groups[user.uid];
-            return user as IMatchOutputUser;
-        });
-        callback(error, outputUsers);
-    });
+                currentUser
+            )
+        ]);
+
+    return users.map(user => {
+       user.uid = Number(user.uid);
+       (user as IMatchOutputUser).groups = groups[user.uid];
+       return user as IMatchOutputUser;
+   });
 }
 
-export function isModerator(uid: number, cid: number, callback: BooleanResultCallback) {
-    parallel([
-        partial(nodebbUsersModule.isModerator, uid, cid),
-        partial(nodebbUsersModule.isAdminOrGlobalMod, uid),
-    ], function (err, results) {
-        callback(err, results[0] || results[1]);
-    });
+export async function isModerator(uid: number, cid: number): Promise<boolean> {
+    const results = await Promise.all([
+        nodebbUsersModule.isModerator(uid, cid),
+        nodebbUsersModule.isAdminOrGlobalMod(uid)
+    ])
+    return results[0] || results[1]
 }
 
-export function getGroups(uids: number[], callback: (error: Error, groups: {[uid: number]: string[]}) => void) {
-    nodebbGroupsModule.getUserGroups(uids, function (err: Error, groupsForUids: IUserGroup[][]) {
-        const groupMap = {};
-        if (err) {
-            throw callback(err, {});
-        }
-
-        groupsForUids.forEach((groups: IUserGroup[], idx: number) => {
-            groupMap[uids[idx]] = groups.map(_ => _.name);
-        });
-
-        callback(err, groupMap);
+export async function getGroups(uids: number[]): Promise<{[uid: number]: string[]}> {
+    const groupsForUids: IUserGroup[][] = await nodebbGroupsModule.getUserGroups(uids);
+    const groupMap = {};
+    groupsForUids.forEach((groups: IUserGroup[], idx: number) => {
+        groupMap[uids[idx]] = groups.map(_ => _.name);
     });
+
+    return groupMap;
 }

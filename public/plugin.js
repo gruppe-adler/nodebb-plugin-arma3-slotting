@@ -2,14 +2,12 @@
 
 /*global $, app, bootbox, JSON, window, console, config */
 require([
-    'async',
     'underscore',
     'iframe-resize',
     'arma3-slotting/getTemplates',
     'arma3-slotting/eventTopicLoadedService',
     'arma3-slotting/getPluginConfig'
 ], function (
-    async,
     _,
     iframeResize,
     getTemplates,

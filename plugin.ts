@@ -11,34 +11,44 @@ export function setup(params, callback): void {
     const adminModule = require("./lib/admin");
     const api = require("./lib/api");
     const actions = require("./lib/actions").default;
-
-    adminModule.init(params, meta, function () {
-        api.setConfig(adminModule.getPluginSettings());
-        api.init(params, callback);
-    });
+    adminModule
+        .init(params, meta)
+        .then(() => {
+            api.setConfig(adminModule.getPluginSettings())
+            api
+                .init(params)
+                .then(callback)
+    })
 
     actions(params, meta, noop);
 }
 
 export function catchAttendanceChange(params, callback?: AnyCallback): void {
+    logger.debug("caught attendance change, yay. params: " + JSON.stringify(params))
+    const tid = Number(params.tid)
+    const uid = Number(params.uid)
     callback = callback || noop;
     if (params.probability >= 1) {
         return callback(null, null);
     }
-    unattendUser.unattendUser(params.tid, params.uid, function (err, resultCount) {
+    unattendUser.unattendUser(tid, uid).then(resultCount => {
         if (resultCount) {
-            notifications.notifyAutoUnslotted(params.tid, params.uid, resultCount);
+            notifications.notifyAutoUnslotted(tid, uid, resultCount);
         }
         callback(null, null);
+    }).catch(error => {
+        callback(error, null)
     });
 }
 
 export function filterAttendanceSlotted(params, callback: (err: Error, userIds: number[])=> void): void {
     const tid = params.tid;
 
-    eventRepository.getSlottedUserIds(tid, (error, userIds) => {
+    eventRepository.getSlottedUserIds(tid).then(userIds => {
         params.userIds = userIds;
-        callback(error, userIds);
+        callback(null, userIds);
+    }).catch(error => {
+        callback(error, [])
     });
 }
 

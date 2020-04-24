@@ -1,31 +1,34 @@
 import {Match} from "./match";
-const xml2json = require("xml2json") as { toJson: (xml: any, conf: any) => any, toXml: (obj: any) => string };
+import toJson from "./xml2json";
 
-function requestBodyToMatchJson(body: any): any {
-    if (typeof body === "string") { // assume XML
-        body = xml2json.toJson(body, {object: true}).match;
+async function requestBodyToMatchJson(body: any): Promise<any> {
+    if (typeof body === "string") { // assume XMLv
+        body = (await toJson(body) as {match:Match}).match[0];
     }
 
     return body;
 }
 
 export class XmlMatchRequest {
-    private body: any;
+    private readonly body: any;
+    private readonly matchid: string
     private tid: number;
     constructor(req: {body: any, params: {tid: string, matchid?: string}}) {
-        this.tid = Number(req.params.tid);
-
-        this.body = requestBodyToMatchJson(req.body);
-
-        if (req.params.matchid) {
-            if (this.body.uuid && this.body.uuid !== req.params.matchid) {
-                throw new Error("uuid in request and body differ. aaargs.");
-            }
-            this.body.uuid = req.params.matchid;
-        }
+        this.body = req.body
+        this.tid = Number(req.params.tid)
+        this.matchid = req.params.matchid
     }
 
-    public getMatch(): Match {
-        return new Match(this.body);
+    public async getMatch(): Promise<Match> {
+        const matchDto = await requestBodyToMatchJson(this.body)
+        if (this.matchid) {
+            if (matchDto.uuid && matchDto.uuid !== this.matchid) {
+                throw new Error("uuid in request and body differ. aaargs.");
+            } else {
+                matchDto.uuid = this.matchid
+            }
+        }
+
+        return new Match(matchDto);
     }
 }
