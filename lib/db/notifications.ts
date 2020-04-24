@@ -7,40 +7,37 @@ import * as topics from "./topics";
 
 const notifications = require("../../../../src/notifications");
 
-export function notifySlotted(matchWrapper: { tid: number, match: Match }, oldUser: IUser, newUser: IUser) {
+export async function notifySlotted(matchWrapper: { tid: number, match: Match }, oldUser: IUser, newUser: IUser) {
     const tid = matchWrapper.tid;
-    async.parallel({
-        eventTitle: _.partial(topics.getTitle, tid),
-        followingUids: _.partial(topics.getFollowers, tid),
-    }, function (err: Error, data: { eventTitle: string, followingUids: any }) {
-        const eventTitle = data.eventTitle;
-        const followingUids = data.followingUids;
+    const [eventTitle, followingUids] = await Promise.all([
+        topics.getTitle(tid),
+        topics.getFollowers(tid),
+    ]);
 
-        let msg = '%s slotted into "%s"'.replace("%s", newUser.username).replace("%s", eventTitle);
-        if (oldUser) {
-            msg = '%s slotted into "%s", replacing user %s'
-                .replace("%s", newUser.username)
-                .replace("%s", eventTitle)
-                .replace("%s", oldUser.username);
-        }
-        notifications.create(
-            {
-                bodyLong: msg,
-                bodyShort: msg,
-                from: newUser.uid,
-                image: newUser.picture,
-                nid: "arma3-slotting:" + matchWrapper.match.uuid + ":slotting:" + newUser.uid,
-                path: "/topic/" + tid,
-                tid,
-            },
-            function (error: Error, notification) {
-                notifications.push(notification, _.values(followingUids), function (error3: Error) {
-                    if (error3) {
-                        logger.error(error3.message, error3);
-                    }
-                });
+    let msg = '%s slotted into "%s"'.replace("%s", newUser.username).replace("%s", eventTitle);
+    if (oldUser) {
+        msg = '%s slotted into "%s", replacing user %s'
+            .replace("%s", newUser.username)
+            .replace("%s", eventTitle)
+            .replace("%s", oldUser.username);
+    }
+    notifications.create(
+        {
+            bodyLong: msg,
+            bodyShort: msg,
+            from: newUser.uid,
+            image: newUser.picture,
+            nid: "arma3-slotting:" + matchWrapper.match.uuid + ":slotting:" + newUser.uid,
+            path: "/topic/" + tid,
+            tid,
+        },
+        function (error: Error, notification) {
+            notifications.push(notification, _.values(followingUids), function (error3: Error) {
+                if (error3) {
+                    logger.error(error3.message, error3);
+                }
             });
-    });
+        });
 }
 
 export function notifySlottedExternal(matchWrapper: { tid: number, match: Match }, oldUser: string, newUser: string) {

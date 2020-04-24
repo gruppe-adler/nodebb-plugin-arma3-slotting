@@ -52,10 +52,7 @@ const secondsToEvent = function (title) {
 };
 
 const requireEventInFuture = function (req: INodebbRequest, res: Response, next) {
-    topicDb.getTitle(Number(req.params.tid), function (err, title) {
-        if (err) {
-            return res.status(500).json(exceptionToErrorResponse(err));
-        }
+    topicDb.getTitle(Number(req.params.tid)).then(title => {
         if (!title) {
             return res
                 .status(404)
@@ -73,19 +70,19 @@ const requireEventInFuture = function (req: INodebbRequest, res: Response, next)
         }
 
         next();
+    }).catch(err => {
+        return res.status(500).json(exceptionToErrorResponse(err));
     });
 };
 
 const requireTopic = function (req: INodebbRequest, res: Response, next) {
-    topicDb.exists(Number(req.params.tid), function (err, result) {
-        if (err) {
-            return res.status(500).json(exceptionToErrorResponse(err));
-        }
+    topicDb.exists(Number(req.params.tid)).then(result => {
         if (!result) {
             return res.status(404).json({message: "topic %d does not exist".replace("%d", req.params.tid)});
         }
-
         next();
+    }).catch(err => {
+        return res.status(500).json(exceptionToErrorResponse(err));
     });
 };
 
@@ -109,15 +106,14 @@ const restrictCategories = function (req: INodebbRequest, res: Response, next) {
         next(); return;
     }
 
-    topicDb.getCategoryId(Number(req.params.tid), function (err, cid) {
-        if (err) {
-            return res.status(500).json(exceptionToErrorResponse(err));
-        }
+    topicDb.getCategoryId(Number(req.params.tid)).then(cid => {
         if (config.allowedCategories.indexOf(cid) === -1) {
             return res.status(404).json({message: "API disabled for this category"});
         }
 
         next();
+    }).catch(err => {
+        return res.status(500).json(exceptionToErrorResponse(err));
     });
 };
 
@@ -139,7 +135,7 @@ const requireLoggedIn = function (req: INodebbRequest, res: Response, next) {
 const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, next) {
     const shareid = req.header("X-Share-Key") || req.params.shareid;
     if (shareid) {
-        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid, (err, result) => {
+        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid).then(result => {
             if (result === "none") {
                 return res.status(403).json({message: "Invalid reservation or share id"});
             } else {
@@ -161,7 +157,7 @@ const requireCanSeeAttendance = function (req: INodebbRequest, res: Response, ne
 const requireCanWriteAttendance = function (req: INodebbRequest, res: Response, next) {
     const shareid = req.header("X-Share-Key") || req.params.shareid;
     if (shareid) {
-        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid, (err, result) => {
+        shareDb.isValidShare(Number(req.params.tid), req.params.matchid, shareid).then(result => {
             if (result === "none") {
                 return res.status(403).json({message: "Invalid reservation or share id"});
             } else {
@@ -193,16 +189,15 @@ const requireAdminOrThreadOwner = function (req: INodebbRequest, res: Response, 
         return res.status(400).json({message: "must be logged in and provide topic id"});
     }
 
-    topicDb.isAllowedToEdit(req.uid, tid, function (err, result) {
-        if (err) {
-            return res.status(500).json(err);
-        }
+    topicDb.isAllowedToEdit(req.uid, tid).then(result => {
         if (!result) {
             logger.error("user " + req.uid + " tried to edit topic " + tid);
             return res.status(403).json({message: "You're not admin or owner of this topic"});
         }
 
         next();
+    }).catch(err => {
+        return res.status(500).json(err);
     });
 };
 
@@ -223,20 +218,17 @@ const isAdminOrThreadOwner = function (req: INodebbRequest, res) {
         return res.status(400).json({error: "must provide topic id"});
     }
 
-    topicDb.isAllowedToEdit(req.uid, tid, function (err, hasAdminPermission) {
-        if (err) {
-            return res.status(500).json(err);
-        }
-
-        userDb.getGroups([req.uid], function (error, groups) {
-            if (error) {
-                return res.status(500).json(error);
-            }
+    topicDb.isAllowedToEdit(req.uid, tid).then(hasAdminPermission => {
+        userDb.getGroups([req.uid]).then(groups => {
             return res.status(200).json({
                 groups: groups[req.uid],
                 result: hasAdminPermission,
             });
+        }).catch(error => {
+            return res.status(500).json(error);
         });
+    }).catch(err => {
+        return res.status(500).json(err);
     });
 };
 

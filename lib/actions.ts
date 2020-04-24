@@ -14,11 +14,7 @@ export default function (params, meta, callback) {
         const tid: number = Number(req.params.tid);
         const matchid: string = req.params.matchid;
 
-        matchdb.getFromDb(tid, matchid, function (err: Error, match: Match) {
-            if (err) {
-                return res.render("actions/500", {tid, matchid});
-            }
-
+        matchdb.getFromDb(tid, matchid).then((match: Match) => {
             if (!match) {
                 return res.render("actions/match-not-found", {tid, matchid});
             }
@@ -29,6 +25,9 @@ export default function (params, meta, callback) {
                 spec: xmlString,
                 tid,
             });
+        }).catch(err => {
+            logger.error(err)
+            return res.render("actions/500", {tid, matchid});
         });
     };
 
@@ -44,16 +43,8 @@ export default function (params, meta, callback) {
         const tid: number = Number(req.params.tid);
         const matchid = req.params.matchid;
 
-        matchdb.getUniqueMatchReservations(tid, matchid, (err, result) => {
-            if (err) {
-                return res.render("actions/500", {tid, matchid});
-            }
-
-            sharedb.getAllFromDb(tid, matchid, (err2, shares) => {
-                if (err) {
-                    return res.render("actions/500", {tid, matchid});
-                }
-
+        matchdb.getUniqueMatchReservations(tid, matchid).then(result => {
+            sharedb.getAllFromDb(tid, matchid).then(shares => {
                 shares.forEach(share => {
                     const index = result.indexOf(share.reservation);
                     if (index > -1) {
@@ -67,6 +58,9 @@ export default function (params, meta, callback) {
                     availableReservations: result,
                     activeReservations: shares
                 });
+            }).catch(err => {
+                logger.error(err.message, err);
+                return res.render("actions/500", {tid, matchid});
             });
         });
     };

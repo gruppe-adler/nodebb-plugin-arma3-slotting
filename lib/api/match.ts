@@ -1,11 +1,8 @@
 "use strict";
 const xml2json = require("xml2json") as { toJson: (xml: any, conf: any) => any, toXml: (obj: any) => string };
 
-import {AnyCallback} from "../fn";
-
 import {partial, values} from "underscore";
 
-import * as async from "async";
 import {INodebbRequest, INodebbResponse} from "../../types/nodebb";
 import * as matchDb from "../db/match";
 import * as slotDb from "../db/slot";
@@ -38,66 +35,55 @@ function sendMatchResult(req: INodebbRequest, res: INodebbResponse, result: Matc
     res.json(result);
 }
 
-export function addUsersAndReservations(currentUser, tid: number, match: Match, callback: (Error, newMatch: Match) => any) {
-    slotDb.getMatchUsers(tid, match.uuid, function (err: Error, slot2user: { [uuid: string]: any }) {
-            if (err) {
-                return callback(err, null);
+export async function addUsersAndReservations(currentUser, tid: number, match: Match): Promise<Match> {
+    const slot2user = await slotDb.getMatchUsers(tid, match.uuid)
+
+    const users = await userDb.getUsers(
+        currentUser,
+        values(slot2user)
+    )
+
+    Object.keys(slot2user).forEach((slotid: string) => {
+        const uid = slot2user[slotid];
+        const slot = match.getSlot(slotid);
+        if (slot) {
+            // Check if uid is typeof string indicating that the user is external
+            if (typeof uid === typeof "") {
+                let suid = String(uid);
+                let iconText = "E";
+                let username = suid;
+                // Parse out clan shortcode
+                if (suid.indexOf(':') > -1) {
+                    const splitted = suid.split(':', 2);
+                    iconText = splitted[0];
+                    username = splitted[1];
+                }
+
+                slot.user = <IMatchOutputUser>{
+                    uid: -1,
+                    username: username,
+                    userslug: username,
+                    picture: "",
+                    "icon:bgColor": "#673ab7",
+                    "icon:text": iconText,
+                    groupTitle: "",
+                    groups: []
+                };
+            } else {
+                slot.user = users.find(_ => _.uid === uid);
             }
+        } else {
+            logger.debug(`slot ${slotid} seems to not exist in match ${tid}/${match.uuid} anymore, ` +
+                `although user ${uid} is slotted`);
+        }
+    });
 
-            userDb.getUsers(
-                currentUser,
-                values(slot2user),
-                function (error: Error, users) {
-                    Object.keys(slot2user).forEach((slotid: string) => {
-                        const uid = slot2user[slotid];
-                        const slot = match.getSlot(slotid);
-                        if (slot) {
-                            // Check if uid is typeof string indicating that the user is external
-                            if (typeof uid === typeof "") {
-                                let iconText = "E";
-                                let username = uid;
-                                // Parse out clan shortcode
-                                if (uid.indexOf(':') > -1) {
-                                    const splitted = uid.split(':', 2);
-                                    iconText = splitted[0];
-                                    username = splitted[1];
-                                }
-
-                                slot.user = <IMatchOutputUser>{
-                                    uid: -1,
-                                    username: username,
-                                    userslug: username,
-                                    picture: "",
-                                    "icon:bgColor": "#673ab7",
-                                    "icon:text": iconText,
-                                    groupTitle: "",
-                                    groups: []
-                                };
-                            } else {
-                                slot.user = users.find(_ => _.uid === uid);
-                            }
-                        } else {
-                            logger.debug(`slot ${slotid} seems to not exist in match ${tid}/${match.uuid} anymore, ` +
-                                `although user ${uid} is slotted`);
-                        }
-                    });
-                    try {
-                        callback(null, match);
-                    } catch (e) {
-                        callback(e, null);
-                    }
-                },
-            );
-
-        },
-    );
+    return match;
 }
 
-function putMatch(tid: number,
-                  match: Match,
-                  callback: (error: Error, match?: Match) => any) {
+async function putMatch(tid: number, match: Match): Promise<Match|undefined> {
 
-    function saveUsers(next: AnyCallback) {
+    async function saveUsers(): Promise<any> {
         const funcs = match.getSlots().map(function (slot: Slot) {
             const user = slot.user;
             if (!user) {
@@ -105,48 +91,42 @@ function putMatch(tid: number,
                     cb();
                 };
             }
-            return function (cb: AnyCallback) {
+            return async function (): Promise<any> {
 
                 // when saving the occupant somewhere else,we can do away with the user definition here
                 slot.user = undefined;
 
                 const uid: number = user.uid;
                 if (!uid) {
-                    cb(new Error("user without uid found!"));
-                    return;
+                    throw new Error("user without uid found!")
                 }
 
                 const slotid = slot.uuid;
                 logger.info(`saving user ${uid} to slot ${slotid}`);
 
-                slotDb.deleteMatchUser(tid, match.uuid, uid, function (err) {
-                    if (err) {
-                        cb(err);
-                        return;
-                    }
-                    slotDb.putSlotUser(tid, match.uuid, slotid, uid, cb);
-                });
-
+                await slotDb.deleteMatchUser(tid, match.uuid, uid)
+                await slotDb.putSlotUser(tid, match.uuid, slotid, uid);
             };
         });
-        async.parallel(funcs, next);
+        return Promise.all(funcs);
     }
 
-    saveUsers(function (err: Error) {
+    try {
+        await saveUsers();
         logger.info("saved match " + match.uuid + " to topic " + tid);
-        if (err) {
-            logger.error("error saving match :(");
-            return callback(err);
-        }
+    } catch (err) {
+        logger.error("error saving match :(");
+        return;
+    }
 
-        matchDb.saveToDb(tid, match.uuid, match, function (error: Error) {
-            callback(error, match);
-            websocket.emit('event:match-changed', {
-                tid: tid,
-                matchid: match.uuid
-            });
-        });
+    await matchDb.saveToDb(tid, match.uuid, match);
+
+    websocket.emit('event:match-changed', {
+        tid: tid,
+        matchid: match.uuid
     });
+
+    return match;
 }
 
 export function post(req: INodebbRequest, res: INodebbResponse) {
@@ -160,14 +140,12 @@ export function post(req: INodebbRequest, res: INodebbResponse) {
             .json({offendingBody: req.body, error: {message: e.message, type: e.source}});
     }
 
-    putMatch(tid, match, function (err: Error, newMatch: Match) {
-        if (err) {
-            return res.status(500).json(err);
-        }
-
+    putMatch(tid, match).then((newMatch: Match) => {
         res.setHeader("Location", "/api/arma3-slotting/match/" + newMatch.uuid);
         res.status(201);
         return sendMatchResult(req, res, newMatch);
+    }).catch(err => {
+        return res.status(500).json(err);
     });
 }
 
@@ -183,78 +161,69 @@ export function put(req: INodebbRequest, res: INodebbResponse) {
             .json({offendingBody: req.body, error: {message: e.message, type: e.source}});
     }
 
-    putMatch(tid, match, function (err: Error) {
-        if (err) {
-            return res.status(500).json(err);
-        }
+    putMatch(tid, match).then(() => {
         return res.status(204).json(null);
+    }).catch((err: Error) => {
+        return res.status(500).json(err);
     });
 }
 
 export function getAll(req: INodebbRequest, res: INodebbResponse) {
     const tid: number = Number(req.params.tid);
 
-    matchDb.getAllFromDb(tid, function (err, matches: Match[]) {
-        if (err) {
-            return res.status(500).json(err);
-        }
-
+    matchDb.getAllFromDb(tid).then((matches: Match[]) => {
         if (!req.query.withusers) {
             res.status(200);
             return sendMatchesResult(req, res, matches);
         }
 
-        async.parallel(matches.map(function (match: Match) {
-            return partial(addUsersAndReservations, req.uid, tid, match);
-        }), function (error: Error, newMatches) {
-            if (error) {
-                return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
-            }
+        Promise.all(matches.map(function (match: Match) {
+            return addUsersAndReservations(req.uid, tid, match);
+        })).then(newMatches => {
             newMatches.forEach(newMatch => newMatch.updateSlottedPlayerCount());
             res.status(200);
             sendMatchesResult(req, res, newMatches);
-        });
-    });
+        }).catch(error => {
+            return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
+        })
+    }).catch(err => {
+        return res.status(500).json(err);
+    })
 }
 
 export function get(req: INodebbRequest, res: INodebbResponse) {
-    const tid: number = Number(req.params.tid);
-    const matchid = req.params.matchid;
+    const tid: number = Number(req.params.tid)
+    const matchid = req.params.matchid
 
-    matchDb.getFromDb(tid, matchid, function (err: Error, match: Match) {
-        if (err) {
-            return res.status(500).json(err);
-        }
-
+    matchDb.getFromDb(tid, matchid).then((match: Match) => {
         if (!match) {
-            return res.status(404).json(err);
+            return res.status(404).json({message: `match ${matchid} not found`})
         }
 
         if (!req.query.withusers) {
-            res.status(200);
-            return sendMatchResult(req, res, match);
+            res.status(200)
+            return sendMatchResult(req, res, match)
         }
 
-        return addUsersAndReservations(req.uid, tid, match, function (error, newMatch) {
-            if (error) {
-                return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
-            }
-            newMatch.updateSlottedPlayerCount();
-            res.status(200);
-            sendMatchResult(req, res, newMatch);
-        });
-    });
+        return addUsersAndReservations(req.uid, tid, match).then((newMatch: Match) => {
+            newMatch.updateSlottedPlayerCount()
+            res.status(200)
+            sendMatchResult(req, res, newMatch)
+        }).catch(error => {
+            return res.status(500).json({exception: error, message: error.message, stacktrace: error.stack});
+        })
+    }).catch(err => {
+        return res.status(500).json(err)
+    })
 }
 
 export function del(req: INodebbRequest, res: INodebbResponse) {
     const tid: number = Number(req.params.tid);
     const matchid = req.params.matchid;
 
-    matchDb.delFromDb(tid, matchid, function (err) {
-        if (err) {
-            return res.status(500).json(err);
-        }
-
+    matchDb.delFromDb(tid, matchid).then(() => {
         return res.status(204).json();
-    });
+    }).catch((err) => {
+        return res.status(500).json(err);
+    })
 }
