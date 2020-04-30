@@ -1,5 +1,7 @@
 NodeBB plugin: *create an ORBAT-like structure and have your users select a slot*
 
+![Node.js CI](https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting/workflows/Node.js%20CI/badge.svg)
+
 * [API](docs/api/index.md)
 * [match specification](docs/match.md)
 
