@@ -1,21 +1,18 @@
-import {DbCallback, IDb} from "../../types/nodebb";
 import {error} from "../logger";
 import {Match} from "../match";
+import {db} from "../nodebb"
 import * as logger from '../logger';
+import {IDb} from '../../types/nodebb';
 
-const db: IDb = require("../../../../src/database") as IDb;
-
-type SlotReservationCallback = (err: Error, reservations: {[slotid: string]: string}) => any;
 
 export class MatchRepository {
     constructor(
         private db: IDb) {
     }
 
-    public getMatchIds(tid: number, callback: (error: Error, matchIds: string[]) => void): void {
-        db.getObject(getRedisMatchesKey(tid), (err: Error, matches: any) => {
-            callback(err, Object.keys(matches || {}));
-        });
+    public async getMatchIds(tid: number): Promise<string[]> {
+        const matches = await db.getObject(getRedisMatchesKey(tid))
+        return Object.keys(matches || {})
     }
 }
 
@@ -25,78 +22,67 @@ function getRedisMatchesKey(tid: number): string {
     return "tid:%d:arma3-slotting:matches".replace("%d", String(tid));
 }
 
-export function delFromDb(tid: number, matchid: string, callback) {
-    db.deleteObjectField(getRedisMatchesKey(tid), matchid, callback);
+export function delFromDb(tid: number, matchid: string): Promise<any> {
+    return db.deleteObjectField(getRedisMatchesKey(tid), matchid);
 }
 
-export function getAllFromDb(tid: number, callback: (err: Error, matches: Match[]) => any) {
-    db.getObject(getRedisMatchesKey(tid), function (err: Error, result) {
-        if (err) {
-            return callback(err, null);
-        }
+export async function getAllFromDb(tid: number): Promise<Match[]> {
+    const result = await db.getObject(getRedisMatchesKey(tid))
 
-        const matches: Match[] = [];
-        Object.keys(result || {}).forEach(function (key) {
-            if (result[key]) {
-                try {
-                    const match: Match = new Match(JSON.parse(result[key]).match);
-                    matches.push(match);
-                } catch (e) {
-                    error(`could not create a match from DB, tid ${tid}, match ${key}`, e);
-                }
+    const matches: Match[] = [];
+    Object.keys(result || {}).forEach(function (key) {
+        if (result[key]) {
+            try {
+                const match: Match = new Match(JSON.parse(result[key]).match);
+                matches.push(match);
+            } catch (e) {
+                error(`could not create a match from DB, tid ${tid}, match ${key}`, e);
             }
-        });
-        callback(err, matches);
-    });
-}
-
-export function getFromDb(tid: number, matchid: string, callback: (err: Error, match: Match) => any) {
-    db.getObjectField(getRedisMatchesKey(tid), matchid, function (err, result) {
-        if (!result) {
-            return callback(err, result);
         }
-
-        let match: Match;
-        try {
-            match = new Match(JSON.parse(result).match);
-        } catch (e) {
-            error(`could not create a match from DB, tid ${tid}, match ${matchid}`, e);
-            return callback(e, null);
-        }
-
-        callback(err, match);
     });
+
+    return matches;
 }
 
-export function saveToDb(tid: number, matchid: string, match: Match, callback: DbCallback) {
-    db.setObjectField(getRedisMatchesKey(tid), matchid, JSON.stringify({match: match.toJson(), tid}), callback);
+export async function getFromDb(tid: number, matchid: string): Promise<Match|undefined> {
+    const result = await db.getObjectField(getRedisMatchesKey(tid), matchid)
+    if (!result) {
+        return
+    }
+    try {
+        return new Match(JSON.parse(result).match);
+    } catch (e) {
+        error(`could not create a match from DB, tid ${tid}, match ${matchid}`, e);
+        throw new Error(`could not create a match from DB, tid ${tid}, match ${matchid}`);
+    }
 }
 
-export function putSlotReservation(tid: number, matchid: string, slotid: string, reservedFor: string, cb: DbCallback) {
-    getFromDb(tid, matchid, (err, match) => {
-        const s = match.getSlot(slotid);
-        if (s) {
-            s.setReservations([reservedFor]);
-        }
-        saveToDb(tid, matchid, match, cb);
-    });
+export async function saveToDb(tid: number, matchid: string, match: Match): Promise<any> {
+    return db.setObjectField(getRedisMatchesKey(tid), matchid, JSON.stringify({match: match.toJson(), tid}));
 }
 
-export function getMatchReservations(tid: number, matchid: string, callback: SlotReservationCallback) {
-    return getFromDb(tid, matchid, (err, match) => {
-        const slots = match.getSlots();
-        const reservations = {};
-        slots.forEach(s => reservations[s.uuid] = s.getReservations().join(","));
-        callback(err, reservations);
-    });
+export async function putSlotReservation(tid: number, matchid: string, slotid: string, reservedFor: string): Promise<any> {
+    const match = await getFromDb(tid, matchid)
+    const s = match.getSlot(slotid);
+    if (s) {
+        s.setReservations([reservedFor]);
+    }
+    await saveToDb(tid, matchid, match)
+
 }
 
-export function getUniqueMatchReservations(tid: number, matchid: string, callback: (err: Error, result: any[]) => any) {
-    return getFromDb(tid, matchid, (err, match) => {
-        const result = searchForReservations(match);
+export async function getMatchReservations(tid: number, matchid: string): Promise<{[slotid: string]: string}> {
+    const match = await getFromDb(tid, matchid)
+    const slots = match.getSlots();
+    const reservations = {};
+    slots.forEach(s => reservations[s.uuid] = s.getReservations().join(","));
 
-        callback(err, result);
-    });
+    return reservations
+}
+
+export async function getUniqueMatchReservations(tid: number, matchid: string): Promise<any[]> {
+    const match = await getFromDb(tid, matchid)
+    return searchForReservations(match);
 }
 
 function searchForReservations(match, reservations = []) {
@@ -115,10 +101,9 @@ function searchForReservations(match, reservations = []) {
     return reservations;
 }
 
-export function deleteSlotReservation(tid: number, matchid: string, slotid: string, callback: DbCallback) {
-    return getFromDb(tid, matchid, (err, match) => {
-        const slot = match.getSlot(slotid);
-        slot.setReservations([]);
-        saveToDb(tid, matchid, match, callback);
-    });
+export async function deleteSlotReservation(tid: number, matchid: string, slotid: string): Promise<any> {
+    const match = await getFromDb(tid, matchid)
+    const slot = match.getSlot(slotid);
+    slot.setReservations([]);
+    return await saveToDb(tid, matchid, match);
 }

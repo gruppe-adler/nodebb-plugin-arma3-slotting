@@ -159,7 +159,7 @@ describe("Match", function () {
     describe("toXml", function () {
         it("correctly serializes empty match", function () {
             const m = new Match();
-            expect(m.toXml()).toBe(`<?xml version="1.0" encoding="UTF-8"?><match uuid="${m.uuid}"></match>`);
+            expect(m.toXml()).toBe(`<?xml version="1.0" encoding="UTF-8"?><match uuid="${m.uuid}"/>`);
         });
     });
     describe("getSlots", function () {

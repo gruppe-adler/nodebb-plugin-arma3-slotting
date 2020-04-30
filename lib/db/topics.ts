@@ -1,40 +1,35 @@
-import {BooleanResultCallback, ITopics} from "../../types/nodebb";
 import * as users from "./users";
+import {topics} from '../nodebb';
 
-const topics = require("../../../../src/topics") as ITopics;
-
-export function exists(tid: number, cb) {
-    return topics.exists(tid, cb);
+export async function exists(tid: number) {
+    return topics.exists(tid);
 }
 
-export function getFollowers(uid: number, cb) {
-    topics.getFollowers(uid, cb);
+export async function getFollowers(uid: number) {
+    return topics.getFollowers(uid);
 }
 
-export function getTitle(tid: number, callback) {
-    return topics.getTopicField(tid, "title", callback);
+export async function getTitle(tid: number) {
+    return topics.getTopicField(tid, "title");
 }
 
-export function isAllowedToEdit(uid: number, tid: number, callback: BooleanResultCallback) {
-    topics.getTopicsByTids([tid], uid, function (err, result) {
-        if (err) {
-            return callback(err);
-        }
+export async function isAllowedToEdit(uid: number, tid: number): Promise<Boolean> {
+    const result = await topics.getTopicsByTids([tid], uid);
+    if (!result || !result[0]) {
+        return false;
+    }
 
-        if (!result || !result[0]) {
-            return callback(null, false);
-        }
+    const topic = result[0];
 
-        const topic = result[0];
+    if (topic.isOwner) {
+        return true;
+    }
 
-        if (topic.isOwner) {
-            return callback(null, true);
-        }
-
-        users.isModerator(uid, topic.cid, callback);
-    });
+     return users.isModerator(uid, topic.cid);
 }
 
-export function getCategoryId(tid: number, callback) {
-    topics.getTopicField(tid, "cid", function (err, cid) {callback(err, Number(cid)); });
+export async function getCategoryId(tid: number): Promise<number> {
+    const cid = await topics.getTopicField(tid, "cid");
+
+    return Number(cid);
 }

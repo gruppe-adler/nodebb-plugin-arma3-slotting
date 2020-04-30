@@ -1,23 +1,14 @@
-import * as async from "async";
-import * as _ from "underscore";
 import * as matchDb from "./db/match";
 import * as slotDb from "./db/slot";
 
-export function unattendUser(tid: number, uid: number, callback) {
-    matchDb.getAllFromDb(tid, function (err, matches) {
-        async.parallel(
-            matches.map(function (match) {
-                return _.partial(slotDb.deleteMatchUser, tid, match.uuid, uid);
-            }),
-            function (err2: Error, results: number[]) {
-                callback(
-                    err2,
-                    results.reduce(
-                        (prev: number, unslottedCount: number) => prev + unslottedCount,
-                        0,
-                    ),
-                );
-            },
-        );
-    });
+export async function unattendUser(tid: number, uid: number): Promise<number> {
+    const matches = await matchDb.getAllFromDb(tid)
+    const results: number[] = await Promise.all(matches.map(function (match) {
+            return slotDb.deleteMatchUser(tid, match.uuid, uid)
+    }))
+
+    return results.reduce(
+        (prev: number, unslottedCount: number) => prev + unslottedCount,
+        0,
+    );
 }

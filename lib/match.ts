@@ -1,7 +1,7 @@
-import {v4} from "node-uuid";
+import {v4} from "uuid";
 import {IUser} from "../types/nodebb";
 
-const jsonToXml = require("xml2json");
+import toXml from "./json2xml";
 
 function toArray(m: any): any[] {
     if (!m) {
@@ -305,7 +305,7 @@ export class Match
 
     public toXml(): string {
         const xmlHead = Match.xmlHead();
-        const innerXml = jsonToXml.toXml({match: this});
+        const innerXml = toXml({match: this});
         return `${xmlHead}${innerXml}`;
     }
 
