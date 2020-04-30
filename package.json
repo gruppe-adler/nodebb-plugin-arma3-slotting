@@ -1,7 +1,11 @@
 {
   "name": "nodebb-plugin-arma3-slotting",
   "homepage": "https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting",
-  "version": "3.1.17",
+  "version": "3.1.18",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting"
+  },
   "dependencies": {
     "uuid": "^7.0.3",
     "underscore": "^1",
@@ -25,7 +29,7 @@
     "winston": "*"
   },
   "nbbpm": {
-    "compatibility": "^1.4.0"
+    "compatibility": "^1.13.0"
   },
   "scripts": {
     "test": "npm run build && npm run test:run",
