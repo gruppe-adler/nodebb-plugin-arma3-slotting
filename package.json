@@ -1,7 +1,7 @@
 {
   "name": "nodebb-plugin-arma3-slotting",
   "homepage": "https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting",
-  "version": "3.1.18",
+  "version": "3.1.19",
   "repository": {
     "type": "git",
     "url": "https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting"
@@ -11,6 +11,7 @@
     "ws": "^5.0.0",
     "saxophone": "^0.6.1"
   },
+  "engines" : { "node" : ">=8.6.9" },
   "peerDependencies": {
     "nodebb-plugin-attendance": "^1.0.0",
     "winston": "*"
