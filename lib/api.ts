@@ -3,7 +3,6 @@
 import {RequestHandler, Response, Router} from "express";
 import {INodebbRequest} from "../types/nodebb";
 
-import * as _ from "underscore";
 import * as slottedUsersApi from "./api/slotted-users";
 import * as matchApi from "./api/match";
 import * as shareApi from "./api/share";
@@ -263,13 +262,12 @@ const setGlobalHeaders = function (req: INodebbRequest, res: Response, next) {
 };
 
 export async function init(params): Promise<void> {
-    const routedMethodGenerator = _.partial(getApiMethodGenerator, params.router);
-    const get = routedMethodGenerator("get");
-    const pos = routedMethodGenerator("post");
-    const del = routedMethodGenerator("delete");
-    const put = routedMethodGenerator("put");
-    const options = routedMethodGenerator("options");
-    const all = routedMethodGenerator("all");
+    const get = getApiMethodGenerator(params.router, "get");
+    const pos = getApiMethodGenerator(params.router, "post");
+    const del = getApiMethodGenerator(params.router, "delete");
+    const put = getApiMethodGenerator(params.router, "put");
+    const options = getApiMethodGenerator(params.router, "options");
+    const all = getApiMethodGenerator(params.router, "all");
 
     get("/config", getConfig);
 

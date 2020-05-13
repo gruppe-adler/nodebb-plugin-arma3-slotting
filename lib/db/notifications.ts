@@ -1,4 +1,3 @@
-import * as _ from "underscore";
 import {IUser} from "../../types/nodebb";
 import * as logger from "../logger";
 import {Match} from "../match";
@@ -30,7 +29,7 @@ export async function notifySlotted(matchWrapper: { tid: number, match: Match },
             tid,
         },
         function (error: Error, notification) {
-            notifications.push(notification, _.values(followingUids), function (error3: Error) {
+            notifications.push(notification, Object.values(followingUids), function (error3: Error) {
                 if (error3) {
                     logger.error(error3.message, error3);
                 }
@@ -62,7 +61,7 @@ export function notifySlottedExternal(matchWrapper: { tid: number, match: Match 
                 tid,
             },
             function (error: Error, notification) {
-                notifications.push(notification, _.values(followingUids), function (error3: Error) {
+                notifications.push(notification, Object.values(followingUids), function (error3: Error) {
                     if (error3) {
                         logger.error(error3.message, error3);
                     }
@@ -91,7 +90,7 @@ export function notifyUnslotted(matchWrapper: {tid: number, match: Match}, oldUs
             path: "/topic/" + tid,
             tid,
         }, function (error, notification) {
-            notifications.push(notification, _.values(followingUids), function (error3) {
+            notifications.push(notification, Object.values(followingUids), function (error3) {
                 if (error3) {
                     logger.error(error3.message, error3);
                 }
@@ -118,7 +117,7 @@ export function notifyUnslottedExternal(matchWrapper: {tid: number, match: Match
             path: "/topic/" + tid,
             tid,
         }, function (error, notification) {
-            notifications.push(notification, _.values(followingUids), function (error3) {
+            notifications.push(notification, Object.values(followingUids), function (error3) {
                 if (error3) {
                     logger.error(error3.message, error3);
                 }
