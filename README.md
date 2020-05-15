@@ -5,6 +5,8 @@ NodeBB plugin: *create an ORBAT-like structure and have your users select a slot
 * [API](docs/api/index.md)
 * [match specification](docs/match.md)
 
+*requires https://github.com/gruppe-adler/slotting.gruppe-adler.de for a frontend*
+
 ## screenshots
 
 ![user-facing slot structure](https://i.imgur.com/0aI5tQc.png)

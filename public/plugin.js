@@ -2,15 +2,11 @@
 
 /*global $, app, bootbox, JSON, window, console, config */
 require([
-    'underscore',
     'iframe-resize',
-    'arma3-slotting/getTemplates',
     'arma3-slotting/eventTopicLoadedService',
     'arma3-slotting/getPluginConfig'
 ], function (
-    _,
     iframeResize,
-    getTemplates,
     eventLoadedService,
     getPluginConfig
 ) {
@@ -62,7 +58,7 @@ require([
     var refreshToolTips = function () {
         var attendanceAvatar = document.querySelectorAll(".avatar, .slot_descr, .container_title, .natosymbol, .customTooltip");
 
-        _.each(attendanceAvatar, function (attendanceAvatar) {
+        attendanceAvatar.forEach( (attendanceAvatar) => {
             if (!utils.isTouchDevice()) {
                 $(attendanceAvatar).tooltip({
                     placement: 'top',

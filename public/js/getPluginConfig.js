@@ -1,5 +1,5 @@
 /**global app */
-define('arma3-slotting/getPluginConfig', ['underscore'], function () {
+define('arma3-slotting/getPluginConfig', function () {
     let config;
     let callbacks = [];
 

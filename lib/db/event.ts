@@ -1,6 +1,5 @@
 import {MatchRepository, matchRepository} from "../db/match";
 import {getMatchUsers, Slot2User} from "../db/slot";
-import {values} from 'underscore';
 
 export class EventRepository {
     constructor(private matchRepository: MatchRepository) {
@@ -15,7 +14,7 @@ export class EventRepository {
 
         let userIds = [];
         slot2user.forEach((map: Slot2User) => {
-            userIds = userIds.concat(values(map))
+            userIds = userIds.concat(Object.values(map))
         });
 
         return userIds

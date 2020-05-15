@@ -1,6 +1,5 @@
 "use strict";
 import json2xml from '../json2xml';
-import {values} from "underscore";
 
 import {INodebbRequest, INodebbResponse} from "../../types/nodebb";
 import * as matchDb from "../db/match";
@@ -41,7 +40,7 @@ export async function addUsersAndReservations(currentUser, tid: number, match: M
 
     const users = await userDb.getUsers(
         currentUser,
-        values(slot2user)
+        Object.values(slot2user)
     )
 
     Object.keys(slot2user).forEach((slotid: string) => {

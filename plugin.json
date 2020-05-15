@@ -5,13 +5,11 @@
     "url": "https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting",
     "library": "./plugin.js",
     "staticDirs": {
-        "ejs-templates": "public/ejs-templates",
         "templates": "public/templates",
         "css": "public/css"
     },
     "templates": "public/templates",
      "scripts": [
-         "../../node_modules/underscore/underscore-min.js",
          "./public/js/getPluginConfig.js",
          "./public/js/iframeResizer.js",
          "./public/js/eventTopicLoadedService.js",
