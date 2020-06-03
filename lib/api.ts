@@ -86,14 +86,6 @@ const requireTopic = function (req: INodebbRequest, res: Response, next) {
     });
 };
 
-const methodNotAllowed = function (req: INodebbRequest, res: Response) {
-    if(req.method === 'OPTIONS') {
-        optionsHandle(req, res);
-        return;
-    }
-    res.status(405).json({message: "Method not allowed"});
-};
-
 const getConfig = function (req: INodebbRequest, res: Response, next) {
     res.status(200).json({ // take care *not* to pass the apiKey ^^
         slottingUiUrl: config.slottingUiUrl,
@@ -286,32 +278,26 @@ export async function init(params): Promise<void> {
     get("/:tid/has-permissions", isAdminOrThreadOwner, returnSuccess);
 
     pos("/:tid/match", requireAdminOrThreadOwner, matchApi.post);
-    all("/:tid/match", methodNotAllowed);
 
     put("/:tid/match/:matchid", requireAdminOrThreadOwner, matchApi.put);
     get("/:tid/match/:matchid", requireCanSeeAttendance, matchApi.get);
     del("/:tid/match/:matchid", requireAdminOrThreadOwner, matchApi.del);
-    all("/:tid/match/:matchid", methodNotAllowed);
 
     // get("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.getAll);
     get("/:tid/match/:matchid/share/:shareid/topic", requireCanSeeAttendance, shareApi.getTopicData);
     get("/:tid/match/:matchid/share/:shareid", requireTopic, shareApi.get);
     pos("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.post);
     del("/:tid/match/:matchid/share", requireAdminOrThreadOwner, shareApi.del);
-    all("/:tid/match/:matchid/share", methodNotAllowed);
 
     get("/:tid/match/:matchid/slot", requireCanSeeAttendance, slotApi.getAll);
-    all("/:tid/match/:matchid/slot", methodNotAllowed);
 
     put("/:tid/match/:matchid/slot/:slotid/user", requireCanWriteAttendance, userApi.put); // security in action method!
     del("/:tid/match/:matchid/slot/:slotid/user", requireCanWriteAttendance, userApi.del); // security in action method!
     get("/:tid/match/:matchid/slot/:slotid/user", requireCanSeeAttendance, userApi.get);
-    all("/:tid/match/:matchid/slot/:slotid/user", methodNotAllowed);
 
     put("/:tid/match/:matchid/slot/:slotid/reservation", requireAdminOrThreadOwner, reservationApi.put);
     del("/:tid/match/:matchid/slot/:slotid/reservation", requireAdminOrThreadOwner, reservationApi.del);
     get("/:tid/match/:matchid/slot/:slotid/reservation", requireCanSeeAttendance, reservationApi.get);
-    all("/:tid/match/:matchid/slot/:slotid/reservation", methodNotAllowed);
 }
 
 export function setConfig(newConfig: IPluginSettings) {
