@@ -13,6 +13,7 @@ import * as topicDb from "./db/topics";
 import * as shareDb from "./db/share";
 import * as userDb from "./db/users";
 import * as logger from "./logger";
+import * as bodyParser from 'body-parser';
 import {IPluginSettings} from './../lib/admin';
 import {Meta as meta} from './nodebb';
 
@@ -264,6 +265,8 @@ export async function init(params): Promise<void> {
     get("/config", getConfig);
 
     options("/:tid/*", optionsHandle);
+    
+    all("*", bodyParser.text({type: "application/xml"})); 
     all("/:tid/*", setGlobalHeaders);
     all("/:tid", requireTopic, restrictCategories);
     all("/:tid", requireTopic, restrictCategories);
