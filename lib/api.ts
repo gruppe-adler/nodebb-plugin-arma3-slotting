@@ -266,7 +266,7 @@ export async function init(params): Promise<void> {
 
     options("/:tid/*", optionsHandle);
     
-    all(bodyParser.text({type: "application/xml"})); 
+    all("*", bodyParser.text({type: "application/xml"})); 
     all("/:tid/*", setGlobalHeaders);
     all("/:tid", requireTopic, restrictCategories);
     all("/:tid", requireTopic, restrictCategories);
