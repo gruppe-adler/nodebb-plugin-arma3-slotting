@@ -238,22 +238,6 @@ const getApiMethodGenerator = function (router: Router, methodName: string) {
     };
 };
 
-const optionsHandle = function (req: INodebbRequest, res: Response) {
-    const headers = {};
-    headers["Access-Control-Allow-Origin"] = encodeURI(meta.config['access-control-allow-origin'] || '*');
-    headers["Access-Control-Allow-Methods"] = encodeURI(meta.config['access-control-allow-methods'] || '');
-    headers["Access-Control-Allow-Credentials"] = true;
-    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
-    headers["Access-Control-Allow-Headers"] = encodeURI(meta.config['access-control-allow-headers'] || '');
-    res.writeHead(200, headers);
-    res.end();
-};
-
-const setGlobalHeaders = function (req: INodebbRequest, res: Response, next) {
-    res.setHeader("Access-Control-Allow-Credentials", 'true');
-    next();
-};
-
 export async function init(params): Promise<void> {
     const get = getApiMethodGenerator(params.router, "get");
     const pos = getApiMethodGenerator(params.router, "post");
@@ -264,10 +248,7 @@ export async function init(params): Promise<void> {
 
     get("/config", getConfig);
 
-    options("/:tid/*", optionsHandle);
-    
     all("*", bodyParser.text({type: "application/xml"})); 
-    all("/:tid/*", setGlobalHeaders);
     all("/:tid", requireTopic, restrictCategories);
     all("/:tid", requireTopic, restrictCategories);
     all("/:tid/*", requireTopic, restrictCategories);
