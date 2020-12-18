@@ -11,7 +11,9 @@
     "ws": "^5.0.0",
     "saxophone": "^0.6.1"
   },
-  "engines" : { "node" : ">=8.6.9" },
+  "engines": {
+    "node": ">=8.6.9"
+  },
   "peerDependencies": {
     "nodebb-plugin-attendance": "^1.0.0",
     "winston": "*"
