@@ -7,9 +7,9 @@
     "url": "https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting"
   },
   "dependencies": {
+    "saxophone": "^0.6.1",
     "uuid": "^7.0.3",
-    "ws": "^5.0.0",
-    "saxophone": "^0.6.1"
+    "ws": "^5.0.0"
   },
   "engines": {
     "node": ">=8.6.9"
