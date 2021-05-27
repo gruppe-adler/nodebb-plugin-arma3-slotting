@@ -1,6 +1,6 @@
 import {noop} from "../fn";
 
-import {INodebbRequest, INodebbResponse, IPlugins} from "../../types/nodebb";
+import {INodebbRequest, INodebbResponse} from "../../types/nodebb";
 import * as matchDb from "../db/match";
 import * as notifications from "../db/notifications";
 import * as slotDb from "../db/slot";
@@ -76,7 +76,7 @@ export function put(req: INodebbRequest, res: INodebbResponse) {
         slotDb.putSlotUser(tid, matchid, slotid, uid).then(() => {
             logger.info("user put for match %s, slot %s".replace("%s", matchid).replace("%s", slotid));
             notifications.notifySlotted({match, tid}, currentlySlottedUser, newUser).then(noop);
-            plugins.fireHook("action:arma3-slotting.set", {tid, uid, matchid}, noop);
+            plugins.hooks.fire("action:arma3-slotting.set", {tid, uid, matchid}, noop);
 
             websocket.emit('event:user-slotted', {
                 tid: tid,
@@ -131,7 +131,7 @@ export function putExtern(req: INodebbRequest, res: INodebbResponse) {
         slotDb.putSlotExternUser(tid, matchid, slotid, reservation + ":" + username).then(() => {
             logger.info("user put for match %s, slot %s".replace("%s", matchid).replace("%s", slotid));
             notifications.notifySlottedExternal({match, tid}, currentlySlottedUser.username, '[' + reservation + '] ' + username);
-            plugins.fireHook("action:arma3-slotting.setExternal", {tid, username, reservation, matchid}, noop);
+            plugins.hooks.fire("action:arma3-slotting.setExternal", {tid, username, reservation, matchid}, noop);
 
             websocket.emit('event:user-slotted', {
                 tid: tid,

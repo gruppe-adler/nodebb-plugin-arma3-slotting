@@ -20,7 +20,9 @@ export interface INodebbResponse extends express.Response {
 }
 
 export interface IPlugins {
-    fireHook: (key: string, data: any, callback?: AnyCallback) => void;
+    hooks: {
+        fire: (key: string, data: any, callback?: AnyCallback) => void;
+    }
 }
 
 export interface IUser {
