@@ -122,9 +122,4 @@ require([
     };
 
     eventLoadedService.subscribe(topicLoaded);
-    $(window).bind('action:attendance.set', function () {
-        if (cache.topicNode) {
-            setTimeout(load, 50);
-        }
-    });
 });
