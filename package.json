@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "uuid": "^7.0.3",
-    "ws": "^5.0.0",
+    "ws": "^5.2.3",
     "saxophone": "^0.6.1"
   },
   "engines": {
