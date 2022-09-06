@@ -103,8 +103,7 @@ require([
         var matchesIframeFragment = document.createElement('div');
         matchesIframeFragment.setAttribute('component', 'topic/arma3-slotting');
         getPluginConfig(function (err, config) {
-            var matchesIframe = document.querySelector('#slotlist-external');
-            if (matchesIframe) {
+            if (document.querySelector('#slotlist-external')) {
                 return;
             }
             matchesIframeFragment.innerHTML = '<iframe ' +
