@@ -20,6 +20,7 @@ define('arma3-slotting/eventTopicLoadedService', function () {
     };
 
     $(window).bind('action:topic.loaded', topicLoaded);
+    $(document).ready(topicLoaded);
 
     return {
         subscribe: function (cb) {
