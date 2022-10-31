@@ -13,12 +13,14 @@ import * as topicDb from "./db/topics";
 import * as shareDb from "./db/share";
 import * as userDb from "./db/users";
 import * as logger from "./logger";
-import * as bodyParser from 'body-parser';
-import {IPluginSettings} from './../lib/admin';
-import {Meta as meta} from './nodebb';
+// import * as bodyParser from 'body-parser';
+import {IPluginSettings} from './admin';
 
-const canAttend = require("../../nodebb-plugin-attendance/lib/permissions").canAttend;
-const canSee = require("../../nodebb-plugin-attendance/lib/permissions").canSee;
+// import {Meta as meta} from './nodebb';
+
+const bodyParser = require.main.require('body-parser')
+const canAttend = require.main.require("./node_modules/nodebb-plugin-attendance/lib/permissions").canAttend;
+const canSee = require.main.require("./node_modules/nodebb-plugin-attendance/lib/permissions").canSee;
 
 
 const prefixApiPath = function (path) {

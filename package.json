@@ -15,8 +15,9 @@
     "node": ">=8.6.9"
   },
   "peerDependencies": {
-    "nodebb-plugin-attendance": "^1.0.0",
-    "winston": "*"
+    "nodebb-plugin-attendance": "^2.0.0",
+    "winston": "*",
+    "body-parser": "*"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
