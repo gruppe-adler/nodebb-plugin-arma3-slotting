@@ -70,22 +70,13 @@ require([
 
 
     var insertSlotlistsNode = function (slottingNode) {
-        var topicContentNode = cache.topicNode;
+        const topicNode = document.querySelector('[component="topic"]');
+        const attendanceNode = document.querySelector('[component="topic/attendance"]');
 
-        var firstPostCheck = topicContentNode.querySelector('[component="post"]');
-
-        if (firstPostCheck.getAttribute("data-index") !== "0") {
-            return false; //exit if isn't first page
-        }
-
-        var postBarNode = firstPostCheck.querySelector('[class="post-bar"]');
-        var attendanceNode = firstPostCheck.querySelector('[component="topic/attendance"]');
-
-        //only insert if the postbar exists (if this is the first post)
-        if (postBarNode) {
-            postBarNode.parentNode.insertBefore(slottingNode, attendanceNode || postBarNode);
-        } else if (topicContentNode.children.length === 1) {
-            firstPostCheck.appendChild(slottingNode);
+        if (attendanceNode) {
+            attendanceNode.parentNode.insertBefore(slottingNode, attendanceNode.nextElementSibling);
+        } else if (topicNode) {
+            topicNode.parentNode.insertBefore(slottingNode, topicNode);
         }
 
         refreshToolTips();
@@ -94,7 +85,7 @@ require([
 
     function load() {
 
-        var topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
+        const topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
         var matchesIframe = document.querySelector('#slotlist-external');
         if (matchesIframe) {
             matchesIframe.src = matchesIframe.src;
