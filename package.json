@@ -14,6 +14,7 @@
   "engines": {
     "node": ">=8.6.9"
   },
+  "main": "./plugin.js",
   "peerDependencies": {
     "nodebb-plugin-attendance": "^2.0.0",
     "winston": "*",
