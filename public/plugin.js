@@ -50,6 +50,7 @@ require([
     function bindToggleButton() {
         function show() {
             $('#slotlist-external').show();
+            setTimeout(iframeResize);
             $('#topic-arma3-slotting-toggle').textContent = 'hide';
         }
         function hide() {
