@@ -27,7 +27,7 @@ a:focus {
 
 .match-help {
 	margin-top: 8px;
-	padding: 10px 0px 10px 16px;
+	padding: 10px 0 10px 16px;
 }
 
 .natosymbol {
@@ -156,11 +156,10 @@ a:focus {
 
 .company_radiofrequency, .platoon_radiofrequency, .squad_radiofrequency {
 	color: rgba(0,0,0,0.5);
-	padding: 0px 5px;
+	padding: 0 5px;
 	display: inline-block;
 	width: 70px;
 	text-align: right;
-
 }
 
 .fakeVehicleType {
@@ -175,7 +174,7 @@ a:focus {
 
 .platoon_radiofrequency {
 	color: #777;
-	text-shadow: 0px 1px 0px rgba(255,255,255,0.4);
+	text-shadow: 0 1px 0 rgba(255,255,255,0.4);
 }
 
 .squad_radiofrequency {
@@ -190,7 +189,7 @@ a:focus {
     position: relative;
     top: 2px;
 	left: -1px;
-	text-shadow: 0px 1px 0px rgba(255,255,255,0.9);
+	text-shadow: 0 1px 0 rgba(255,255,255,0.9);
 }
 
 
@@ -236,7 +235,7 @@ a:focus {
 	overflow: auto;
 
 	color: #8f1167;  /* change [input cursor color] by this*/
-    text-shadow: 0px 0px 0px #333; /* change [input font] by this*/
+    text-shadow: 0 0 0 #333; /* change [input font] by this*/
     -webkit-text-fill-color: transparent;
 }
 
@@ -254,7 +253,7 @@ a:focus {
 
 
 .match-template-buttons {
-	padding-left: 0px;
+	padding-left: 0;
 }
 
 .match-template-settings ul { 
@@ -285,7 +284,7 @@ a:focus {
 }
 
 .match-template-settings ul {
-	padding-left: 0px;
+	padding-left: 0;
 }
 
 .match-template-settings li {
@@ -295,14 +294,7 @@ a:focus {
 .switch_label {
 	padding-left: 30px;
 	margin-top: -1px;
-
-	-webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+	user-select: none;
 }
 
  /* The switch - the box around the slider */
@@ -364,8 +356,6 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(13px);
-  -ms-transform: translateX(13px);
   transform: translateX(13px);
 }
 
@@ -381,35 +371,6 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
-
-/*
-.match-template-buttons .tag {
-	text-transform: uppercase;
-	font-size: 10px;
-	color: #666;
-}
-
-.match-template-buttons button:hover {
-    background-color: #666;
-    color: #fff;
-	box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.2);
-}
-
-.match-template-buttons button:active {
-    background-color: #666;
-	box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
-}
-
-.match-template-buttons span {
-	position: relative;
-}
-
-.match-template-buttons button:active span{
-	top: 1px;
-}
-
-*/
 
 [component="topic/arma3-slotting"] {
 	margin: 10px 0;
@@ -443,7 +404,7 @@ input:checked + .slider:before {
 	width: 100%;
 	/* box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2); */
 	/* border: 1px solid #d9d9d9;*/
-	box-shadow: inset 0px 0px 2px 2px rgba(0,0,0,0.075);
+	box-shadow: inset 0 0 2px 2px rgba(0,0,0,0.075);
 	float: left;
 	text-align: center;
 	margin-top: 20px;
@@ -489,7 +450,7 @@ input:checked + .slider:before {
 	min-height: 80px;
 	width: calc(100% - 40px);
 	
-	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+	box-shadow: 0 0 5px 0 rgba(0,0,0,0.15);
 	background: #fff;
 	float: left;
 	margin: 20px 5px 5px 20px;
@@ -500,7 +461,7 @@ input:checked + .slider:before {
 .platoon_title {
 	/*background-color: #777;*/
 	color: #D18D1F;
-	text-shadow: 0px 1px 0px rgba(255,255,255,0.4);
+	text-shadow: 0 1px 0 rgba(255,255,255,0.4);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -511,16 +472,13 @@ input:checked + .slider:before {
 	border-top: 3px solid #D18D1F;
 }
 
-
-
 .container_squad {
 	min-height: 80px;
-	box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.2);
+	box-shadow: 0 0 1px 2px rgba(0,0,0,0.2);
 	margin:5px;
 	text-align: center;
 	display: inline-block;
 }
-
 
 div .squad_head {
 	background-color: #fff;
@@ -556,7 +514,7 @@ div .squad_head {
 	text-align: center;
 	
 	display: inline-block;
-	padding: 0px 10px;
+	padding: 0 10px;
 }
 
 .squad_body {
@@ -569,21 +527,21 @@ div .squad_head {
 
 .squad_body.odd .container_fireteam {
 	display: inline-block;
-	padding: 0px 10px;
+	padding: 0 10px;
 }
 
 .slot {
 	height:32px;
 	width: 32px;
 	display: inline-block;
-	margin: 0px 0px 0px 10px;
+	margin: 0 0 0 10px;
 	position: relative;
 }
 
 
 
 .slot:last-child {
-	margin: 0px 10px 0px 10px;
+	margin: 0 10px 0 10px;
 }
 
 .container_fireteam .slot {
@@ -595,42 +553,24 @@ div .squad_head {
 	height: 32px;
 	width: 32px;
 	background-color: #d9d9d9;
-	box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.2);
+	box-shadow: inset 0 0 2px 0 rgba(0,0,0,0.2);
 	border-radius: 50%;
-
-	-webkit-transition: background-color 80ms ease-in;
-    -moz-transition: background-color 80ms ease-in;
-    -o-transition: background-color 80ms ease-in;
-    -ms-transition: background-color 80ms ease-in;
-     transition: background-color 80ms ease-in;
+    transition: background-color 80ms ease-in;
 }
 
 .slot .avatar:hover {
 	background-color: #f9f9f9;
-	-webkit-transition: background-color 80ms ease-in;
-    -moz-transition: background-color 80ms ease-in;
-    -o-transition: background-color 80ms ease-in;
-    -ms-transition: background-color 80ms ease-in;
-     transition: background-color 80ms ease-in;
-
+    transition: background-color 80ms ease-in;
 }
 
 .container_fireteam .avatar{
 	background-color: #fff;
-	-webkit-transition: background-color 80ms ease-in;
-    -moz-transition: background-color 80ms ease-in;
-    -o-transition: background-color 80ms ease-in;
-    -ms-transition: background-color 80ms ease-in;
      transition: background-color 80ms ease-in;
 }
 
 .container_fireteam .avatar:hover{
 	background-color: #f0f0f0;
-	-webkit-transition: background-color 80ms ease-in;
-    -moz-transition: background-color 80ms ease-in;
-    -o-transition: background-color 80ms ease-in;
-    -ms-transition: background-color 80ms ease-in;
-     transition: background-color 80ms ease-in;
+	transition: background-color 80ms ease-in;
 }
 
 .slot_descr {
@@ -643,34 +583,13 @@ div .squad_head {
 	margin-top: 2px;
 
 	white-space: nowrap;
-
-	-webkit-transition: color 100ms ease-in-out;
-    -moz-transition: color 100ms ease-in-out;
-    -o-transition: color 100ms ease-in-out;
-    -ms-transition: color 100ms ease-in-out;
-     transition: color 100ms ease-in-out;
-
-	-webkit-transition: background-color 100ms ease-in-out;
-    -moz-transition: background-color 100ms ease-in-out;
-    -o-transition: background-color 100ms ease-in-out;
-    -ms-transition: background-color 100ms ease-in-out;
-     transition: background-color 100ms ease-in-out;
+	transition: color 100ms ease-in-out,  background-color 100ms ease-in-out;
 }
 
 .slot_descr:hover {
 	color: #333;
 	background-color: rgba(0,0,0,0.2);
-	-webkit-transition: color 100ms ease-in-out;
-    -moz-transition: color 100ms ease-in-out;
-    -o-transition: color 100ms ease-in-out;
-    -ms-transition: color 100ms ease-in-out;
-     transition: color 100ms ease-in-out;
-
-	  -webkit-transition: background-color 100ms ease-in-out;
-	  -moz-transition: background-color 100ms ease-in-out;
-	  -o-transition: background-color 100ms ease-in-out;
-	  -ms-transition: background-color 100ms ease-in-out;
-	  transition: background-color 100ms ease-in-out;
+    transition: color 100ms ease-in-out,  background-color 100ms ease-in-out;
 }
 
 .company_head .slot:first-child .slot_descr, .platoon_head .slot:first-child .slot_descr, .squad_head .slot:first-child .slot_descr {
@@ -762,20 +681,20 @@ div .squad_head {
 		}	
 
 	.slot:first-child {
-		margin: 10px 5px 0px 5px;
+		margin: 10px 5px 0 5px;
 	}
 
 	.slot {
-		margin: 10px 5px 0px 5px;
+		margin: 10px 5px 0 5px;
 	}
 
 	.slot:last-child {
-		margin: 10px 5px 0px 5px;
+		margin: 10px 5px 0 5px;
 	}
 
 	.natosymbol {
 		display: block;
-	    width: 70px;
+	    /* width: 70px; */
 	    width: 100%;
 	    height: 25px;
 	    background-position-x: 50%;
@@ -811,7 +730,7 @@ div .squad_head {
 	border-radius: 5px;
 	display: block;
 	position: absolute;
-	top: 0px;
+	top: 0;
 	width: 1px;
 	height: 1px;
 }
