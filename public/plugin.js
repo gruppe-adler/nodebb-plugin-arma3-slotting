@@ -50,12 +50,12 @@ require([
     function bindToggleButton() {
         function show() {
             $('#slotlist-external').show();
-            setTimeout(iframeResize);
-            $('#topic-arma3-slotting-toggle').textContent = 'hide';
+            load();
+            $('#topic-arma3-slotting-toggle').text('hide');
         }
         function hide() {
             $('#slotlist-external').hide();
-            $('#topic-arma3-slotting-toggle').textContent = 'show';
+            $('#topic-arma3-slotting-toggle').text('show');
         }
         const isInitialVisible = localStorage.getItem('slotlist-external-visible') || 'false';
         isInitialVisible === 'true' ? show() : hide();
