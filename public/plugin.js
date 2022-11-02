@@ -47,6 +47,32 @@ require([
         }
     });
 
+    function bindToggleButton() {
+        function show() {
+            $('#slotlist-external').show();
+            $('#topic-arma3-slotting-toggle').textContent = 'hide';
+        }
+        function hide() {
+            $('#slotlist-external').hide();
+            $('#topic-arma3-slotting-toggle').textContent = 'show';
+        }
+        const isInitialVisible = localStorage.getItem('slotlist-external-visible') || 'false';
+        if (isInitialVisible === 'true') {
+            show();
+        }
+
+        $('#topic-arma3-slotting-toggle').click(() => {
+            const slotlist = $('#slotlist-external');
+            if (slotlist.is(':visible')) {
+                hide();
+                localStorage.setItem('slotlist-external-visible', 'false');
+            } else {
+                show();
+                localStorage.setItem('slotlist-external-visible', 'true');
+            }
+        });
+    }
+
     (function () {
         var css = document.createElement('link');
         css.rel = 'stylesheet';
@@ -97,14 +123,18 @@ require([
             if (document.querySelector('#slotlist-external')) {
                 return;
             }
-            matchesIframeFragment.innerHTML = '<iframe ' +
+            matchesIframeFragment.innerHTML = '<div>' +
+                '<h3>slotting</h3>' +
+                '<div><button id="topic-arma3-slotting-toggle" class="btn btn-sm">show</button></div>' +
+                '</div>' +
+                '<iframe ' +
                 'id="slotlist-external" ' +
-                'style="margin-top: 20px; border: none; min-width: 100%; width: 1px;" ' +
                 'scrolling="no" ' +
                 'src="' + config.slottingUiUrl + '/slotting?tid=' + topicId + '" ' +
                 'onload="iFrameResize()">' +
                 '</iframe>';
             insertSlotlistsNode(matchesIframeFragment);
+            bindToggleButton();
         });
     }
 

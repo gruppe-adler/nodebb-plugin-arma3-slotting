@@ -6,6 +6,26 @@ a:focus {
 	border: none !important;
 }
 
+#slotlist-external {
+	border: none;
+	min-width: 100%;
+
+	/* dynamically changed via script */
+	width: 1px;
+	display: none;
+}
+[component="topic/arma3-slotting"] > div:first-child {
+	display: flex;
+}
+[component="topic/arma3-slotting"] h3 {
+	margin: 0;
+	text-transform: uppercase;
+	color: #777;
+	font-weight: 300;
+	font-size: 14px;
+	flex-grow: 1;
+}
+
 #modal-presets input {
 	padding: 10px 16px;
 	background-color: #fff;
