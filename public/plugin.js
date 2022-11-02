@@ -57,9 +57,7 @@ require([
             $('#topic-arma3-slotting-toggle').textContent = 'show';
         }
         const isInitialVisible = localStorage.getItem('slotlist-external-visible') || 'false';
-        if (isInitialVisible === 'true') {
-            show();
-        }
+        isInitialVisible === 'true' ? show() : hide();
 
         $('#topic-arma3-slotting-toggle').click(() => {
             const slotlist = $('#slotlist-external');
