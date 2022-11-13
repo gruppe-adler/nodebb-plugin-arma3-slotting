@@ -1,24 +1,23 @@
 {
   "name": "nodebb-plugin-arma3-slotting",
   "homepage": "https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/gruppe-adler/nodebb-plugin-arma3-slotting"
   },
   "dependencies": {
-    "uuid": "^7.0.3",
-    "ws": "^5.2.3",
-    "saxophone": "^0.6.1"
+    "saxophone": "^0.8.0",
+    "uuid": "^9.0.0"
   },
   "engines": {
     "node": ">=8.6.9"
   },
   "main": "./plugin.js",
   "peerDependencies": {
+    "body-parser": "*",
     "nodebb-plugin-attendance": "*",
-    "winston": "*",
-    "body-parser": "*"
+    "winston": "*"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
