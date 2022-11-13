@@ -76,7 +76,7 @@ require([
         var css = document.createElement('link');
         css.rel = 'stylesheet';
         css.type = 'text/css';
-        css.href = '/plugins/nodebb-plugin-arma3-slotting/css/styles.css?' + app.cacheBuster;
+        css.href = '/assets/plugins/nodebb-plugin-arma3-slotting/css/styles.css?' + app.cacheBuster;
         document.head.appendChild(css);
     }());
 
