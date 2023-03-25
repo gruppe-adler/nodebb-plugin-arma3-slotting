@@ -2,15 +2,12 @@
 
 /*global $, app, bootbox, JSON, window, console, config */
 require([
-    'iframe-resize',
     'arma3-slotting/eventTopicLoadedService',
     'arma3-slotting/getPluginConfig'
 ], function (
-    iframeResize,
     eventLoadedService,
     getPluginConfig
 ) {
-    window.iFrameResize = iframeResize;
     var cache = {
         topicNode: null,
         eventDate: null
@@ -47,41 +44,53 @@ require([
         }
     });
 
+
+    function getSlotlistIsExpanded() {
+        const isInitialVisible = localStorage.getItem('slotlist-external-visible') || 'false'
+        return JSON.parse(isInitialVisible);
+    }
+    function setSlotlistIsExpanded(value) {
+        localStorage.setItem('slotlist-external-visible', JSON.stringify(value));
+    }
+
     function bindToggleButton() {
         function show() {
-            $('#slotlist-external').show();
-            load();
-            $('#topic-arma3-slotting-toggle').text('hide');
+            setSlotlistIsExpanded(true);
+            $('[component="topic/arma3-slotting"]').addClass('expanded').removeClass('collapsed');
+            $('#topic-arma3-slotting-expand').hide();
+            $('#topic-arma3-slotting-collapse').show();
         }
         function hide() {
-            $('#slotlist-external').hide();
-            $('#topic-arma3-slotting-toggle').text('show');
+            setSlotlistIsExpanded(false);
+            $('[component="topic/arma3-slotting"]').addClass('collapsed').removeClass('expanded');
+            $('#topic-arma3-slotting-collapse').hide();
+            $('#topic-arma3-slotting-expand').show();
         }
-        const isInitialVisible = localStorage.getItem('slotlist-external-visible') || 'false';
-        isInitialVisible === 'true' ? show() : hide();
 
-        $('#topic-arma3-slotting-toggle').click(() => {
-            const slotlist = $('#slotlist-external');
-            if (slotlist.is(':visible')) {
-                hide();
-                localStorage.setItem('slotlist-external-visible', 'false');
-            } else {
-                show();
-                localStorage.setItem('slotlist-external-visible', 'true');
-            }
+        getSlotlistIsExpanded() ? show() : hide();
+        load();
+
+        $('#topic-arma3-slotting-collapse').click(() => {
+            hide();
+        });
+        $('#topic-arma3-slotting-expand').click(() => {
+            show();
+        });
+        $('#topic-arma3-slotting-close').click(() => {
+            $('[component="topic/arma3-slotting"]').addClass('hidden').removeClass('expanded').removeClass('collapsed');
         });
     }
 
     (function () {
-        var css = document.createElement('link');
+        const css = document.createElement('link');
         css.rel = 'stylesheet';
         css.type = 'text/css';
         css.href = '/assets/plugins/nodebb-plugin-arma3-slotting/css/styles.css?' + app.cacheBuster;
         document.head.appendChild(css);
     }());
 
-    var refreshToolTips = function () {
-        var attendanceAvatar = document.querySelectorAll(".avatar, .slot_descr, .container_title, .natosymbol, .customTooltip");
+    const refreshToolTips = function () {
+        const attendanceAvatar = document.querySelectorAll(".avatar, .slot_descr, .container_title, .natosymbol, .customTooltip");
 
         attendanceAvatar.forEach( (attendanceAvatar) => {
             if (!utils.isTouchDevice()) {
@@ -111,27 +120,41 @@ require([
     function load() {
 
         const topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
-        var matchesIframe = document.querySelector('#slotlist-external');
+        const matchesIframe = document.querySelector('#slotlist-external');
         if (matchesIframe) {
             matchesIframe.src = matchesIframe.src;
             return;
         }
-        var matchesIframeFragment = document.createElement('div');
+        const matchesIframeFragment = document.createElement('section');
         matchesIframeFragment.setAttribute('component', 'topic/arma3-slotting');
         getPluginConfig(function (err, config) {
             if (document.querySelector('#slotlist-external')) {
                 return;
             }
-            matchesIframeFragment.innerHTML = '<div>' +
-                '<h3>slotting</h3>' +
-                '<div><button id="topic-arma3-slotting-toggle" class="btn btn-sm">show</button></div>' +
-                '</div>' +
-                '<iframe ' +
-                'id="slotlist-external" ' +
-                'scrolling="no" ' +
-                'src="' + config.slottingUiUrl + '/slotting?tid=' + topicId + '" ' +
-                'onload="iFrameResize()">' +
-                '</iframe>';
+            matchesIframeFragment.innerHTML = `
+                <div class="arma3-slotting-header">
+                    <h3>slotting</h3>
+                    <div>
+                        <a
+                            class="nodebb btn btn-sm"
+                            href="${config.slottingUiUrl}/slotting?tid=${topicId}"
+                            target="_blank"
+                            title="open in new tab"
+                        >
+                            <i class="fa fa-external-link"></i>
+                        </a>
+                        <button id="topic-arma3-slotting-collapse" class="btn btn-sm" title="collapse">
+                            <i class="far fa-window-minimize"></i>
+                        </button>
+                        <button id="topic-arma3-slotting-expand" class="btn btn-sm" title="expand">
+                            <i class="fa fa-window-maximize"></i>
+                        </button>
+                        <button id="topic-arma3-slotting-close" class="btn btn-sm" title="close">
+                            <i class="fa fa-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <iframe id="slotlist-external" src="${config.slottingUiUrl}/slotting?tid=${topicId}" ></iframe>`;
             insertSlotlistsNode(matchesIframeFragment);
             bindToggleButton();
         });

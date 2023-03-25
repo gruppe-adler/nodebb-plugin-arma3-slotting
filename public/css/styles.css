@@ -8,14 +8,24 @@ a:focus {
 
 #slotlist-external {
 	border: none;
-	min-width: 100%;
+	width: 100%;
+	height: calc(100% - 35px);
+}
 
-	/* dynamically changed via script */
-	width: 1px;
+[component="topic/arma3-slotting"] {
+	height: 50px;
+}
+[component="topic/arma3-slotting"].expanded {
+	height: 80%;
+}
+[component="topic/arma3-slotting"].hidden {
 	display: none;
 }
-[component="topic/arma3-slotting"] > div:first-child {
+
+[component="topic/arma3-slotting"] .arma3-slotting-header {
 	display: flex;
+	margin-bottom: 10px;
+	height: 30px;
 }
 [component="topic/arma3-slotting"] h3 {
 	margin: 0;
@@ -24,6 +34,16 @@ a:focus {
 	font-weight: 300;
 	font-size: 14px;
 	flex-grow: 1;
+
+	display: flex;
+	align-items: center;
+}
+
+.arma3-slotting-header .btn {
+	color: black;
+	background: none;
+	border: 1px solid;
+	margin-left: 10px;
 }
 
 #modal-presets input {
@@ -396,6 +416,14 @@ input:checked + .slider:before {
 	margin: 10px 0;
 	padding: 1rem;
 	background: white;
+	position: fixed;
+	bottom: 0;
+	left: 10%;
+	width: calc(100% - 20%);
+	z-index: 1000000;
+	height: 50px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+	border-radius: 8px;
 }
 
 .topic .posts .content .dropdown-menu li {

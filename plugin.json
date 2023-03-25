@@ -10,7 +10,6 @@
     "templates": "public/templates",
      "scripts": [
          "./public/js/getPluginConfig.js",
-         "./public/js/iframeResizer.js",
          "./public/js/eventTopicLoadedService.js",
          "./public/plugin.js"
     ],
