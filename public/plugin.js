@@ -93,15 +93,18 @@ require([
         });
     };
 
+    const insertAfter = function (newNode, existingNode) {
+        existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling)
+    }
 
     var insertSlotlistsNode = function (slottingNode) {
-        const topicNode = document.querySelector('[component="topic"]');
+        const firstPost = document.querySelector('[component="post"][data-index="0"]');
         const attendanceNode = document.querySelector('[component="topic/attendance"]');
 
         if (attendanceNode) {
-            attendanceNode.parentNode.insertBefore(slottingNode, attendanceNode.nextElementSibling);
-        } else if (topicNode) {
-            topicNode.parentNode.insertBefore(slottingNode, topicNode);
+            insertAfter(slottingNode, attendanceNode);
+        } else if (firstPost) {
+            insertAfter(slottingNode, firstPost);
         }
 
         refreshToolTips();
