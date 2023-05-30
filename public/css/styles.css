@@ -9,10 +9,6 @@ a:focus {
 #slotlist-external {
 	border: none;
 	min-width: 100%;
-
-	/* dynamically changed via script */
-	width: 1px;
-	display: none;
 }
 [component="topic/arma3-slotting"] > div:first-child {
 	display: flex;
