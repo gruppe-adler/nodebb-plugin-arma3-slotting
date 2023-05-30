@@ -47,33 +47,8 @@ require([
         }
     });
 
-    function bindToggleButton() {
-        function show() {
-            $('#slotlist-external').show();
-            load();
-            $('#topic-arma3-slotting-toggle').text('hide');
-        }
-        function hide() {
-            $('#slotlist-external').hide();
-            $('#topic-arma3-slotting-toggle').text('show');
-        }
-        const isInitialVisible = localStorage.getItem('slotlist-external-visible') || 'false';
-        isInitialVisible === 'true' ? show() : hide();
-
-        $('#topic-arma3-slotting-toggle').click(() => {
-            const slotlist = $('#slotlist-external');
-            if (slotlist.is(':visible')) {
-                hide();
-                localStorage.setItem('slotlist-external-visible', 'false');
-            } else {
-                show();
-                localStorage.setItem('slotlist-external-visible', 'true');
-            }
-        });
-    }
-
     (function () {
-        var css = document.createElement('link');
+        const css = document.createElement('link');
         css.rel = 'stylesheet';
         css.type = 'text/css';
         css.href = '/assets/plugins/nodebb-plugin-arma3-slotting/css/styles.css?' + app.cacheBuster;
@@ -94,17 +69,21 @@ require([
     };
 
     const insertAfter = function (newNode, existingNode) {
-        existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling)
+        if (existingNode.nextSibling) {
+            existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling)
+        } else {
+            existingNode.parentNode.appendChild(newNode)
+        }
     }
 
-    var insertSlotlistsNode = function (slottingNode) {
+    const insertSlotlistsNode = function (slottingNode) {
         const firstPost = document.querySelector('[component="post"][data-index="0"]');
         const attendanceNode = document.querySelector('[component="topic/attendance"]');
 
-        if (attendanceNode) {
+        if (firstPost) {
+            firstPost.appendChild(slottingNode);
+        } else if (attendanceNode) {
             insertAfter(slottingNode, attendanceNode);
-        } else if (firstPost) {
-            insertAfter(slottingNode, firstPost);
         }
 
         refreshToolTips();
@@ -114,7 +93,7 @@ require([
     function load() {
 
         const topicId = parseInt(cache.topicNode.getAttribute('data-tid'), 10);
-        var matchesIframe = document.querySelector('#slotlist-external');
+        const matchesIframe = document.querySelector('#slotlist-external');
         if (matchesIframe) {
             matchesIframe.src = matchesIframe.src;
             return;
@@ -127,7 +106,6 @@ require([
             }
             matchesIframeFragment.innerHTML = '<div>' +
                 '<h3>slotting</h3>' +
-                '<div><button id="topic-arma3-slotting-toggle" class="btn btn-sm">show</button></div>' +
                 '</div>' +
                 '<iframe ' +
                 'id="slotlist-external" ' +
@@ -136,7 +114,7 @@ require([
                 'onload="iFrameResize()">' +
                 '</iframe>';
             insertSlotlistsNode(matchesIframeFragment);
-            bindToggleButton();
+            load();
         });
     }
 
