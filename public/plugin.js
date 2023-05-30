@@ -80,10 +80,10 @@ require([
         const firstPost = document.querySelector('[component="post"][data-index="0"]');
         const attendanceNode = document.querySelector('[component="topic/attendance"]');
 
-        if (firstPost) {
-            firstPost.appendChild(slottingNode);
-        } else if (attendanceNode) {
+        if (attendanceNode) {
             insertAfter(slottingNode, attendanceNode);
+        } else if (firstPost) {
+            firstPost.appendChild(slottingNode);
         }
 
         refreshToolTips();
